@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/08 17:05:16 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/08 17:05:07 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include "../libft/libft.h"
+# include <stdio.h>
+# include <sys/wait.h>
 
-int main(void){
-    
-    ft_printf("Hello World\n");
-    return (0);
-}
+#endif
