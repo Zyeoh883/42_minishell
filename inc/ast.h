@@ -6,26 +6,51 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 13:40:18 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/09 19:43:47 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
 
+# include "minishell.h"
+
+typedef enum e_nodetype
+{
+	COMMAND,
+	PIPE,
+	REDIRECTION,
+}							t_nodetype;
+
 typedef struct s_node
 {
-	int		id;
-	char	*value;
-	t_ast	child;
-	t_node	*parent;
-}			t_node;
+	t_nodetype				type;
+	union
+	{
+		struct s_pipe		*pipe;
+		struct s_command	*command;
+	};
+}							t_node;
 
-typedef union u_ast
+typedef struct s_command
 {
-	t_node	*left;
-	t_node	*right;
-	t_node	*arr_node;
-}			t_ast;
+	char					**env;
+	char					*str;
+}							t_command;
+
+// typedef struct s_redir
+// {
+// 	t_node			*input;
+// 	t_node			*output;
+// }					t_command;
+
+typedef struct s_pipe
+{
+	int						n_nodes;
+	t_node					*arr_nodes;
+	pid_t					*pipe;
+	int						fd_in;
+	int						fd_out;
+}							t_pipe;
 
 #endif

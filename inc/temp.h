@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 13:58:11 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/09 14:27:13 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_compound_word
 typedef struct s_and_or
 {
 	int		id;
+    
 
 }			t_and_or;
 
