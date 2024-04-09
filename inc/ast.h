@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 13:30:12 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/09 13:40:18 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
-# include "ast.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <sys/wait.h>
+#ifndef AST_H
+# define AST_H
+
+typedef struct s_node
+{
+	int		id;
+	char	*value;
+	t_ast	child;
+	t_node	*parent;
+}			t_node;
+
+typedef union u_ast
+{
+	t_node	*left;
+	t_node	*right;
+	t_node	*arr_node;
+}			t_ast;
 
 #endif

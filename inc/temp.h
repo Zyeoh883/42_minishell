@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   temp.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 13:30:12 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/09 13:58:11 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
-# include "ast.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <sys/wait.h>
+#ifndef TEMP_H
+# define TEMP_H
+
+typedef struct s_compound_word
+{
+	char	*str;
+}			t_compound_word;
+
+typedef struct s_and_or
+{
+	int		id;
+
+}			t_and_or;
 
 #endif
