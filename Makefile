@@ -12,6 +12,7 @@ GREEN = \033[92m
 RESET = \033[0m
 
 SRCS_FILES = main.c \
+			execute.c \
 
 LIBS = -lreadline -L/usr/local/opt/readline/lib
 SRCS_DIR = srcs/
