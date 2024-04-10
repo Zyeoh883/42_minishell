@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 19:43:47 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/10 14:59:21 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_nodetype
 typedef struct s_node
 {
 	t_nodetype				type;
-	union
+	union							//  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe		*pipe;
 		struct s_command	*command;

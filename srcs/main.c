@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/09 19:58:19 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/10 14:59:27 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **env)
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	node->type = COMMAND;
 	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
-	node->command->str = "ls -2";
+	node->command->str = "ls -a";
 	node->command->env = env;
 
 	execute(node);
