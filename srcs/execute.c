@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 22:06:35 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/12 22:32:48 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ex_cmd(t_command *command)
 	}
 }
 
-void	ex_redir_in(t_redir_in *redir_in)
+void	ex_redir_in(t_redir_in *redir_in) // TODO chnage this to general redirect
 {
 	int n;
 	int fd;
