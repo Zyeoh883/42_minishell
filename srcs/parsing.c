@@ -1,24 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/11 16:33:11 by sting            ###   ########.fr       */
+/*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
+/*   Updated: 2024/04/11 16:34:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
-# include "data_structs.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <wait.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-
-#endif
+#include "minishell.h"
