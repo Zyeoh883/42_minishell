@@ -13,6 +13,7 @@ RESET = \033[0m
 
 SRCS_FILES = main.c \
 			execute.c \
+			create_node.c \
 
 LIBS = -lreadline -L/usr/local/opt/readline/lib
 SRCS_DIR = srcs/

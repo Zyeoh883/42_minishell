@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 16:50:34 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/12 20:57:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../libft/libft.h"
-# include "create_node.h"
-# include "data_structs.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <sys/wait.h>
+#ifndef CREATE_NODE_H
+# define CREATE_NODE_H
 
-// execute.c
-void	execute(t_node *node);
-char	*get_exec(char **cmd_path, char *cmd);
-void	ex_cmd(t_command *command);
+# include "data_structs.h"
+# include "minishell.h"
+
+t_node	*create_node(t_nodetype type);
+t_node	*create_command(char **env, char *cmd);
+t_node	*create_redir_in(char **env, char **files, t_node *command);
 
 #endif

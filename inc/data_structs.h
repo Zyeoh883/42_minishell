@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/10 16:27:57 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/12 22:24:07 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef enum e_nodetype
 {
 	COMMAND,
 	PIPE,
-	REDIRECTION,
+	REDIRECTION_IN,
 }							t_nodetype;
 
 typedef struct s_node
@@ -29,20 +29,21 @@ typedef struct s_node
 	{
 		struct s_pipe		*pipe;
 		struct s_command	*command;
+		struct s_redir_in	*redir_in;
 	};
 }							t_node;
 
 typedef struct s_command
 {
 	char					**env;
-	char					*str;
+	char					*cmd;
 }							t_command;
 
-typedef struct s_redir_in
+typedef struct s_redir_in // TODO refactor this to handle redir in & out
 {
-	t_node			*input;
-	t_node			*output;
-}					t_redir_in;
+	char					**files;
+	t_node					*cmd;		// TODO can be only command or subshell, will rename
+}							t_redir_in;
 
 typedef struct s_pipe
 {

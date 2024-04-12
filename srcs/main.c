@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/10 17:29:32 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/12 20:58:47 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_node *node;
+	char **files;
+	t_node *cmd;
+	t_node *redir_in;
 
 	(void)ac;
 	(void)av;
-	node = (t_node *)ft_calloc(1, sizeof(t_node));
-	node->type = COMMAND;
-	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
-	node->command->str = "ls";
-	node->command->env = env;
+	files = ft_calloc(3, sizeof(char *));
+	files[0] = ft_strdup("file1");
+	files[0] = ft_strdup("file2");
+	cmd = create_command(env, "ls");
+	redir_in = create_redir_in(env, files, cmd);
 
-	execute(node);
+	execute(cmd);
 	// after parsing all the inputs and making AST
 
 	// node->type = PIPE;
