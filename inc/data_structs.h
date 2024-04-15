@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 22:24:07 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/15 19:53:28 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,39 @@
 
 typedef enum e_nodetype
 {
+	SIMPLE_COMMAND,
 	COMMAND,
 	PIPE,
-	REDIRECTION_IN,
-}							t_nodetype;
+}								t_nodetype;
 
 typedef struct s_node
 {
-	t_nodetype				type;
+	t_nodetype					type;
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
-		struct s_pipe		*pipe;
-		struct s_command	*command;
-		struct s_redir_in	*redir_in;
+		struct s_pipe			*pipe;
+		struct s_command		*command;
+		struct s_simple_command	*simple_command;
 	};
-}							t_node;
+}								t_node;
 
 typedef struct s_command
 {
-	char					**env;
-	char					*cmd;
-}							t_command;
+	char						**env;
+	char						**cmd;
+}								t_command;
 
-typedef struct s_redir_in // TODO refactor this to handle redir in & out
+typedef struct s_simple_command // TODO refactor this to handle redir in & out
 {
-	char					**files;
-	t_node					*cmd;		// TODO can be only command or subshell, will rename
-}							t_redir_in;
+	char **files;
+	t_node *cmd; // TODO can be only command or subshell, will rename
+}								t_simple_command;
 
 typedef struct s_pipe
 {
-	int						n_nodes;
-	t_node					*arr_nodes;
-	pid_t					*pipe;
-	int						fd_in;
-	int						fd_out;
-}							t_pipe;
+	int							n_nodes;
+	pid_t						*pipe;
+	t_node						**arr_nodes;
+}								t_pipe;
 
 #endif

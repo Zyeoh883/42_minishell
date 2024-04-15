@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 16:50:34 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/15 20:42:06 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@
 void	execute(t_node *node);
 char	*get_exec(char **cmd_path, char *cmd);
 void	ex_cmd(t_command *command);
+void	ex_simple_command(t_simple_command *simple_command);
+void	ex_pipe(t_pipe *pipe);
 
 #endif

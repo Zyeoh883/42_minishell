@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 21:06:44 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/15 20:42:47 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_node	*create_node(t_nodetype type)
 	return (node);
 }
 
-t_node	*create_command(char **env, char *cmd)
+t_node	*create_command(char **env, char **cmd)
 {
 	t_node	*node;
 
@@ -45,27 +45,47 @@ t_node	*create_command(char **env, char *cmd)
 	return (node);
 }
 
-t_node	*create_redir_in(char **env, char **files, t_node *command)
+t_node	*create_simple_command(char **env, char **files, t_node *command)
 {
 	t_node	*node;
 
-	node = create_node(REDIRECTION_IN);
+	(void)files;
+	(void)env;
+	node = create_node(SIMPLE_COMMAND);
 	if (!node)
 		exit(125);
-	node->redir_in = (t_redir_in *)ft_calloc(1, sizeof(t_redir_in));
-	if (!node->redir_in)
+	node->simple_command = (t_simple_command *)ft_calloc(1,
+			sizeof(t_simple_command));
+	if (!node->simple_command)
 	{
 		perror("Failed to create redir_in node");
 		free(node);
 		exit(125);
 	}
-	node->redir_in->cmd = command;
+	node->simple_command->cmd = command;
 	return (node);
 }
 
-// fd = open(files[n_files], O_RDONLY);
-// 		if (fd < 0)
-// 		{
-// 			perror("Failed to open file");
-// 			return (NULL);
-// 		}
+t_node	*create_pipe(t_node **nodes, int n_nodes)
+{
+	t_node *node;
+
+	node = create_node(PIPE);
+	if (!node)
+		exit(125);
+	node->pipe = (t_pipe *)ft_calloc(1, sizeof(t_pipe));
+	if (!node->pipe)
+	{
+		perror("Failed to create pipe node");
+		free(node);
+		exit(125);
+	}
+	node->pipe->arr_nodes = nodes;
+	node->pipe->n_nodes = n_nodes;
+	if (!build_pipes(node->pipe))
+	{
+		free(node);
+		exit(125);
+	}
+	return (node);
+}
