@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/15 11:20:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 12:45:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ str
 */
 int execute_pipe(t_pipe *pipe)
 {
-	// setup all pipes
+	// setup_all_pipes()
 	
 	int i = -1;
 	while (++i)
 	{
 		// fork
+		
+		// dup2() pipe ends
 		
 		//if (child_process)
 			execute(&pipe->arr_nodes[i]);
@@ -72,13 +74,7 @@ int execute_simple_cmd(t_simple_cmd *simple_cmd)
 int execute(t_node *node)
 {
 	if (node->type == SIMPLE_CMD)
-	{
-		// setup_redir(node->redir);
-		// // execute(node->command); // ! incorrect input type
-        // execute_cmd(node->words);
 		execute_simple_cmd(node->simple_cmd);
-
-	}
     else if (node->type == COMMAND)
         execute_cmd(node->command);
     else if (node->type == PIPE)
