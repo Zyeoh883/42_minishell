@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/11 16:33:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 10:29:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "data_structs.h"
 # include <stdio.h>
 # include <unistd.h>
-# include <wait.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <sys/wait.h>

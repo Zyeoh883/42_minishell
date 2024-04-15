@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/12 17:22:26 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 11:20:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include ".././inc/minishell.h"
 
 int execute_cmd(t_cmd *cmd)
 {
@@ -24,10 +24,25 @@ int execute_cmd(t_cmd *cmd)
 	// callexecve()
 }
 
-// int execute_pipe(t_pipe *pipe)
-// {
+/*
 
-// }
+str
+*/
+int execute_pipe(t_pipe *pipe)
+{
+	// setup all pipes
+	
+	int i = -1;
+	while (++i)
+	{
+		// fork
+		
+		//if (child_process)
+			execute(&pipe->arr_nodes[i]);
+	}
+
+	// wait() for all child processes
+}
 
 int setup_redir(t_redir	*redir)
 {
@@ -44,6 +59,12 @@ int setup_redir(t_redir	*redir)
 
 }
 
+int execute_simple_cmd(t_simple_cmd *simple_cmd)
+{
+	setup_redir(simple_cmd->redir); // ! should dup2 be done after forking/in child process
+	execute_cmd(simple_cmd->words);
+}
+
 /*
 - simple draft for "cmd + redir" combination only
 
@@ -52,8 +73,11 @@ int execute(t_node *node)
 {
 	if (node->type == SIMPLE_CMD)
 	{
-		setup_redir(node->redir);
-		execute(node->command);
+		// setup_redir(node->redir);
+		// // execute(node->command); // ! incorrect input type
+        // execute_cmd(node->words);
+		execute_simple_cmd(node->simple_cmd);
+
 	}
     else if (node->type == COMMAND)
         execute_cmd(node->command);

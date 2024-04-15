@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/12 17:20:03 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 11:12:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ typedef struct s_redir
 typedef struct s_simple_cmd
 {
 	t_node	*redir;
-	t_node	*cmd; // ? if there are cmd args, use linked list or array?
+	t_node	*words; // ? if there are cmd args, use linked list or array?
 	// ^use linked list method for now
 }	t_simple_cmd;
 
 typedef struct s_pipe
 {
 	int						n_nodes;
-	t_node					*arr_nodes;
+	t_node					*arr_nodes; // children
 	pid_t					*pipe;
 	int						fd_in;
 	int						fd_out;

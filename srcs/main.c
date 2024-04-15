@@ -6,12 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/11 16:52:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 10:28:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
+#include ".././inc/minishell.h"
 
 /*
 Structure
