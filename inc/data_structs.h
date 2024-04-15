@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 12:48:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/15 16:29:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ enum e_redirtype
 	OUTPUT,
 };
 
+typedef struct s_node
+{
+	t_nodetype				type;
+	union //  * Do not typedef union, will result in node->union_name->var
+	{
+		struct s_pipe		*pipe;
+		struct s_cmd	*command;
+		struct s_redir	*redir;
+		struct s_simple_cmd *simple_cmd;
+	};
+}							t_node;
+
 typedef struct s_redir
 {
 	// t_node			*input;
@@ -67,17 +79,6 @@ typedef struct s_pipe
 	int						fd_out;
 }							t_pipe;
 
-typedef struct s_node
-{
-	t_nodetype				type;
-	union //  * Do not typedef union, will result in node->union_name->var
-	{
-		t_pipe		*pipe;
-		t_cmd	*command;
-		t_redir	*redir;
-		t_simple_cmd *simple_cmd;
-	};
-}							t_node;
 
 
 #endif

@@ -12,7 +12,9 @@ RED = \033[0;91m
 GREEN = \033[92m
 RESET = \033[0m
 
-SRCS_FILES = main.c \
+SRCS_FILES = readline.c \
+				execute.c \
+				create_node.c \
 
 BONUS_FILES_DIR = 
 
@@ -35,7 +37,7 @@ bonus: $(BONUS_OBJS_DIR) libft $(BONUS_NAME)
 	@make bonus -C $(LIBFT_DIR)
 
 $(BONUS_NAME): $(BONUS_OBJS)
-	@$(CC) $(CFLAGS) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) $(BONUS_OBJS) -o $(BONUS_NAME)
+	@$(CC) $(CFLAGS) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) -lreadline $(BONUS_OBJS) -o $(BONUS_NAME)
 
 $(OBJS_DIR):
 	@$(MKDIR) $(OBJS_DIR)
@@ -50,7 +52,7 @@ $(BONUS_OBJS_DIR)%.o: $(BONUS_FILES_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(MLX) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(MLX) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) -lreadline $(OBJS) -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
 
 libft:

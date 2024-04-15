@@ -5,78 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/15 12:45:43 by sting            ###   ########.fr       */
+/*   Created: 2024/04/15 16:45:53 by sting             #+#    #+#             */
+/*   Updated: 2024/04/15 16:49:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".././inc/minishell.h"
 
-int execute_cmd(t_cmd *cmd)
+
+void	execute(t_node *node)
 {
-	char **args;
-
-	/*
-	loop through "cmd" linked list if there're args
-		- transfer strings into args variable
-	*/
-
-	// callexecve()
+	if (node->type == COMMAND)
+		ex_cmd(node->command);
+	// else if (node->type == REDIRECTION_IN)
+	// 	ex_cmd(node->command);
+	// else if (node->type == PIPE)
+	// 	ex_pipe(node->pipe);
 }
 
-/*
-
-str
-*/
-int execute_pipe(t_pipe *pipe)
+char	*get_exec(char **cmd_path, char *cmd)
 {
-	// setup_all_pipes()
-	
-	int i = -1;
-	while (++i)
+	char	*exec;
+	char	*path_part;
+
+	if (access(cmd, F_OK) == 0)
+		return (cmd);
+	while (*cmd_path)
 	{
-		// fork
-		
-		// dup2() pipe ends
-		
-		//if (child_process)
-			execute(&pipe->arr_nodes[i]);
+		path_part = ft_strjoin(*cmd_path, "/");
+		exec = ft_strjoin(path_part, cmd);
+		free(path_part);
+		if (access(exec, F_OK | X_OK) == 0)
+			return (exec);
+		free(exec);
+		cmd_path++;
 	}
-
-	// wait() for all child processes
+	return (NULL);
 }
 
-int setup_redir(t_redir	*redir)
+void	ex_cmd(t_cmd *command)
 {
-	if (redir->type == INPUT)
+	char	**PATH;
+	char	**cmd;
+	char	*cmd_lst;
+
+	PATH = ft_split(getenv("PATH"), ':');
+	cmd = ft_split(command->str, ' ');
+	cmd_lst = get_exec(PATH, cmd[0]);
+	if (execve(cmd_lst, cmd, command->env) == -1)
+	// ? Might free local before var before exit
 	{
-		// open()
-		// dup2()
+		ft_putstr_fd(cmd[0], 2);
+		ft_putendl_fd(": Command not found", 2);
+		exit(125);
 	}
-	else
-	{
-		// open()
-		// dup2()
-	}
-
-}
-
-int execute_simple_cmd(t_simple_cmd *simple_cmd)
-{
-	setup_redir(simple_cmd->redir); // ! should dup2 be done after forking/in child process
-	execute_cmd(simple_cmd->words);
-}
-
-/*
-- simple draft for "cmd + redir" combination only
-
-*/
-int execute(t_node *node)
-{
-	if (node->type == SIMPLE_CMD)
-		execute_simple_cmd(node->simple_cmd);
-    else if (node->type == COMMAND)
-        execute_cmd(node->command);
-    else if (node->type == PIPE)
-        execute_pipe(node->pipe);
 }
