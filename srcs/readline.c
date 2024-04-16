@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 09:23:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/16 09:36:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **env)
 			perror("readline");
 			exit(EXIT_FAILURE);
 		}
-		add_history(input);
+		add_history(input); // working history
 		if (ft_strncmp("exit", input, 5) == 0)
 		{
 			free(input);
@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **env)
 		}
 		t_node	*node = create_command(env, input);
 
-		pid_t pid = fork();
+		pid_t pid = fork(); // fork for each execution
 		if (pid == 0)
 			execute(node);
 		else
