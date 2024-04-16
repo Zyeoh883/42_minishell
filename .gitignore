@@ -3,11 +3,8 @@
 .DS_Store
 .vscode/
 a.out/dSYM
-pipex
 a.out.dSYM/
 a.out
-pipex-tester/
-PIPEX_TESTER/
-pipex_tester_42/
 out
 infile
+minishell

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 08:59:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/16 09:23:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		
 		input = readline("minishell$ ");	
 		if (input == NULL)
 		{
 			perror("readline");
 			exit(EXIT_FAILURE);
 		}
-		
+		add_history(input);
 		if (ft_strncmp("exit", input, 5) == 0)
 		{
 			free(input);
@@ -40,7 +39,6 @@ int main(int argc, char **argv, char **env)
 			execute(node);
 		else
 		{
-			add_history(input);
 			free(input);
 			waitpid(pid, NULL, 0);
 		}
