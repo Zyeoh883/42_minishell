@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 16:47:49 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/16 13:07:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,11 @@ t_node	*create_command(char **env, char *str);
 
 // execute
 void	execute(t_node *node);
+	
+// BUILT-INS
+void execute_env(char **my_env);
+
+// free
+void	free_str_arr(char **str_arr);
 
 #endif

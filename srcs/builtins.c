@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 10:28:26 by sting            ###   ########.fr       */
+/*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
+/*   Updated: 2024/04/16 13:07:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".././inc/minishell.h"
 
-/*
-Structure
-----------
-
-while (loop through AST)
-    execute(node)
-*/
-int main(int argc, char **argv, char **env)
+void execute_env(char **my_env)
 {
-
-    return (0);
+	if (!my_env)
+		return ; // 
+	int i = -1;
+	while (my_env[++i] != NULL)
+		printf("%s\n", my_env[i]);	
 }

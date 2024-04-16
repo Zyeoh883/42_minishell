@@ -5,14 +5,14 @@ CC = gcc
 RM = rm -rf
 MKDIR = mkdir -p
 FSAN = -fsanitize=address -g3
-CFLAGS = -Wall -Wextra -Werror #${FSAN}
+CFLAGS = -Wall -Wextra -Werror ${FSAN}
 MLX = -lmlx -framework OpenGL -framework AppKit
 
 RED = \033[0;91m
 GREEN = \033[92m
 RESET = \033[0m
 
-SRCS_FILES = readline.c \
+SRCS_FILES = main_w_readline.c \
 				execute.c \
 				create_node.c \
 

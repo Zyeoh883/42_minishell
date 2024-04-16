@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:45:53 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 08:52:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/16 13:10:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_exec(char **cmd_path, char *cmd)
 	}
 	return (NULL);
 }
-void	ex_cmd(t_cmd *command)
+void	execute_cmd(t_cmd *command)
 {
 	char	**PATH;
 	char	**cmd;
@@ -52,9 +52,9 @@ void	ex_cmd(t_cmd *command)
 void	execute(t_node *node)
 {
 	if (node->type == COMMAND)
-		ex_cmd(node->command);
+		execute_cmd(node->command);
 	// else if (node->type == REDIRECTION_IN)
-	// 	ex_cmd(node->command);
+	// 	execute_cmd(node->command);
 	// else if (node->type == PIPE)
 	// 	ex_pipe(node->pipe);
 }
