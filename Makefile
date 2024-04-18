@@ -1,71 +1,59 @@
-NAME = minishell
-BONUS_NAME = 
-LIBFT = libft.a
 CC = gcc
-RM = rm -rf
-MKDIR = mkdir -p
-FSAN = -fsanitize=address -g3
-CFLAGS = -Wall -Wextra -Werror #${FSAN}
-MLX = -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Wextra -Werror -std=c99
+# -fsanitize=address -g
+INCLUDES = -I ./inc/ -I$(LIBFT_DIR)
 
-RED = \033[0;91m
-GREEN = \033[92m
+# COLORS
+GREEN = \033[0;32m
+RED = \033[0;31m
 RESET = \033[0m
+ORANGE = \033[0;38;5;166m
+# SRCS
+SRCDIR = srcs/
+SRCS_FIL = \
+			main_w_readline.c \
+			execute.c \
+			create_node.c \
 
-SRCS_FILES = main.c \
+SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
-BONUS_FILES_DIR = 
+# OBS
+OBJDIR = objs/
+OBJS = $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
-BONUS_FILES = 
+# LIBRARIES
+LIBFT_DIR = libft/
+LIBFT.A = $(LIBFT_DIR)libft.a
 
-SRCS_DIR = srcs/
-LIBFT_DIR = libft
-INC_DIR = inc
-OBJS_DIR = objs/
-BONUS_OBJS_DIR = bonus_objs/
+NAME = minishell
 
-OBJS = $(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
-BONUS_OBJS = $(addprefix $(BONUS_OBJS_DIR), $(BONUS_FILES:.c=.o))
+all:  $(OBJDIR) $(NAME)
 
-LIBR = $(LIBFT_DIR)/libft.a
+bonus: all
 
-all: $(OBJS_DIR) libft $(NAME)
-
-bonus: $(BONUS_OBJS_DIR) libft $(BONUS_NAME)
-	@make bonus -C $(LIBFT_DIR)
-
-$(BONUS_NAME): $(BONUS_OBJS)
-	@$(CC) $(CFLAGS) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) $(BONUS_OBJS) -o $(BONUS_NAME)
-
-$(OBJS_DIR):
-	@$(MKDIR) $(OBJS_DIR)
-
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
-
-$(BONUS_OBJS_DIR):
-	@$(MKDIR) $(BONUS_OBJS_DIR)
-
-$(BONUS_OBJS_DIR)%.o: $(BONUS_FILES_DIR)%.c
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+$(OBJDIR):
+		@mkdir -p $(OBJDIR) && echo "$(GREEN)$(OBJDIR) was created$(RESET)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(MLX) -L$(LIBFT_DIR) -l$(LIBFT:lib%.a=%) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
+		@make -C $(LIBFT_DIR)
+		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -lreadline && echo "$(GREEN)$(NAME) was created$(RESET)"
 
-libft:
-	@make -C $(LIBFT_DIR)
+$(OBJDIR)%.o: $(SRCDIR)%.c
+		@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES) && echo "$(GREEN)object files were created$(RESET)"
+
+
+RM = rm -rf
 
 clean:
-	@$(RM) $(OBJS_DIR) $(BONUS_OBJS_DIR)
-	@make clean -C $(LIBFT_DIR)
-	@echo "$(RED)$(NAME) objects cleaned!$(RESET)"
+		@ $(RM) $(OBJDIR) && echo "$(ORANGE) object files were deleted$(RESET)"
+		@make clean -C ${LIBFT_DIR} && echo "$(ORANGE) libft object files were deleted$(RESET)"
 
 fclean: clean
-	@make fclean -C $(LIBFT_DIR)
-	@$(RM) $(NAME) $(BONUS_NAME)
-	@echo "$(RED)$(NAME) cleaned!$(RESET)"
+		@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
+		@make fclean -C $(LIBFT_DIR) && echo "$(ORANGE)libft.a was deleted$(RESET)"
 
 re: fclean all
 
-.PHONY: all bonus libft clean fclean re
+
+.PHONY: all clean fclean re bonus
+# ^ .PHONY -> informs computer that above phrases are not files
