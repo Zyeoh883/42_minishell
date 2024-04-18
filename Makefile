@@ -11,15 +11,18 @@ ORANGE = \033[0;38;5;166m
 # SRCS
 SRCDIR = srcs/
 SRCS_FIL = \
+			create/create_node.c \
+			create/piping.c \
+			execute/execute.c \
 			main_w_readline.c \
-			execute.c \
-			create_node.c \
+			free.c \
+			builtins.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
 # OBS
 OBJDIR = objs/
-OBJS = $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
+OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
 # LIBRARIES
 LIBFT_DIR = libft/
@@ -32,7 +35,7 @@ all:  $(OBJDIR) $(NAME)
 bonus: all
 
 $(OBJDIR):
-		@mkdir -p $(OBJDIR) && echo "$(GREEN)$(OBJDIR) was created$(RESET)"
+		@mkdir -p $(OBJDIR) $(addprefix $(OBJDIR), $(dir $(SRCS_FIL)))
 
 $(NAME): $(OBJS)
 		@make -C $(LIBFT_DIR)
@@ -45,11 +48,11 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 RM = rm -rf
 
 clean:
-		@ $(RM) $(OBJDIR) && echo "$(ORANGE) object files were deleted$(RESET)"
-		@make clean -C ${LIBFT_DIR} && echo "$(ORANGE) libft object files were deleted$(RESET)"
+		@ $(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
+		@make clean -C ${LIBFT_DIR} && echo "$(ORANGE)libft object files were deleted$(RESET)"
 
 fclean: clean
-		@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
+		@$(RM) $(NAME) && echo "$(ORANGE)$(NAME)was deleted$(RESET)"
 		@make fclean -C $(LIBFT_DIR) && echo "$(ORANGE)libft.a was deleted$(RESET)"
 
 re: fclean all

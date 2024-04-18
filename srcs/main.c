@@ -6,13 +6,12 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:25:26 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:39:40 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD:srcs/main.c
 t_node	*tokenize_pipe(char *input, char **env)
 // basic argument parsing for testing
 {
@@ -57,34 +56,3 @@ int	main(int ac, char **av, char **env)
 	execute(pipe);
 	return (0);
 }
-
-// int	main(int ac, char **av, char **env)
-// {
-// 	char **files;
-// 	char **cmd;
-// 	t_node *command;
-// 	t_node *simple_command;
-
-// 	if (ac != 2)
-// 	{
-// 		printf("Testing with one string as input\n");
-// 		return (0);
-// 	};
-
-// 	simple_command = tokenize_simple_command(av[1], env);
-// 	execute(simple_command);
-
-// 	files = ft_calloc(3, sizeof(char *));
-// 	files[0] = ft_strdup("file1");
-// 	files[1] = ft_strdup("file2");
-
-// 	cmd = ft_calloc(3, sizeof(char *));
-// 	cmd[0] = ft_strdup("ls");
-// 	cmd[1] = ft_strdup("-l");
-// 	command = create_command(env, cmd);
-// 	simple_command = create_simple_command(env, files, command);
-
-// 	execute(simple_command);
-
-// 	return (0);
-// }
