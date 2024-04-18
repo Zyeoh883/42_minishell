@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 16:29:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 14:52:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@
 
 typedef enum e_nodetype
 {
-	COMMAND,
+	COMMAND, 
 	PIPE,
 	REDIRECTION,
 	SIMPLE_CMD,
 
 }							t_nodetype;
 
-typedef struct s_cmd
+typedef struct s_command
 {
 	char					**env;
-	char					*str;
+	char					**str; // 
 
-}							t_cmd;
+}							t_command;
 
 enum e_redirtype
 {
@@ -48,7 +48,7 @@ typedef struct s_node
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe		*pipe;
-		struct s_cmd	*command;
+		struct s_command	*command;
 		struct s_redir	*redir;
 		struct s_simple_cmd *simple_cmd;
 	};
@@ -65,8 +65,8 @@ typedef struct s_redir
 
 typedef struct s_simple_cmd
 {
-	t_node	*redir;
-	t_node	*words; // ? if there are cmd args, use linked list or array?
+	t_redir	*redir;
+	t_node	*cmd; // ? if there are cmd args, use linked list or array?
 	// ^use linked list method for now
 }	t_simple_cmd;
 

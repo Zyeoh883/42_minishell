@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:33:21 by sting             #+#    #+#             */
-/*   Updated: 2024/04/15 16:35:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 14:49:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_node	*create_command(char **env, char *str)
 	node = create_node(COMMAND);
 	if (!node)
 		exit(125);
-	node->command = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
 	if (!node->command)
 	{
 		perror("Failed to create command node");
