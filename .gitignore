@@ -1,0 +1,10 @@
+*.o
+*.a
+.DS_Store
+.vscode/
+a.out/dSYM
+a.out.dSYM/
+a.out
+out
+infile
+minishell
