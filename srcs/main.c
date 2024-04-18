@@ -1,17 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:srcs/main.c
 /*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 21:00:10 by zyeoh            ###   ########.fr       */
-=======
-/*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/04/18 15:08:32 by sting            ###   ########.fr       */
->>>>>>> @{-1}:srcs/free.c
+/*   Updated: 2024/04/18 15:25:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +88,3 @@ int	main(int ac, char **av, char **env)
 
 // 	return (0);
 // }
-=======
-void	free_str_arr(char **str_arr)
-{
-	int	i;
-
-	i = 0;
-	while (str_arr[i] != NULL)
-	{
-		free(str_arr[i]);
-		i++;
-	}
-	free(str_arr);
-}
->>>>>>> @{-1}:srcs/free.c
