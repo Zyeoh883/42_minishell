@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 14:52:54 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:07:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_nodetype
 typedef struct s_command
 {
 	char					**env;
-	char					**str; // 
+	char					*str; // 
 
 }							t_command;
 

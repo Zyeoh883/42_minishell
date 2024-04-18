@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 13:00:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:08:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././inc/minishell.h"
+#include "minishell.h"
 
 void	free_str_arr(char **str_arr)
 {

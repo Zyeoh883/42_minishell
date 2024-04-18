@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:45:53 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 13:10:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:07:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././inc/minishell.h"
+#include "minishell.h"
 
 char	*get_exec(char **cmd_path, char *cmd)
 {
@@ -31,7 +31,7 @@ char	*get_exec(char **cmd_path, char *cmd)
 	}
 	return (NULL);
 }
-void	execute_cmd(t_cmd *command)
+void	execute_cmd(t_command *command)
 {
 	char	**PATH;
 	char	**cmd;

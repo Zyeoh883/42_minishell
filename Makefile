@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c99
 # -fsanitize=address -g
-INCLUDES = -I ./includes/ -I$(LIBFT_DIR)
+INCLUDES = -I ./inc/ -I$(LIBFT_DIR)
 
 # COLORS
 GREEN = \033[0;32m

@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/16 13:07:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:08:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././inc/minishell.h"
+#include "minishell.h"
 
 void execute_env(char **my_env)
 {

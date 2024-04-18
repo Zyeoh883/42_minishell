@@ -6,11 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:33:21 by sting             #+#    #+#             */
-/*   Updated: 2024/04/18 14:49:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/18 15:08:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././inc/minishell.h"
+#include "minishell.h"
 
 t_node	*create_node(t_nodetype type)
 {
