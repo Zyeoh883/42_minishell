@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:32:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/19 14:38:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef enum e_nodetype
 
 typedef struct s_command
 {
+	int is_builtin;
 	char						**env;
 	char						**cmd;
-
 }								t_command;
 
 enum							e_redirtype
@@ -56,8 +56,6 @@ typedef struct s_node
 
 typedef struct s_redir
 {
-	// t_node			*input;
-	// t_node			*output;
 	enum e_redirtype			type;
 	char						*filename;
 
@@ -66,8 +64,7 @@ typedef struct s_redir
 typedef struct s_simple_command
 {
 	t_redir						*redir;
-	t_node *cmd; // ? if there are cmd args, use linked list or array?
-					// ^use linked list method for now
+	t_node						*cmd;
 }								t_simple_command;
 
 typedef struct s_pipe
@@ -78,5 +75,12 @@ typedef struct s_pipe
 	int							fd_in;
 	int							fd_out;
 }								t_pipe;
+
+struct							s_env_var
+{
+	char						*var_name;
+	char						*value;
+	struct s_env_var			*next;
+}								t_env_var;
 
 #endif

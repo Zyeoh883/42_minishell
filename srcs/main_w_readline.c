@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/18 16:03:21 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/19 09:11:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int argc, char **argv, char **env)
 			free(input);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_command(env, &input);
+		t_node	*node = create_command(env, ft_split(input, ' '));
 
 		pid_t pid = fork(); // fork for each execution
 		if (pid == 0)
