@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/21 16:44:33 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/21 18:20:21 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int argc, char **argv, char **env)
 			free(input);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_command(env, ft_split(input, ' '));
+		t_node	*node = create_command(env, ft_split(input, ' ')); // TODO remember to fix leaks
 
 		printf("input: %s\n", node->command->cmd[0]);
 
