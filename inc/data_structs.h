@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:32:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/21 18:18:56 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ typedef enum e_nodetype
 	PIPE,
 	REDIRECTION,
 	SIMPLE_COMMAND,
-
 }								t_nodetype;
 
 typedef struct s_command
 {
+	int							is_builtin;
 	char						**env;
 	char						**cmd;
-
 }								t_command;
 
 enum							e_redirtype
@@ -66,7 +65,7 @@ typedef struct s_redir
 typedef struct s_simple_command
 {
 	t_redir						*redir;
-	t_node *cmd; // ? if there are cmd args, use linked list or array?
+	t_node	*cmd; // ? if there are cmd args, use linked list or array?
 					// ^use linked list method for now
 }								t_simple_command;
 

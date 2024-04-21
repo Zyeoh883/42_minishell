@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/18 16:03:21 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/21 16:44:33 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int main(int argc, char **argv, char **env)
 			free(input);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_command(env, &input);
+		t_node	*node = create_command(env, ft_split(input, ' '));
+
+		printf("input: %s\n", node->command->cmd[0]);
 
 		pid_t pid = fork(); // fork for each execution
 		if (pid == 0)

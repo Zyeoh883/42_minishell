@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:19:48 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/21 16:46:04 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_node	*create_node(t_nodetype type)
 	return (node);
 }
 
-t_node	*create_command(char **env, char **cmd)
+t_node	*create_command(char **env, char **cmd) // * cmd must be null terminated, can't use &str into cmd must use ft_split(str, ' ')
 {
 	t_node	*node;
 
