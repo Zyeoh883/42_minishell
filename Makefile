@@ -14,6 +14,7 @@ SRCS_FIL = \
 			create/create_node.c \
 			create/piping.c \
 			execute/execute.c \
+			utils/utils1.c \
 			main_w_readline.c \
 			free.c \
 			builtins.c \

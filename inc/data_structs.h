@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/21 18:18:56 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/22 20:54:52 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ typedef struct s_node
 
 typedef struct s_redir
 {
-	// t_node			*input;
-	// t_node			*output;
 	enum e_redirtype			type;
 	char						*filename;
 
@@ -64,6 +62,8 @@ typedef struct s_redir
 
 typedef struct s_simple_command
 {
+	int 						fd_in;
+	int 						fd_out;
 	t_redir						*redir;
 	t_node	*cmd; // ? if there are cmd args, use linked list or array?
 					// ^use linked list method for now

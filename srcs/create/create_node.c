@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/21 16:46:04 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/22 19:25:55 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ t_node	*create_simple_command(char **env, char **files, t_node *command)
 	(void)env;
 	node = create_node(SIMPLE_COMMAND);
 	if (!node)
-		exit(125);
+		perror_and_exit("Failed to create simple_command linker", 125);
 	node->simple_command = (t_simple_command *)ft_calloc(1,
 			sizeof(t_simple_command));
 	if (!node->simple_command)
 	{
-		perror("Failed to create redir_in node");
 		free(node);
-		exit(125);
+		perror_and_exit("Failed to create simple_command node", 125);
 	}
 	node->simple_command->cmd = command;
 	return (node);

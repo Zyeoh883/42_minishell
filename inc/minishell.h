@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:38:04 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/22 18:34:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ void	free_str_arr(char **str_arr);
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
 int		build_pipes(t_pipe *pipe_node);
+
+// utils
+void	perror_and_exit(char *str, int exit_code);
 
 #endif
