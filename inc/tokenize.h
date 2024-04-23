@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/23 14:46:37 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/23 20:09:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef TOKENIZE_H
+# define TOKENIZE_H
 
-void perror_and_exit(char *str, int exit_code)
+# include "minishell.h"
+
+typedef enum e_tokentype
 {
-    perror(str);
-    exit(exit_code);
-}
+	QUOTES,
+	SUBSHELL,
+	AND_OR,
+	PIPE,
+	SIMPLE_COMMAND,
+}						t_tokentype;
 
-void free_split(char **split)
+typedef struct s_token
 {
-    char **head;
+	char				*value;
+	enum e_tokentype	type;
+	struct s_token		*next;
+}						t_token;
 
-    if (!split)
-        return ;
-    head = split;
-    while (*head != NULL)
-    {
-        free(*head);
-        head++;
-    }
-    free(split);
-}
+#endif
