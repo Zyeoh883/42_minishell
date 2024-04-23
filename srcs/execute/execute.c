@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:36:28 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/23 07:45:54 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	execute(t_node *node) // TODO add an empty parameter check
 {
-	if (node->type == COMMAND)
-		ex_cmd(node->command);
-	else if (node->type == SIMPLE_COMMAND)
+	if (node->type == SIMPLE_COMMAND)
 		ex_simple_command(node->simple_command);
 	else if (node->type == PIPE)
 		ex_pipe(node->pipe);
@@ -42,26 +40,39 @@ char	*get_exec(char **cmd_path, char *cmd)
 	return (NULL);
 }
 
-void	ex_cmd(t_command *command)
+// void	ex_cmd(t_command *command)
+// {
+// 	char	**PATH;
+// 	char	*cmd_lst;
+
+// 	PATH = ft_split(getenv("PATH"), ':');
+// 	cmd_lst = get_exec(PATH, *command->cmd);
+// 	if (execve(cmd_lst, command->cmd, command->env) == -1)
+// 	// ? Might free local before var before exit
+// 	{
+// 		ft_putstr_fd(*command->cmd, 2);
+// 		ft_putendl_fd(": Command not found", 2);
+// 		exit(125);
+// 	}
+// }
+
+void	ex_simple_command(t_simple_command *simple_command) // TODO add the redirect functionality
 {
 	char	**PATH;
 	char	*cmd_lst;
 
 	PATH = ft_split(getenv("PATH"), ':');
-	cmd_lst = get_exec(PATH, *command->cmd);
-	if (execve(cmd_lst, command->cmd, command->env) == -1)
+	cmd_lst = get_exec(PATH, *simple_command->cmd);
+	if (execve(cmd_lst, simple_command->cmd, simple_command->env) == -1)
 	// ? Might free local before var before exit
 	{
-		ft_putstr_fd(*command->cmd, 2);
+		ft_putstr_fd(*simple_command->cmd, 2);
 		ft_putendl_fd(": Command not found", 2);
 		exit(125);
 	}
-}
 
-void	ex_simple_command(t_simple_command *simple_command) // TODO add the redirect functionality
-{
-	if (simple_command->cmd->type == COMMAND)
-		execute(simple_command->cmd);
+	// if (simple_command->cmd->type == COMMAND)
+	// 	execute(simple_command->cmd);
 	// int n;
 	// int fd;
 

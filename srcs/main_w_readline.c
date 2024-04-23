@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/22 18:49:00 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/23 08:28:15 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char **create_env_copy(char **env)
 	my_env = (char **)ft_calloc(num_env_vars + 1, sizeof(char *));
 	if (my_env == NULL)
 		perror_and_exit("malloc", EXIT_FAILURE);
+	num_env_vars = -1;
 	while (env[++num_env_vars] != NULL)
 	{
 		my_env[num_env_vars] = ft_strdup(env[num_env_vars]);
@@ -57,6 +58,8 @@ int main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+	pid_t	pid;
+	char	**cmd;
 	char	*input;
 	char	**my_env;
 
@@ -64,15 +67,15 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		input = handle_readline();
-		t_node	*node = create_command(env, ft_split(input, ' ')); // TODO remember to fix leaks
+		cmd = ft_split(input, ' ');
+		t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
 
-		printf("input: %s\n", node->command->cmd[0]);
-
-		pid_t pid = fork(); // fork for each execution
+		pid = fork(); // fork for each execution
 		if (pid == 0)
 			execute(node);
 		else
 		{
+			free_split(cmd);
 			free(input);
 			waitpid(pid, NULL, 0);
 		}

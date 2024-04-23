@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 20:41:09 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/23 07:47:43 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 t_node	*create_node(t_nodetype type);
 t_node	*create_command(char **env, char **cmd);
-t_node	*create_simple_command(char **env, char **files, t_node *command);
+t_node	*create_simple_command(char **env, t_redir *redir, char **cmd, int is_built_in);
 
 // piping
 

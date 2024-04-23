@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/22 20:54:52 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/23 07:41:08 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCTS_H
 # define DATA_STRUCTS_H
+
+# include "minishell.h"
 
 /*
 * Structs to add
@@ -22,18 +24,10 @@
 
 typedef enum e_nodetype
 {
-	COMMAND,
 	PIPE,
 	REDIRECTION,
 	SIMPLE_COMMAND,
 }								t_nodetype;
-
-typedef struct s_command
-{
-	int							is_builtin;
-	char						**env;
-	char						**cmd;
-}								t_command;
 
 enum							e_redirtype
 {
@@ -47,7 +41,6 @@ typedef struct s_node
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe			*pipe;
-		struct s_command		*command;
 		struct s_redir			*redir;
 		struct s_simple_command	*simple_command;
 	};
@@ -62,17 +55,18 @@ typedef struct s_redir
 
 typedef struct s_simple_command
 {
-	int 						fd_in;
-	int 						fd_out;
-	t_redir						*redir;
-	t_node	*cmd; // ? if there are cmd args, use linked list or array?
-					// ^use linked list method for now
-}								t_simple_command;
+	char **env;
+	int fd_in;
+	int fd_out;
+	t_redir *redir;  //array of redir structs, all arrays must be NULL terminated
+	int is_built_in;
+	char  **cmd;    //NULL terminated 2D array
+}              t_simple_command;
 
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node **arr_nodes; // children
+	t_node 						**arr_nodes; // children
 	pid_t						*pipe;
 	int							fd_in;
 	int							fd_out;

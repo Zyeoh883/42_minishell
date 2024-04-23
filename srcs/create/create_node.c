@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/22 19:25:55 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/23 07:43:18 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,10 @@ t_node	*create_node(t_nodetype type)
 	return (node);
 }
 
-t_node	*create_command(char **env, char **cmd) // * cmd must be null terminated, can't use &str into cmd must use ft_split(str, ' ')
+t_node	*create_simple_command(char **env, t_redir *redir, char **cmd, int is_built_in)
 {
 	t_node	*node;
 
-	node = create_node(COMMAND);
-	if (!node)
-		exit(125);
-	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
-	if (!node->command)
-	{
-		perror("Failed to create command node");
-		free(node);
-		exit(125);
-	}
-	node->command->cmd = cmd;
-	node->command->env = env;
-	return (node);
-}
-
-t_node	*create_simple_command(char **env, char **files, t_node *command)
-{
-	t_node	*node;
-
-	(void)files;
-	(void)env;
 	node = create_node(SIMPLE_COMMAND);
 	if (!node)
 		perror_and_exit("Failed to create simple_command linker", 125);
@@ -61,7 +40,10 @@ t_node	*create_simple_command(char **env, char **files, t_node *command)
 		free(node);
 		perror_and_exit("Failed to create simple_command node", 125);
 	}
-	node->simple_command->cmd = command;
+	node->simple_command->env = env;
+	node->simple_command->redir = redir;
+	node->simple_command->cmd = cmd;
+	node->simple_command->is_built_in = is_built_in;
 	return (node);
 }
 
