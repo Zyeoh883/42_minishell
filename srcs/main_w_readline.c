@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/23 16:27:17 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/24 18:12:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,17 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		input = handle_readline();
+		tokenize(input);
 		cmd = ft_split(input, ' ');
 		t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
 
 		pid = fork(); // fork for each execution
 		if (pid == 0)
-			execute(node);
+		{
+			(void)node;
+			exit(0);
+			// execute(node);
+		}
 		else
 		{
 			free_split(cmd);
