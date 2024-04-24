@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/19 14:38:36 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/24 16:43:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,19 @@ typedef enum e_nodetype
 
 }								t_nodetype;
 
-typedef struct s_command
-{
-	int is_builtin;
-	char						**env;
-	char						**cmd;
-}								t_command;
-
 enum							e_redirtype
 {
 	INPUT,
 	OUTPUT,
 };
+
+
+// typedef struct s_command
+// {
+// 	int is_builtin;
+// 	char						**env;
+// 	char						**cmd;
+// }								t_command;
 
 typedef struct s_node
 {
@@ -54,18 +55,16 @@ typedef struct s_node
 	};
 }								t_node;
 
-typedef struct s_redir
+typedef struct s_subshell
 {
-	enum e_redirtype			type;
-	char						*filename;
+	t_node						*node;
+}								t_subshell;	
 
-}								t_redir;
-
-typedef struct s_simple_command
+typedef struct s_andor
 {
-	t_redir						*redir;
-	t_node						*cmd;
-}								t_simple_command;
+	char						**operators; // stores "&&"" and "||""
+	t_node						**arr_nodes;
+}								t_andor; // ! update
 
 typedef struct s_pipe
 {
@@ -75,6 +74,23 @@ typedef struct s_pipe
 	int							fd_in;
 	int							fd_out;
 }								t_pipe;
+
+typedef struct s_simple_command
+{
+	int fd_in;
+	int fd_out;
+	t_redir *redir;  //array of redir structs, all arrays must be NULL terminated
+	char **env;
+	int is_built_in;
+	char  **cmd;    //NULL terminated 2D array
+}								t_simple_command;
+
+typedef struct s_redir
+{
+	enum e_redirtype			type;
+	char						*filename;
+
+}								t_redir;
 
 struct							s_env_var
 {

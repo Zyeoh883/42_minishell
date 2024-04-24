@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/18 15:09:12 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/24 15:06:12 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int setup_redir(t_redir	*redir)
 
 }
 
-int execute_simple_cmd(t_simple_cmd *simple_cmd)
+int execute_simple_cmd(t_simple_command *simple_cmd)
 {
 	setup_redir(simple_cmd->redir);
 	execute_cmd(simple_cmd->cmd);
@@ -73,10 +73,8 @@ int execute_simple_cmd(t_simple_cmd *simple_cmd)
 */
 int execute(t_node *node)
 {
-	if (node->type == SIMPLE_CMD)
-		execute_simple_cmd(node->simple_cmd);
-    else if (node->type == COMMAND)
-        execute_cmd(node->command);
+	if (node->type == SIMPLE_COMMAND)
+		execute_simple_cmd(node->simple_command);
     else if (node->type == PIPE)
         execute_pipe(node->pipe);
 }
