@@ -19,6 +19,7 @@ SRCS_FIL = \
 			builtins.c \
 			tokenize/tokenize.c \
 			tokenize/tokenize_utils.c \
+			tokenize/valid_utils.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

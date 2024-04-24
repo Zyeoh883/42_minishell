@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/24 20:55:12 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 02:21:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,23 @@ t_token	*new_token(char *value)
 	return (token);
 }
 
-int	is_metacharacter(char c)
+t_token	*token_last(t_token *token)
 {
-	char	*metacharacters;
+	while (token->next)
+		token = token->next;
+	return (token);
+}
 
-	metacharacters = METACHARACTERS;
-	while (*metacharacters)
+t_token	*token_last_nonspace(t_token *token)
+{
+	t_token	*head;
+
+	head = token;
+	while (head)
 	{
-		if (c == *metacharacters)
-			return (1);
-		metacharacters++;
+		if (*head->value != ' ')
+			token = head;
+		head = head->next;
 	}
-	return (0);
+	return (token);
 }

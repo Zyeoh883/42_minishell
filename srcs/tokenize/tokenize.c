@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/24 20:28:50 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 00:46:39 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ t_token	*tokenize(char *line)
 		return (NULL);
 	token_root = tokenize_metacharacters(line);
 	print_tokens(token_root);
+	if (is_in_quote_tokens(token_root, token_root->next->next->next->next->next->next)) //index 6
+		printf("%s in quote\n", token_root->next->next->next->next->next->next->value);
+	else
+		printf("%s not in quote\n", token_root->next->next->next->next->next->next->value);
 	free_tokens(token_root);
 	return (NULL);
 }

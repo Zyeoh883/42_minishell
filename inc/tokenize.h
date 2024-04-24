@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/24 20:55:31 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 02:22:10 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,8 @@ void					free_tokens(t_token *token_root);
 void					token_add_back(t_token **token_root, t_token *new);
 t_token					*new_token(char *value);
 int						is_metacharacter(char c);
+int						is_in_quote_tokens(t_token *root_token, t_token *token);
+t_token					*token_last(t_token *token);
+t_token					*token_last_nonspace(t_token *token);
 
 #endif

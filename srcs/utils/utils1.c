@@ -6,29 +6,48 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/23 14:46:37 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 02:24:45 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void perror_and_exit(char *str, int exit_code)
+void	perror_and_exit(char *str, int exit_code)
 {
-    perror(str);
-    exit(exit_code);
+	perror(str);
+	exit(exit_code);
 }
 
-void free_split(char **split)
+void	free_split(char **split)
 {
-    char **head;
+	char	**head;
 
-    if (!split)
-        return ;
-    head = split;
-    while (*head != NULL)
-    {
-        free(*head);
-        head++;
-    }
-    free(split);
+	if (!split)
+		return ;
+	head = split;
+	while (*head != NULL)
+	{
+		free(*head);
+		head++;
+	}
+	free(split);
+}
+
+int	is_metacharacter(char c)
+{
+	char	*metacharacters;
+
+	metacharacters = METACHARACTERS;
+	while (*metacharacters)
+	{
+		if (c == *metacharacters)
+			return (1);
+		metacharacters++;
+	}
+	return (0);
+}
+
+void output_token_error(char *str)
+{
+	printf("syntax error near unexpected token '%s'\n", str);
 }
