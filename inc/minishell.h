@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 16:24:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:58:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@
 # define FAIL 1
 # define AND 0
 # define OR 1
+
+// EXIT CODES
 # define ERROR_CMD_NOT_FOUND 127
+# define SIGNALINT 130
 
 t_node	*create_node(t_nodetype type);
 // t_node	*create_command(char **env, char **cmd);

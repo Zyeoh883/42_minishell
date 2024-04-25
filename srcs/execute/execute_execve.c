@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/25 16:36:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:59:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,23 @@ char	*get_exec(char **cmd_path, char *cmd)
 	return (NULL);
 }
 
-int get_exit_status(int status)
+int waitpid_n_get_exit_status(pid_t pid)
 {
+	int status;
+	int exit_status;
+	
+	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
-		if (WEXITSTATUS(status) == 0)
-			return (SUCCESS);
-		return (FAIL);
+		exit_status = WEXITSTATUS(status);
+		if (exit_status == 0)
+			return (0);
+		return (exit_status);
 	}
 	else
 	{
-		// Child process terminated due to a signal (handle this case)
-		return (FAIL);
+	 	// Child process terminated due to a signal (handle this case)
+		return (SIGNALINT);
 	}
 }
 
@@ -52,7 +57,6 @@ int	execute_execve(char **cmd_arg, char **env)
 	char **PATH;
 	char *cmd_lst;
 	pid_t pid;
-	int status;
 
 	PATH = ft_split(getenv("PATH"), ':');
 	cmd_lst = get_exec(PATH, *cmd_arg);
@@ -74,7 +78,7 @@ int	execute_execve(char **cmd_arg, char **env)
 		}
 	}
 	// Parent
-	waitpid(pid, &status, 0);
-	get_exit_status(status);
-	return (FAIL);                                                        
+	if (waitpid_n_get_exit_status(pid) == 0)
+		return (SUCCESS);    
+	return (FAIL);                                                
 }
