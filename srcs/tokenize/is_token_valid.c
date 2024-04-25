@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_utils.c                                      :+:      :+:    :+:   */
+/*   is_token_valid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 19:31:49 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 22:19:06 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ int	is_valid_multi_meta(t_token *token)
 {
 	char	*value;
 
-	if (token->next == NULL)
-		return (1);
 	value = token->value;
-	if (ft_strchr("|&<>", value))
+	if (ft_strchr("|&<>", *value))
 	{
 		
 	}
