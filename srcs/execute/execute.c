@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/24 14:20:33 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 15:27:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	ex_pipe(t_pipe *pipe)
 			coupling(pipe, n);
 			close_pipes(pipe);
 			execute(pipe->arr_nodes[n]);
+			exit(0); // TODO temp
 		}
 	}
 }

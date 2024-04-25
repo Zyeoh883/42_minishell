@@ -6,13 +6,13 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 01:22:16 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 19:31:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_in_quote_tokens(t_token *root_token, t_token *token)
+int	is_in_quote_tokens(t_token *token)
 {
 	t_token	*head;
 	char	quote;
@@ -23,13 +23,13 @@ int	is_in_quote_tokens(t_token *root_token, t_token *token)
 	n = -1;
 	while (++n < 2)
 	{
-		head = root_token;
+		head = token->prev;
 		is_in_quote = 0;
-		while (*token->value != quote && head && head != token)
+		while (head && *token->value != quote)
 		{
-			if (*head->value == quote && !is_in_quote_tokens(root_token, head))
+			if (*head->value == quote && !is_in_quote_tokens(head))
 				is_in_quote = !is_in_quote;
-			head = head->next;
+			head = head->prev;
 		}
 		if (is_in_quote)
 			return (1);
@@ -38,7 +38,15 @@ int	is_in_quote_tokens(t_token *root_token, t_token *token)
 	return (0);
 }
 
-// int validate_tokens(t_node *root_token)
-// {
+int	is_valid_multi_meta(t_token *token)
+{
+	char	*value;
 
-// }
+	if (token->next == NULL)
+		return (1);
+	value = token->value;
+	if (ft_strchr("|&<>", value))
+	{
+		
+	}
+}

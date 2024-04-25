@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 02:21:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:12:11 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	token_add_back(t_token **token_root, t_token *new)
 	while (head->next)
 		head = head->next;
 	head->next = new;
+	new->prev = head;
 }
 
 t_token	*new_token(char *value)

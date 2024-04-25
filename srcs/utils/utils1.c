@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 02:24:45 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 13:46:06 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,7 @@ int	is_metacharacter(char c)
 
 void output_token_error(char *str)
 {
-	printf("syntax error near unexpected token '%s'\n", str);
+	ft_putstr_fd("syntax error near unexpected token '", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("'", 2);
 }
