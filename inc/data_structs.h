@@ -6,17 +6,12 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 09:43:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:23:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCTS_H
 # define DATA_STRUCTS_H
-
-# define SUCCESS 0
-# define FAILURE 1
-# define AND 0
-# define OR 1
 
 typedef enum e_nodetype
 {
@@ -74,6 +69,13 @@ typedef struct s_pipe
 	int							fd_out;
 }								t_pipe;
 
+typedef struct s_redir
+{
+	enum e_redirtype			type;
+	char						*filename;
+
+}								t_redir;
+
 typedef struct s_simple_command
 {
 	int fd_in;
@@ -84,12 +86,6 @@ typedef struct s_simple_command
 	char  **cmd;    //NULL terminated 2D array
 }								t_simple_command;
 
-typedef struct s_redir
-{
-	enum e_redirtype			type;
-	char						*filename;
-
-}								t_redir;
 
 struct							s_env_var
 {

@@ -13,10 +13,11 @@ SRCDIR = srcs/
 SRCS_FIL = \
 			create/create_node.c \
 			create/piping.c \
-			execute/execute.c \
+			execute/execute_draft.c \
+			execute/execute_execve.c \
 			main_w_readline.c \
 			free.c \
-			builtins.c \
+			# builtins.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

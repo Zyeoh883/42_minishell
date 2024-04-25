@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:36:28 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 13:18:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ex_simple_command(t_simple_command *simple_command) // TODO add the redirec
 	// 	}
 	// 	close(fd);
 	// }
-	// fd = open(redir_in->files[n], O_RDONLY);
 }
 
 void	ex_pipe(t_pipe *pipe)

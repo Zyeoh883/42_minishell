@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/19 09:11:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:39:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,11 @@ int main(int argc, char **argv, char **env)
 			free(input);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_command(env, ft_split(input, ' '));
+		t_node	*node = create_simple_command(env, ft_split(input, ' '));
 
-		pid_t pid = fork(); // fork for each execution
-		if (pid == 0)
-			execute(node);
-		else
-		{
-			free(input);
-			waitpid(pid, NULL, 0);
-		}
+
+		execute(node);
+		// ^error check?
 	}
 	
 	free_str_arr(my_env);

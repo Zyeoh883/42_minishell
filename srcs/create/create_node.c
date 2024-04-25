@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:19:48 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:16:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,45 +26,64 @@ t_node	*create_node(t_nodetype type)
 	return (node);
 }
 
-t_node	*create_command(char **env, char **cmd)
+// t_node	*create_command(char **env, char **cmd)
+// {
+// 	t_node	*node;
+
+// 	node = create_node(COMMAND);
+// 	if (!node)
+// 		exit(125);
+// 	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
+// 	if (!node->command)
+// 	{
+// 		perror("Failed to create command node");
+// 		free(node);
+// 		exit(125);
+// 	}
+// 	node->command->cmd = cmd;
+// 	node->command->env = env;
+// 	return (node);
+// }
+
+t_node	*create_simple_command(char **env, char **cmd)
 {
 	t_node	*node;
 
-	node = create_node(COMMAND);
-	if (!node)
-		exit(125);
-	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
-	if (!node->command)
-	{
-		perror("Failed to create command node");
-		free(node);
-		exit(125);
-	}
-	node->command->cmd = cmd;
-	node->command->env = env;
-	return (node);
-}
-
-t_node	*create_simple_command(char **env, char **files, t_node *command)
-{
-	t_node	*node;
-
-	(void)files;
-	(void)env;
 	node = create_node(SIMPLE_COMMAND);
 	if (!node)
 		exit(125);
-	node->simple_command = (t_simple_command *)ft_calloc(1,
-			sizeof(t_simple_command));
+	node->simple_command = (t_simple_command *)ft_calloc(1, sizeof(t_simple_command));
 	if (!node->simple_command)
 	{
-		perror("Failed to create redir_in node");
+		perror("Failed to create simple_command node");
 		free(node);
 		exit(125);
 	}
-	node->simple_command->cmd = command;
+	node->simple_command->cmd = cmd;
+	node->simple_command->env = env;
 	return (node);
 }
+
+// t_node	*create_simple_command(char **env, char **files, t_node *command)
+// {
+// 	t_node	*node;
+
+// 	(void)files;
+// 	(void)env;
+// 	node = create_node(SIMPLE_COMMAND);
+// 	if (!node)
+// 		exit(125);
+// 	node->simple_command = (t_simple_command *)ft_calloc(1,
+// 			sizeof(t_simple_command));
+// 	if (!node->simple_command)
+// 	{
+// 		perror("Failed to create redir_in node");
+// 		free(node);
+// 		exit(125);
+// 	}
+// 	node->simple_command->cmd = command;
+// 	return (node);
+// }
 
 t_node	*create_pipe(t_node **nodes, int n_nodes)
 {

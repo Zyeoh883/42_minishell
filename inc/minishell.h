@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:38:04 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:24:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,26 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# define SUCCESS 0
+# define FAIL 1
+# define AND 0
+# define OR 1
+# define ERROR_CMD_NOT_FOUND 127
 
 t_node	*create_node(t_nodetype type);
-t_node	*create_command(char **env, char **cmd);
+// t_node	*create_command(char **env, char **cmd);
+t_node	*create_simple_command(char **env, char **cmd);
+
 
 // execute
-void	execute(t_node *node);
-void	ex_cmd(t_command *command);
-void	ex_simple_command(t_simple_command *simple_command);
-void	ex_pipe(t_pipe *pipe);
+int	execute(t_node *node);
+// void	ex_cmd(t_command *command);
+// void	ex_simple_command(t_simple_command *simple_command);
+// void	ex_pipe(t_pipe *pipe);
+int execute_execve(char **cmd_arg, char **env);
 
 // BUILT-INS
-void	execute_env(char **my_env);
+// void	execute_env(char **my_env);
 
 // free
 void	free_str_arr(char **str_arr);

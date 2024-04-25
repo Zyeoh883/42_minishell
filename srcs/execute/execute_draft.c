@@ -6,35 +6,20 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/25 11:04:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:01:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-* GENERAL IDEA
+* TO NOTE
 *----------------
 - each execute_subfunction will return SUCCESS/FAIL
 
 */
 
-int execute_cmd(t_node	*words)
-{
-	char **args;
-
-	/*
-	loop through "cmd" linked list if there're args
-		- transfer strings into args variable
-	*/
-
-	// callexecve()
-}
-
 /*
-
-str
-*/
 int execute_pipe(t_pipe *pipe)
 {
 	// setup_all_pipes()
@@ -67,46 +52,58 @@ int setup_redir(t_redir	*redir)
 	}
 
 }
+*/
 
-int execute_simple_cmd(t_simple_command *simple_cmd)
+
+int execute_simple_cmd(t_simple_command *sc)
 {
-	setup_redir(simple_cmd->redir);
-	execute_cmd(simple_cmd->cmd);
-}
+	// setup_redir(simple_cmd->redir);
 
-int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
-{
-	int i;
-	int j;
-
-	i = -1;
-	j = -1;
-	while (andor->arr_nodes[++i] != NULL)
+	if (sc->is_built_in) 
 	{
-		if (andor->operators[++j] == AND) // ! separated index for operator?
-		{
-			if (execute(andor->arr_nodes[i]) == SUCCESS)
-			{
-				continue;
-			}
-			else // FAILURE
-			{
-				i++; // skip next node
-			}
-		}
-		else if (andor->operators[i] == OR)
-		{
-			if (execute(andor->arr_nodes[i]) == SUCCESS)
-			{
-				i++;
-			}
-			else // FAILURE
-			{
-				continue; // skip next node
-			}
-		}
+		//execute_built_in()
 	}
+	else 
+	{
+		if (execute_execve(sc->cmd, sc->env) == FAIL)
+			return (FAIL);
+	}
+	return (SUCCESS);
 }
+
+// int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
+// {
+	// int i;
+	// int j;
+
+	// i = -1;
+	// j = -1;
+	// while (andor->arr_nodes[++i] != NULL)
+	// {
+	// 	if (andor->operators[++j] == AND) // ! separated index for operator?
+	// 	{
+	// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+	// 		{
+	// 			continue;
+	// 		}
+	// 		else // FAILURE
+	// 		{
+	// 			i++; // skip next node
+	// 		}
+	// 	}
+	// 	else if (andor->operators[i] == OR)
+	// 	{
+	// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+	// 		{
+	// 			i++;
+	// 		}
+	// 		else // FAILURE
+	// 		{
+	// 			continue; // skip next node
+	// 		}
+	// 	}
+	// }
+// }
 
 int execute_subshell(t_subshell *subshell)
 {
@@ -115,31 +112,40 @@ int execute_subshell(t_subshell *subshell)
 	pid = fork();
 	if (pid == -1)
 	{
-		
+		// error handling
 	}
 	else if (pid == 0) // * CHILD
 	{
-		execute(subshell->node);
+		if (execute(subshell->node) == FAIL)
+			return (FAIL);
 	}
+	// else if (pid > 0)
+	// {
+	 	// waitpid(0, NULL, 0); // ! need to wait?
+	// }
+	return (SUCCESS);
 }
-/*
-- simple draft for "cmd + redir" combination only
-
-*/
 
 
+// return SUCCESS/FAILURE to tell execute_and_or()
 int execute(t_node *node)
 {
-    if (node->type == AND_OR)
-        if (execute_and_or(node->and_or) == SUCCESS)
-			return (SUCCESS);
-    else if (node->type == SUBSHELL)
+    // if (node->type == AND_OR)
+    //     // if (execute_and_or(node->and_or) == SUCCESS)
+	// 	// 	return (SUCCESS);
+    if (node->type == SUBSHELL)
+	{
         if (execute_subshell(node->subshell) == SUCCESS)
 			return (SUCCESS);
-    else if (node->type == PIPE)
-        if (execute_pipe(node->pipe) == SUCCESS)
-			return (SUCCESS);
+	}
+    // else if (node->type == PIPE)
+    //     if (execute_pipe(node->pipe) == SUCCESS)
+	// 		return (SUCCESS);
 	else if (node->type == SIMPLE_COMMAND)
+	{
 		if (execute_simple_cmd(node->simple_command) == SUCCESS)
 			return (SUCCESS);
+	}
+	
+	return (FAIL);
 }
