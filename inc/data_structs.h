@@ -6,27 +6,26 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/24 16:43:22 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/25 09:43:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCTS_H
 # define DATA_STRUCTS_H
 
-/*
-* Structs to add
-1. simplecmd
-2. builtin_cmd
-
-*/
+# define SUCCESS 0
+# define FAILURE 1
+# define AND 0
+# define OR 1
 
 typedef enum e_nodetype
 {
-	COMMAND,
+	// COMMAND,
+	// REDIRECTION,
 	PIPE,
-	REDIRECTION,
 	SIMPLE_COMMAND,
-
+	SUBSHELL,
+	AND_OR,
 }								t_nodetype;
 
 enum							e_redirtype
@@ -49,8 +48,8 @@ typedef struct s_node
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe			*pipe;
-		struct s_command		*command;
-		struct s_redir			*redir;
+		struct s_subshell		*subshell;
+		struct s_and_or			*and_or;	
 		struct s_simple_command	*simple_command;
 	};
 }								t_node;
@@ -60,11 +59,11 @@ typedef struct s_subshell
 	t_node						*node;
 }								t_subshell;	
 
-typedef struct s_andor
+typedef struct s_and_or
 {
-	char						**operators; // stores "&&"" and "||""
+	int						*operators; // ! update
 	t_node						**arr_nodes;
-}								t_andor; // ! update
+}								t_and_or; // ! update
 
 typedef struct s_pipe
 {
