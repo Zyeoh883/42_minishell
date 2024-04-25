@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 18:59:27 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/26 00:27:07 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ void	print_tokens(t_token *token)
 		token = token->next;
 	}
 	write(1, "\n", 1);
+}
+
+t_token	*str_to_token(char *start, int len)
+{
+	t_token	*token;
+	char	*value;
+
+	value = ft_substr(start, 0, len);
+	if (!value)
+		perror_and_exit("malloc", 1);
+	token = new_token(value);
+	if (!token)
+	{
+		free(value);
+		perror_and_exit("malloc", 1);
+	}
+	return (token);
 }
 
 t_token	*tokenize_metacharacters(char *str)
