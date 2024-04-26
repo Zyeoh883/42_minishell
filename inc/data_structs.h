@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 16:23:22 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/26 10:02:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ enum							e_redirtype
 };
 
 
-// typedef struct s_command
-// {
-// 	int is_builtin;
-// 	char						**env;
-// 	char						**cmd;
-// }								t_command;
 
 typedef struct s_node
 {
@@ -87,10 +81,10 @@ typedef struct s_simple_command
 }								t_simple_command;
 
 
-struct							s_env_var
+typedef struct							s_env_var
 {
-	char						*var_name;
-	char						*value;
+	char						*str;
+	int							is_exported;						
 	struct s_env_var			*next;
 }								t_env_var;
 

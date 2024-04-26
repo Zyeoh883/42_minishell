@@ -5,93 +5,173 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 13:18:58 by sting            ###   ########.fr       */
+/*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
+/*   Updated: 2024/04/26 09:58:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(t_node *node) // TODO add an empty parameter check
-{
-	if (node->type == COMMAND)
-		ex_cmd(node->command);
-	else if (node->type == SIMPLE_COMMAND)
-		ex_simple_command(node->simple_command);
-	else if (node->type == PIPE)
-		ex_pipe(node->pipe);
-}
+/*
+* TO NOTE
+*----------------
+- each execute_subfunction will return SUCCESS/FAIL
 
-char	*get_exec(char **cmd_path, char *cmd)
-{
-	char	*exec;
-	char	*path_part;
+*/
 
-	if (access(cmd, F_OK) == 0)
-		return (cmd);
-	while (*cmd_path)
+/*
+int execute_pipe(t_pipe *pipe)
+{
+	// setup_all_pipes()
+	
+	int i = -1;
+	while (++i)
 	{
-		path_part = ft_strjoin(*cmd_path, "/");
-		exec = ft_strjoin(path_part, cmd);
-		free(path_part);
-		if (access(exec, F_OK | X_OK) == 0)
-			return (exec);
-		free(exec);
-		cmd_path++;
+		// fork
+		
+		// dup2() pipe ends
+		
+		//if (child_process)
+			execute(&pipe->arr_nodes[i]);
 	}
-	return (NULL);
+
+	// wait() for all child processes
 }
 
-void	ex_cmd(t_command *command)
+int setup_redir(t_redir	*redir)
 {
-	char	**PATH;
-	char	*cmd_lst;
-
-	PATH = ft_split(getenv("PATH"), ':');
-	cmd_lst = get_exec(PATH, *command->cmd);
-	if (execve(cmd_lst, command->cmd, command->env) == -1)
-	// ? Might free local before var before exit
+	if (redir->type == INPUT)
 	{
-		ft_putstr_fd(*command->cmd, 2);
-		ft_putendl_fd(": Command not found", 2);
-		exit(125);
+		// open()
+		// dup2()
 	}
+	else
+	{
+		// open()
+		// dup2()
+	}
+
+}
+*/
+
+
+int execute_simple_cmd(t_simple_command *sc)
+{
+	// setup_redir(simple_cmd->redir);
+
+	if (sc->is_built_in) 
+	{
+		//execute_built_in()
+	}
+	else 
+	{
+		if (execute_execve(sc->cmd, sc->env) == FAIL)
+			return (FAIL);
+	}
+	return (SUCCESS);
 }
 
-void	ex_simple_command(t_simple_command *simple_command) // TODO add the redirect functionality
-{
-	if (simple_command->cmd->type == COMMAND)
-		execute(simple_command->cmd);
-	// int n;
-	// int fd;
+// int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
+// {
+	// int i;
+	// int j;
 
-	// n = -1;
-	// while (redir_in->files[++n])
+	// i = -1;
+	// j = -1;
+	// while (andor->arr_nodes[++i] != NULL)
 	// {
-	// 	fd = open(redir_in->files[n], O_RDONLY);
-	// 	if (fd < 0)
+	// 	if (andor->operators[++j] == AND) // ! separated index for operator?
 	// 	{
-	// 		perror("open"); // TODO change error message to match BASH error msg
-	// 		return ;
+	// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+	// 		{
+	// 			continue;
+	// 		}
+	// 		else // FAILURE
+	// 		{
+	// 			i++; // skip next node
+	// 		}
 	// 	}
-	// 	close(fd);
+	// 	else if (andor->operators[i] == OR)
+	// 	{
+	// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+	// 		{
+	// 			i++;
+	// 		}
+	// 		else // FAILURE
+	// 		{
+	// 			continue; // skip next node
+	// 		}
+	// 	}
 	// }
-}
+// }
 
-void	ex_pipe(t_pipe *pipe)
+int execute_subshell(t_subshell *subshell)
 {
 	pid_t pid;
-	int n;
-
-	n = -1;
-	while (++n < pipe->n_nodes)
+	
+	pid = fork();
+	if (pid == -1)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			coupling(pipe, n);
-			close_pipes(pipe);
-			execute(pipe->arr_nodes[n]);
-		}
+		// error handling
 	}
+	else if (pid == 0) // * CHILD
+	{
+		if (execute(subshell->node) == FAIL)
+			return (FAIL);
+	}
+	// else if (pid > 0)
+	// {
+	 	// waitpid(0, NULL, 0); // ! need to wait?
+	// }
+	return (SUCCESS);
 }
+
+
+// return SUCCESS/FAILURE to tell execute_and_or()
+int execute(t_node *node)
+{
+    // if (node->type == AND_OR)
+        // if (execute_and_or(node->and_or) == SUCCESS)
+		// 	return (SUCCESS);
+    if (node->type == SUBSHELL)
+	{
+        if (execute_subshell(node->subshell) == SUCCESS)
+			return (SUCCESS);
+	}
+    // else if (node->type == PIPE)
+    //     if (execute_pipe(node->pipe) == SUCCESS)
+	// 		return (SUCCESS);
+	else if (node->type == SIMPLE_COMMAND)
+	{
+		if (execute_simple_cmd(node->simple_command) == SUCCESS)
+			return (SUCCESS);
+	}
+	
+	return (FAIL);
+}
+
+// idea to handle exit status
+// int execute(t_node *node, int *final_exit_status)
+// {
+		
+//     // if (node->type == AND_OR)
+//         // if (execute_and_or(node->and_or) == SUCCESS)
+// 		// 	return (SUCCESS);
+//   if (node->type == SUBSHELL)
+// 	{
+// 		  *final_exit_status = execute_subshell(node->subshell);
+//       if (*final_exit_status == SUCCESS)
+// 				return (SUCCESS);
+// 	}
+//     // else if (node->type == PIPE)
+//     //     if (execute_pipe(node->pipe) == SUCCESS)
+// 	// 		return (SUCCESS);
+// 	else if (node->type == SIMPLE_COMMAND)
+// 	{
+// 			*final_exit_status = execute_simple_cmd(node->simple_command);
+// 	    if (*final_exit_status == SUCCESS)
+// 				 return (SUCCESS);
+// 	}
+	
+// 	return (*final_exit_status);
+// }

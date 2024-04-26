@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/26 08:59:44 by sting            ###   ########.fr       */
+/*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/04/26 10:12:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ex_pipe(t_pipe *pipe)
+void	perror_and_exit(char *str, int exit_code)
 {
-	pid_t pid;
-	int n;
+	perror(str);
+	exit(exit_code);
+}
 
-	n = -1;
-	while (++n < pipe->n_nodes)
+void	free_split(char **split)
+{
+	char	**head;
+
+	if (!split)
+		return ;
+	head = split;
+	while (*head != NULL)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			coupling(pipe, n);
-			close_pipes(pipe);
-			execute(pipe->arr_nodes[n]);
-		}
+		free(*head);
+		head++;
 	}
+	free(split);
+}
+
+
+void output_token_error(char *str)
+{
+	ft_putstr_fd("syntax error near unexpected token '", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("'", 2);
 }

@@ -11,13 +11,15 @@ ORANGE = \033[0;38;5;166m
 # SRCS
 SRCDIR = srcs/
 SRCS_FIL = \
+			main_w_readline.c \
 			create/create_node.c \
 			create/piping.c \
-			execute/execute_draft.c \
+			execute/execute.c \
 			execute/execute_execve.c \
-			main_w_readline.c \
+			execute/env.c \
 			free.c \
-			# builtins.c \
+			utils/utils1.c \
+			# builtins.c 
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
