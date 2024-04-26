@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 09:58:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/26 13:30:13 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,10 @@ int execute_simple_cmd(t_simple_command *sc)
 	if (sc->is_built_in) 
 	{
 		//execute_built_in()
+		return (SUCCESS); // ! temporary here
 	}
 	else 
-	{
-		if (execute_execve(sc->cmd, sc->env) == FAIL)
-			return (FAIL);
-	}
-	return (SUCCESS);
+		return(execute_execve(sc->cmd, sc->env));
 }
 
 // int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
@@ -126,8 +123,7 @@ int execute_subshell(t_subshell *subshell)
 	return (SUCCESS);
 }
 
-
-// return SUCCESS/FAILURE to tell execute_and_or()
+// return value is exit code
 int execute(t_node *node)
 {
     // if (node->type == AND_OR)
@@ -135,19 +131,17 @@ int execute(t_node *node)
 		// 	return (SUCCESS);
     if (node->type == SUBSHELL)
 	{
-        if (execute_subshell(node->subshell) == SUCCESS)
-			return (SUCCESS);
+        return(execute_subshell(node->subshell) == SUCCESS);
 	}
     // else if (node->type == PIPE)
     //     if (execute_pipe(node->pipe) == SUCCESS)
 	// 		return (SUCCESS);
 	else if (node->type == SIMPLE_COMMAND)
 	{
-		if (execute_simple_cmd(node->simple_command) == SUCCESS)
-			return (SUCCESS);
+		return(execute_simple_cmd(node->simple_command) == SUCCESS);
 	}
-	
-	return (FAIL);
+	else
+		return (FAIL);
 }
 
 // idea to handle exit status
@@ -172,6 +166,5 @@ int execute(t_node *node)
 // 	    if (*final_exit_status == SUCCESS)
 // 				 return (SUCCESS);
 // 	}
-	
 // 	return (*final_exit_status);
 // }

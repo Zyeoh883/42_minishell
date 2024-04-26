@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 09:58:12 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/26 13:09:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,12 @@ int	execute_execve(char **cmd_arg, char **env)
 	pid_t pid;
 
 	PATH = ft_split(getenv("PATH"), ':');
+	if (PATH == NULL)
+		perror_and_exit("ft_split", 1);
 	cmd_lst = get_exec(PATH, *cmd_arg);
-
 	pid = fork(); // fork
 	if (pid < 0)
-	{
-		// error handling
-		return (FAIL);
-	}
+		perror_and_exit("fork", 1);
 	else if (pid == 0) // Child
 	{
 		if (execve(cmd_lst, cmd_arg, env) == -1)
@@ -78,7 +76,5 @@ int	execute_execve(char **cmd_arg, char **env)
 		}
 	}
 	// Parent
-	if (waitpid_n_get_exit_status(pid) == 0)
-		return (SUCCESS);    
-	return (FAIL); // return Exit status?                                                
+	return (waitpid_n_get_exit_status(pid)); // ! return Exit status?                                                
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 10:37:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/26 13:31:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int main(int argc, char **argv, char **env)
 	// TODO create linked_list for env
 
 	env_var = convert_env_to_linked_list(env);
-	print_env_var(env_var);
-	
-	
-	
+
 	while (1)
 	{
 		input = readline("minishell$ ");	
