@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/25 14:34:00 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/28 02:30:54 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	pid_t	pid;
-	char	**cmd;
+	// pid_t	pid;
+	// char	**cmd;
 	char	*input;
 	char	**my_env;
 
@@ -68,22 +68,22 @@ int main(int argc, char **argv, char **env)
 	{
 		input = handle_readline();
 		tokenize(input);
-		cmd = ft_split(input, ' ');
-		t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
+		// cmd = ft_split(input, ' ');
+		// t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
 
-		pid = fork(); // fork for each execution
-		if (pid == 0)
-		{
-			(void)node;
-			exit(0);
-			// execute(node);
-		}
-		else
-		{
-			free_split(cmd);
-			free(input);
-			waitpid(pid, NULL, 0);
-		}
+		// pid = fork(); // fork for each execution
+		// if (pid == 0)
+		// {
+		// 	(void)node;
+		// 	exit(0);
+		// 	// execute(node);
+		// }
+		// else
+		// {
+		// 	free_split(cmd);
+		// 	free(input);
+		// 	waitpid(pid, NULL, 0);
+		// }
 	}
 	free_str_arr(my_env);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/27 21:36:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/28 03:27:50 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token *token)
 	write(1, "\n", 1);
 	while (token)
 	{
-		printf("Token: '%s'\n", token->value);
+		printf("Token:  %s,  open = %d\n", token->value, token->open_quote);
 		token = token->next;
 	}
 	write(1, "\n", 1);

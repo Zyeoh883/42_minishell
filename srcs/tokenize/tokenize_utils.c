@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/27 21:35:01 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/28 03:24:32 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,25 @@ t_token	*token_last_nonspace(t_token *token)
 	return (token);
 }
 
+void token_remove(t_token *token)
+{
+	t_token *prev;
+	t_token *next;
+	
+	if (!token)
+		return;
+	prev = token->prev;
+	next = token->next;
+	free(token->value);
+	free(token);
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+}
+
 int	token_combine_wnext(t_token *token)
 {
-	t_token *head;
 	char *new_value;
 
 	if (!token || !token->next)
@@ -85,11 +101,6 @@ int	token_combine_wnext(t_token *token)
 		return (0);
 	free(token->value);
 	token->value = new_value;
-	head = token->next->next;
-	free(token->next->value);
-	free(token->next);
-	token->next = head;
-	if (head)
-		head->prev = token;
+	token_remove(token->next);
 	return (1);
 }

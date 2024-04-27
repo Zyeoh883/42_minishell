@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/27 21:22:07 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/28 03:41:59 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_valid_token(t_token *token) // TODO test this more
 	int is_meta;
 	int n;
 
-	if (!token || is_in_quote_tokens(token) || *token->value != ' ')	// end of tokens, is in quotes, is a whitespace == valid
+	if (!token || token->open_end == 1)	// end of tokens, is in quotes, is a whitespace == valid
 		return (1);
 	is_meta = is_metacharacter(*token->value);
 	set_isvalid_function_array(is_meta, isvalid_function_array);

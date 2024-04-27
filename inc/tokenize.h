@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/27 21:36:47 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/28 03:41:33 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct s_token
 {
 	char			*value;
-	int				open_quote;
+	int				open_end;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
@@ -41,6 +41,7 @@ int					is_metacharacter(char c);
 int					is_in_quote_tokens(t_token *token);
 t_token				*token_last(t_token *token);
 t_token				*token_last_nonspace(t_token *token);
+void token_remove(t_token *token);
 
 int					token_combine_wnext(t_token *token);
 
