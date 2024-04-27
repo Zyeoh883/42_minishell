@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 22:19:06 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/27 16:54:40 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_in_quote_tokens(t_token *token)
 	return (0);
 }
 
-int	is_valid_multi_meta(t_token *token)
+int	is_valid_multi_meta(t_token *token) // validates consecutive metachar
 {
 	char	*value;
 
@@ -47,4 +47,5 @@ int	is_valid_multi_meta(t_token *token)
 	{
 		
 	}
+	return (1);
 }

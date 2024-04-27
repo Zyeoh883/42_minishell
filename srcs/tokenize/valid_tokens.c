@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 19:27:18 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/27 21:22:07 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	set_isvalid_function_array(int is_meta,
 	if (is_meta)
 	{
 		isvalid_function_array[0] = is_in_quote_tokens;
-		isvalid_function_array[1] = is_metacharacter;
-		isvalid_function_array[2] = NULL;
+		// isvalid_function_array[1] = is_metacharacter;
+		isvalid_function_array[1] = NULL;
 	}
 	else
 	{

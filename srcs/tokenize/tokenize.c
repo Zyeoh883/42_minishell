@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/26 00:27:07 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/27 21:36:30 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token *token)
 	write(1, "\n", 1);
 	while (token)
 	{
-		printf("Token: '%s' | type: %d\n", token->value, token->type);
+		printf("Token: '%s'\n", token->value);
 		token = token->next;
 	}
 	write(1, "\n", 1);
@@ -74,10 +74,12 @@ t_token	*tokenize(char *line)
 		return (NULL);
 	token_root = tokenize_metacharacters(line);
 	print_tokens(token_root);
-	if (is_valid_token(token_root->next->next->next->next->next->next)) //index 6
-		printf("%s in quote\n", token_root->next->next->next->next->next->next->value);
-	else
-		printf("%s not in quote\n", token_root->next->next->next->next->next->next->value);
+	format_tokens(token_root);
+	print_tokens(token_root);
+	// if (is_valid_token(token_root->next->next->next->next->next->next)) //index 6
+	// 	printf("%s in quote\n", token_root->next->next->next->next->next->next->value);
+	// else
+	// 	printf("%s not in quote\n", token_root->next->next->next->next->next->next->value);
 	free_tokens(token_root);
 	return (NULL);
 }
