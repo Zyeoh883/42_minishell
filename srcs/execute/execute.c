@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 13:30:13 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:27:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,29 @@ int setup_redir(t_redir	*redir)
 
 int execute_simple_cmd(t_simple_command *sc)
 {
-	// setup_redir(simple_cmd->redir);
+	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 
-	if (sc->is_built_in) 
+	char **my_env = NULL;
+
+	// my_env = convert_env_lst_to_array(sc->env_lst); // TODO
+
+	// TODO: Handle QUOTEs & EXPANSION
+	
+	
+	if (sc->cmd == NULL) // no cmd at all
+		return (SUCCESS);
+	else if (sc->is_built_in) 
 	{
-		//execute_built_in()
+		//execute_built_in(sc->env_lst)
 		return (SUCCESS); // ! temporary here
 	}
 	else 
-		return(execute_execve(sc->cmd, sc->env));
+		return(execute_execve(sc->cmd, my_env));
 }
-
+/* 
+* if (execute() > 0) => FAIL
+* if (execute() == 0) => SUCCESS
+*/
 // int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
 // {
 	// int i;
@@ -112,10 +124,7 @@ int execute_subshell(t_subshell *subshell)
 		// error handling
 	}
 	else if (pid == 0) // * CHILD
-	{
-		if (execute(subshell->node) == FAIL)
-			return (FAIL);
-	}
+		return(execute(subshell->node));
 	// else if (pid > 0)
 	// {
 	 	// waitpid(0, NULL, 0); // ! need to wait?
@@ -130,17 +139,13 @@ int execute(t_node *node)
         // if (execute_and_or(node->and_or) == SUCCESS)
 		// 	return (SUCCESS);
     if (node->type == SUBSHELL)
-	{
-        return(execute_subshell(node->subshell) == SUCCESS);
-	}
+        return(execute_subshell(node->subshell));
     // else if (node->type == PIPE)
     //     if (execute_pipe(node->pipe) == SUCCESS)
 	// 		return (SUCCESS);
 	else if (node->type == SIMPLE_COMMAND)
-	{
-		return(execute_simple_cmd(node->simple_command) == SUCCESS);
-	}
-	else
+		return(execute_simple_cmd(node->simple_command));
+	else // INVALID NODE TYPE
 		return (FAIL);
 }
 

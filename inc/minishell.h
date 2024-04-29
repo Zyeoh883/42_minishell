@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/26 10:28:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:25:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+// MACROS
 # define SUCCESS 0
 # define FAIL 1
 # define AND 0
 # define OR 1
+# define OFF 0
+# define ON 1
 
 // EXIT CODES
 # define ERROR_CMD_NOT_FOUND 127
@@ -32,18 +36,22 @@
 # define SIGNALINT 130
 
 t_node	*create_node(t_nodetype type);
-t_node	*create_simple_command(char **env, char **cmd);
+t_node	*create_simple_command(t_env_var *env_lst, char **cmd);
 
-t_env_var	*convert_env_to_linked_list(char **env);
 
-// execute
+
+// * EXECUTION
 int		execute_execve(char **cmd_arg, char **env);
 int		execute(t_node *node);
+
+// ENV
+char	*my_getenv(const char *name, char **my_env);
+t_env_var	*convert_env_to_linked_list(char **env);
 
 // BUILT-INS
 // void	execute_env(char **my_env);
 
-// piping
+// * PIPES
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
 int		build_pipes(t_pipe *pipe_node);

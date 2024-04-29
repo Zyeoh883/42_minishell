@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 13:31:33 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:29:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,9 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	char	*input;
-	char	**my_env;
+	t_env_var	*env_lst; // linked list
 
-	t_env_var	*env_var; // linked list
-
-	// TODO create linked_list for env
-
-	env_var = convert_env_to_linked_list(env);
+	env_lst = convert_env_to_linked_list(env);
 
 	while (1)
 	{
@@ -65,12 +61,12 @@ int main(int argc, char **argv, char **env)
 			free(input);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_simple_command(env, ft_split(input, ' '));
+		t_node	*node = create_simple_command(env_lst, ft_split(input, ' '));
 
 
-		execute(node);
+		execute(node); 
 		// ^error check?
 	}
 	
-	free_str_arr(my_env);
+	// free
 }

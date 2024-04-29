@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 14:16:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/29 11:35:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_node	*create_node(t_nodetype type)
 // 	return (node);
 // }
 
-t_node	*create_simple_command(char **env, char **cmd)
+t_node	*create_simple_command(t_env_var *env_lst, char **cmd)
 {
 	t_node	*node;
 
@@ -60,7 +60,7 @@ t_node	*create_simple_command(char **env, char **cmd)
 		exit(125);
 	}
 	node->simple_command->cmd = cmd;
-	node->simple_command->env = env;
+	node->simple_command->env_lst = env_lst;
 	return (node);
 }
 

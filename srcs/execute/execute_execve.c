@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/26 13:09:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:32:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,33 @@ char	*get_exec(char **cmd_path, char *cmd)
 int waitpid_n_get_exit_status(pid_t pid)
 {
 	int status;
-	int exit_status;
 	
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-	{
-		exit_status = WEXITSTATUS(status);
-		if (exit_status == 0)
-			return (0);
-		return (exit_status);
-	}
+		return (WEXITSTATUS(status)); // return exit status
 	else
 	{
-	 	// Child process terminated due to a signal (handle this case)
+	 	// TODO: Child process terminated due to a signal (handle this case)
 		return (SIGNALINT);
 	}
 }
 
-int	execute_execve(char **cmd_arg, char **env)
+int	execute_execve(char **cmd_arg, char **my_env)
 {
 	char **PATH;
-	char *cmd_lst;
+	char *exec_path;
 	pid_t pid;
-
-	PATH = ft_split(getenv("PATH"), ':');
+	
+	PATH = ft_split(my_getenv("PATH", my_env), ':');
 	if (PATH == NULL)
 		perror_and_exit("ft_split", 1);
-	cmd_lst = get_exec(PATH, *cmd_arg);
+	exec_path = get_exec(PATH, *cmd_arg);
 	pid = fork(); // fork
 	if (pid < 0)
 		perror_and_exit("fork", 1);
 	else if (pid == 0) // Child
 	{
-		if (execve(cmd_lst, cmd_arg, env) == -1)
+		if (execve(exec_path, cmd_arg, my_env) == -1)
 		// ? Might free local before var before exit
 		{
 			ft_putstr_fd(*cmd_arg, 2);
