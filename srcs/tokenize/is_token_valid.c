@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 22:49:50 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/29 23:37:13 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,33 @@ int	is_valid_redir_file(t_token *token)
 	if (2 < token->type && token->type < 12)
 	{
 		output_token_error(token->value);
+		return (0);
+	}
+	return (1);
+}
+
+int	is_valid_edgecase_digit_redir(t_token *token)
+{
+	t_token	*next;
+	int		all_digits;
+	int		n;
+
+	if (!token || !token->next)
+		return (1);
+	all_digits = 1;
+	n = -1;
+	while (token->value[++n])
+	{
+		if (!ft_isdigit(token->value[n]))
+			all_digits = 0;
+	}
+	next = token->next;
+	if (all_digits && REDIR_OUT <= next->type && next->type <= REDIR_HEREDOC)
+	{
+		if (ft_atol(token->value) > INT_MAX || ft_strlen(token->value) > 10)
+			output_token_error("-1");
+		else
+			output_token_error(token->value);
 		return (0);
 	}
 	return (1);

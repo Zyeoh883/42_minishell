@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/25 02:08:57 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/29 23:26:11 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		build_pipes(t_pipe *pipe_node);
 // utils
 void	perror_and_exit(char *str, int exit_code);
 void	free_split(char **split);
+long	ft_atol(const char *str);
 
 // error_messages
 void	output_token_error(char *str);

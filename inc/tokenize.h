@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 17:36:40 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/29 23:12:45 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int					is_metacharacter(char c);
 int					is_in_quote_tokens(t_token *token);
 int					is_valid_multi_operand(t_token *token);
 int					is_valid_redir_file(t_token *token);
+int					is_valid_edgecase_digit_redir(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);
