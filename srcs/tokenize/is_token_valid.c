@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 23:37:13 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 01:37:27 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,17 @@ int	is_valid_redir_file(t_token *token)
 
 int	is_valid_edgecase_digit_redir(t_token *token)
 {
-	t_token	*next;
-	int		all_digits;
-	int		n;
+	int	n;
 
 	if (!token || !token->next)
 		return (1);
-	all_digits = 1;
 	n = -1;
 	while (token->value[++n])
 	{
 		if (!ft_isdigit(token->value[n]))
-			all_digits = 0;
+			return (1);
 	}
-	next = token->next;
-	if (all_digits && REDIR_OUT <= next->type && next->type <= REDIR_HEREDOC)
+	if (REDIR_OUT <= token->next->type && token->next->type <= REDIR_HEREDOC)
 	{
 		if (ft_atol(token->value) > INT_MAX || ft_strlen(token->value) > 10)
 			output_token_error("-1");
@@ -88,3 +84,55 @@ int	is_valid_edgecase_digit_redir(t_token *token)
 	}
 	return (1);
 }
+
+int	is_valid_closed_parenthesis(t_token *token)
+{
+	int closed_count;
+
+	if (!token || token->type != CLOSED_PARENT)
+		return (1);
+	if (!token->prev)
+		return (0);
+	token = token->prev;
+	closed_count = 1;
+	while (token && closed_count > 0)
+	{
+		if (token->type == OPEN_PARENT)
+			closed_count--;
+		else if (token->type == CLOSED_PARENT)
+			closed_count++;
+		token = token->prev;
+	}
+	if (closed_count > 0)
+	{
+		output_token_error(")");
+		return (0);
+	}
+	return (1);
+}
+
+// int	is_valid_open_parenthesis(t_token *token)
+// {
+// 	int open_count;
+
+// 	if (!token || token->type != CLOSED_PARENT)
+// 		return (1);
+// 	if (!token->prev)
+// 		return (0);
+// 	token = token->prev;
+// 	closed_count = 1;
+// 	while (token && closed_count > 0)
+// 	{
+// 		if (token->type == OPEN_PARENT)
+// 			closed_count--;
+// 		else if (token->type == CLOSED_PARENT)
+// 			closed_count++;
+// 		token = token->prev;
+// 	}
+// 	if (closed_count > 0)
+// 	{
+// 		output_token_error(")");
+// 		return (0);
+// 	}
+// 	return (1);
+// }

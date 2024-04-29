@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 23:12:45 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 01:18:43 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define AND 8
 # define OR 9
 # define OPEN_PARENT 10
-# define CLOSE_PARENT 11
+# define CLOSED_PARENT 11
 
 typedef struct s_token
 {
@@ -62,6 +62,7 @@ int					is_in_quote_tokens(t_token *token);
 int					is_valid_multi_operand(t_token *token);
 int					is_valid_redir_file(t_token *token);
 int					is_valid_edgecase_digit_redir(t_token *token);
+int					is_valid_closed_parenthesis(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);
