@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   format_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/28 03:50:29 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/29 17:16:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void format_quotes(t_token *token)
+void	format_quotes(t_token *token)
 {
-	char quote;
+	char	quote;
 
 	while (token)
 	{
@@ -31,30 +31,62 @@ void format_quotes(t_token *token)
 	}
 }
 
-void format_parenthesis(t_token *token)  // TODO Fix order of enclosure
+void	format_whitespace(t_token *token)
 {
-	while (token)
+	while (token && token->next)
 	{
-		if (*token->value == '(')
+		if (token->type == SPACE)
 		{
-			while (token->next && *token->next->value != ')' && *token->next->value != '(')
-				token_combine_wnext(token);
-			if (!token->next)
-				token->open_end = 1;
-			token_combine_wnext(token);
+			while (token->next && token->next->type == SPACE)
+				token_remove(token->next);
 		}
 		token = token->next;
 	}
 }
 
-void format_whitespace(t_token *token)
+void	label_tokens(t_token *token)
 {
 	while (token)
 	{
-		if (ft_strchr(" ", *token->value))
+		if (is_metacharacter(*token->value))
 		{
-			while (token->next && *token->next->value == ' ')
-				token_remove(token->next);
+			if (*token->value == '>')
+				token->type = REDIR_OUT;
+			else if (*token->value == '<')
+				token->type = REDIR_IN;
+			else if (*token->value == '|')
+				token->type = PIPE;
+			else if (*token->value == '&')
+				token->type = AMPERSAND;
+			else if (*token->value == ' ')
+				token->type = SPACE;
+			else if (*token->value == '(')
+				token->type = OPEN_PARENT;
+			else if (*token->value == ')')
+				token->type = CLOSE_PARENT;
+		}
+		token = token->next;
+	}
+}
+
+void	format_operands(t_token *token)
+{
+	while (token && token->next)
+	{
+		if (0 < token->type && token->type < 7)
+		{
+			if (token->type == token->next->type)
+			{
+				token_combine_wnext(token);
+				if (token->type == REDIR_OUT)
+					token->type = REDIR_APPEND;
+				else if (token->type == REDIR_IN)
+					token->type = REDIR_HEREDOC;
+				else if (token->type == PIPE)
+					token->type = OR;
+				else if (token->type == AMPERSAND)
+					token->type = AND;
+			}
 		}
 		token = token->next;
 	}
@@ -66,7 +98,26 @@ void	format_tokens(t_token *token_root)
 
 	token = token_root;
 	format_quotes(token);
+	label_tokens(token);
 	format_whitespace(token);
-	// format_parenthesis(token); // TODO figure when to call this, token validator works for tokens only
-	printf("\n\n");
+	format_operands(token);
 }
+
+// format_parenthesis(token); // TODO figure when to call this,
+
+// void format_parenthesis(t_token *token)  // TODO Fix order of enclosure
+// {
+// 	while (token)
+// 	{
+// 		if (*token->value == '(')
+// 		{
+// 			while (token->next
+// && *token->next->value != ')'&& *token->next->value != '(')
+// 				token_combine_wnext(token);
+// 			if (!token->next)
+// 				token->open_end = 1;
+// 			token_combine_wnext(token);
+// 		}
+// 		token = token->next;
+// 	}
+// }

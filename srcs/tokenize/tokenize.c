@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/28 03:27:50 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/29 17:15:23 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token *token)
 	write(1, "\n", 1);
 	while (token)
 	{
-		printf("Token:  %s,  open = %d\n", token->value, token->open_quote);
+		printf("Token:  %-10s, type = %d, open = %d\n", token->value, token->type, token->open_end);
 		token = token->next;
 	}
 	write(1, "\n", 1);
@@ -66,6 +66,20 @@ t_token	*tokenize_metacharacters(char *str)
 	return (token_root);
 }
 
+int validate_tokens(t_token *token_root)
+{
+	t_token *token;
+
+	token = token_root;
+	while (token)
+	{
+		if (!is_valid_token(token))
+			return (0);
+		token = token->next;
+	}
+	return (1);
+}
+
 t_token	*tokenize(char *line)
 {
 	t_token	*token_root;
@@ -76,10 +90,7 @@ t_token	*tokenize(char *line)
 	print_tokens(token_root);
 	format_tokens(token_root);
 	print_tokens(token_root);
-	// if (is_valid_token(token_root->next->next->next->next->next->next)) //index 6
-	// 	printf("%s in quote\n", token_root->next->next->next->next->next->next->value);
-	// else
-	// 	printf("%s not in quote\n", token_root->next->next->next->next->next->next->value);
+	validate_tokens(token_root);
 	free_tokens(token_root);
 	return (NULL);
 }
