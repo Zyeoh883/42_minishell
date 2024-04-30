@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/04/29 16:50:16 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:56:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,25 @@ char *expand_var(char *str, char **my_env)
 	int i;
 	char *result;
 	char *value;
+	char *substr;
 
 	if (ft_strchr(str, '$') == NULL)
 		return (str); // no $ found, return str
 	i = -1;
-	while (str[++i])
+	while (str[++i]) // find index of $
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '\0') 
 		{
 			// store value
 			value = my_getenv(&str[i + 1], my_env);
 			if (value == NULL)
 				value = ""; // ! if var not found in my_env, expand to ""
+			break ;
 		}
-		
 	}
-	
-	// result = strjoin(str before $, value);
+	substr = ft_substr(str, 0, i);
+	result = ft_strjoin(substr, value);
+	free(substr);
 	free(str);
 	return (result);
 }

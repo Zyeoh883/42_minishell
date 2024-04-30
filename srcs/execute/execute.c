@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/30 16:08:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:12:53 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,7 @@ int execute_simple_cmd(t_simple_command *sc)
 	char **my_env;
 	int ret;
 
-	my_env = convert_env_lst_to_array(sc->env_lst); // TODO
-	// for (int i = 0; my_env[i] != NULL; i++)
-	// {
-	// 	printf("%s\n",my_env[i]);
-	// }	 
+	my_env = convert_env_lst_to_array(sc->env_lst);
 	// TODO: Handle QUOTEs & EXPANSION
 	
 	ret = SUCCESS;
