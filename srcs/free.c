@@ -25,3 +25,16 @@ void	free_str_arr(char **str_arr)
 	}
 	free(str_arr);
 }
+
+void free_env_lst(t_env_var *list)
+{
+	t_env_var	*next;
+
+	while (list != NULL)
+	{
+		next = list->next;
+		free(list->str);
+		free(list);
+		list = next;
+	}
+}

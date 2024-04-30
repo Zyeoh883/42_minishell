@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 16:25:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 15:53:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		execute(t_node *node);
 // ENV
 char	*my_getenv(const char *name, char **my_env);
 t_env_var	*convert_env_to_linked_list(char **env);
+char	**convert_env_lst_to_array(t_env_var *env_list);
 
 // BUILT-INS
 // void	execute_env(char **my_env);
@@ -58,6 +59,7 @@ int		build_pipes(t_pipe *pipe_node);
 
 // free
 void	free_str_arr(char **str_arr);
+void free_env_lst(t_env_var *list);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);

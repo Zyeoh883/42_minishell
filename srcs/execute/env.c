@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/04/29 16:30:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:07:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,50 @@ t_env_var	*convert_env_to_linked_list(char **env)
 	}
 	return (head);
 }
+/*
+* TAKE NOTE
+	- strings stored in returned array share the same memory as strings stored in env_lst 
+*/
+char	**convert_env_lst_to_array(t_env_var *env_list)
+{
+    // Count the number of nodes in the linked list
+    int count;
+	int i;
+	char **my_env;
+    t_env_var *current;
+	
+	count = 0;
+	current = env_list;
+    while (current != NULL) // ft_lstsize
+	{
+        count++;
+        current = current->next;
+    }
+    // Allocate memory for the char ** array
+    my_env = (char **)malloc((count + 1) * sizeof(char *));
+    if (my_env == NULL)
+		perror_and_exit("malloc", EXIT_FAILURE);
+    // Copy each environment variable string into the array
+    current = env_list;
+    i = 0;
+    while (current != NULL) 
+	{
+        my_env[i] = current->str;
+        current = current->next;
+        i++;
+    }
+    // Set the last element of the array to NULL to indicate the end
+    my_env[count] = NULL;
+    return (my_env);
+}
 
 char *my_getenv(const char *name, char **my_env) 
 {
 	char *equal_sign;
-	
-    while (*my_env != NULL) 
+
+	if (my_env == NULL)
+		return (NULL);
+	while (*my_env != NULL) 
 	{
         // Find the position of '=' in the current environment variable
         equal_sign = ft_strchr(*my_env, '=');
@@ -85,13 +123,13 @@ char *my_getenv(const char *name, char **my_env)
             // Compare the name of the environment variable with the given name
             if (ft_strncmp(*my_env, name, equal_sign - *my_env) == 0) {
                 // Return a pointer to the value part of the environment variable
-                return equal_sign + 1;
+                return (equal_sign + 1);
             }
         }
         my_env++;
     }
     // Environment variable not found
-    return NULL;
+    return (NULL);
 }
 
 // void print_env_var(t_env_var *env_list) {

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/29 16:27:22 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:08:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,28 @@ int execute_simple_cmd(t_simple_command *sc)
 {
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 
-	char **my_env = NULL;
+	char **my_env;
+	int ret;
 
-	// my_env = convert_env_lst_to_array(sc->env_lst); // TODO
-
+	my_env = convert_env_lst_to_array(sc->env_lst); // TODO
+	// for (int i = 0; my_env[i] != NULL; i++)
+	// {
+	// 	printf("%s\n",my_env[i]);
+	// }	 
 	// TODO: Handle QUOTEs & EXPANSION
 	
-	
+	ret = SUCCESS;
 	if (sc->cmd == NULL) // no cmd at all
 		return (SUCCESS);
 	else if (sc->is_built_in) 
 	{
-		//execute_built_in(sc->env_lst)
+		//ret = execute_built_in(sc->env_lst) // free my_env in this func
 		return (SUCCESS); // ! temporary here
 	}
 	else 
-		return(execute_execve(sc->cmd, my_env));
+		ret = execute_execve(sc->cmd, my_env); // my_env is freed in this func
+	free(my_env);
+	return(ret);
 }
 /* 
 * if (execute() > 0) => FAIL

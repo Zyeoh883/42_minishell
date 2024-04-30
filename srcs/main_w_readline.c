@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/29 16:29:33 by sting            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:09:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,29 @@ int main(int argc, char **argv, char **env)
 	t_env_var	*env_lst; // linked list
 
 	env_lst = convert_env_to_linked_list(env);
-
 	while (1)
 	{
 		input = readline("minishell$ ");	
 		if (input == NULL)
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
+			perror_and_exit("readline", EXIT_FAILURE);
 		add_history(input); // working history
 		if (ft_strncmp("exit", input, 5) == 0)
 		{
 			free(input);
+			free_env_lst(env_lst);
 			exit(EXIT_SUCCESS);
 		}
-		t_node	*node = create_simple_command(env_lst, ft_split(input, ' '));
-
-
+		char **input_arr = ft_split(input, ' ');
+		t_node	*node = create_simple_command(env_lst, input_arr);
 		execute(node); 
 		// ^error check?
+		
+		free_str_arr(input_arr);
+		free(input);
+		free(node->simple_command); // tmp
+		free(node); // tmp
+
 	}
-	
-	// free
+	free_env_lst(env_lst); // ? needed?
+
 }
