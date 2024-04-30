@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_token_valid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 01:37:27 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:02:17 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ int	is_valid_closed_parenthesis(t_token *token)
 	if (!token || token->type != CLOSED_PARENT)
 		return (1);
 	if (!token->prev)
+	{
+		output_token_error(")");
 		return (0);
+	}
 	token = token->prev;
 	closed_count = 1;
 	while (token && closed_count > 0)
@@ -111,6 +114,59 @@ int	is_valid_closed_parenthesis(t_token *token)
 	return (1);
 }
 
+int is_valid_parenthesis_content(t_token *token)
+{
+	if (!token || token->type != CLOSED_PARENT)
+		return (1);
+	if (!token->prev)
+	{
+		output_token_error(")");
+		return (0);
+	}
+	token = token->prev;
+	while (token && token->type != OPEN_PARENT)
+	{
+		if (token->type == CLOSED_PARENT || token->type == WORDS)
+			return (1);
+		token = token->prev;
+	}
+	output_token_error(")");
+	return (0);
+}
+
+int is_valid_parenthesis_position(t_token *token)
+{
+	if (!token || token->type != OPEN_PARENT || !token->prev)
+		return (1);
+	token = token->prev;
+	while(token)
+	{
+		if (token->type == WORDS || (REDIR_OUT <= token->type && token->type <= REDIR_HEREDOC))
+		{
+			output_token_error("(");
+			return (0);
+		}
+		token = token->prev;
+	}
+	return (1);
+}
+
+int is_valid_operand_position(t_token *token)
+{
+	t_token *head;
+	
+	if (!token || !(PIPE <= token->type && token->type <= OR))
+		return (1);
+	head = token->prev;
+	while (head && head->type == SPACE)
+		head = head->prev;
+	if (!head)
+	{
+		output_token_error(token->value);
+		return (0);
+	}
+	return(1);
+}
 // int	is_valid_open_parenthesis(t_token *token)
 // {
 // 	int open_count;

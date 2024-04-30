@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 01:18:43 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:00:41 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ int					is_valid_multi_operand(t_token *token);
 int					is_valid_redir_file(t_token *token);
 int					is_valid_edgecase_digit_redir(t_token *token);
 int					is_valid_closed_parenthesis(t_token *token);
+int is_valid_parenthesis_content(t_token *token);
+int is_valid_parenthesis_position(t_token *token);
+int is_valid_operand_position(t_token *token)
+;
 
 // validation utils
 int					is_file_token(t_token *token);

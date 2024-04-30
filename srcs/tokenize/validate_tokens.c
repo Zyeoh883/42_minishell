@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 01:18:58 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:01:12 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	set_isvalid_function_array(int is_meta,
 	{
 		isvalid_function_array[1] = is_valid_multi_operand;
 		isvalid_function_array[2] = is_valid_closed_parenthesis;
+		isvalid_function_array[3] = is_valid_parenthesis_content;
+		isvalid_function_array[4] = is_valid_parenthesis_position;
+		isvalid_function_array[5] = is_valid_operand_position;
 	}
 	else
 	{
