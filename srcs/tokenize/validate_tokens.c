@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 16:05:00 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 17:11:30 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_isvalid_function_array(int is_meta,
 		int (*isvalid_function_array[10])(t_token *))
 		// TODO complete is_valid functions
 {
-	ft_bzero(isvalid_function_array, sizeof(int *) * 7);
+	ft_bzero(isvalid_function_array, sizeof(int *) * 10);
 	isvalid_function_array[0] = is_valid_redir_file;
 	if (is_meta)
 	{
@@ -49,6 +49,7 @@ int	is_valid_token(t_token *token) // TODO test this more
 		if (!isvalid_function_array[n](token))
 		{
 			printf("is_meta %d failed at function %d\n", is_meta, n);
+			print_tokens(token);
 			return (0);
 		}
 	}

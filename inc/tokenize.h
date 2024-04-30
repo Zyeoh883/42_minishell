@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 16:51:20 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 17:11:18 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_token				*new_token(char *value);
 t_token				*token_last(t_token *token);
 t_token				*token_last_nonspace(t_token *token);
 void				token_remove(t_token *token);
+void	print_tokens(t_token *token);
 
 int					token_combine_wnext(t_token *token);
 
@@ -76,6 +77,6 @@ int					is_file_token(t_token *token);
 // random BS
 int					is_valid_token(t_token *token);
 void				set_isvalid_function_array(int is_meta,
-						int (*isvalid_function_array[7])(t_token *));
+						int (*isvalid_function_array[10])(t_token *));
 
 #endif
