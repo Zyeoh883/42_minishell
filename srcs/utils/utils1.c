@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 23:37:06 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:50:46 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ int	is_metacharacter(char c)
 		if (c == *metacharacters)
 			return (1);
 		metacharacters++;
+	}
+	return (0);
+}
+
+int	is_operand(char c)
+{
+	char	*operand;
+
+	operand = OPERAND;
+	while (*operand)
+	{
+		if (c == *operand)
+			return (1);
+		operand++;
 	}
 	return (0);
 }

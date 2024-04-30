@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 14:00:41 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:51:20 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 # define METACHARACTERS " '\"()|&<>"
+# define OPERAND " '\"()|&<>"
 // error code for `syntax error near unexpected token `1'` is 258
 
 # define WORDS 0
@@ -58,15 +59,16 @@ int					token_combine_wnext(t_token *token);
 
 // validattions
 int					is_metacharacter(char c);
+int					is_operand(char c);
 int					is_in_quote_tokens(t_token *token);
 int					is_valid_multi_operand(t_token *token);
 int					is_valid_redir_file(t_token *token);
 int					is_valid_edgecase_digit_redir(t_token *token);
 int					is_valid_closed_parenthesis(t_token *token);
-int is_valid_parenthesis_content(t_token *token);
-int is_valid_parenthesis_position(t_token *token);
-int is_valid_operand_position(t_token *token)
-;
+int					is_valid_parenthesis_content(t_token *token);
+int					is_valid_parenthesis_position(t_token *token);
+int					is_valid_operand_position(t_token *token);
+int					is_valid_special_character(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);

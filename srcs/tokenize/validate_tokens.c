@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   validate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 14:01:12 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/04/30 16:05:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	set_isvalid_function_array(int is_meta,
-		int (*isvalid_function_array[7])(t_token *))
+		int (*isvalid_function_array[10])(t_token *))
 		// TODO complete is_valid functions
 {
 	ft_bzero(isvalid_function_array, sizeof(int *) * 7);
@@ -25,6 +25,7 @@ void	set_isvalid_function_array(int is_meta,
 		isvalid_function_array[3] = is_valid_parenthesis_content;
 		isvalid_function_array[4] = is_valid_parenthesis_position;
 		isvalid_function_array[5] = is_valid_operand_position;
+		isvalid_function_array[6] = is_valid_special_character;
 	}
 	else
 	{
@@ -34,7 +35,7 @@ void	set_isvalid_function_array(int is_meta,
 
 int	is_valid_token(t_token *token) // TODO test this more
 {
-	int (*isvalid_function_array[7])(t_token *);
+	int (*isvalid_function_array[10])(t_token *);
 	int is_meta;
 	int n;
 
@@ -47,7 +48,7 @@ int	is_valid_token(t_token *token) // TODO test this more
 	{
 		if (!isvalid_function_array[n](token))
 		{
-			printf("is_meta %d failed at fucntion %d\n", is_meta, n);
+			printf("is_meta %d failed at function %d\n", is_meta, n);
 			return (0);
 		}
 	}
