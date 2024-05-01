@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 17:15:23 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/01 12:21:25 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ t_token	*tokenize(char *line)
 	format_tokens(token_root);
 	print_tokens(token_root);
 	validate_tokens(token_root);
-	free_tokens(token_root);
-	return (NULL);
+	// free_tokens(token_root);
+	return (token_root);
 }

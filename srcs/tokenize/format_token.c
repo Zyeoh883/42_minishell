@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 16:51:44 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/01 12:34:28 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	format_whitespace(t_token *token)
 {
 	while (token && token->next)
 	{
-		if (token->type == SPACE)
+		if (token->type == WHITESPACE)
 		{
-			while (token->next && token->next->type == SPACE)
+			while (token->next && token->next->type == WHITESPACE)
 				token_remove(token->next);
 		}
 		token = token->next;
@@ -59,7 +59,7 @@ void	label_tokens(t_token *token)
 			else if (*token->value == '&')
 				token->type = AMPERSAND;
 			else if (*token->value == ' ')
-				token->type = SPACE;
+				token->type = WHITESPACE;
 			else if (*token->value == '(')
 				token->type = OPEN_PARENT;
 			else if (*token->value == ')')
@@ -104,22 +104,3 @@ void	format_tokens(t_token *token_root)
 	format_whitespace(token);
 	format_operands(token);
 }
-
-// format_parenthesis(token); // TODO figure when to call this,
-
-// void format_parenthesis(t_token *token)  // TODO Fix order of enclosure
-// {
-// 	while (token)
-// 	{
-// 		if (*token->value == '(')
-// 		{
-// 			while (token->next
-// && *token->next->value != ')'&& *token->next->value != '(')
-// 				token_combine_wnext(token);
-// 			if (!token->next)
-// 				token->open_end = 1;
-// 			token_combine_wnext(token);
-// 		}
-// 		token = token->next;
-// 	}
-// }

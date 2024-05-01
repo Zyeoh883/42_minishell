@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_valid_utils.c                                   :+:      :+:    :+:   */
+/*   convert_to_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 17:23:50 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/01 01:22:30 by Zyeoh            ###   ########.fr       */
+/*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
+/*   Updated: 2024/05/01 12:29:53 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_file_token(t_token *token)
+t_node *convert_to_ast(t_token *token_root)
 {
-	token = token->prev;
-	while (token && token->type == WHITESPACE)
-		token = token->prev;
-	if (token && REDIR_OUT <= token->type && token->type <= REDIR_HEREDOC)
-		return (1);
-	return (0);
+
 }

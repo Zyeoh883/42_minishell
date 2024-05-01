@@ -6,7 +6,7 @@
 /*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 17:11:18 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/01 01:20:32 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // error code for `syntax error near unexpected token `1'` is 258
 
 # define WORDS 0
-# define SPACE 1
+# define WHITESPACE 1
 # define AMPERSAND 2
 
 # define REDIR_OUT 3
@@ -68,8 +68,9 @@ int					is_valid_edgecase_digit_redir(t_token *token);
 int					is_valid_closed_parenthesis(t_token *token);
 int					is_valid_parenthesis_content(t_token *token);
 int					is_valid_parenthesis_position(t_token *token);
-int					is_valid_operand_position(t_token *token);
+int					is_valid_operand_content(t_token *token);
 int					is_valid_special_character(t_token *token);
+int 				is_valid_last_token(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);

@@ -6,7 +6,7 @@
 /*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/28 02:30:54 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/01 12:25:13 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,16 @@ int main(int argc, char **argv, char **env)
 	// char	**cmd;
 	char	*input;
 	char	**my_env;
+	t_token *token_root;
 
 	my_env = create_env_copy(env);
 	while (1)
 	{
 		input = handle_readline();
-		tokenize(input);
+		token_root = tokenize(input);
+		print_tokens(token_root);
+		// free_tokens(token_root);
+		
 		// cmd = ft_split(input, ' ');
 		// t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
 

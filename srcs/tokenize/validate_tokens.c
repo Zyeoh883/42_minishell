@@ -6,15 +6,14 @@
 /*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 17:11:30 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/01 01:07:21 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	set_isvalid_function_array(int is_meta,
-		int (*isvalid_function_array[10])(t_token *))
-		// TODO complete is_valid functions
+		int (*isvalid_function_array[10])(t_token *)) // TODO complete is_valid functions
 {
 	ft_bzero(isvalid_function_array, sizeof(int *) * 10);
 	isvalid_function_array[0] = is_valid_redir_file;
@@ -24,8 +23,9 @@ void	set_isvalid_function_array(int is_meta,
 		isvalid_function_array[2] = is_valid_closed_parenthesis;
 		isvalid_function_array[3] = is_valid_parenthesis_content;
 		isvalid_function_array[4] = is_valid_parenthesis_position;
-		isvalid_function_array[5] = is_valid_operand_position;
+		isvalid_function_array[5] = is_valid_operand_content;
 		isvalid_function_array[6] = is_valid_special_character;
+		isvalid_function_array[7] = is_valid_last_token;
 	}
 	else
 	{
@@ -33,7 +33,7 @@ void	set_isvalid_function_array(int is_meta,
 	}
 }
 
-int	is_valid_token(t_token *token) // TODO test this more
+int	is_valid_token(t_token *token)
 {
 	int (*isvalid_function_array[10])(t_token *);
 	int is_meta;
