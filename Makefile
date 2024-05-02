@@ -23,7 +23,8 @@ SRCS_FIL = \
 			tokenize/is_token_valid.c \
 			tokenize/is_valid_utils.c \
 			tokenize/validate_tokens.c \
-			tokenize/format_token.c
+			tokenize/format_token.c \
+			tokenize/here_doc.c
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

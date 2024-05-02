@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_token_valid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/01 01:22:30 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/02 20:11:33 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	is_valid_operand_content(t_token *token) // checks for |, || and && if they 
 	head = token->prev;
 	while (head && head->type == WHITESPACE)
 		head = head->prev;
-	if (!head || head->type != WORDS)
+	if (!head || head->type == OPEN_PARENT)
 	{
 		output_token_error(token->value);
 		return (0);
@@ -188,7 +188,7 @@ int is_valid_last_token(t_token *token)
 {
 	t_token *head;
 	
-	if (!token && token->type == WHITESPACE)
+	if (!token || token->type == WHITESPACE)
 		return (1);
 	head = token->next;
 	while (head && head->type == WHITESPACE)

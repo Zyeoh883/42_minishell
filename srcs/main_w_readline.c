@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/01 12:25:13 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/02 22:01:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **create_env_copy(char **env)
+char	**create_env_copy(char **env)
 {
 	char	**my_env;
-	int num_env_vars;
-	
+	int		num_env_vars;
+
 	num_env_vars = -1;
 	while (env[++num_env_vars] != NULL)
-			;
+		;
 	my_env = (char **)ft_calloc(num_env_vars + 1, sizeof(char *));
 	if (my_env == NULL)
 		perror_and_exit("malloc", EXIT_FAILURE);
@@ -35,14 +35,14 @@ char **create_env_copy(char **env)
 			perror_and_exit("malloc", EXIT_FAILURE);
 		}
 	}
-	return(my_env);
+	return (my_env);
 }
 
-char *handle_readline()
+char	*handle_readline(void)
 {
 	char	*input;
 
-	input = readline("minishell$ ");	
+	input = readline("minishell$ ");
 	if (input == NULL)
 		perror_and_exit("readline", EXIT_FAILURE);
 	add_history(input); // working history
@@ -54,27 +54,44 @@ char *handle_readline()
 	return (input);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
+	char	*input;
+	char	**my_env;
+	t_token	*token_root;
+	t_token *buffer;
+
 	(void)argc;
 	(void)argv;
 	// pid_t	pid;
 	// char	**cmd;
-	char	*input;
-	char	**my_env;
-	t_token *token_root;
-
+	unlink("/tmp/heredoc_0");
+	if (access("/tmp", F_OK) == -1)
+	{
+		printf("minishell: /tmp: No such file or directory\n");
+		return (1);
+	}
 	my_env = create_env_copy(env);
 	while (1)
 	{
 		input = handle_readline();
 		token_root = tokenize(input);
+		free(input);
 		print_tokens(token_root);
-		// free_tokens(token_root);
-		
+		while (token_root && is_token_open_ended(token_root))
+		{
+			input = handle_readline();
+			buffer = tokenize(input);
+			if (!buffer)
+				break ;
+			token_add_back(&token_root, buffer);
+			free(input);
+			print_tokens(token_root);
+		}
+		free_tokens(token_root);
 		// cmd = ft_split(input, ' ');
-		// t_node	*node = create_simple_command(env, NULL, cmd, 0); // TODO free node after
-
+		// t_node	*node = create_simple_command(env, NULL, cmd, 0);
+		// TODO free node after
 		// pid = fork(); // fork for each execution
 		// if (pid == 0)
 		// {

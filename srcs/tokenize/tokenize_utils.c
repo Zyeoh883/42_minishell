@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 17:22:50 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/02 13:36:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,18 @@ int	token_combine_wnext(t_token *token)
 	token->value = new_value;
 	token_remove(token->next);
 	return (1);
+}
+
+int is_token_open_ended(t_token *token_root)
+{
+	t_token *last;
+
+	if (!token_root)
+		return (0);
+	last = token_last_nonspace(token_root);
+	if (last->open_end || is_in_parentheses(last))
+		return (1);
+	if (PIPE <= last->type && last->type <= OR)
+		return (1);
+	return (0);
 }

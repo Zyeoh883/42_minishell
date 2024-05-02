@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/01 01:20:32 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/02 22:00:52 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_token
 	char			*value;
 	int				open_end;
 	int				type;
+	char			*here_doc_file;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
@@ -54,7 +55,7 @@ t_token				*new_token(char *value);
 t_token				*token_last(t_token *token);
 t_token				*token_last_nonspace(t_token *token);
 void				token_remove(t_token *token);
-void	print_tokens(t_token *token);
+void				print_tokens(t_token *token);
 
 int					token_combine_wnext(t_token *token);
 
@@ -70,14 +71,21 @@ int					is_valid_parenthesis_content(t_token *token);
 int					is_valid_parenthesis_position(t_token *token);
 int					is_valid_operand_content(t_token *token);
 int					is_valid_special_character(t_token *token);
-int 				is_valid_last_token(t_token *token);
+int					is_valid_last_token(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);
+int					is_in_parentheses(t_token *token);
+int					is_token_open_ended(t_token *token_root);
 
 // random BS
 int					is_valid_token(t_token *token);
 void				set_isvalid_function_array(int is_meta,
 						int (*isvalid_function_array[10])(t_token *));
+
+// heredoc
+int					is_here_doc(t_token *token);
+int					make_here_doc_file(t_token *token, int here_doc_id);
+int					input_here_doc(t_token *token, int here_doc_id);
 
 #endif
