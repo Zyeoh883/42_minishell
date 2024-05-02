@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/04/30 16:07:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/02 13:54:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ char *my_getenv(const char *name, char **my_env)
         equal_sign = ft_strchr(*my_env, '=');
         if (equal_sign != NULL) {
             // Compare the name of the environment variable with the given name
-            if (ft_strncmp(*my_env, name, equal_sign - *my_env) == 0) {
+            // if (ft_strncmp(*my_env, name, equal_sign - *my_env) == 0) {
+            if ((ft_strncmp(*my_env, name, equal_sign - *my_env) == 0) && (ft_strncmp(*my_env, name, ft_strlen(name)) == 0)) {
+
+				printf("len: %li\n", equal_sign - *my_env);
                 // Return a pointer to the value part of the environment variable
                 return (equal_sign + 1);
             }

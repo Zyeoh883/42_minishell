@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/04/30 16:12:53 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/02 15:52:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,16 @@ int execute_simple_cmd(t_simple_command *sc)
 	int ret;
 
 	my_env = convert_env_lst_to_array(sc->env_lst);
+
+	// char *str= "echo $x";
+	// printf("expanded: %s\n", return_expanded_str(str, my_env));
 	// TODO: Handle QUOTEs & EXPANSION
-	
+	handle_quotes_n_var_expansion(sc->cmd, my_env);
+	for (int i = 0; sc->cmd[i]; i++)
+	{
+		printf("%s\n", sc->cmd[i]);
+	}
+		
 	ret = SUCCESS;
 	if (sc->cmd == NULL) // no cmd at all
 		return (SUCCESS);

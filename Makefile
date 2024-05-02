@@ -16,6 +16,7 @@ SRCS_FIL = \
 			execute/execute.c \
 			execute/execute_execve.c \
 			execute/env.c \
+			execute/handle_quotes_n_expansion.c \
 			free.c \
 			utils/utils1.c \
 			# builtins.c 
