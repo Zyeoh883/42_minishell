@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/30 16:50:46 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 01:15:31 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	perror_and_exit(char *str, int exit_code)
 {
 	perror(str);
 	exit(exit_code);
+}
+
+int	perror_and_return(char *str, int return_value)
+{
+	perror(str);
+	return (return_value);
 }
 
 void	free_split(char **split)

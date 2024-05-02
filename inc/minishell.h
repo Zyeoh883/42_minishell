@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 21:47:09 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 01:15:36 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define TOKEN_FAIL 258
 
-#define HERE_DOC_DIR "/tmp/heredoc_"
+# define HERE_DOC_DIR "/tmp/heredoc_"
 
 t_node	*create_node(t_nodetype type);
 t_node	*create_command(char **env, char **cmd);
@@ -50,6 +50,7 @@ int		build_pipes(t_pipe *pipe_node);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);
+int		perror_and_return(char *str, int return_value);
 void	free_split(char **split);
 long	ft_atol(const char *str);
 

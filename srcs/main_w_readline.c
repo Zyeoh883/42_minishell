@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/02 22:01:49 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 01:17:22 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,74 +38,67 @@ char	**create_env_copy(char **env)
 	return (my_env);
 }
 
-char	*handle_readline(void)
+int	handle_readline(char **input, int mode)
+{
+	if (mode == 0)
+		*input = readline("minishell$ ");
+	else
+		*input = readline("> ");
+	if (*input == NULL)
+		return (perror_and_return("readline", 0));
+	if (ft_strncmp("exit", *input, 5) == 0)
+	{
+		free(*input);
+		return (0);
+	}
+	return (1);
+}
+
+int	minishell_input(t_token **token_root)
 {
 	char	*input;
+	char	*line;
+	t_token	*buffer;
+	int		mode;
 
-	input = readline("minishell$ ");
-	if (input == NULL)
-		perror_and_exit("readline", EXIT_FAILURE);
-	add_history(input); // working history
-	if (ft_strncmp("exit", input, 5) == 0)
+	mode = 0;
+	input = NULL;
+	while (handle_readline(&input, mode))
 	{
+		buffer = tokenize(input);
 		free(input);
-		exit(EXIT_SUCCESS);
+		if (!buffer)
+			return (perror_and_return("Tokenization failed", 0));
+		token_add_back(token_root, buffer);
+		if (!is_token_open_ended(*token_root))
+			break;
+		mode = 1;
+		print_tokens(*token_root);
 	}
-	return (input);
+	return (1);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*input;
 	char	**my_env;
 	t_token	*token_root;
-	t_token *buffer;
 
 	(void)argc;
 	(void)argv;
 	// pid_t	pid;
 	// char	**cmd;
-	unlink("/tmp/heredoc_0");
 	if (access("/tmp", F_OK) == -1)
 	{
 		printf("minishell: /tmp: No such file or directory\n");
 		return (1);
 	}
-	my_env = create_env_copy(env);
-	while (1)
+	token_root = NULL;
+	while (minishell_input(&token_root))
 	{
-		input = handle_readline();
-		token_root = tokenize(input);
-		free(input);
-		print_tokens(token_root);
-		while (token_root && is_token_open_ended(token_root))
-		{
-			input = handle_readline();
-			buffer = tokenize(input);
-			if (!buffer)
-				break ;
-			token_add_back(&token_root, buffer);
-			free(input);
-			print_tokens(token_root);
-		}
 		free_tokens(token_root);
-		// cmd = ft_split(input, ' ');
-		// t_node	*node = create_simple_command(env, NULL, cmd, 0);
-		// TODO free node after
-		// pid = fork(); // fork for each execution
-		// if (pid == 0)
-		// {
-		// 	(void)node;
-		// 	exit(0);
-		// 	// execute(node);
-		// }
-		// else
-		// {
-		// 	free_split(cmd);
-		// 	free(input);
-		// 	waitpid(pid, NULL, 0);
-		// }
 	}
-	free_str_arr(my_env);
+
+	free_tokens(token_root);
+	// free_str_arr(my_env);
 	return (0);
 }
