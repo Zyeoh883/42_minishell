@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 15:52:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/03 09:39:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ enum							e_redirtype
 	APPEND,
 };
 
+typedef enum e_quote_type
+{
+	SINGLE,
+	DOUBLE,
+} 	t_quote_type; 
 
 typedef struct s_node
 {
