@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_w_readline.c                                  :+:      :+:    :+:   */
+/*   draft_main_workingexit.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/03 20:55:35 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 18:24:50 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,13 @@ char	**create_env_copy(char **env)
 	return (my_env);
 }
 
-char	*handle_readline(char *str, int *status)
+char	*handle_readline(char *str)
 {
 	char	*input;
 
 	input = readline(str);
 	if (input == NULL)
 		perror_and_exit("readline", EXIT_FAILURE);
-	if (ft_strncmp("exit", input, 5) == 0)
-	{
-		free(input);
-		*status = -1;
-		return (NULL);
-	}
-	*status = 1;
 	return (input);
 }
 
@@ -65,7 +58,6 @@ char	*add_to_line(char *line, char *input)
 		line = ft_strdup(input);
 		if (!line)
 			perror_and_exit("history", EXIT_FAILURE);
-		free(input);
 		return (line);
 	}
 	size = ft_strlen(line) + ft_strlen(input) + 2;
@@ -80,69 +72,100 @@ char	*add_to_line(char *line, char *input)
 	return (result);
 }
 
-int	minishell_input(t_token **token_root)
+char	*minishell_input(void)
 {
 	t_token	*token;
 	char	*input;
 	char	*line;
-	int		status;
 
 	line = NULL;
-	input = handle_readline("minishell$ ", &status);
-	while (status > 0)
+	input = handle_readline("minishell$ ");
+	while (1)
 	{
+		if (!input)
+			break ;
 		token = tokenize(input);
 		line = add_to_line(line, input);
-		input = NULL;
-		status = 0;
 		if (!token)
 			break ;
-		token_add_back(token_root, token);
-		if (is_token_open_ended(*token_root))
-			input = handle_readline("> ", &status);
+		input = NULL;
+		if (is_token_open_ended(token))
+			input = handle_readline("> ");
+		free_tokens(token);
 	}
 	add_history(line);
-	free(line);
-	if (status == -1)
-		free_tokens(*token_root);
-	return (status);
+	return (line);
 }
 
 void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
-		return ;
-	// printf("\nminishell reset\n");
+		printf("\nminishell reset\n");
 	// exit(0);
+}
+
+void temp()
+{
+	t_token	*token_root;
+	char	*line;
+
+	if (access("/tmp", F_OK) == -1)
+		perror_and_return("access /tmp", EXIT_FAILURE);
+	if (signal(SIGINT, handle_sigint) == SIG_ERR)
+	{
+		perror("signal");
+		// return (EXIT_FAILURE);
+	}
+	token_root = NULL;
+	while (1)
+	{
+		line = minishell_input();
+		if (ft_strncmp("exit", line, 5) == 0)
+			break ;
+		token_root = tokenize(line);
+		free(line);
+		// if (!token_root)
+		// 	break ;
+		print_tokens(token_root);
+		free_tokens(token_root);
+		token_root = NULL;
+	}
+	free(line);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_token	*token_root;
-	int		status;
+	// t_token	*token_root;
+	// char	*line;
 
 	// char	**my_env;
 	(void)env;
 	(void)argc;
 	(void)argv;
-	if (access("/tmp", F_OK) == -1)
-		perror_and_return("access /tmp", EXIT_FAILURE);
+	// if (access("/tmp", F_OK) == -1)
+	// 	perror_and_return("access /tmp", EXIT_FAILURE);
 	// if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	// {
 	// 	perror("signal");
 	// 	// return (EXIT_FAILURE);
 	// }
-	token_root = NULL;
-	status = 1;
-	while (status >= 0)
-	{
-		status = minishell_input(&token_root);
-		print_tokens(token_root);
-		free_tokens(token_root);
-		token_root = NULL;
-	}
+	// token_root = NULL;
+	// while (1)
+	// {
+	// 	line = minishell_input();
+	// 	if (ft_strncmp("exit", line, 5) == 0)
+	// 		break ;
+	// 	token_root = tokenize(line);
+	// 	free(line);
+	// 	// if (!token_root)
+	// 	// 	break ;
+	// 	print_tokens(token_root);
+	// 	free_tokens(token_root);
+	// 	token_root = NULL;
+	// }
+	temp();
 	// free_str_arr(my_env);
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }
 // system("leaks minishell");
