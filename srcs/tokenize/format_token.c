@@ -6,7 +6,7 @@
 /*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/01 12:34:28 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 04:18:12 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	format_operands(t_token *token)
 void	format_tokens(t_token *token_root)
 {
 	t_token	*token;
-
+	
 	token = token_root;
 	format_quotes(token);
 	label_tokens(token);

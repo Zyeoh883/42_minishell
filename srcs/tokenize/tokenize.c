@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 21:56:31 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 04:19:24 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	validate_tokens(t_token *token_root)
 	t_token	*token;
 	int		here_doc_id;
 
+	if (!token_root)
+		return (0);
 	here_doc_id = 0;
 	token = token_root;
 	while (token)
@@ -95,17 +97,12 @@ t_token	*tokenize(char *line)
 
 	if (!line)
 		return (NULL);
-	// printf("token root is\n");
-	// print_tokens(token_root);
 	token = tokenize_metacharacters(line);
-	// print_tokens(token);
 	format_tokens(token);
-	// print_tokens(token);
 	if (!validate_tokens(token))
 	{
 		free_tokens(token);
 		return (NULL);
 	}
-	// free_tokens(token_root);
 	return (token);
 }

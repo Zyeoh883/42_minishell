@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/03 01:17:22 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 05:39:30 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,67 +38,87 @@ char	**create_env_copy(char **env)
 	return (my_env);
 }
 
-int	handle_readline(char **input, int mode)
+char *handle_readline(char *str)
 {
-	if (mode == 0)
-		*input = readline("minishell$ ");
-	else
-		*input = readline("> ");
-	if (*input == NULL)
-		return (perror_and_return("readline", 0));
-	if (ft_strncmp("exit", *input, 5) == 0)
+	char *input;
+	
+	input = readline(str);
+	if (input == NULL)
+		perror_and_exit("readline", EXIT_FAILURE);
+	if (ft_strncmp("exit", input, 5) == 0)
 	{
-		free(*input);
-		return (0);
+		free(input);
+		return (NULL);
 	}
-	return (1);
+	return (input);
 }
 
-int	minishell_input(t_token **token_root)
+char *add_to_line(char *line, char *input)
 {
+	char *result;
+	char *temp;
+	
+	if (!line)
+		return (ft_strdup(input));
+	temp = ft_strjoin(" ", input);
+	if (!temp)
+	{
+		free(line);
+		return (NULL);
+	}
+	result = ft_strjoin(line, temp);
+	free(line);
+	free(temp);
+	return (result);
+}
+
+
+t_token	*minishell_input(void)
+{
+	t_token *token_root;
+	t_token	*token;
 	char	*input;
 	char	*line;
-	t_token	*buffer;
-	int		mode;
 
-	mode = 0;
-	input = NULL;
-	while (handle_readline(&input, mode))
+	line = NULL;
+	token_root = NULL;
+	input = handle_readline("minishell$ ");
+	while (input)
 	{
-		buffer = tokenize(input);
+		token = tokenize(input);
+		if (!token)
+			perror_and_exit("tokenization", NULL);
+		line = add_to_line(line, input);
+		if (!line)
+			perror_and_exit("history", NULL);
 		free(input);
-		if (!buffer)
-			return (perror_and_return("Tokenization failed", 0));
-		token_add_back(token_root, buffer);
-		if (!is_token_open_ended(*token_root))
-			break;
-		mode = 1;
-		print_tokens(*token_root);
+		input = NULL;
+		token_add_back(&token_root, token);
+		if (is_token_open_ended(token_root))
+			input = handle_readline("> ");
 	}
-	return (1);
+	add_history(line);
+	return (token_root);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char	**my_env;
+	// char	**my_env;
 	t_token	*token_root;
 
+	(void)env;
 	(void)argc;
 	(void)argv;
-	// pid_t	pid;
-	// char	**cmd;
 	if (access("/tmp", F_OK) == -1)
+		perror_and_return("access /tmp", EXIT_FAILURE);
+	while (1)
 	{
-		printf("minishell: /tmp: No such file or directory\n");
-		return (1);
-	}
-	token_root = NULL;
-	while (minishell_input(&token_root))
-	{
+		token_root = minishell_input();
+		if (!token_root)
+			break ;
+		print_tokens(token_root);
 		free_tokens(token_root);
 	}
-
-	free_tokens(token_root);
 	// free_str_arr(my_env);
 	return (0);
 }
