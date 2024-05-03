@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 21:55:46 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 14:04:12 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int	input_here_doc(t_token *token, int here_doc_id)
 			free(line);
 		}
 	}
+	free(line);
     return (1);
 }

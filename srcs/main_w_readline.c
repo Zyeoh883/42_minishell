@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/03 05:39:30 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/03 14:01:13 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ t_token	*minishell_input(void)
 	{
 		token = tokenize(input);
 		if (!token)
-			perror_and_exit("tokenization", NULL);
+			perror_and_exit("tokenization", EXIT_FAILURE);
 		line = add_to_line(line, input);
 		if (!line)
-			perror_and_exit("history", NULL);
+			perror_and_exit("history", EXIT_FAILURE);
 		free(input);
 		input = NULL;
 		token_add_back(&token_root, token);
@@ -98,17 +98,18 @@ t_token	*minishell_input(void)
 			input = handle_readline("> ");
 	}
 	add_history(line);
+	free(line);
 	return (token_root);
 }
 
-int	main(int argc, char **argv, char **env)
+void temp()
 {
 	// char	**my_env;
 	t_token	*token_root;
 
-	(void)env;
-	(void)argc;
-	(void)argv;
+	// (void)env;
+	// (void)argc;
+	// (void)argv;
 	if (access("/tmp", F_OK) == -1)
 		perror_and_return("access /tmp", EXIT_FAILURE);
 	while (1)
@@ -120,5 +121,29 @@ int	main(int argc, char **argv, char **env)
 		free_tokens(token_root);
 	}
 	// free_str_arr(my_env);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	// // char	**my_env;
+	// t_token	*token_root;
+
+	(void)env;
+	(void)argc;
+	(void)argv;
+	temp();
+	// if (access("/tmp", F_OK) == -1)
+	// 	perror_and_return("access /tmp", EXIT_FAILURE);
+	// while (1)
+	// {
+	// 	token_root = minishell_input();
+	// 	if (!token_root)
+	// 		break ;
+	// 	print_tokens(token_root);
+	// 	free_tokens(token_root);
+	// }
+	// // free_str_arr(my_env);
+	system("leaks minishell");
 	return (0);
 }
+// system("leaks minishell");

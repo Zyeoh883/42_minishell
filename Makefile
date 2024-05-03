@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c99	-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -std=c99	#-fsanitize=address -g
 INCLUDES = -I ./inc/ -I$(LIBFT_DIR)
 
 # COLORS
