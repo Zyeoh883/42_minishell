@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/06 12:48:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/06 16:19:51 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,11 @@ int setup_redir(t_redir	*redir)
 
 int execute_simple_cmd(t_simple_command *sc)
 {
-	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
-
 	char **my_env;
 	int ret;
 
+	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 	my_env = convert_env_lst_to_array(sc->env_lst);
-
-	// char *str= "echo $x";
-	// printf("expanded: %s\n", return_expanded_str(str, my_env));
-	// TODO: Handle QUOTEs & EXPANSION
 	handle_quotes_n_var_expansion(sc->cmd, my_env);
 	// printf("--after handling quotes & expansion--\n");
 	// for (int i = 0; sc->cmd[i]; i++)

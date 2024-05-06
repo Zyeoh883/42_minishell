@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/06 15:42:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/06 16:40:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
+void ft_split_env_value(char ***cmd, char *value)
+{
+	
+}
+
 void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 {
 	int	i;
@@ -102,5 +107,6 @@ void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 			trim_quotes(&cmd[i], "\"");
 		if (expand == ON)
 			expand_str(&cmd[i], my_env);
+			
 	}
 }
