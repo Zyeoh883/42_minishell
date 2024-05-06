@@ -151,6 +151,7 @@ void expand_str(char **str_add, char **my_env)
 {
 	int i; // index of $ sign
 	int j; // index of non-alnum char right after var_name
+	int size;
 	char *str;
 	char *value;
 	char *var_name;
@@ -167,17 +168,16 @@ void expand_str(char **str_add, char **my_env)
 			j = i + 1;
 			while (str[j] && ft_isalnum(str[j]))
 				j++; // find index of non alnum chars after var_name
-			var_name = ft_substr(str, i + 1, j - i); // ! stopped here friday may 3rd
-			printf("var_name: %s\n", var_name);
+			var_name = ft_substr(str, i + 1, j - i - 1); // ! stopped here friday may 3rd
 			value = my_getenv(var_name, my_env);
 			if (value == NULL)
 				value = ""; // ! if var not found in my_env, expand to ""
-			int size = i + ft_strlen(value) + ft_strlen(str) - j;
-			result = (char *)malloc(sizeof(char) * size + 1);
+			size = i + ft_strlen(value) + ft_strlen(str) - j;
+			result = (char *)malloc(sizeof(char) * (size + 1));
 			if_null_perror_n_exit(result, "malloc", EXIT_FAILURE);
-			ft_strlcpy(result, str, i);
-			ft_strlcpy(&result[i], value, ft_strlen(value));
-			ft_strlcpy(&result[i + ft_strlen(value)], &str[j], ft_strlen(str) - j);
+			ft_strlcpy(result, str, i + 1); // +1 as 3rd param includes 
+			ft_strlcpy(&result[i], value, ft_strlen(value) + 1);
+			ft_strlcpy(&result[i + ft_strlen(value)], &str[j], ft_strlen(str) - j + 1);
 			result[size] = '\0';
 			free(*str_add);
 			*str_add = result;
