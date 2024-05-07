@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/06 16:40:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/07 10:33:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_index_of_char_after_var_name(char *str, int dollar_index)
 {
 	int j;
-	
+
 	j = dollar_index + 1;
 	if (ft_isalpha(str[j]))
 	{
@@ -31,7 +31,7 @@ char *construct_expanded_str(char **str, char *value, int i, int j)
 {
 	int size;
 	char *expanded;
-	
+
 	size = i + ft_strlen(value) + (ft_strlen((*str)) - j);
 	expanded = (char *)malloc(sizeof(char) * (size + 1));
 	if_null_perror_n_exit(expanded, "malloc", EXIT_FAILURE);
@@ -66,6 +66,7 @@ void	expand_str(char **str, char **my_env)
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
 	value = my_getenv(var_name, my_env);
+	free(var_name);
 	if (value == NULL)
 		value = ""; // ! if var not found in my_env, expand to ""
 	expanded = construct_expanded_str(str, value, i, j);
@@ -83,10 +84,10 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
-void ft_split_env_value(char ***cmd, char *value)
-{
-	
-}
+// void ft_split_env_value(char ***cmd, char *value)
+// {
+
+// }
 
 void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 {
@@ -107,6 +108,6 @@ void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 			trim_quotes(&cmd[i], "\"");
 		if (expand == ON)
 			expand_str(&cmd[i], my_env);
-			
+
 	}
 }
