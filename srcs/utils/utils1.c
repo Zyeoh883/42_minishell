@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/03 09:24:34 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/07 11:59:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,19 @@ void output_token_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd("'", 2);
 }
+
+int arr_str_count(char **arr)
+{
+	int count;
+
+	if (arr == NULL)
+		return (0);
+	count = 0;
+	while (*arr != NULL)
+	{
+		count++;
+		arr++;
+	}
+	return (count);
+}
+

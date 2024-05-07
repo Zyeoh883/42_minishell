@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/03 09:25:52 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/07 11:10:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	perror_and_exit(char *str, int exit_code);
 void if_null_perror_n_exit(void *ptr, char *str, int exit_code);
 void	free_split(char **split);
 void	output_token_error(char *str);
+int arr_str_count(char **arr);
 
 #endif

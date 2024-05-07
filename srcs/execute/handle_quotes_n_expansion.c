@@ -6,11 +6,62 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/07 10:33:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/07 12:51:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+- update/add additional ft_splitted strings to original char **cmd
+*/
+void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
+{
+	char **splitted;
+	int new_arr_size;
+	char **new_arr;
+	int i;
+	int j;
+
+	splitted = ft_split(cmd_str, ' ');
+	if_null_perror_n_exit(splitted, cmd_str, EXIT_FAILURE);
+
+	// calculate new size of cmd_arr
+	new_arr_size = arr_str_count(*cmd) - 1 + arr_str_count(splitted);
+	// remalloc new arr with added size
+	new_arr = (char **)ft_calloc(new_arr_size + 1, sizeof(char *));
+	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);
+	// TODO: transfer
+	// transfer str(s) until index
+	while (i < index)
+	{
+		new_arr[i] = (char *)malloc(ft_strlen((*cmd)[i]) + 1);
+		ft_strlcpy(new_arr[i], (*cmd)[i], ft_strlen((*cmd)[i]) + 1);
+		i++;
+	}
+	// transfer splitted str(s)
+	j = 0;
+	while (j < new_arr_size) // !notsure
+	{
+		new_arr[i] = (char *)malloc(ft_strlen(splitted[j]) + 1);
+		ft_strlcpy(new_arr[i], splitted[j], ft_strlen(splitted[j]) + 1);
+		i++;
+		j++;
+	}
+	free_str_arr(splitted);
+	// transfer str(s) index + 1
+	j = index + 1;
+	while ((*cmd)[j] != NULL)
+	{
+		new_arr[i] = (char *)malloc(ft_strlen((*cmd)[j]) + 1);
+		ft_strlcpy(new_arr[i], (*cmd)[j], ft_strlen((*cmd)[j]) + 1);
+		i++;
+		j++;
+	}
+	// link new_arr to old **cmd  +  FREE
+	free_str_arr(*cmd);
+	*cmd = new_arr;
+}
 
 int	get_index_of_char_after_var_name(char *str, int dollar_index)
 {
@@ -33,13 +84,13 @@ char *construct_expanded_str(char **str, char *value, int i, int j)
 	char *expanded;
 
 	size = i + ft_strlen(value) + (ft_strlen((*str)) - j);
-	expanded = (char *)malloc(sizeof(char) * (size + 1));
+	expanded = (char *)ft_calloc(size + 1, sizeof(char));
 	if_null_perror_n_exit(expanded, "malloc", EXIT_FAILURE);
 	ft_strlcpy(expanded, (*str), i + 1); // +1 as 3rd param includes
 	ft_strlcpy(&expanded[i], value, ft_strlen(value) + 1);
 	ft_strlcpy(&expanded[i + ft_strlen(value)], &(*str)[j], ft_strlen(*str) - j
 		+ 1);
-	expanded[size] = '\0';
+	// expanded[size] = '\0';
 	return (expanded);
 }
 
@@ -55,13 +106,12 @@ void	expand_str(char **str, char **my_env)
 	int		i;
 	int		j;
 
-	if (ft_strchr(*str, '$') == NULL)
-		return ;
 	i = -1;
 	while ((*str)[++i] && !((*str)[i] == '$' && (*str)[i + 1] != '\0'))
 		; // find index of $
 	if ((*str)[i] == '\0')
 		return ;
+	printf("checkk\n");
 	j = get_index_of_char_after_var_name((*str), i);
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
@@ -84,11 +134,6 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
-// void ft_split_env_value(char ***cmd, char *value)
-// {
-
-// }
-
 void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 {
 	int	i;
@@ -106,8 +151,11 @@ void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
 		}
 		else if (cmd[i][0] == '\"') // double quote
 			trim_quotes(&cmd[i], "\"");
-		if (expand == ON)
+		if (expand == ON && ft_strchr(cmd[i], '$') != NULL)
+		{
 			expand_str(&cmd[i], my_env);
+			ft_split_cmd_str_after_expansion(&cmd, cmd[i], i);
+		}
 
 	}
 }
