@@ -18,6 +18,11 @@ void	free_str_arr(char **str_arr)
 	int	i;
 
 	i = 0;
+	if (str_arr == NULL)
+	{
+		ft_printf("str_arr is NULL when passed into free_str_arr()\n");
+		exit(EXIT_FAILURE);
+	}
 	while (str_arr[i] != NULL)
 	{
 		free(str_arr[i]);

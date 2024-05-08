@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/04/30 16:09:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 13:52:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ int main(int argc, char **argv, char **env)
 		execute(node); 
 		// ^error check?
 		
-		free_str_arr(input_arr);
+		// free_str_arr(input_arr);
 		free(input);
+		if (node->simple_command->cmd)
+			free_str_arr(node->simple_command->cmd); // ! SEGV when i uncomment this
+		
 		free(node->simple_command); // tmp
 		free(node); // tmp
 

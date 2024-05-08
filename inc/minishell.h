@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/07 11:10:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 13:06:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ int		execute(t_node *node);
 char	*my_getenv(const char *name, char **my_env);
 t_env_var	*convert_env_to_linked_list(char **env);
 char	**convert_env_lst_to_array(t_env_var *env_list);
+void print_env_var(t_env_var *env_list);
 
 // BUILT-INS
 // void	execute_env(char **my_env);
 
 // HANDLE Quotes & Env_Expansion
-void handle_quotes_n_var_expansion(char **cmd, char **my_env);
+void handle_quotes_n_var_expansion(char ***cmd, char **my_env);
 char *return_expanded_str(char *str, char **my_env);
 
 // * PIPES
@@ -71,5 +72,6 @@ void if_null_perror_n_exit(void *ptr, char *str, int exit_code);
 void	free_split(char **split);
 void	output_token_error(char *str);
 int arr_str_count(char **arr);
+void print_str_arr(char **arr, char *title);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/07 12:51:54 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 14:59:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
 
 	splitted = ft_split(cmd_str, ' ');
 	if_null_perror_n_exit(splitted, cmd_str, EXIT_FAILURE);
-
 	// calculate new size of cmd_arr
 	new_arr_size = arr_str_count(*cmd) - 1 + arr_str_count(splitted);
 	// remalloc new arr with added size
@@ -33,19 +32,19 @@ void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
 	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);
 	// TODO: transfer
 	// transfer str(s) until index
+	i = 0;
 	while (i < index)
 	{
-		new_arr[i] = (char *)malloc(ft_strlen((*cmd)[i]) + 1);
+		new_arr[i] = (char *)ft_calloc(ft_strlen((*cmd)[i]) + 1, sizeof(char));
 		ft_strlcpy(new_arr[i], (*cmd)[i], ft_strlen((*cmd)[i]) + 1);
 		i++;
 	}
 	// transfer splitted str(s)
 	j = 0;
-	while (j < new_arr_size) // !notsure
+	while (j < arr_str_count(splitted)) // !notsure
 	{
-		new_arr[i] = (char *)malloc(ft_strlen(splitted[j]) + 1);
-		ft_strlcpy(new_arr[i], splitted[j], ft_strlen(splitted[j]) + 1);
-		i++;
+		new_arr[i] = (char *)ft_calloc(ft_strlen(splitted[j]) + 1, sizeof(char));
+		ft_strlcpy(new_arr[i++], splitted[j], ft_strlen(splitted[j]) + 1);
 		j++;
 	}
 	free_str_arr(splitted);
@@ -53,9 +52,8 @@ void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
 	j = index + 1;
 	while ((*cmd)[j] != NULL)
 	{
-		new_arr[i] = (char *)malloc(ft_strlen((*cmd)[j]) + 1);
-		ft_strlcpy(new_arr[i], (*cmd)[j], ft_strlen((*cmd)[j]) + 1);
-		i++;
+		new_arr[i] = (char *)ft_calloc(ft_strlen((*cmd)[j]) + 1, sizeof(char));
+		ft_strlcpy(new_arr[i++], (*cmd)[j], ft_strlen((*cmd)[j]) + 1);
 		j++;
 	}
 	// link new_arr to old **cmd  +  FREE
@@ -85,12 +83,15 @@ char *construct_expanded_str(char **str, char *value, int i, int j)
 
 	size = i + ft_strlen(value) + (ft_strlen((*str)) - j);
 	expanded = (char *)ft_calloc(size + 1, sizeof(char));
-	if_null_perror_n_exit(expanded, "malloc", EXIT_FAILURE);
+	printf("size: %d\n", size);
+	if_null_perror_n_exit(expanded, "ft_calloc", EXIT_FAILURE);
 	ft_strlcpy(expanded, (*str), i + 1); // +1 as 3rd param includes
 	ft_strlcpy(&expanded[i], value, ft_strlen(value) + 1);
 	ft_strlcpy(&expanded[i + ft_strlen(value)], &(*str)[j], ft_strlen(*str) - j
 		+ 1);
-	// expanded[size] = '\0';
+	printf("expanded: %s\n", expanded);
+	if (expanded[0] == '\0')
+		printf("expanded == \"\"\n");
 	return (expanded);
 }
 
@@ -111,17 +112,18 @@ void	expand_str(char **str, char **my_env)
 		; // find index of $
 	if ((*str)[i] == '\0')
 		return ;
-	printf("checkk\n");
 	j = get_index_of_char_after_var_name((*str), i);
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
 	value = my_getenv(var_name, my_env);
-	free(var_name);
 	if (value == NULL)
-		value = ""; // ! if var not found in my_env, expand to ""
+		value = "\0"; // ! if var not found in my_env, expand to ""
+	free(var_name);
 	expanded = construct_expanded_str(str, value, i, j);
 	free(*str);
 	*str = expanded;
+
+	printf("expand_str\n"); // print check
 }
 
 void	trim_quotes(char **str_add, char *quote_type)
@@ -134,28 +136,52 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
-void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
+// void	handle_quotes_n_var_expansion(char **cmd, char **my_env)
+// {
+// 	int	i;
+// 	int	expand;
+
+// 	i = -1;
+// 	while (cmd[++i])
+// 	{
+// 		expand = ON;           // ON by default
+// 		if (cmd[i][0] == '\'') // single quote
+// 		{
+// 			expand = OFF;
+// 			trim_quotes(&cmd[i], "\'");
+// 		}
+// 		else if (cmd[i][0] == '\"') // double quote
+// 			trim_quotes(&cmd[i], "\"");
+// 		if (expand == ON && ft_strchr(cmd[i], '$') != NULL)
+// 		{
+// 			expand_str(&cmd[i], my_env);
+// 			ft_split_cmd_str_after_expansion(&cmd, cmd[i], i);
+// 		}
+// 	}
+// }
+
+void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
 {
 	int	i;
 	int	expand;
 
-	(void)my_env;
 	i = -1;
-	while (cmd[++i])
+	while ((*cmd)[++i])
 	{
 		expand = ON;           // ON by default
-		if (cmd[i][0] == '\'') // single quote
+		if ((*cmd)[i][0] == '\'') // single quote
 		{
 			expand = OFF;
-			trim_quotes(&cmd[i], "\'");
+			trim_quotes(&(*cmd)[i], "\'");
 		}
-		else if (cmd[i][0] == '\"') // double quote
-			trim_quotes(&cmd[i], "\"");
-		if (expand == ON && ft_strchr(cmd[i], '$') != NULL)
+		else if ((*cmd)[i][0] == '\"') // double quote
+			trim_quotes(&(*cmd)[i], "\"");
+		if (expand == ON && ft_strchr((*cmd)[i], '$') != NULL)
 		{
-			expand_str(&cmd[i], my_env);
-			ft_split_cmd_str_after_expansion(&cmd, cmd[i], i);
+			expand_str(&(*cmd)[i], my_env);
+			if (*((*cmd)[i]) != '\0')
+				ft_split_cmd_str_after_expansion(cmd, (*cmd)[i], i);
+			print_str_arr(*cmd, "after EACH expansion & ft_splitting");
 		}
-
 	}
 }

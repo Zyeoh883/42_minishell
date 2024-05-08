@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/07 11:59:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 10:22:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,10 @@ int arr_str_count(char **arr)
 	return (count);
 }
 
+void print_str_arr(char **arr, char *title)
+{
+	printf("\n---%s---\n", title);
+	for (int i = 0; arr[i]; i++)
+		printf("%s\n", arr[i]);
+	printf("-------\n\n");
+}

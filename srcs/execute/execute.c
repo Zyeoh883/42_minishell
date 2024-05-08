@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/07 11:02:20 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 12:57:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,10 @@ int execute_simple_cmd(t_simple_command *sc)
 
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 	my_env = convert_env_lst_to_array(sc->env_lst);
-	handle_quotes_n_var_expansion(sc->cmd, my_env);
-	// printf("--after handling quotes & expansion--\n");
-	// for (int i = 0; sc->cmd[i]; i++)
-	// {
-	// 	printf("%s\n", sc->cmd[i]);
-	// }
-	// printf("-----\n");
+	print_str_arr(sc-> cmd, "Before quote_handling & Expansion"); // *print check
+	handle_quotes_n_var_expansion(&sc->cmd, my_env);
+	print_str_arr(sc->cmd, "ft_split_after_expansion"); // *print check
+
 
 	ret = SUCCESS;
 	if (sc->cmd == NULL) // no cmd at all
@@ -79,7 +76,11 @@ int execute_simple_cmd(t_simple_command *sc)
 		return (SUCCESS); // ! temporary here
 	}
 	else
+	{
+		printf("---Output---\n");
 		ret = execute_execve(sc->cmd, my_env); // my_env is freed in this func
+		printf("------------\n");
+	}
 	free(my_env);
 	return(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/03 10:19:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 13:53:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_env_var	*convert_env_to_linked_list(char **env)
 	t_env_var	*new_node;
 
 	i = -1;
+	head = NULL;
 	while (env[++i] != NULL)
 	{
 		new_node = env_lstnew(env[i]);
@@ -134,17 +135,17 @@ char *my_getenv(const char *name, char **my_env)
     return (NULL);
 }
 
-// void print_env_var(t_env_var *env_list) {
-//     t_env_var *current = env_list;
+void print_env_var(t_env_var *env_list) {
+    t_env_var *current = env_list;
 
-//     while (current != NULL) {
-//         // Print the environment variable string
-//         printf("%s", current->str);
+    while (current != NULL) {
+        // Print the environment variable string
+        printf("%s", current->str);
 
-//         // Print the is_exported value
-//         printf(" (is_exported: %d)\n", current->is_exported);
+        // Print the is_exported value
+        printf(" (is_exported: %d)\n", current->is_exported);
 
-//         // Move to the next node
-//         current = current->next;
-//     }
-// }
+        // Move to the next node
+        current = current->next;
+    }
+}
