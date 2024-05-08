@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/08 14:59:46 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 15:06:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ void	expand_str(char **str, char **my_env)
 	expanded = construct_expanded_str(str, value, i, j);
 	free(*str);
 	*str = expanded;
-
-	printf("expand_str\n"); // print check
 }
 
 void	trim_quotes(char **str_add, char *quote_type)
@@ -168,7 +166,7 @@ void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
 	i = -1;
 	while ((*cmd)[++i])
 	{
-		expand = ON;           // ON by default
+		expand = ON; // ON by default
 		if ((*cmd)[i][0] == '\'') // single quote
 		{
 			expand = OFF;
@@ -179,7 +177,7 @@ void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
 		if (expand == ON && ft_strchr((*cmd)[i], '$') != NULL)
 		{
 			expand_str(&(*cmd)[i], my_env);
-			if (*((*cmd)[i]) != '\0')
+			if (*((*cmd)[i]) != '\0') // if str is empty str (env_var doesn't exist/is empty str)
 				ft_split_cmd_str_after_expansion(cmd, (*cmd)[i], i);
 			print_str_arr(*cmd, "after EACH expansion & ft_splitting");
 		}
