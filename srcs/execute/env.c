@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/08 13:53:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 15:35:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,14 @@ t_env_var	*env_lstlast(t_env_var *lst) // tested
 	return (lst);
 }
 
-// void env_lstadd_back(t_env_var **env_list, t_env_var *new_node)
-// {
-// 	if (!env_list || !new_node)
-// 		return ;
-// 	if (*env_list)
-// 	{
-// 		env_lstlast(*env_list)->next = new_node;
-// 		return ;
-// 	}
-// 	(*env_list) = new_node;
-// }
-
 t_env_var	*env_lstnew(char *str)
 {
 	t_env_var	*new_node;
 
-	new_node = (t_env_var *)malloc(sizeof(t_env_var));
-	if (new_node == NULL)
-		perror_and_exit("malloc", EXIT_FAILURE);
+	new_node = (t_env_var *)ft_calloc(1, sizeof(t_env_var));
+	if_null_perror_n_exit(new_node, "ft_calloc", EXIT_FAILURE);
 	new_node->str = ft_strdup(str);
-	if (new_node->str == NULL)
-		perror_and_exit("strdup", EXIT_FAILURE);
+	if_null_perror_n_exit(new_node->str, "ft_strdup", EXIT_FAILURE);
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -79,7 +65,6 @@ t_env_var	*convert_env_to_linked_list(char **env)
 */
 char	**convert_env_lst_to_array(t_env_var *env_list)
 {
-    // Count the number of nodes in the linked list
     int count;
 	int i;
 	char **my_env;
@@ -92,10 +77,8 @@ char	**convert_env_lst_to_array(t_env_var *env_list)
         count++;
         current = current->next;
     }
-    // Allocate memory for the char ** array
-    my_env = (char **)malloc((count + 1) * sizeof(char *));
-    if (my_env == NULL)
-		perror_and_exit("malloc", EXIT_FAILURE);
+    my_env = (char **)ft_calloc((count + 1), sizeof(char *));
+	if_null_perror_n_exit(my_env, "ft_calloc", EXIT_FAILURE);
     // Copy each environment variable string into the array
     current = env_list;
     i = 0;
@@ -105,8 +88,6 @@ char	**convert_env_lst_to_array(t_env_var *env_list)
         current = current->next;
         i++;
     }
-    // Set the last element of the array to NULL to indicate the end
-    my_env[count] = NULL;
     return (my_env);
 }
 
@@ -139,13 +120,8 @@ void print_env_var(t_env_var *env_list) {
     t_env_var *current = env_list;
 
     while (current != NULL) {
-        // Print the environment variable string
         printf("%s", current->str);
-
-        // Print the is_exported value
         printf(" (is_exported: %d)\n", current->is_exported);
-
-        // Move to the next node
         current = current->next;
     }
 }

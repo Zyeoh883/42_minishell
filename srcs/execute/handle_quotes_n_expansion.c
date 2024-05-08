@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/08 15:06:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/08 15:49:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 - update/add additional ft_splitted strings to original char **cmd
 */
-void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
+void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int str_index)
 {
 	char **splitted;
 	int new_arr_size;
@@ -31,13 +31,12 @@ void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
 	new_arr = (char **)ft_calloc(new_arr_size + 1, sizeof(char *));
 	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);
 	// TODO: transfer
-	// transfer str(s) until index
-	i = 0;
-	while (i < index)
+	// transfer str(s) until str_index
+	i = -1;
+	while (++i < str_index)
 	{
-		new_arr[i] = (char *)ft_calloc(ft_strlen((*cmd)[i]) + 1, sizeof(char));
-		ft_strlcpy(new_arr[i], (*cmd)[i], ft_strlen((*cmd)[i]) + 1);
-		i++;
+		new_arr[i] = ft_strdup((*cmd)[i]);
+		if_null_perror_n_exit(new_arr[i], "ft_strdup", EXIT_FAILURE);
 	}
 	// transfer splitted str(s)
 	j = 0;
@@ -48,11 +47,12 @@ void ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str, int index)
 		j++;
 	}
 	free_str_arr(splitted);
-	// transfer str(s) index + 1
-	j = index + 1;
+	// transfer str(s) str_index + 1
+	j = str_index + 1;
 	while ((*cmd)[j] != NULL)
 	{
 		new_arr[i] = (char *)ft_calloc(ft_strlen((*cmd)[j]) + 1, sizeof(char));
+		if_null_perror_n_exit(new_arr[i], "ft_calloc", EXIT_FAILURE);
 		ft_strlcpy(new_arr[i++], (*cmd)[j], ft_strlen((*cmd)[j]) + 1);
 		j++;
 	}
