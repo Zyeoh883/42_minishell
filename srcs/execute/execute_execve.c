@@ -6,12 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/06 16:38:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/09 14:33:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// search & construct valid executable path
 char	*get_exec(char **cmd_path, char *cmd)
 {
 	char	*exec;
@@ -61,11 +62,14 @@ int	execute_execve(char **cmd_arg, char **my_env)
 		return (ERROR_CMD_NOT_FOUND);
 	}
 	path_arr = ft_split(path_str, ':');
-	if (path_arr == NULL)
-		perror_and_exit("ft_split", 1);
+	if_null_perror_n_exit(path_arr, "ft_split", EXIT_FAILURE);
 	exec_path = get_exec(path_arr, *cmd_arg);
 	if (exec_path == NULL)
-		perror_and_exit("get_exec", EXIT_FAILURE);
+	{
+		ft_putstr_fd(*cmd_arg, 2);
+		ft_putendl_fd(": command not found", 2);
+		return (ERROR_CMD_NOT_FOUND);
+	}
 	pid = fork(); // fork
 	if (pid < 0)
 		perror_and_exit("fork", 1);

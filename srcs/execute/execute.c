@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/08 15:07:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/09 14:14:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int execute_simple_cmd(t_simple_command *sc)
 	{
 		printf("===Output===\n");
 		ret = execute_execve(sc->cmd, my_env); // my_env is freed in this func
+		printf("exit_status: %i\n", ret);
 	}
 	free(my_env);
 	return(ret);
