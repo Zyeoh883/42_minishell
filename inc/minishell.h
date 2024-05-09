@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/08 13:06:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/09 13:56:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void print_env_var(t_env_var *env_list);
 
 // HANDLE Quotes & Env_Expansion
 void handle_quotes_n_var_expansion(char ***cmd, char **my_env);
-char *return_expanded_str(char *str, char **my_env);
+void	ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str,
+		int str_index);
 
 // * PIPES
 void	coupling(t_pipe *pipe_node, int n);
