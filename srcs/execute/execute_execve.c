@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/09 14:33:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 15:12:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,19 @@ int	waitpid_n_get_exit_status(pid_t pid)
 	}
 }
 
-int	execute_execve(char **cmd_arg, char **my_env)
+// int	execute_execve(char **cmd_arg, char **my_env)
+int	execute_execve(char **cmd_arg, t_var *var_lst)
 {
 	char	**path_arr;
 	char	*exec_path;
 	pid_t	pid;
 	char *path_str;
+	char **my_env;
 
-	path_str = my_getenv("PATH", my_env);
+	my_env = convert_var_lst_to_array(var_lst);
+
+	// path_str = my_getvar("PATH", my_env);
+	path_str = my_getvar("PATH", var_lst);
 	if (path_str == NULL) // if user unset("PATH");
 	{
 		ft_putstr_fd(*cmd_arg, 2);
@@ -86,5 +91,6 @@ int	execute_execve(char **cmd_arg, char **my_env)
 	// Parent
 	free_str_arr(path_arr);
 	free(exec_path);
+	free(my_env);
 	return (waitpid_n_get_exit_status(pid)); // ! return Exit status?
 }

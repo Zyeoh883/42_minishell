@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/08 13:52:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:06:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	char	*input;
-	t_env_var	*env_lst; // linked list
+	t_var	*var_lst; // linked list
 
-	env_lst = convert_env_to_linked_list(env);
+	var_lst = convert_env_to_linked_list(env);
 	while (1)
 	{
 		input = readline("minishell$ ");	
@@ -55,11 +55,11 @@ int main(int argc, char **argv, char **env)
 		if (ft_strncmp("exit", input, 5) == 0)
 		{
 			free(input);
-			free_env_lst(env_lst);
+			free_var_lst(var_lst);
 			exit(EXIT_SUCCESS);
 		}
 		char **input_arr = ft_split(input, ' ');
-		t_node	*node = create_simple_command(env_lst, input_arr);
+		t_node	*node = create_simple_command(var_lst, input_arr);
 		execute(node); 
 		// ^error check?
 		
@@ -72,6 +72,6 @@ int main(int argc, char **argv, char **env)
 		free(node); // tmp
 
 	}
-	free_env_lst(env_lst); // ? needed?
+	free_var_lst(var_lst); // ? needed?
 
 }

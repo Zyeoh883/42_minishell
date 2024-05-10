@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/09 14:00:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 15:00:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*construct_expanded_str(char **str, char *value, int i, int j)
 	int		i; -> index of $ sign
 	int		j; -> index of char right after var_name
 */
-void	expand_str(char **str, char **my_env)
+// void	expand_str(char **str, char **my_env)
+void	expand_str(char **str, t_var *var_lst)
 {
 	char	*value;
 	char	*var_name;
@@ -62,7 +63,9 @@ void	expand_str(char **str, char **my_env)
 	j = get_index_of_char_after_var_name((*str), i);
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-	value = my_getenv(var_name, my_env);
+	// if (ft_strncmp(var_name, "?", 1) == 0) // if $?
+	// 	value = *my_env;
+	value = my_getvar(var_name, var_lst);
 	if (value == NULL)
 		value = "\0"; // ! if var not found in my_env, expand to ""
 	free(var_name);
@@ -81,7 +84,8 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
-void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
+// void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
+void	handle_quotes_n_var_expansion(char ***cmd, t_var *var_lst)
 {
 	int	i;
 	int	expand;
@@ -99,7 +103,7 @@ void	handle_quotes_n_var_expansion(char ***cmd, char **my_env)
 			trim_quotes(&(*cmd)[i], "\"");
 		if (expand == ON && ft_strchr((*cmd)[i], '$') != NULL)
 		{
-			expand_str(&(*cmd)[i], my_env);
+			expand_str(&(*cmd)[i], var_lst);
 			if (*((*cmd)[i]) != '\0')
 				// if str is empty str (env_var doesn't exist/is empty str)
 				ft_split_cmd_str_after_expansion(cmd, (*cmd)[i], i);

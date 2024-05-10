@@ -15,9 +15,10 @@ SRCS_FIL = \
 			create/piping.c \
 			execute/execute.c \
 			execute/execute_execve.c \
-			execute/env.c \
+			execute/variables.c \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
+			execute/lst_functions.c \
 			free.c \
 			utils/utils1.c \
 			# builtins.c 

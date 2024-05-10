@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/09 14:14:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 15:07:42 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int setup_redir(t_redir	*redir)
 
 int execute_simple_cmd(t_simple_command *sc)
 {
-	char **my_env;
+	// char **my_env;
 	int ret;
 
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
-	my_env = convert_env_lst_to_array(sc->env_lst);
 	print_str_arr(sc-> cmd, "Before quote_handling & Expansion"); // *print check
-	handle_quotes_n_var_expansion(&sc->cmd, my_env);
+	handle_quotes_n_var_expansion(&sc->cmd, sc->var_lst);
 	print_str_arr(sc->cmd, "ft_split_after_expansion"); // *print check
 
+	// my_env = convert_var_lst_to_array(sc->var_lst); // ! transferred to execute_execve()
 
 	ret = SUCCESS;
 	if (sc->cmd == NULL) // no cmd at all
@@ -78,10 +78,10 @@ int execute_simple_cmd(t_simple_command *sc)
 	else
 	{
 		printf("===Output===\n");
-		ret = execute_execve(sc->cmd, my_env); // my_env is freed in this func
+		ret = execute_execve(sc->cmd, sc->var_lst); // my_env is freed in this func
 		printf("exit_status: %i\n", ret);
 	}
-	free(my_env);
+	// free(my_env);
 	return(ret);
 }
 /*
@@ -143,6 +143,7 @@ int execute_subshell(t_subshell *subshell)
 // return value is exit code
 int execute(t_node *node)
 {
+
     // if (node->type == AND_OR)
         // if (execute_and_or(node->and_or) == SUCCESS)
 		// 	return (SUCCESS);
