@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/10 14:24:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 16:00:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_var
 {
 	char						*str;
 	int							is_exported;
-	int 						exit_status;
 	struct s_var				*next;
 }								t_var;
 

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/10 15:10:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 16:03:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		execute(t_node *node);
 
 // List Functions
 t_var	*var_lstnew(char *str);
+void	var_lstadd_front(t_var **lst, t_var *new);
 
 // ENV
 // char	*my_getvar(const char *name, char **my_env);

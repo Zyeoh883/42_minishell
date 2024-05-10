@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:04:46 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 15:14:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 16:03:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ t_var	*var_lstnew(char *str)
 	if_null_perror_n_exit(new_node->str, "ft_strdup", EXIT_FAILURE);
 	new_node->next = NULL;
 	new_node->is_exported = NO;
-	new_node->exit_status = 0;
 	return (new_node);
+}
+void	var_lstadd_front(t_var **lst, t_var *new)
+{
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

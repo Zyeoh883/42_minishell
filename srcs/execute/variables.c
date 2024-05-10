@@ -6,31 +6,39 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 15:03:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 16:21:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// t_var	*var_lstlast(t_var *lst) // tested
+// t_var	*convert_env_to_linked_list(char **env)
 // {
-// 	if (!lst)
-// 		return (NULL);
-// 	while (lst->next)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
-// t_var	*var_lstnew(char *str)
-// {
+// 	int		i;
+// 	t_var	*head;
+// 	t_var	*tail;
 // 	t_var	*new_node;
 
-// 	new_node = (t_var *)ft_calloc(1, sizeof(t_var));
-// 	if_null_perror_n_exit(new_node, "ft_calloc", EXIT_FAILURE);
-// 	new_node->str = ft_strdup(str);
-// 	if_null_perror_n_exit(new_node->str, "ft_strdup", EXIT_FAILURE);
-// 	new_node->next = NULL;
-// 	return (new_node);
+// 	i = -1;
+// 	// head = NULL;
+// 	// initialise first var as "?=0"
+// 	head = var_lstnew("?=0");
+// 	while (env[++i] != NULL)
+// 	{
+// 		new_node = var_lstnew(env[i]);
+// 		new_node->is_exported = 1;
+// 		if (head == NULL)
+// 		{
+// 			head = new_node;
+// 			tail = new_node;
+// 		}
+// 		else
+// 		{
+// 			tail->next = new_node;
+// 			tail = new_node;
+// 		}
+// 	}
+// 	return (head);
 // }
 
 t_var	*convert_env_to_linked_list(char **env)
@@ -41,21 +49,16 @@ t_var	*convert_env_to_linked_list(char **env)
 	t_var	*new_node;
 
 	i = -1;
-	head = NULL;
+	// head = NULL;
+	// initialise first var as "?=0"
+	head = var_lstnew("?=hello");
+	tail = head;
 	while (env[++i] != NULL)
 	{
 		new_node = var_lstnew(env[i]);
 		new_node->is_exported = 1;
-		if (head == NULL)
-		{
-			head = new_node;
-			tail = new_node;
-		}
-		else
-		{
-			tail->next = new_node;
-			tail = new_node;
-		}
+		tail->next = new_node;
+		tail = new_node;
 	}
 	return (head);
 }
@@ -63,7 +66,7 @@ t_var	*convert_env_to_linked_list(char **env)
 * TAKE NOTE
 	- strings stored in returned array share the same memory as strings stored in env_lst
 */
-char	**convert_var_lst_to_array(t_var *env_list)
+char	**convert_var_lst_to_array(t_var *var_list)
 {
 	int		count;
 	int		i;
@@ -71,20 +74,22 @@ char	**convert_var_lst_to_array(t_var *env_list)
 	t_var	*current;
 
 	count = 0;
-	current = env_list;
+	current = var_list;
 	while (current != NULL) // ft_lstsize
 	{
-		count++;
+		// if (current->is_exported) //!
+			count++;
 		current = current->next;
 	}
 	my_env = (char **)ft_calloc((count + 1), sizeof(char *));
 	if_null_perror_n_exit(my_env, "ft_calloc", EXIT_FAILURE);
 	// Copy each environment variable string into the array
-	current = env_list;
+	current = var_list;
 	i = 0;
 	while (current != NULL)
 	{
-		my_env[i] = current->str;
+		// if (current->is_exported) //!
+			my_env[i] = current->str;
 		current = current->next;
 		i++;
 	}
@@ -117,17 +122,10 @@ char	**convert_var_lst_to_array(t_var *env_list)
 char	*my_getvar(const char *name, t_var *var)
 {
 	char	*equal_sign;
-	char *exit_status;
+	// char *exit_status;
 
 	if (var == NULL)
 		return (NULL);
-	// TODO: edge case for $?
-	if (ft_strncmp(name, "?", ft_strlen(name)) == 0) // if $?
-	{
-		exit_status = ft_itoa(var->exit_status); 		
-		if_null_perror_n_exit(exit_status, "ft_itoa", EXIT_FAILURE);
-		return (exit_status);
-	}
 	while (var != NULL)
 	{
 		equal_sign = ft_strchr(var->str, '=');
@@ -145,7 +143,7 @@ void	print_env_var(t_var *env_list)
 	while (env_list != NULL)
 	{
 		if (env_list->is_exported)
-			ft_printf("%s", env_list->str);
+			ft_printf("%s\n", env_list->str);
 		env_list = env_list->next;
 	}
 }

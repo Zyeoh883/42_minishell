@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 15:12:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/10 16:03:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ char	*get_exec(char **cmd_path, char *cmd)
 	while (*cmd_path)
 	{
 		path_part = ft_strjoin(*cmd_path, "/");
+		if_null_perror_n_exit(path_part, "ft_strjoin", EXIT_FAILURE);
 		exec = ft_strjoin(path_part, cmd);
+		if_null_perror_n_exit(exec, "ft_strjoin", EXIT_FAILURE);
 		free(path_part);
 		if (access(exec, F_OK | X_OK) == 0)
 			return (exec);
@@ -63,12 +65,13 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	if (path_str == NULL) // if user unset("PATH");
 	{
 		ft_putstr_fd(*cmd_arg, 2);
-		ft_putendl_fd(": command not found", 2);
+		ft_putendl_fd(": command not foundd", 2);
 		return (ERROR_CMD_NOT_FOUND);
 	}
 	path_arr = ft_split(path_str, ':');
 	if_null_perror_n_exit(path_arr, "ft_split", EXIT_FAILURE);
 	exec_path = get_exec(path_arr, *cmd_arg);
+	free_str_arr(path_arr);
 	if (exec_path == NULL)
 	{
 		ft_putstr_fd(*cmd_arg, 2);
@@ -89,7 +92,6 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		}
 	}
 	// Parent
-	free_str_arr(path_arr);
 	free(exec_path);
 	free(my_env);
 	return (waitpid_n_get_exit_status(pid)); // ! return Exit status?
