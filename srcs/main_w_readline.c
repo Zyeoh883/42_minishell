@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 16:20:42 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/13 15:44:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 // }
 
 
+
 int main(int argc, char **argv, char **env)
 {
 	(void)argc;
@@ -46,6 +47,9 @@ int main(int argc, char **argv, char **env)
 	t_var	*var_lst; // linked list
 
 	var_lst = convert_env_to_linked_list(env);
+	var_lstadd_front(&var_lst, var_lstnew("?=0"));
+	printf("1st node str: %s\n", var_lst->str);
+	printf("1st node str: %p\n", var_lst->str);
 	while (1)
 	{
 		input = readline("minishell$ ");	
@@ -68,7 +72,9 @@ int main(int argc, char **argv, char **env)
 		if (node->simple_command->cmd)
 			free_str_arr(node->simple_command->cmd); // ! SEGV when i uncomment this
 		
+		printf("node->simple_command: %p\n", node->simple_command);
 		free(node->simple_command); // tmp
+		printf("node: %p\n", node);
 		free(node); // tmp
 
 	}

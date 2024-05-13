@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 15:07:42 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/13 15:43:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ int setup_redir(t_redir	*redir)
 
 int execute_simple_cmd(t_simple_command *sc)
 {
-	// char **my_env;
-	int ret;
-
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 	print_str_arr(sc-> cmd, "Before quote_handling & Expansion"); // *print check
 	handle_quotes_n_var_expansion(&sc->cmd, sc->var_lst);
@@ -67,7 +64,6 @@ int execute_simple_cmd(t_simple_command *sc)
 
 	// my_env = convert_var_lst_to_array(sc->var_lst); // ! transferred to execute_execve()
 
-	ret = SUCCESS;
 	if (sc->cmd == NULL) // no cmd at all
 		return (SUCCESS);
 	else if (sc->is_built_in)
@@ -78,11 +74,9 @@ int execute_simple_cmd(t_simple_command *sc)
 	else
 	{
 		printf("===Output===\n");
-		ret = execute_execve(sc->cmd, sc->var_lst); // my_env is freed in this func
-		printf("exit_status: %i\n", ret);
+		return (execute_execve(sc->cmd, sc->var_lst)); // my_env is freed in this func
+		// printf("exit_status: %i\n", ret);
 	}
-	// free(my_env);
-	return(ret);
 }
 /*
 * if (execute() > 0) => FAIL
@@ -141,44 +135,46 @@ int execute_subshell(t_subshell *subshell)
 }
 
 // return value is exit code
-int execute(t_node *node)
-{
-
-    // if (node->type == AND_OR)
-        // if (execute_and_or(node->and_or) == SUCCESS)
-		// 	return (SUCCESS);
-    if (node->type == SUBSHELL)
-        return(execute_subshell(node->subshell));
-    // else if (node->type == PIPE)
-    //     if (execute_pipe(node->pipe) == SUCCESS)
-	// 		return (SUCCESS);
-	else if (node->type == SIMPLE_COMMAND)
-		return(execute_simple_cmd(node->simple_command));
-	else // INVALID NODE TYPE
-		return (FAIL);
-}
-
-// idea to handle exit status
-// int execute(t_node *node, int *final_exit_status)
+// int execute(t_node *node)
 // {
 
 //     // if (node->type == AND_OR)
 //         // if (execute_and_or(node->and_or) == SUCCESS)
 // 		// 	return (SUCCESS);
-//   if (node->type == SUBSHELL)
-// 	{
-// 		  *final_exit_status = execute_subshell(node->subshell);
-//       if (*final_exit_status == SUCCESS)
-// 				return (SUCCESS);
-// 	}
+//     if (node->type == SUBSHELL)
+//         return(execute_subshell(node->subshell));
 //     // else if (node->type == PIPE)
 //     //     if (execute_pipe(node->pipe) == SUCCESS)
 // 	// 		return (SUCCESS);
 // 	else if (node->type == SIMPLE_COMMAND)
-// 	{
-// 			*final_exit_status = execute_simple_cmd(node->simple_command);
-// 	    if (*final_exit_status == SUCCESS)
-// 				 return (SUCCESS);
-// 	}
-// 	return (*final_exit_status);
+// 		return(execute_simple_cmd(node->simple_command));
+// 	else // INVALID NODE TYPE
+// 		return (FAIL);
 // }
+
+// void set_exit_status(int exit_code, t_var *var_lst)
+// {
+// 	char *str;
+
+// 	str = ft_itoa(exit_code);
+// 	// printf("exit_status_str: %s\n", str);
+// 	if_null_perror_n_exit(str, "ft_itoa", EXIT_FAILURE);
+// 	set_var("?", str, var_lst);
+// }
+
+// idea to handle exit status
+int execute(t_node *node)
+{
+	int ret;
+    // if (node->type == AND_OR)
+        // if (execute_and_or(node->and_or) == SUCCESS)
+		// 	return (SUCCESS);
+  	if (node->type == SUBSHELL)
+		 ret = execute_subshell(node->subshell);
+	else if (node->type == SIMPLE_COMMAND)
+		ret = execute_simple_cmd(node->simple_command);
+	else 
+		ret = EXIT_FAILURE;
+	// set_exit_status(ret, node->var_lst);
+	return (ret);
+}

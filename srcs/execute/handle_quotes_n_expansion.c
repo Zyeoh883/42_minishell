@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 15:58:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/13 12:53:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	expand_str(char **str, t_var *var_lst)
 	j = get_index_of_char_after_var_name((*str), i);
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-	value = my_getvar(var_name, var_lst);
+	value = get_var(var_name, var_lst);
 	if (value == NULL)
 		value = "\0"; // ! if var not found in my_env, expand to ""
 	free(var_name);
