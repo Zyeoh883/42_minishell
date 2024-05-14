@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/13 15:06:01 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:31:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**convert_var_lst_to_array(t_var *var_list)
 {
 	int		count;
 	int		i;
-	char	**my_env;
+	char	**var_arr;
 	t_var	*current;
 
 	count = 0;
@@ -59,18 +59,18 @@ char	**convert_var_lst_to_array(t_var *var_list)
 		count++;
 		current = current->next;
 	}
-	my_env = (char **)ft_calloc((count + 1), sizeof(char *));
-	if_null_perror_n_exit(my_env, "ft_calloc", EXIT_FAILURE);
+	var_arr = (char **)ft_calloc((count + 1), sizeof(char *));
+	if_null_perror_n_exit(var_arr, "ft_calloc", EXIT_FAILURE);
 	// Copy each environment variable string into the array
 	current = var_list;
 	i = 0;
 	while (current != NULL)
 	{
-		my_env[i] = current->str;
+		var_arr[i] = current->str;
 		current = current->next;
 		i++;
 	}
-	return (my_env);
+	return (var_arr);
 }
 
 char	*get_var(const char *name, t_var *var)
@@ -104,7 +104,7 @@ void set_var(char *var_name, char *new_content, t_var *var)
 				&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
 			{
 				updated = (char *)malloc(ft_strlen(var_name) + 1 + ft_strlen(new_content) + 1);
-				ft_strlcpy(updated, var->str, (equal_sign - var->str + 1 + 1)); // + 1 for 
+				ft_strlcpy(updated, var->str, (equal_sign - var->str + 1 + 1)); // + 1 for
 				ft_strlcpy(&updated[ft_strlen(var_name) + 1], new_content, ft_strlen(new_content) + 1);
 				free(var->str);
 				var->str = updated;

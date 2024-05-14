@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/13 15:17:05 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:42:13 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	waitpid_n_get_exit_status(pid_t pid)
 		return (SIGNALINT);
 	}
 }
-
-// int	execute_execve(char **cmd_arg, char **my_env)
+/*
+DON'T -> free_str_arr(var_arr);
+	- don't free as strings in var_arr are ptrs to var->str in linked list
+*/
 int	execute_execve(char **cmd_arg, t_var *var_lst)
 {
 	char	**path_arr;
@@ -58,13 +60,11 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	char *path_str;
 	char **var_arr;
 
-	var_arr = convert_var_lst_to_array(var_lst);	
 	path_str = get_var("PATH", var_lst);
 	if (path_str == NULL) // if user unset("PATH");
 	{
 		ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
 		ft_putendl_fd(": command not foundd", STDOUT_FILENO);
-		free_str_arr(var_arr);
 		return (ERROR_CMD_NOT_FOUND);
 	}
 	path_arr = ft_split(path_str, ':');
@@ -75,7 +75,6 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	{
 		ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
 		ft_putendl_fd(": command not found", STDOUT_FILENO);
-		free_str_arr(var_arr);
 		free(exec_path);
 		return (ERROR_CMD_NOT_FOUND);
 	}
@@ -84,18 +83,18 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		perror_and_exit("fork", 1);
 	else if (pid == 0) // Child
 	{
+		var_arr = convert_var_lst_to_array(var_lst);
 		if (execve(exec_path, cmd_arg, var_arr) == -1)
 		// ? Might free local before var before exit
 		{
+			free_str_arr(var_arr);
 			ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
 			ft_putendl_fd(": command not found", STDOUT_FILENO);
 			exit(ERROR_CMD_NOT_FOUND);
 		}
 	}
 	// Parent
-	printf("exec_path: %p\n", exec_path);
+	// printf("exec_path: %p\n", exec_path);
 	free(exec_path);
-	printf("var_arr: %p\n", var_arr);
-	free_str_arr(var_arr);
 	return (waitpid_n_get_exit_status(pid)); // ! return Exit status?
 }

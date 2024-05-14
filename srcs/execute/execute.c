@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/13 15:43:38 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:40:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ int execute(t_node *node)
 		 ret = execute_subshell(node->subshell);
 	else if (node->type == SIMPLE_COMMAND)
 		ret = execute_simple_cmd(node->simple_command);
-	else 
+	else
 		ret = EXIT_FAILURE;
-	// set_exit_status(ret, node->var_lst);
+	set_exit_status(ret, node->var_lst);
 	return (ret);
 }

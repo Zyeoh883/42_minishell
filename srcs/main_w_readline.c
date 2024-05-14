@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/13 15:44:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:42:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,33 +48,33 @@ int main(int argc, char **argv, char **env)
 
 	var_lst = convert_env_to_linked_list(env);
 	var_lstadd_front(&var_lst, var_lstnew("?=0"));
-	printf("1st node str: %s\n", var_lst->str);
-	printf("1st node str: %p\n", var_lst->str);
+	// printf("1st node str: %s\n", var_lst->str);
+	// printf("1st node str: %p\n", var_lst->str);
 	while (1)
 	{
-		input = readline("minishell$ ");	
+		input = readline("minishell$ ");
 		if (input == NULL)
 			perror_and_exit("readline", EXIT_FAILURE);
 		add_history(input); // working history
 		if (ft_strncmp("exit", input, 5) == 0)
 		{
 			free(input);
-			free_var_lst(var_lst);
+			free_var_lst(var_lst); // ! double free happens here
 			exit(EXIT_SUCCESS);
 		}
 		char **input_arr = ft_split(input, ' ');
 		t_node	*node = create_simple_command(var_lst, input_arr);
-		execute(node); 
+		execute(node);
 		// ^error check?
-		
+
 		// free_str_arr(input_arr);
 		free(input);
 		if (node->simple_command->cmd)
 			free_str_arr(node->simple_command->cmd); // ! SEGV when i uncomment this
-		
-		printf("node->simple_command: %p\n", node->simple_command);
+
+		// printf("node->simple_command: %p\n", node->simple_command);
 		free(node->simple_command); // tmp
-		printf("node: %p\n", node);
+		// printf("node: %p\n", node);
 		free(node); // tmp
 
 	}
