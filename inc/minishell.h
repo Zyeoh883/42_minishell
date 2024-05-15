@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 18:07:11 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/15 22:02:40 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 # include "../libft/libft.h"
 # include "create_node.h"
 # include "data_structs.h"
+# include "readline.h"
+# include "history.h"
 # include "tokenize.h"
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -44,10 +44,11 @@
 
 # define HERE_DOC_DIR "/tmp/heredoc_"
 
-int	g_signal;
+int		g_signal;
 
 typedef struct s_data // stores all major data
 {
+	struct sigaction sa;
 	t_var *var_lst;
 	t_token *token_root;
 	t_node *ast_root;

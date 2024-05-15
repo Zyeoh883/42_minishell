@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 18:07:13 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/15 22:53:10 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	minishell_input(t_token **token_root)
 	input = handle_readline("minishell$ ", &status);
 	while (status > 0)
 	{
+		if (g_signal == SIGINT)
+		{
+			free(input);
+			g_signal = 0;
+			return;
+		}
 		token = tokenize(input);
 		line = add_to_line(line, input);
 		if (!token)
@@ -46,7 +52,8 @@ char	*handle_readline(char *str, int *status)
 
 	input = readline(str);
 	if (input == NULL)
-		perror_and_exit("readline", EXIT_FAILURE);
+		perror_and_exit("readline", EXIT_FAILURE); // TODO dont show 'ˆD' on terminal
+	printf("input return is %p\n", input);
 	if (ft_strncmp("exit", input, 5) == 0)
 	{
 		free(input);
