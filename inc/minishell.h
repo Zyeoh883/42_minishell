@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/13 14:09:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define SIGNALINT 130
 
 t_node	*create_node(t_nodetype type, t_var *var_lst);
-t_node	*create_simple_command(t_var *env_lst, char **cmd);
+t_node	*create_simple_command(t_var *env_lst, char **cmd_arg);
 
 // * EXECUTION
 // int		execute_execve(char **cmd_arg, char **env);
@@ -63,9 +63,9 @@ void set_exit_status(int exit_code, t_var *var_lst);
 // void	execute_env(char **my_env);
 
 // HANDLE Quotes & Env_Expansion
-// void handle_quotes_n_var_expansion(char ***cmd, char **my_env);
-void	handle_quotes_n_var_expansion(char ***cmd, t_var *var_lst);
-void	ft_split_cmd_str_after_expansion(char ***cmd, char *cmd_str,
+// void handle_quotes_n_var_expansion(char ***cmd_arg, char **my_env);
+void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst);
+void	ft_split_cmd_str_after_expansion(char ***cmd_arg, char *cmd_str,
 			int str_index);
 
 // * PIPES

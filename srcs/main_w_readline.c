@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/14 10:42:33 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int main(int argc, char **argv, char **env)
 
 		// free_str_arr(input_arr);
 		free(input);
-		if (node->simple_command->cmd)
-			free_str_arr(node->simple_command->cmd); // ! SEGV when i uncomment this
+		if (node->simple_command->cmd_arg)
+			free_str_arr(node->simple_command->cmd_arg); // ! SEGV when i uncomment this
 
 		// printf("node->simple_command: %p\n", node->simple_command);
 		free(node->simple_command); // tmp

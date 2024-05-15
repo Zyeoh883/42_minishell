@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/15 20:41:09 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // t_node	tokenize_simple_command(char *input, char **env);
 
 t_node	*create_node(t_nodetype type);
-t_node	*create_command(char **env, char **cmd);
+t_node	*create_command(char **env, char **cmd_arg);
 t_node	*create_simple_command(char **env, char **files, t_node *command);
 
 // piping

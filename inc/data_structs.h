@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/13 13:42:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_simple_command
 	int							fd_out;
 	t_redir *redir; // array of redir structs, all arrays must be NULL terminated
 	int							is_built_in;
-	char 						**cmd;         // NULL terminated 2D array
+	char 						**cmd_arg;         // NULL terminated 2D array
 	t_var 						*var_lst; // ! update
 }								t_simple_command;
 

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/13 13:41:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*create_node(t_nodetype type, t_var *var_lst)
 	return (node);
 }
 
-// t_node	*create_command(char **env, char **cmd)
+// t_node	*create_command(char **env, char **cmd_arg)
 // {
 // 	t_node	*node;
 
@@ -41,12 +41,12 @@ t_node	*create_node(t_nodetype type, t_var *var_lst)
 // 		free(node);
 // 		exit(125);
 // 	}
-// 	node->command->cmd = cmd;
+// 	node->command->cmd_arg = cmd_arg;
 // 	node->command->env = env;
 // 	return (node);
 // }
 
-t_node	*create_simple_command(t_var *var_lst, char **cmd)
+t_node	*create_simple_command(t_var *var_lst, char **cmd_arg)
 {
 	t_node	*node;
 
@@ -60,7 +60,7 @@ t_node	*create_simple_command(t_var *var_lst, char **cmd)
 		free(node);
 		exit(125);
 	}
-	node->simple_command->cmd = cmd;
+	node->simple_command->cmd_arg = cmd_arg;
 	node->simple_command->var_lst = var_lst;
 	node->simple_command->is_built_in = 0;
 	return (node);
@@ -83,7 +83,7 @@ t_node	*create_simple_command(t_var *var_lst, char **cmd)
 // 		free(node);
 // 		exit(125);
 // 	}
-// 	node->simple_command->cmd = command;
+// 	node->simple_command->cmd_arg = command;
 // 	return (node);
 // }
 
