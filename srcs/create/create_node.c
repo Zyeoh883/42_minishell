@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,16 @@ t_node	*create_simple_command(t_var *var_lst, char **cmd_arg)
 	}
 	node->simple_command->cmd_arg = cmd_arg;
 	node->simple_command->var_lst = var_lst;
-	node->simple_command->is_built_in = 0;
+	node->simple_command->is_built_in = NO;
+	if (ft_strcasecmp(*cmd_arg, "echo") == 0 || ft_strcasecmp(*cmd_arg, "env") == 0)
+	{
+		node->simple_command->is_built_in = YES;
+		printf(">>>>>BUILT_IN>>>>>\n");
+	}
 	return (node);
 }
 
-// t_node	*create_simple_command(char **env, char **files, t_node *command)
-// {
-// 	t_node	*node;
 
-// 	(void)files;
-// 	(void)env;
-// 	node = create_node(SIMPLE_COMMAND);
-// 	if (!node)
-// 		exit(125);
-// 	node->simple_command = (t_simple_command *)ft_calloc(1,
-// 			sizeof(t_simple_command));
-// 	if (!node->simple_command)
-// 	{
-// 		perror("Failed to create redir_in node");
-// 		free(node);
-// 		exit(125);
-// 	}
-// 	node->simple_command->cmd_arg = command;
-// 	return (node);
-// }
 
 // t_node	*create_pipe(t_node **nodes, int n_nodes)
 // {

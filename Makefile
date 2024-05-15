@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c99 #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -std=c99 -fsanitize=address -g
 INCLUDES = -I ./inc/ -I$(LIBFT_DIR)
 
 # COLORS
@@ -13,16 +13,17 @@ SRCS_FIL = \
 			main_w_readline.c \
 			create/create_node.c \
 			create/piping.c \
-			execute/execute.c \
-			execute/execute_execve.c \
 			execute/variables.c \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
 			execute/lst_functions.c \
 			execute/exit_status.c \
+			execute/execute.c \
+			execute/execute_execve.c \
+			execute/execute_builtins.c \
 			free.c \
 			utils/utils1.c \
-			# builtins.c 
+			utils/utils2.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

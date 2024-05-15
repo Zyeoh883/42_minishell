@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:19:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int main(int argc, char **argv, char **env)
 
 	var_lst = convert_env_to_linked_list(env);
 	var_lstadd_front(&var_lst, var_lstnew("?=0"));
+
 	// printf("1st node str: %s\n", var_lst->str);
 	// printf("1st node str: %p\n", var_lst->str);
 	while (1)

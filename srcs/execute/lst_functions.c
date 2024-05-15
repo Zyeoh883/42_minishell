@@ -6,13 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:04:46 by sting             #+#    #+#             */
-/*   Updated: 2024/05/10 16:03:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:09:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_var	*var_lstlast(t_var *lst) // tested
+t_var	*var_lstlast(t_var *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -39,4 +39,16 @@ void	var_lstadd_front(t_var **lst, t_var *new)
 		return ;
 	new->next = *lst;
 	*lst = new;
+}
+
+void	var_lstadd_back(t_var **lst, t_var *new)
+{
+	if (!lst || !new)
+		return ;
+	if (*lst)
+	{
+		var_lstlast(*lst)->next = new;
+		return ;
+	}
+	(*lst) = new;
 }

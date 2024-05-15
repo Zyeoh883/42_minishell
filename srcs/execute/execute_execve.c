@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/14 10:42:13 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 11:17:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	path_str = get_var("PATH", var_lst);
 	if (path_str == NULL) // if user unset("PATH");
 	{
-		ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
-		ft_putendl_fd(": command not foundd", STDOUT_FILENO);
+		ft_putstr_fd(*cmd_arg, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		// ft_putendl_fd("(PATH not found)", STDERR_FILENO); // ! to be removed
 		return (ERROR_CMD_NOT_FOUND);
 	}
 	path_arr = ft_split(path_str, ':');
@@ -73,8 +74,8 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	free_str_arr(path_arr);
 	if (exec_path == NULL)
 	{
-		ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
-		ft_putendl_fd(": command not found", STDOUT_FILENO);
+		ft_putstr_fd(*cmd_arg, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
 		free(exec_path);
 		return (ERROR_CMD_NOT_FOUND);
 	}
@@ -88,8 +89,8 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		// ? Might free local before var before exit
 		{
 			free_str_arr(var_arr);
-			ft_putstr_fd(*cmd_arg, STDOUT_FILENO);
-			ft_putendl_fd(": command not found", STDOUT_FILENO);
+			ft_putstr_fd(*cmd_arg, STDERR_FILENO);
+			ft_putendl_fd(": command not found", STDERR_FILENO);
 			exit(ERROR_CMD_NOT_FOUND);
 		}
 	}

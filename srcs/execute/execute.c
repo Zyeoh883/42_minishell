@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 13:07:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int execute_simple_cmd(t_simple_command *sc)
 
 	// my_env = convert_var_lst_to_array(sc->var_lst); // ! transferred to execute_execve()
 
+	printf("===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all
 		return (SUCCESS);
 	else if (sc->is_built_in)
 	{
-		//ret = execute_built_in(sc->env_lst) // free my_env in this func
-		return (SUCCESS); // ! temporary here
+		return (execute_builtins(sc->cmd_arg, sc->var_lst));
+		// return (SUCCESS); // ! temporary here
 	}
 	else
 	{
-		printf("===Output===\n");
-		return (execute_execve(sc->cmd_arg, sc->var_lst)); // my_env is freed in this func
+		return (execute_execve(sc->cmd_arg, sc->var_lst));
 		// printf("exit_status: %i\n", ret);
 	}
 }

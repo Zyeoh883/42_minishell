@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/14 10:31:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:10:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ void set_var(char *var_name, char *new_content, t_var *var)
 	}
 }
 
-void	print_env_var(t_var *env_list)
+void	print_env_var(t_var *var_lst)
 {
-	while (env_list != NULL)
+	while (var_lst != NULL)
 	{
-		if (env_list->is_exported)
-			ft_printf("%s\n", env_list->str);
-		env_list = env_list->next;
+		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
+			ft_printf("%s\n", var_lst->str);
+		var_lst = var_lst->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:46:03 by sting             #+#    #+#             */
-/*   Updated: 2024/05/14 10:43:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:06:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void set_exit_status(int exit_code, t_var *var_lst)
 	char *str;
 	char *updated;
 
+	if (var_lst->is_exported == YES)
+		return ;
 	str = ft_itoa(exit_code);
 	if_null_perror_n_exit(str, "ft_itoa", EXIT_FAILURE);
 	updated = (char *)malloc(1 + 1 + ft_strlen(str) + 1);

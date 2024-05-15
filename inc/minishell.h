@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 10:48:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:09:05 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,16 @@ t_node	*create_simple_command(t_var *env_lst, char **cmd_arg);
 
 // * EXECUTION
 // int		execute_execve(char **cmd_arg, char **env);
-int		execute_execve(char **cmd_arg, t_var *var_lst);
 int		execute(t_node *node);
+int		execute_execve(char **cmd_arg, t_var *var_lst);
+int		execute_builtins(char **cmd_arg, t_var *var_lst);
 
 // List Functions
 t_var	*var_lstnew(char *str);
+t_var	*var_lstlast(t_var *lst);
 void	var_lstadd_front(t_var **lst, t_var *new);
+void	var_lstadd_back(t_var **lst, t_var *new);
+
 
 // * ENV
 // char	*my_getvar(const char *name, char **my_env);
@@ -55,9 +59,9 @@ char	*get_var(const char *name, t_var *var);
 void	set_var(char *var_name, char *new_content, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-void	print_env_var(t_var *env_list);
+void	print_env_var(t_var *var_lst);
 // Exit Status
-void set_exit_status(int exit_code, t_var *var_lst);
+void	set_exit_status(int exit_code, t_var *var_lst);
 
 // BUILT-INS
 // void	execute_env(char **my_env);
@@ -84,5 +88,6 @@ void	free_split(char **split);
 void	output_token_error(char *str);
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
+int		ft_strcasecmp(const char *s1, const char *s2);
 
 #endif
