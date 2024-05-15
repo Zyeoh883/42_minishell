@@ -12,11 +12,15 @@ SRCDIR = srcs/
 SRCS_FIL = \
 			create/create_node.c \
 			create/piping.c \
+			create/variables.c \
+			create/lst_functions.c \
 			execute/execute.c \
 			utils/utils1.c \
+			utils/utils2.c \
 			main_w_readline.c \
 			free.c \
 			builtins.c \
+			readline.c \
 			\
 			tokenize/tokenize.c \
 			tokenize/tokenize_utils.c \

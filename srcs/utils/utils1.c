@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/03 01:15:31 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/15 16:32:24 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,38 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+// samuel utils below
+
+void if_null_perror_n_exit(void *ptr, char *str, int exit_code)
+{
+	if (ptr == NULL)
+	{
+		perror(str);
+		exit(exit_code);
+	}
+}
+
+int arr_str_count(char **arr)
+{
+	int count;
+
+	if (arr == NULL)
+		return (0);
+	count = 0;
+	while (*arr != NULL)
+	{
+		count++;
+		arr++;
+	}
+	return (count);
+}
+
+void print_str_arr(char **arr, char *title)
+{
+	printf("\n---%s---\n", title);
+	for (int i = 0; arr[i]; i++)
+		printf("%s\n", arr[i]);
+	printf("-------\n");
 }

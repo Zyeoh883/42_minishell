@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/23 07:43:18 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/15 16:42:32 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_node	*create_simple_command(char **env, t_redir *redir, char **cmd, int is_bui
 		free(node);
 		perror_and_exit("Failed to create simple_command node", 125);
 	}
-	node->simple_command->env = env;
+	(void)  env;
 	node->simple_command->redir = redir;
-	node->simple_command->cmd = cmd;
+	(void) cmd;
 	node->simple_command->is_built_in = is_built_in;
 	return (node);
 }
