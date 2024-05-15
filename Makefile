@@ -3,6 +3,9 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c99 $(INCLUDES) #-fsanitize=address -g
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
+# Output executable
+NAME = minishell
+
 # Colors for output
 GREEN = \033[0;32m
 RED = \033[0;31m
@@ -45,9 +48,6 @@ LIBFT_A = $(LIBFT_DIR)libft.a
 READLINE_DIR = readline
 READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory
 
-# Output executable
-NAME = minishell
-
 # Build targets
 all: $(OBJDIR) $(NAME)
 
@@ -57,6 +57,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR) $(addprefix $(OBJDIR), $(dir $(SRCS_FIL)))
 
 $(NAME): $(OBJS)
+	@make -C $(READLINE_DIR)
 	@make -C $(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
@@ -69,6 +70,7 @@ RM = rm -rf
 clean:
 	@$(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
 	@make clean -C $(LIBFT_DIR) && echo "$(ORANGE)libft object files were deleted$(RESET)"
+	@make clean -C $(READLINE_DIR) && echo "$(ORANGE)readline object files were deleted$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
