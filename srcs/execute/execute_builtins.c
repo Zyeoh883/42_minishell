@@ -6,11 +6,16 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 13:55:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:56:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void execute_cd(t_var *var_lst)
+{
+	
+}
 
 void execute_env(char **my_env)
 {
@@ -28,10 +33,8 @@ void execute_echo(char **cmd_arg)
 	int n_flag;
 
 	n_flag = OFF;
-	// TODO: check for "-n"
 	if (cmd_arg[1] && ft_strlen(cmd_arg[1]) == 2 && ft_strncmp(cmd_arg[1], "-n", 2) == 0)
 		n_flag = ON;
-	// TODO: basic (without flag)
 	i = 1;
 	if (n_flag == ON)
 		i = 2;
