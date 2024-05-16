@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 14:09:05 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 12:49:39 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@
 # include <unistd.h>
 
 // MACROS
-# define SUCCESS 0
 # define FAIL 1
-# define AND 0
-# define OR 1
-# define OFF 0
+# define SUCCESS 0
 # define ON 1
+# define OFF 0
 # define YES 1
 # define NO 0
 

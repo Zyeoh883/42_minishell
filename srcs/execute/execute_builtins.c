@@ -6,15 +6,33 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 14:56:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 12:49:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void execute_cd(t_var *var_lst)
+void execute_cd(char **cmd_arg, t_var *var_lst)
 {
-	
+	char cwd[PATH_MAX];
+	char *result;
+	char *path;
+
+	path = NULL; // needed?
+	result = getcwd(cwd, sizeof(cwd));
+	if (result == NULL)
+	{
+		perror("getcwd");
+		return ; // ! return?? or RESET minishell loop
+	}
+	if (cmd_arg[1] == NULL)
+	{
+		path = get_var("HOME", var_lst);
+		chdir(path);
+	}
+	// TODO: update OLDPWD
+	set_var("OLDPWD", cwd, var_lst);
+	// TODO: update PWD
 }
 
 void execute_env(char **my_env)
