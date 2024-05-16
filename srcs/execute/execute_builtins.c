@@ -32,27 +32,45 @@ void execute_cd(char **cmd_arg, t_var *var_lst)
 	char *result;
 	char *path;
 
-	path = NULL; // needed?
 	result = getcwd(cwd, sizeof(cwd));
 	if (result == NULL)
 	{
 		perror("getcwd");
 		return ; // ! return?? or RESET minishell loop
 	}
+	path = cmd_arg[1];
+	if (access(path, F_OK) == -1) // ! stopped here @thursday 16/5
+	{
+		perror("cd: "); 
+		return ;
+	}
 	// TODO: lstaddback OLDPWD if not exist
 	if (get_var("OLDPWD", var_lst) == NULL)
-		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", NO));
+		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
+	// TODO: check if filepath is valid
+	// if (access(cmd_arg[1], ))
+	// absolute path
 	if (cmd_arg[1] == NULL)
 	{
 		path = get_var("HOME", var_lst);
 		if (path == NULL)
-			
-		chdir(path);
+		{
+			print_err_msg("cd: ", "HOME not set");
+			return ;
+		}
 	}
-	// TODO: update OLDPWD
+	
+	
+	if (path != NULL)
+	{
+		if (chdir(path) == -1)
+		{
+			perror(path);
+		}
+		else 
+			set_var("PWD", path, var_lst);
+	}
 	set_var("OLDPWD", cwd, var_lst);
-	// TODO: update PWD
-	set_var("PWD", path, var_lst);
 }
 
 void execute_env(char **my_env)
