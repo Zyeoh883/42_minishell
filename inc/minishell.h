@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 22:02:40 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/16 16:21:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 # include "../libft/libft.h"
 # include "create_node.h"
 # include "data_structs.h"
-# include "readline.h"
 # include "history.h"
+# include "readline.h"
 # include "tokenize.h"
 # include <fcntl.h>
 # include <signal.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <termios.h>
 # include <unistd.h>
 
 // MACROS
@@ -54,11 +56,14 @@ typedef struct s_data // stores all major data
 	t_node *ast_root;
 }		t_data;
 
+// Terminal settings
+void reset_terminal();
+
 t_node	*create_node(t_nodetype type);
 t_node	*create_command(char **env, char **cmd);
 
 // readline
-void	minishell_input(t_token **token_root);
+int		minishell_input(t_token **token_root);
 char	*handle_readline(char *str, int *status);
 char	*add_to_line(char *line, char *input);
 

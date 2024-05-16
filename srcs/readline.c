@@ -6,13 +6,13 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 22:53:10 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/16 16:21:53 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	minishell_input(t_token **token_root)
+int	minishell_input(t_token **token_root)
 {
 	t_token	*token;
 	char	*input;
@@ -26,9 +26,8 @@ void	minishell_input(t_token **token_root)
 	{
 		if (g_signal == SIGINT)
 		{
-			free(input);
 			g_signal = 0;
-			return;
+			continue ;
 		}
 		token = tokenize(input);
 		line = add_to_line(line, input);
@@ -40,10 +39,14 @@ void	minishell_input(t_token **token_root)
 		if (is_token_open_ended(*token_root))
 			input = handle_readline("> ", &status);
 	}
-	add_history(line);
-	free(line);
+	if (line && *line)
+	{
+		add_history(line);
+		free(line);
+	}
 	if (status == -1)
 		free_tokens(*token_root);
+	return (status);
 }
 
 char	*handle_readline(char *str, int *status)
@@ -52,7 +55,12 @@ char	*handle_readline(char *str, int *status)
 
 	input = readline(str);
 	if (input == NULL)
-		perror_and_exit("readline", EXIT_FAILURE); // TODO dont show 'ˆD' on terminal
+	{
+		rl_replace_line("exit", 0);
+		// rl_redisplay();
+		*status = -1;
+		return (NULL);
+	}
 	printf("input return is %p\n", input);
 	if (ft_strncmp("exit", input, 5) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 16:32:24 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/16 16:06:28 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	perror_and_exit(char *str, int exit_code)
 {
 	perror(str);
+	reset_terminal();
 	exit(exit_code);
 }
 
