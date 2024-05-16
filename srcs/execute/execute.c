@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 13:07:54 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 14:42:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int setup_redir(t_redir	*redir)
 
 int execute_simple_cmd(t_simple_command *sc)
 {
-	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
-	
 	// print_str_arr(sc-> cmd_arg, "Before quote_handling & Expansion"); // *print check
 	handle_quotes_n_var_expansion(&sc->cmd_arg, sc->var_lst);
 	// print_str_arr(sc->cmd_arg, "ft_split_after_expansion"); // *print check
+	
+	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 
 	// my_env = convert_var_lst_to_array(sc->var_lst); // ! transferred to execute_execve()
 

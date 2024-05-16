@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 12:49:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:28:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include "../libft/libft.h"
 # include "data_structs.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -45,11 +46,11 @@ int		execute_execve(char **cmd_arg, t_var *var_lst);
 int		execute_builtins(char **cmd_arg, t_var *var_lst);
 
 // List Functions
-t_var	*var_lstnew(char *str);
+// t_var	*var_lstnew(char *str);
+t_var	*var_lstnew(char *str, int is_exported);
 t_var	*var_lstlast(t_var *lst);
 void	var_lstadd_front(t_var **lst, t_var *new);
 void	var_lstadd_back(t_var **lst, t_var *new);
-
 
 // * ENV
 // char	*my_getvar(const char *name, char **my_env);
@@ -86,6 +87,6 @@ void	free_split(char **split);
 void	output_token_error(char *str);
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
-int		ft_strcasecmp(const char *s1, const char *s2);
+void	print_err_msg(char *err_block, char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 10:50:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 14:45:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 	int	expand;
 
 	i = -1;
+	if (!cmd_arg || !(*cmd_arg))
+		return ;
 	while ((*cmd_arg)[++i])
 	{
 		expand = ON; // ON by default

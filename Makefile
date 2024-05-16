@@ -26,9 +26,8 @@ SRCS_FIL = \
 			execute/execute.c \
 			execute/execute_execve.c \
 			execute/execute_builtins.c \
-			free.c \
+			utils/free.c \
 			utils/utils1.c \
-			utils/utils2.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

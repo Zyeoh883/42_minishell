@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:17:43 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/17 11:48:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:29:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
@@ -44,6 +44,8 @@ size_t				ft_strlcat(char *dest, const char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					ft_strlen(const char *str);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcasecmp(const char *s1, const char *s2);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 char				*ft_strrchr(const char *s, int c);

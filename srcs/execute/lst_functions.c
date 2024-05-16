@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:04:46 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 14:09:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 13:36:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_var	*var_lstlast(t_var *lst)
 	return (lst);
 }
 
-t_var	*var_lstnew(char *str)
+t_var	*var_lstnew(char *str, int is_exported)
 {
 	t_var	*new_node;
 
@@ -30,7 +30,7 @@ t_var	*var_lstnew(char *str)
 	new_node->str = ft_strdup(str);
 	if_null_perror_n_exit(new_node->str, "ft_strdup", EXIT_FAILURE);
 	new_node->next = NULL;
-	new_node->is_exported = NO;
+	new_node->is_exported = is_exported;
 	return (new_node);
 }
 void	var_lstadd_front(t_var **lst, t_var *new)

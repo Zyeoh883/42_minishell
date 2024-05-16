@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/08 15:08:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:01:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,6 @@ void if_null_perror_n_exit(void *ptr, char *str, int exit_code)
 		exit(exit_code);
 	}
 }
-
-void	free_split(char **split)
-{
-	char	**head;
-
-	if (!split)
-		return ;
-	head = split;
-	while (*head != NULL)
-	{
-		free(*head);
-		head++;
-	}
-	free(split);
-}
-
 
 void output_token_error(char *str)
 {
@@ -63,6 +47,14 @@ int arr_str_count(char **arr)
 		arr++;
 	}
 	return (count);
+}
+/*
+eg. print_err_msg("cd:", ": command not found");
+*/
+void print_err_msg(char *err_block, char *msg)
+{
+	ft_putstr_fd(err_block, STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
 void print_str_arr(char **arr, char *title)

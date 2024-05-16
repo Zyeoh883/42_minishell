@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 14:19:59 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/16 15:33:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv, char **env)
 	t_var	*var_lst; // linked list
 
 	var_lst = convert_env_to_linked_list(env);
-	var_lstadd_front(&var_lst, var_lstnew("?=0"));
+	var_lstadd_front(&var_lst, var_lstnew("?=0", NO));
 
 	// printf("1st node str: %s\n", var_lst->str);
 	// printf("1st node str: %p\n", var_lst->str);
@@ -57,7 +57,7 @@ int main(int argc, char **argv, char **env)
 		if (input == NULL)
 			perror_and_exit("readline", EXIT_FAILURE);
 		add_history(input); // working history
-		if (ft_strncmp("exit", input, 5) == 0)
+		if (ft_strcmp("exit", input) == 0)
 		{
 			free(input);
 			free_var_lst(var_lst); // ! double free happens here
