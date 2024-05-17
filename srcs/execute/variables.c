@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 15:19:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:07:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_var	*convert_env_to_linked_list(char **env)
 	head = NULL;
 	while (env[++i] != NULL)
 	{
-		new_node = var_lstnew(env[i], YES);
-		new_node->is_exported = 1;
+		new_node = var_lstnew(env[i], true);
 		if (head == NULL)
 		{
 			head = new_node;
@@ -36,7 +35,7 @@ t_var	*convert_env_to_linked_list(char **env)
 			tail = new_node;
 		}
 	}
-	var_lstadd_front(&head, var_lstnew("?=0", NO));
+	var_lstadd_front(&head, var_lstnew("?=0", false));
 	return (head);
 }
 

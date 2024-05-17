@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 15:41:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:09:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	trim_quotes(char **str_add, char *quote_type)
 	*str_add = trimmed_str;
 }
 
-// void	handle_quotes_n_var_expansion(char ***cmd_arg, char **my_env)
 void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 {
 	int	i;

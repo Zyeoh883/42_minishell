@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 15:19:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:09:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 // MACROS
 # define FAIL 1
 # define SUCCESS 0
 # define ON 1
 # define OFF 0
-# define YES 1
-# define NO 0
 
 // EXIT CODES
 # define ERROR_CMD_NOT_FOUND 127
