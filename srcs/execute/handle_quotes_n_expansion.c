@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 15:13:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:41:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 			if (*((*cmd_arg)[i]) != '\0')
 				// if str is empty str (env_var doesn't exist/is empty str)
 				ft_split_cmd_str_after_expansion(cmd_arg, (*cmd_arg)[i], i);
-			print_str_arr(*cmd_arg, "after EACH expansion & ft_splitting"); // * print check
+			// print_str_arr(*cmd_arg, "after EACH expansion & ft_splitting"); // * print check
 		}
 	}
 }

@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void execute_pwd(void)
+void	execute_pwd(void)
 {
-	char cwd[PATH_MAX];
-	char *result;
+	char	cwd[PATH_MAX];
+	char	*result;
 
 	result = getcwd(cwd, sizeof(cwd));
 	if (result == NULL)
@@ -26,11 +26,11 @@ void execute_pwd(void)
 	ft_putendl_fd(cwd, STDOUT_FILENO);
 }
 
-int execute_cd(char **cmd_arg, t_var *var_lst)
+int	execute_cd(char **cmd_arg, t_var *var_lst)
 {
-	char cwd[PATH_MAX];
-	char *result;
-	char *path;
+	char	cwd[PATH_MAX];
+	char	*result;
+	char	*path;
 
 	result = getcwd(cwd, sizeof(cwd));
 	if (result == NULL)
@@ -38,6 +38,9 @@ int execute_cd(char **cmd_arg, t_var *var_lst)
 		perror("getcwd");
 		return (EXIT_FAILURE);
 	}
+	if (get_var_value("OLDPWD", var_lst) == NULL)
+		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
+	set_var_value("OLDPWD", cwd, var_lst);
 	path = cmd_arg[1];
 	if (path == NULL)
 	{
@@ -48,47 +51,36 @@ int execute_cd(char **cmd_arg, t_var *var_lst)
 			return (EXIT_FAILURE);
 		}
 	}
-	else if (access(path, F_OK) == -1) // ! stopped here @thursday 16/5
+	if (access(path, F_OK) == -1 || chdir(path) == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
 		perror(path);
 		return (EXIT_FAILURE);
 	}
-	if (chdir(path) == -1) // CHDIR
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		perror(path);
-		return (EXIT_FAILURE);
-	}
-	else
-	{
-		// TODO: update $PWD: strjoin cwd to path
-		set_var_value("PWD", path, var_lst);
-	} 
-	// Update OLDPWD
-	if (get_var_value("OLDPWD", var_lst) == NULL)
-		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
-	set_var_value("OLDPWD", cwd, var_lst);
+	set_var_value("PWD", getcwd(cwd, sizeof(cwd)), var_lst);
 	return (EXIT_SUCCESS);
 }
 
-void execute_env(char **my_env)
+void	execute_env(char **my_env)
 {
+	int	i;
+
 	if (!my_env)
-		return ; // 
-	int i = -1;
+		return ; //
+	i = -1;
 	while (my_env[++i] != NULL)
-		printf("%s\n", my_env[i]);	
+		printf("%s\n", my_env[i]);
 }
 
 // ! need to return int for failure?
-void execute_echo(char **cmd_arg)
+void	execute_echo(char **cmd_arg)
 {
-	int i;
-	int n_flag;
+	int	i;
+	int	n_flag;
 
 	n_flag = OFF;
-	if (cmd_arg[1] && ft_strlen(cmd_arg[1]) == 2 && ft_strcmp(cmd_arg[1], "-n") == 0)
+	if (cmd_arg[1] && ft_strlen(cmd_arg[1]) == 2 && ft_strcmp(cmd_arg[1],
+			"-n") == 0)
 		n_flag = ON;
 	i = 1;
 	if (n_flag == ON)
@@ -112,10 +104,10 @@ void execute_echo(char **cmd_arg)
 5. unset
 6. pwd
 */
-int execute_builtins(char **cmd_arg, t_var *var_lst)
+int	execute_builtins(char **cmd_arg, t_var *var_lst)
 {
 	(void)var_lst; // !tmp
-	
+
 	// TODO: handle mix of upper & lower case
 	if (ft_strcasecmp(*cmd_arg, "echo") == 0)
 		execute_echo(cmd_arg);
@@ -126,6 +118,4 @@ int execute_builtins(char **cmd_arg, t_var *var_lst)
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
 	return (SUCCESS); // ! will built-in fail?
-		
-		
 }
