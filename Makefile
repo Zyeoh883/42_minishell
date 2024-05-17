@@ -28,6 +28,7 @@ SRCS_FIL = \
 			execute/execute_builtins.c \
 			utils/free.c \
 			utils/utils1.c \
+			utils/extra.c # to be removed
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
