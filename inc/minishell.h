@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 15:28:20 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:19:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ t_var	*var_lstlast(t_var *lst);
 void	var_lstadd_front(t_var **lst, t_var *new);
 void	var_lstadd_back(t_var **lst, t_var *new);
 
-// * ENV
+// * VARIABLES
 // char	*my_getvar(const char *name, char **my_env);
-char	*get_var(const char *name, t_var *var);
-void	set_var(char *var_name, char *new_content, t_var *var);
+char	*get_var_value(const char *name, t_var *var);
+void	set_var_value(char *var_name, char *new_content, t_var *var);
+t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
 void	print_env_var(t_var *var_lst);
@@ -88,5 +89,5 @@ void	output_token_error(char *str);
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
 void	print_err_msg(char *err_block, char *msg);
-
+void	print_var_lst(t_var *var_lst);
 #endif

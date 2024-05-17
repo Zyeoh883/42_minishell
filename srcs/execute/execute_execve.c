@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/16 15:02:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:13:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	char *path_str;
 	char **var_arr;
 
-	path_str = get_var("PATH", var_lst);
+	path_str = get_var_value("PATH", var_lst);
 	if (path_str == NULL) // if user unset("PATH");
 	{
 		print_err_msg(*cmd_arg, ": command not found");

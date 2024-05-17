@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/16 15:33:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:10:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,6 @@ int main(int argc, char **argv, char **env)
 	t_var	*var_lst; // linked list
 
 	var_lst = convert_env_to_linked_list(env);
-	var_lstadd_front(&var_lst, var_lstnew("?=0", NO));
-
-	// printf("1st node str: %s\n", var_lst->str);
-	// printf("1st node str: %p\n", var_lst->str);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -66,19 +62,13 @@ int main(int argc, char **argv, char **env)
 		char **input_arr = ft_split(input, ' ');
 		t_node	*node = create_simple_command(var_lst, input_arr);
 		execute(node);
-		// ^error check?
 
-		// free_str_arr(input_arr);
 		free(input);
 		if (node->simple_command->cmd_arg)
 			free_str_arr(node->simple_command->cmd_arg); // ! SEGV when i uncomment this
-
-		// printf("node->simple_command: %p\n", node->simple_command);
 		free(node->simple_command); // tmp
-		// printf("node: %p\n", node);
 		free(node); // tmp
 
 	}
 	free_var_lst(var_lst); // ? needed?
-
 }

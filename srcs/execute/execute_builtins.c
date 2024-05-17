@@ -21,12 +21,12 @@ void execute_pwd(void)
 	if (result == NULL)
 	{
 		perror("getcwd");
-		return ; // ! return?? or RESET minishell loop
+		return ;
 	}
 	ft_putendl_fd(cwd, STDOUT_FILENO);
 }
 
-void execute_cd(char **cmd_arg, t_var *var_lst)
+int execute_cd(char **cmd_arg, t_var *var_lst)
 {
 	char cwd[PATH_MAX];
 	char *result;
@@ -36,41 +36,40 @@ void execute_cd(char **cmd_arg, t_var *var_lst)
 	if (result == NULL)
 	{
 		perror("getcwd");
-		return ; // ! return?? or RESET minishell loop
+		return (EXIT_FAILURE);
 	}
 	path = cmd_arg[1];
-	if (access(path, F_OK) == -1) // ! stopped here @thursday 16/5
+	if (path == NULL)
 	{
-		perror("cd: "); 
-		return ;
-	}
-	// TODO: lstaddback OLDPWD if not exist
-	if (get_var("OLDPWD", var_lst) == NULL)
-		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
-	// TODO: check if filepath is valid
-	// if (access(cmd_arg[1], ))
-	// absolute path
-	if (cmd_arg[1] == NULL)
-	{
-		path = get_var("HOME", var_lst);
+		path = get_var_value("HOME", var_lst);
 		if (path == NULL)
 		{
 			print_err_msg("cd: ", "HOME not set");
-			return ;
+			return (EXIT_FAILURE);
 		}
 	}
-	
-	
-	if (path != NULL)
+	else if (access(path, F_OK) == -1) // ! stopped here @thursday 16/5
 	{
-		if (chdir(path) == -1)
-		{
-			perror(path);
-		}
-		else 
-			set_var("PWD", path, var_lst);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		perror(path);
+		return (EXIT_FAILURE);
 	}
-	set_var("OLDPWD", cwd, var_lst);
+	if (chdir(path) == -1) // CHDIR
+	{
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		perror(path);
+		return (EXIT_FAILURE);
+	}
+	else
+	{
+		// TODO: update $PWD: strjoin cwd to path
+		set_var_value("PWD", path, var_lst);
+	} 
+	// Update OLDPWD
+	if (get_var_value("OLDPWD", var_lst) == NULL)
+		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
+	set_var_value("OLDPWD", cwd, var_lst);
+	return (EXIT_SUCCESS);
 }
 
 void execute_env(char **my_env)
@@ -123,7 +122,7 @@ int execute_builtins(char **cmd_arg, t_var *var_lst)
 	else if (ft_strcasecmp(*cmd_arg, "env") == 0)
 		print_env_var(var_lst);
 	else if (ft_strcasecmp(*cmd_arg, "cd") == 0)
-		execute_cd(cmd_arg, var_lst);
+		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
 	return (SUCCESS); // ! will built-in fail?

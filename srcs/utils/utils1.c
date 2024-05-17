@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 15:01:34 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:15:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,23 @@ void print_str_arr(char **arr, char *title)
 	for (int i = 0; arr[i]; i++)
 		printf("%s\n", arr[i]);
 	printf("-------\n");
+}
+
+void	print_var_lst(t_var *var_lst) // ! to be removed
+{
+	while (var_lst != NULL)
+	{
+		ft_printf("%s\n", var_lst->str);
+		var_lst = var_lst->next;
+	}
+}
+
+void	print_env_var(t_var *var_lst)
+{
+	while (var_lst != NULL)
+	{
+		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
+			ft_printf("%s\n", var_lst->str);
+		var_lst = var_lst->next;
+	}
 }

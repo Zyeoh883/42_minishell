@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/16 14:42:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 12:08:19 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ int execute_simple_cmd(t_simple_command *sc)
 	
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 
-	// my_env = convert_var_lst_to_array(sc->var_lst); // ! transferred to execute_execve()
-
 	printf("===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all
 		return (SUCCESS);
 	else if (sc->is_built_in)
 	{
 		return (execute_builtins(sc->cmd_arg, sc->var_lst));
-		// return (SUCCESS); // ! temporary here
 	}
 	else
 	{
