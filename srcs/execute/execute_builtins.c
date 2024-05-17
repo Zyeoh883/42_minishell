@@ -97,12 +97,12 @@ void	execute_echo(char **cmd_arg)
 }
 
 /*
-1. echo
-2. cd
-3. env
+1. echo (done)
+2. cd(done)
+3. env(done)
 4. export
 5. unset
-6. pwd
+6. pwd(done)
 */
 int	execute_builtins(char **cmd_arg, t_var *var_lst)
 {
