@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/16 16:28:43 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:34:58 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,37 @@ int	main(int argc, char **argv, char **env)
 	{
 		set_sighandler(&shell_data.sa, handle_sigint);
 		if (minishell_input(&shell_data.token_root) > 0)
-		{
 			print_tokens(shell_data.token_root);
-			free_tokens(shell_data.token_root);
-			shell_data.token_root = NULL;
-		}
 		else
 			break ;
+		free_tokens(shell_data.token_root);
+		shell_data.token_root = NULL;
 	}
+	free_tokens(shell_data.token_root);
 	reset_terminal();
 	return (0);
 }
 // system("leaks minishell");
+
+int	test(int argc, char **argv, char **env)
+{
+	t_data	shell_data;
+	int status;
+
+	shell_data = init_env(argc, argv, env);
+	while (1)
+	{
+		set_sighandler(&shell_data.sa, handle_sigint);
+		status = minishell_input(&shell_data.token_root);
+		if (status == 0)
+			continue ;
+		else if (status == -1)
+			break ;
+		print_tokens(shell_data.token_root);
+		free_tokens(shell_data.token_root);
+		shell_data.token_root = NULL;
+	}
+	free_tokens(shell_data.token_root);
+	reset_terminal();
+	return (0);
+}

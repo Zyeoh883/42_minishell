@@ -6,11 +6,47 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 16:21:53 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/17 17:28:32 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	minishell_input(t_token **token_root)
+// {
+// 	t_token	*token;
+// 	char	*input;
+
+// 	g_signal = 0;
+// 	input = readline("minishell$ ");
+// 	if (!input || ft_strncmp("exit", input, 4) == 0)
+// 		return (-1);
+// 	token = tokenize(input);
+// 	if (!token || g_signal == SIGINT)
+// 		return (0);
+// 	token_add_back(token_root, token);
+// 	add_history(input);
+// 	free(input);
+// 	return (1);
+// }
+
+// int	minishell_input(t_token **token_root)
+// {
+// 	t_token	*token;
+// 	char	*input;
+
+// 	g_signal = 0;
+// 	input = handle_readline("minishell$ ");
+// 	if (ft_strncmp("exit", input, 4) == 0)
+// 		return (-1);
+// 	token = tokenize(input);
+// 	if (!token || g_signal == SIGINT)
+// 		return (0);
+// 	token_add_back(token_root, token);
+// 	add_history(input);
+// 	free(input);
+// 	return (1);
+// }
 
 int	minishell_input(t_token **token_root)
 {
@@ -19,34 +55,31 @@ int	minishell_input(t_token **token_root)
 	char	*line;
 	int		status;
 
+	g_signal = 0;
 	line = NULL;
-	status = 1;
 	input = handle_readline("minishell$ ", &status);
-	while (status > 0)
+	while (status && input)
 	{
 		if (g_signal == SIGINT)
 		{
-			g_signal = 0;
-			continue ;
+			free(input);
+			return (0);
 		}
 		token = tokenize(input);
 		line = add_to_line(line, input);
 		if (!token)
 			break ;
 		input = NULL;
-		status = 0;
 		token_add_back(token_root, token);
 		if (is_token_open_ended(*token_root))
-			input = handle_readline("> ", &status);
+			input = readline("> ");
 	}
 	if (line && *line)
 	{
 		add_history(line);
 		free(line);
 	}
-	if (status == -1)
-		free_tokens(*token_root);
-	return (status);
+	return (1);
 }
 
 char	*handle_readline(char *str, int *status)
@@ -54,21 +87,8 @@ char	*handle_readline(char *str, int *status)
 	char	*input;
 
 	input = readline(str);
-	if (input == NULL)
-	{
-		rl_replace_line("exit", 0);
-		// rl_redisplay();
-		*status = -1;
-		return (NULL);
-	}
-	printf("input return is %p\n", input);
-	if (ft_strncmp("exit", input, 5) == 0)
-	{
-		free(input);
-		*status = -1;
-		return (NULL);
-	}
-	*status = 1;
+	if (g_signal == SIGINT)
+		*status = 0;
 	return (input);
 }
 

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 16:21:41 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:16:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ typedef struct s_data // stores all major data
 }		t_data;
 
 // Terminal settings
-void reset_terminal();
+void	reset_terminal(void);
 
 t_node	*create_node(t_nodetype type);
 t_node	*create_command(char **env, char **cmd);
 
 // readline
 int		minishell_input(t_token **token_root);
-char	*handle_readline(char *str, int *status);
+char	*handle_readline(char *str);
 char	*add_to_line(char *line, char *input);
 
 // execute

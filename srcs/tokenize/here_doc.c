@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/03 14:04:12 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:58:08 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,18 @@ int	input_here_doc(t_token *token, int here_doc_id)
 	fd = make_here_doc_file(token, here_doc_id);
 	if (!fd)
 		return (0);
-    limiter_len = ft_strlen(token->value);
+	limiter_len = ft_strlen(token->value);
 	while (1)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(STDIN_FILENO);
-		if (line)
-		{
-			if (ft_strncmp(line, token->value, limiter_len) == 0 && *(line
-					+ limiter_len) == '\n')
-				break ;
-			ft_putstr_fd(line, fd);
-			free(line);
-		}
+		if (!line && ft_strncmp(line, token->value, limiter_len) == 0 && *(line
+				+ limiter_len) == '\n')
+			break ;
+		printf("line: %s\n", line);
+		ft_putstr_fd(line, fd);
+		free(line);
 	}
 	free(line);
-    return (1);
+	return (1);
 }
