@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 16:11:53 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:14:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 		return ;
 	while ((*cmd_arg)[++i])
 	{
-		expand = true; // ON by default
+		expand = ON; // ON by default
 		if ((*cmd_arg)[i][0] == '\'') // single quote
 		{
-			expand = false;
+			expand = OFF;
 			trim_quotes(&(*cmd_arg)[i], "\'");
 		}
 		else if ((*cmd_arg)[i][0] == '\"') // double quote
 			trim_quotes(&(*cmd_arg)[i], "\"");
-		if (expand == true && ft_strchr((*cmd_arg)[i], '$') != NULL)
+		if (expand == ON && ft_strchr((*cmd_arg)[i], '$') != NULL)
 		{
 			expand_str(&(*cmd_arg)[i], var_lst);
 			if (*((*cmd_arg)[i]) != '\0')

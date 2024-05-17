@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 16:12:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:19:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+# define ON 1 
+# define YES 1 
+# define SUCCESS 1
+# define OFF 0
+# define NO 0
+# define FAIL 0
 
 // EXIT CODES
 # define ERROR_CMD_NOT_FOUND 127

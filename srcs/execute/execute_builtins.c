@@ -117,5 +117,5 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
-	return (SUCCESS); // ! will built-in fail?
+	return (0); // ! will built-in fail?
 }
