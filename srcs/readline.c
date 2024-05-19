@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 17:28:32 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 20:45:09 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ int	minishell_input(t_token **token_root)
 	t_token	*token;
 	char	*input;
 	char	*line;
-	int		status;
 
 	g_signal = 0;
 	line = NULL;
-	input = handle_readline("minishell$ ", &status);
-	while (status && input)
+	input = readline("minishell$ ");
+	if (!input)
+		exit(0);
+	printf("inputed \n");
+	while (input)
 	{
 		if (g_signal == SIGINT)
 		{
@@ -82,15 +84,15 @@ int	minishell_input(t_token **token_root)
 	return (1);
 }
 
-char	*handle_readline(char *str, int *status)
-{
-	char	*input;
+// char	*handle_readline(char *str, int *status)
+// {
+// 	char	*input;
 
-	input = readline(str);
-	if (g_signal == SIGINT)
-		*status = 0;
-	return (input);
-}
+// 	input = readline(str);
+// 	if (g_signal == SIGINT)
+// 		*status = 0;
+// 	return (input);
+// }
 
 char	*add_to_line(char *line, char *input)
 {

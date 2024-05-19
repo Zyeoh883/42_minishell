@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 16:34:58 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 21:17:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	setup_terminal(void)
 
 	tcgetattr(STDIN_FILENO, &term); // Get current terminal attributes
 	term.c_lflag &= ~ECHOCTL;
+	// term.c_cc[VMIN] = 0;
 	// Disable echo of control characters
 	tcsetattr(STDIN_FILENO, TCSANOW, &term); // Set modified terminal attributes
 }
@@ -64,13 +65,12 @@ t_data	init_env(int argc, char **argv, char **env)
 		perror_and_exit("access /tmp", 1);
 	g_signal = 0;
 	ft_memset(&shell_data, 0, sizeof(t_data));
-	set_sighandler(&shell_data.sa, handle_sigint);
 	shell_data.var_lst = convert_env_to_linked_list(env);
 	setup_terminal();
 	return (shell_data);
 }
 
-int	main(int argc, char **argv, char **env)
+int	test(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
 
@@ -92,7 +92,21 @@ int	main(int argc, char **argv, char **env)
 }
 // system("leaks minishell");
 
-int	test(int argc, char **argv, char **env)
+// int main(void)
+// {
+// 	struct sigaction sa;
+// 	char *input;
+
+// 	set_sighandler(&sa, handle_sigint);
+// 	input = NULL;
+// 	input = readline("input$ ");
+// 	printf("input = %p\n", input);
+// 	if (input)
+// 		printf("input = %s\n", input);
+// 	return (0);
+// }
+
+int	main(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
 	int status;
