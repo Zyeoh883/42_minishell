@@ -6,18 +6,12 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 16:16:54 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 15:15:02 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../libft/libft.h"
-# include "create_node.h"
-# include "data_structs.h"
-# include "history.h"
-# include "readline.h"
-# include "tokenize.h"
 # include <fcntl.h>
 # include <signal.h>
 # include <stdbool.h>
@@ -27,6 +21,13 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+
+# include "../libft/libft.h"
+# include "create_node.h"
+# include "data_structs.h"
+# include "history.h"
+# include "readline.h"
+# include "tokenize.h"
 
 // MACROS
 // # define SUCCESS 0

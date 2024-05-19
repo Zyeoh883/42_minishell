@@ -6,14 +6,12 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 22:00:52 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 15:14:34 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
-
-# include "minishell.h"
 
 # define METACHARACTERS " '\"()|&<>"
 # define OPERAND " '\"()|&<>"

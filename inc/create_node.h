@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/23 07:47:43 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 15:14:17 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CREATE_NODE_H
 
 # include "data_structs.h"
-# include "minishell.h"
 
 // t_node	tokenize_simple_command(char *input, char **env);
 
