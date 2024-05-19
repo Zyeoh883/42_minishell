@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/19 20:45:09 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 22:55:51 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	minishell_input(t_token **token_root)
 
 	g_signal = 0;
 	line = NULL;
+	rl_done = 0;
 	input = readline("minishell$ ");
 	if (!input)
 		exit(0);
@@ -75,6 +76,11 @@ int	minishell_input(t_token **token_root)
 		token_add_back(token_root, token);
 		if (is_token_open_ended(*token_root))
 			input = readline("> ");
+		if (g_signal == SIGINT)
+		{
+			free(input);
+			return (0);
+		}
 	}
 	if (line && *line)
 	{

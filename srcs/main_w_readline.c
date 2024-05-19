@@ -6,22 +6,29 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/19 21:17:00 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/19 23:00:59 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	event(void)
+{
+	return (EXIT_SUCCESS);
+}
 
 void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
 		g_signal = SIGINT;
+		rl_on_new_line();
 		rl_replace_line("", 0);
 		// rl_redisplay();
 		printf("\n");
-		rl_on_new_line();
 		rl_redisplay();
+		rl_done = 1;
+		rl_event_hook = NULL;
 		// exit(0);
 	}
 }
@@ -67,6 +74,7 @@ t_data	init_env(int argc, char **argv, char **env)
 	ft_memset(&shell_data, 0, sizeof(t_data));
 	shell_data.var_lst = convert_env_to_linked_list(env);
 	setup_terminal();
+	rl_event_hook = event;
 	return (shell_data);
 }
 
