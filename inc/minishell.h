@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 13:34:01 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:29:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ void	free_var_lst(t_var *list);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);
-int		perror_and_return(char *str, int return_value);
+int	perror_and_return(char *str, int return_value);
+int	print_err_and_return(char *str, char *perror_str, int return_value);
 void	if_null_perror_n_exit(void *ptr, char *str, int exit_code);
-int		my_perror_and_return(char *err_block, char *err_msg, int return_value);
+int print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg, int return_value);
 void	free_split(char **split);
 void	output_token_error(char *str);
 int		arr_str_count(char **arr);

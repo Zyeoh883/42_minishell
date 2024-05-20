@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 13:05:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 14:39:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_node	*create_simple_command(t_var *var_lst, char **cmd_arg)
 	if (ft_strcasecmp(*cmd_arg, "echo") == 0 || 
 		ft_strcasecmp(*cmd_arg, "env") == 0 || 
 		ft_strcasecmp(*cmd_arg, "cd") == 0 ||
-		ft_strcasecmp(*cmd_arg, "pwd") == 0)
+		ft_strcasecmp(*cmd_arg, "pwd") == 0 ||
+		ft_strcasecmp(*cmd_arg, "export") == 0)
 	{
 		node->simple_command->is_built_in = true;
 		printf(">>>>>BUILT_IN>>>>>\n");

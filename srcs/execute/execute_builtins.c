@@ -12,18 +12,24 @@
 
 #include "minishell.h"
 
-void	execute_pwd(void)
+void	execute_export(char **cmd_arg, t_var *var_lst)
 {
-	char	cwd[PATH_MAX];
-	char	*result;
+	t_var	*lst;
 
-	result = getcwd(cwd, sizeof(cwd));
-	if (result == NULL)
+	// TODO: if 1st arg is NULL or #
+	lst = var_lst;
+	while (*cmd_arg != NULL)
 	{
-		perror("getcwd");
-		return ;
+		if (*cmd_arg == NULL || *cmd_arg[0] == '#')
+		{
+			while (lst != NULL)
+			{
+				if (lst->is_exported && ft_strchr(lst->str, '=') != NULL)
+					ft_printf("declare -x %s\n", lst->str);
+				lst = lst->next;
+			}
+		}
 	}
-	ft_putendl_fd(cwd, STDOUT_FILENO);
 }
 
 int	execute_cd(char **cmd_arg, t_var *var_lst)
@@ -32,35 +38,36 @@ int	execute_cd(char **cmd_arg, t_var *var_lst)
 	char	*path;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (perror_and_return("getcwd", EXIT_FAILURE));
+		return (print_err_and_return("getcwd", "", EXIT_FAILURE));
 	if (get_var_value("OLDPWD", var_lst) == NULL)
 		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", true));
 	set_var_value("OLDPWD", cwd, var_lst);
 	path = cmd_arg[1];
-	if (path == NULL)
+	if (path == NULL || path[0] == '#')
 	{
 		path = get_var_value("HOME", var_lst);
 		if (path == NULL)
-			return (my_perror_and_return("cd: ", "HOME not set", EXIT_FAILURE));
+			return (print_custom_err_n_return("cd: ", "", "HOME not set",
+					EXIT_FAILURE));
 	}
 	if (access(path, F_OK) == -1 || chdir(path) == -1)
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		return (perror_and_return(path, EXIT_FAILURE));
-	}
-	set_var_value("PWD", getcwd(cwd, sizeof(cwd)), var_lst);
+		return (print_err_and_return("cd: ", path, EXIT_FAILURE));
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (perror_and_return("getcwd", EXIT_FAILURE));
+	set_var_value("PWD", cwd, var_lst);
 	return (EXIT_SUCCESS);
 }
 
-void	execute_env(char **my_env)
+void	execute_pwd(void)
 {
-	int	i;
+	char	cwd[PATH_MAX];
 
-	if (!my_env)
-		return ; //
-	i = -1;
-	while (my_env[++i] != NULL)
-		printf("%s\n", my_env[i]);
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		perror("getcwd");
+		return ;
+	}
+	ft_putendl_fd(cwd, STDOUT_FILENO);
 }
 
 // ! need to return int for failure?
@@ -97,9 +104,6 @@ void	execute_echo(char **cmd_arg)
 */
 int	execute_builtins(char **cmd_arg, t_var *var_lst)
 {
-	(void)var_lst; // !tmp
-
-	// TODO: handle mix of upper & lower case
 	if (ft_strcasecmp(*cmd_arg, "echo") == 0)
 		execute_echo(cmd_arg);
 	else if (ft_strcasecmp(*cmd_arg, "env") == 0)
@@ -108,5 +112,7 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
-	return (0); // ! will built-in fail?
+	else if (ft_strcasecmp(*cmd_arg, "export") == 0)
+		execute_export(cmd_arg, var_lst);
+	return (EXIT_SUCCESS); // ! will built-in fail?
 }

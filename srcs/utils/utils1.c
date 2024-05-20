@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 13:35:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:39:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,24 @@
 
 void	perror_and_exit(char *str, int exit_code)
 {
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
 	perror(str);
 	exit(exit_code);
 }
 
 int	perror_and_return(char *str, int return_value)
 {
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	perror(str);
+	return (return_value);
+}
+// with 
+int	print_err_and_return(char *str, char *perror_str, int return_value)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	perror(perror_str);
 	return (return_value);
 }
 
@@ -28,9 +39,22 @@ void if_null_perror_n_exit(void *ptr, char *str, int exit_code)
 {
 	if (ptr == NULL)
 	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(str);
 		exit(exit_code);
 	}
+}
+
+/*
+eg. print_custom_err_n_return("cd:", ": command not found", EXIT_FAILURE);
+*/
+int print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg, int return_value)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(cmd_arg, STDERR_FILENO);
+	ft_putendl_fd(err_msg, STDERR_FILENO);
+	return (return_value);
 }
 
 void output_token_error(char *str)
@@ -53,15 +77,6 @@ int arr_str_count(char **arr)
 		arr++;
 	}
 	return (count);
-}
-/*
-eg. my_perror_and_return("cd:", ": command not found", EXIT_FAILURE);
-*/
-int my_perror_and_return(char *err_block, char *err_msg, int return_value)
-{
-	ft_putstr_fd(err_block, STDERR_FILENO);
-	ft_putendl_fd(err_msg, STDERR_FILENO);
-	return (return_value);
 }
 
 void	print_env_var(t_var *var_lst)

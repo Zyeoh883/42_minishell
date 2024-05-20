@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 16:14:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:48:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	expand_str(char **str, t_var *var_lst)
 void	trim_quotes(char **str_add, char *quote_type)
 {
 	char	*trimmed_str;
-
-	trimmed_str = ft_strtrim(*str_add, quote_type);
-	if_null_perror_n_exit(trimmed_str, "ft_strtrim", EXIT_FAILURE);
+	(void)quote_type; // ! remove
+	// trimmed_str = ft_strtrim(*str_add, quote_type);
+	// if_null_perror_n_exit(trimmed_str, "ft_strtrim", EXIT_FAILURE);
+	trimmed_str = ft_substr(*str_add, 1, ft_strlen(*str_add) - 2);
 	free(*str_add);
 	*str_add = trimmed_str;
 }
@@ -94,11 +95,8 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 	{
 		expand = ON; // ON by default
 		if ((*cmd_arg)[i][0] == '\'') // single quote
-		{
 			expand = OFF;
-			trim_quotes(&(*cmd_arg)[i], "\'");
-		}
-		else if ((*cmd_arg)[i][0] == '\"') // double quote
+		if ((*cmd_arg)[i][0] == '\'' || (*cmd_arg)[i][0] == '\"') // double quote
 			trim_quotes(&(*cmd_arg)[i], "\"");
 		if (expand == ON && ft_strchr((*cmd_arg)[i], '$') != NULL)
 		{
