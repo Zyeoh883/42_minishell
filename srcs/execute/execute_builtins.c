@@ -14,14 +14,17 @@
 
 void	execute_export(char **cmd_arg, t_var *var_lst)
 {
+	int i;
 	t_var	*lst;
 
 	// TODO: if 1st arg is NULL or #
-	lst = var_lst;
-	while (*cmd_arg != NULL)
+	i = 0;
+	while (cmd_arg[++i] != NULL)
 	{
-		if (*cmd_arg == NULL || *cmd_arg[0] == '#')
+		if (cmd_arg[i] == NULL || cmd_arg[i][0] == '#') // !stopped here - monday
 		{
+			printf("check\n");
+			lst = var_lst;
 			while (lst != NULL)
 			{
 				if (lst->is_exported && ft_strchr(lst->str, '=') != NULL)
