@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 16:17:49 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 13:35:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,11 @@ int execute_simple_cmd(t_simple_command *sc)
 
 	printf("===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all
-		return (SUCCESS);
+		return (EXIT_SUCCESS);
 	else if (sc->is_built_in)
-	{
 		return (execute_builtins(sc->cmd_arg, sc->var_lst));
-	}
 	else
-	{
 		return (execute_execve(sc->cmd_arg, sc->var_lst));
-		// printf("exit_status: %i\n", ret);
-	}
 }
 /*
 * if (execute() > 0) => FAIL
@@ -129,7 +124,7 @@ int execute_subshell(t_subshell *subshell)
 	// {
 	 	// waitpid(0, NULL, 0); // ! need to wait?
 	// }
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int execute(t_node *node)

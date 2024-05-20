@@ -29,33 +29,24 @@ void	execute_pwd(void)
 int	execute_cd(char **cmd_arg, t_var *var_lst)
 {
 	char	cwd[PATH_MAX];
-	char	*result;
 	char	*path;
 
-	result = getcwd(cwd, sizeof(cwd));
-	if (result == NULL)
-	{
-		perror("getcwd");
-		return (EXIT_FAILURE);
-	}
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (perror_and_return("getcwd", EXIT_FAILURE));
 	if (get_var_value("OLDPWD", var_lst) == NULL)
-		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", YES));
+		var_lstadd_back(&var_lst, var_lstnew("OLDPWD=", true));
 	set_var_value("OLDPWD", cwd, var_lst);
 	path = cmd_arg[1];
 	if (path == NULL)
 	{
 		path = get_var_value("HOME", var_lst);
 		if (path == NULL)
-		{
-			print_err_msg("cd: ", "HOME not set");
-			return (EXIT_FAILURE);
-		}
+			return (my_perror_and_return("cd: ", "HOME not set", EXIT_FAILURE));
 	}
 	if (access(path, F_OK) == -1 || chdir(path) == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
-		perror(path);
-		return (EXIT_FAILURE);
+		return (perror_and_return(path, EXIT_FAILURE));
 	}
 	set_var_value("PWD", getcwd(cwd, sizeof(cwd)), var_lst);
 	return (EXIT_SUCCESS);

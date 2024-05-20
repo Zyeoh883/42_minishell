@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 15:13:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 13:03:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,15 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 
 	path_str = get_var_value("PATH", var_lst);
 	if (path_str == NULL) // if user unset("PATH");
-	{
-		print_err_msg(*cmd_arg, ": command not found");
-		return (ERROR_CMD_NOT_FOUND);
-	}
+		return (my_perror_and_return(*cmd_arg, ": command not found", ERROR_CMD_NOT_FOUND));
 	path_arr = ft_split(path_str, ':');
 	if_null_perror_n_exit(path_arr, "ft_split", EXIT_FAILURE);
 	exec_path = get_exec(path_arr, *cmd_arg);
 	free_str_arr(path_arr);
 	if (exec_path == NULL)
 	{
-		print_err_msg(*cmd_arg, ": command not foundd");
 		free(exec_path);
-		return (ERROR_CMD_NOT_FOUND);
+		return (my_perror_and_return(*cmd_arg, ": command not foundd", ERROR_CMD_NOT_FOUND));
 	}
 	pid = fork(); // fork
 	if (pid < 0)
@@ -86,8 +82,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		// ? Might free local before var before exit
 		{
 			free_str_arr(var_arr);
-			print_err_msg(*cmd_arg, ": command not found");
-			exit(ERROR_CMD_NOT_FOUND);
+			exit(my_perror_and_return(*cmd_arg, ": command not found", ERROR_CMD_NOT_FOUND));
 		}
 	}
 	// Parent

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 16:03:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/20 13:35:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	perror_and_exit(char *str, int exit_code)
 {
 	perror(str);
 	exit(exit_code);
+}
+
+int	perror_and_return(char *str, int return_value)
+{
+	perror(str);
+	return (return_value);
 }
 
 void if_null_perror_n_exit(void *ptr, char *str, int exit_code)
@@ -49,12 +55,13 @@ int arr_str_count(char **arr)
 	return (count);
 }
 /*
-eg. print_err_msg("cd:", ": command not found");
+eg. my_perror_and_return("cd:", ": command not found", EXIT_FAILURE);
 */
-void print_err_msg(char *err_block, char *msg)
+int my_perror_and_return(char *err_block, char *err_msg, int return_value)
 {
 	ft_putstr_fd(err_block, STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
+	ft_putendl_fd(err_msg, STDERR_FILENO);
+	return (return_value);
 }
 
 void	print_env_var(t_var *var_lst)
