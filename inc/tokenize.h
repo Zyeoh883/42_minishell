@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/19 15:14:34 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:59:31 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_token
 }					t_token;
 
 // tokenize
-t_token				*tokenize(char *line);
+t_token				*tokenize(char *line, t_token *token_root);
 void				format_tokens(t_token *token_root);
 
 // utils
@@ -57,7 +57,7 @@ void				print_tokens(t_token *token);
 
 int					token_combine_wnext(t_token *token);
 
-// validattions
+// validations
 int					is_metacharacter(char c);
 int					is_operand(char c);
 int					is_in_quote_tokens(t_token *token);
@@ -70,6 +70,7 @@ int					is_valid_parenthesis_position(t_token *token);
 int					is_valid_operand_content(t_token *token);
 int					is_valid_special_character(t_token *token);
 int					is_valid_last_token(t_token *token);
+int					is_valid_edgecase_limiter(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);

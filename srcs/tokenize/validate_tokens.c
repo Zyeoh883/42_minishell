@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 15:23:13 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:16:30 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	set_isvalid_function_array(int is_meta,
 	else
 	{
 		isvalid_function_array[1] = is_valid_edgecase_digit_redir;
+		isvalid_function_array[2] = is_valid_edgecase_limiter;
 	}
 }
 
@@ -39,7 +40,7 @@ int	is_valid_token(t_token *token)
 	int is_meta;
 	int n;
 
-	if (!token || token->open_end == 1)
+	if (!token)
 		return (1);
 	is_meta = (0 < token->type);
 	set_isvalid_function_array(is_meta, isvalid_function_array);

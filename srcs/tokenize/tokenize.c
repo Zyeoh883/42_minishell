@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 15:01:18 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:59:08 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	validate_tokens(t_token *token_root)
 	here_doc_id = 0;
 	while (token_root != token)
 	{
-		if (is_here_doc(token_root))
+		if (is_here_doc(token_root) && token_root->here_doc_file == NULL)
 		{
 			if (!input_here_doc(token_root, here_doc_id))
 				return (0);
@@ -95,18 +95,19 @@ int	validate_tokens(t_token *token_root)
 	return (1);
 }
 
-t_token	*tokenize(char *line)
+t_token	*tokenize(char *line, t_token *token_root)
 {
-	t_token	*token;
+	t_token	*tokens;
 
 	if (!line)
 		return (NULL);
-	token = tokenize_metacharacters(line);
-	format_tokens(token);
-	if (!validate_tokens(token))
+	tokens = tokenize_metacharacters(line);
+	token_add_back(&token_root, tokens);
+	format_tokens(token_root);
+	if (!validate_tokens(token_root))
 	{
-		free_tokens(token);
+		free_tokens(token_root);
 		return (NULL);
 	}
-	return (token);
+	return (token_root);
 }

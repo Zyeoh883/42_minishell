@@ -6,29 +6,35 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/19 22:55:51 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:59:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	minishell_input(t_token **token_root)
-// {
-// 	t_token	*token;
-// 	char	*input;
+int	minishell_input(t_token **token_root)
+{
+	t_token	*token;
+	char	*input;
 
-// 	g_signal = 0;
-// 	input = readline("minishell$ ");
-// 	if (!input || ft_strncmp("exit", input, 4) == 0)
-// 		return (-1);
-// 	token = tokenize(input);
-// 	if (!token || g_signal == SIGINT)
-// 		return (0);
-// 	token_add_back(token_root, token);
-// 	add_history(input);
-// 	free(input);
-// 	return (1);
-// }
+	input = readline("minishell$ ");
+	printf("continue\n");
+	if (!input || ft_strncmp("exit", input, 4) == 0)
+		return (-1);
+	if (g_signal == SIGINT)
+		return (0);
+	token = tokenize(input, NULL);
+	if (!token)
+	{
+		add_history(input);
+		return (0);
+	}
+	*token_root = token;
+	// token_add_back(token_root, token);
+	add_history(input);
+	free(input);
+	return (1);
+}
 
 // int	minishell_input(t_token **token_root)
 // {
@@ -48,47 +54,47 @@
 // 	return (1);
 // }
 
-int	minishell_input(t_token **token_root)
-{
-	t_token	*token;
-	char	*input;
-	char	*line;
+// int	minishell_input(t_token **token_root)
+// {
+// 	t_token	*token;
+// 	char	*input;
+// 	char	*line;
 
-	g_signal = 0;
-	line = NULL;
-	rl_done = 0;
-	input = readline("minishell$ ");
-	if (!input)
-		exit(0);
-	printf("inputed \n");
-	while (input)
-	{
-		if (g_signal == SIGINT)
-		{
-			free(input);
-			return (0);
-		}
-		token = tokenize(input);
-		line = add_to_line(line, input);
-		if (!token)
-			break ;
-		input = NULL;
-		token_add_back(token_root, token);
-		if (is_token_open_ended(*token_root))
-			input = readline("> ");
-		if (g_signal == SIGINT)
-		{
-			free(input);
-			return (0);
-		}
-	}
-	if (line && *line)
-	{
-		add_history(line);
-		free(line);
-	}
-	return (1);
-}
+// 	g_signal = 0;
+// 	line = NULL;
+// 	rl_done = 0;
+// 	input = readline("minishell$ ");
+// 	if (!input)
+// 		exit(0);
+// 	printf("inputed\n");
+// 	while (input)
+// 	{
+// 		if (g_signal == SIGINT)
+// 		{
+// 			free(input);
+// 			return (0);
+// 		}
+// 		token = tokenize(input);
+// 		line = add_to_line(line, input);
+// 		if (!token)
+// 			break ;
+// 		input = NULL;
+// 		token_add_back(token_root, token);
+// 		if (is_token_open_ended(*token_root))
+// 			input = readline("> ");
+// 		if (g_signal == SIGINT)
+// 		{
+// 			free(input);
+// 			return (0);
+// 		}
+// 	}
+// 	if (line && *line)
+// 	{
+// 		add_history(line);
+// 		free(line);
+// 	}
+// 	return (1);
+// }
 
 // char	*handle_readline(char *str, int *status)
 // {

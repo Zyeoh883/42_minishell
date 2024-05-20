@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 16:58:08 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:16:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,44 @@ int	make_here_doc_file(t_token *token, int here_doc_id)
 	return (fd);
 }
 
+char	*trim_limiter(char *limiter)
+{
+	char	*trimmed;
+
+	if (limiter[0] == '\'' || limiter[0] == '\"')
+	{
+		trimmed = ft_substr(limiter, 1, ft_strlen(limiter) - 2);
+		if (!trimmed)
+			perror_and_exit("malloc failed", EXIT_FAILURE);
+		return (trimmed);
+	}
+	return (limiter);
+}
+
 int	input_here_doc(t_token *token, int here_doc_id)
 {
-	char	*line;
+	char	*input;
 	int		fd;
+	char	*limiter;
 	int		limiter_len;
 
 	fd = make_here_doc_file(token, here_doc_id);
 	if (!fd)
 		return (0);
-	limiter_len = ft_strlen(token->value);
+	limiter = trim_limiter(token->value);
+	limiter_len = ft_strlen(limiter);
 	while (1)
 	{
-		ft_putstr_fd("> ", 1);
-		line = get_next_line(STDIN_FILENO);
-		if (!line && ft_strncmp(line, token->value, limiter_len) == 0 && *(line
-				+ limiter_len) == '\n')
+		input = readline("> ");
+		if (!input || (ft_strncmp(input, limiter, limiter_len - 1) == 0
+				&& limiter_len == ft_strlen(input)) || g_signal == SIGINT)
 			break ;
-		printf("line: %s\n", line);
-		ft_putstr_fd(line, fd);
-		free(line);
+		ft_putendl_fd(input, fd);
+		free(input);
 	}
-	free(line);
+	free(input);
+	close(fd);
+	if (g_signal == SIGINT)
+		return (0);
 	return (1);
 }

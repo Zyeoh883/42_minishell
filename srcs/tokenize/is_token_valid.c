@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 20:11:33 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:16:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,26 @@ int is_valid_last_token(t_token *token)
 		if (REDIR_OUT <= token->type && token->type <= REDIR_HEREDOC)
 		{
 			output_token_error("newline");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+int is_valid_edgecase_limiter(t_token *token)
+{
+	t_token *head;
+	
+	if (!token || !token->prev)
+		return (1);
+	head = token->prev;
+	while (head && head->type == WHITESPACE)
+		head = head->prev;
+	if (head && head->type == REDIR_HEREDOC)
+	{
+		if (token->type == WORDS && token->open_end == 1)
+		{
+			output_token_error(token->value);
 			return (0);
 		}
 	}

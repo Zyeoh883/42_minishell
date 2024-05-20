@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/19 23:00:59 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:59:34 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,16 @@ void	handle_sigint(int sig)
 		g_signal = SIGINT;
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		// rl_redisplay();
-		printf("\n");
+		// printf("\n");
 		rl_redisplay();
 		rl_done = 1;
-		rl_event_hook = NULL;
-		// exit(0);
+		// rl_event_hook = NULL;
 	}
 }
 
 void	set_sighandler(struct sigaction *sa, void (*handler)(int))
 {
+	g_signal = 0;
 	sa->sa_handler = handler;
 	sigemptyset(&sa->sa_mask);
 	sa->sa_flags = 0;
@@ -78,19 +77,22 @@ t_data	init_env(int argc, char **argv, char **env)
 	return (shell_data);
 }
 
-int	test(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
+	int status;
 
 	shell_data = init_env(argc, argv, env);
-	// print_env_var(shell_data.var_lst);
 	while (1)
 	{
+		// rl_event_hook = event;
 		set_sighandler(&shell_data.sa, handle_sigint);
-		if (minishell_input(&shell_data.token_root) > 0)
-			print_tokens(shell_data.token_root);
-		else
+		status = minishell_input(&shell_data.token_root);
+		if (status == 0)
+			continue ;
+		else if (status == -1)
 			break ;
+		print_tokens(shell_data.token_root);
 		free_tokens(shell_data.token_root);
 		shell_data.token_root = NULL;
 	}
@@ -98,6 +100,27 @@ int	test(int argc, char **argv, char **env)
 	reset_terminal();
 	return (0);
 }
+
+// int	test(int argc, char **argv, char **env)
+// {
+// 	t_data	shell_data;
+
+// 	shell_data = init_env(argc, argv, env);
+// 	// print_env_var(shell_data.var_lst);
+// 	while (1)
+// 	{
+// 		set_sighandler(&shell_data.sa, handle_sigint);
+// 		if (minishell_input(&shell_data.token_root) > 0)
+// 			print_tokens(shell_data.token_root);
+// 		else
+// 			break ;
+// 		free_tokens(shell_data.token_root);
+// 		shell_data.token_root = NULL;
+// 	}
+// 	free_tokens(shell_data.token_root);
+// 	reset_terminal();
+// 	return (0);
+// }
 // system("leaks minishell");
 
 // int main(void)
@@ -114,25 +137,3 @@ int	test(int argc, char **argv, char **env)
 // 	return (0);
 // }
 
-int	main(int argc, char **argv, char **env)
-{
-	t_data	shell_data;
-	int status;
-
-	shell_data = init_env(argc, argv, env);
-	while (1)
-	{
-		set_sighandler(&shell_data.sa, handle_sigint);
-		status = minishell_input(&shell_data.token_root);
-		if (status == 0)
-			continue ;
-		else if (status == -1)
-			break ;
-		print_tokens(shell_data.token_root);
-		free_tokens(shell_data.token_root);
-		shell_data.token_root = NULL;
-	}
-	free_tokens(shell_data.token_root);
-	reset_terminal();
-	return (0);
-}
