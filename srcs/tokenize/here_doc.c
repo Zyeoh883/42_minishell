@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 16:16:54 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 21:13:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	make_here_doc_file(t_token *token, int here_doc_id)
 
 	buffer = ft_itoa(here_doc_id);
 	if (!buffer)
-		return (0);
+		perror_and_exit("malloc failed", EXIT_FAILURE);
 	here_doc_filename = ft_strjoin(HERE_DOC_DIR, buffer);
 	free(buffer);
 	if (!here_doc_filename)
-		return (0);
+		perror_and_exit("malloc failed", EXIT_FAILURE);
 	fd = open(here_doc_filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/17 17:16:32 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 20:14:39 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,18 @@ void token_remove(t_token *token)
 		next->prev = prev;
 }
 
-int	token_combine_wnext(t_token *token)
+void	token_combine_wnext(t_token *token)
 {
 	char *new_value;
 
 	if (!token || !token->next)
-		return (0);
+		return ;
 	new_value = ft_strjoin(token->value, token->next->value);
 	if (!new_value)
-		return (0);
+		perror_and_exit("malloc error", EXIT_FAILURE);
 	free(token->value);
 	token->value = new_value;
 	token_remove(token->next);
-	return (1);
 }
 
 int is_token_open_ended(t_token *token_root)

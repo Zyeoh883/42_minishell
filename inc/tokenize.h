@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 16:59:31 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 20:54:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ t_token				*token_last_nonspace(t_token *token);
 void				token_remove(t_token *token);
 void				print_tokens(t_token *token);
 
-int					token_combine_wnext(t_token *token);
+void				token_combine_wnext(t_token *token);
+char				*add_to_line(char *input, char *add_on);
+char				*handle_addon(char *input, t_token *token_root);
 
 // validations
 int					is_metacharacter(char c);

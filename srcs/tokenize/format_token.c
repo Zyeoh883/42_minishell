@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/03 04:18:12 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 21:42:24 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,17 @@ void	format_quotes(t_token *token)
 
 	while (token)
 	{
-		if (ft_strchr("'\"", *token->value))
+		while (token->open_end == 1)
+		{
+			token_combine_wnext(token);
+			if (token->value[0] == token->value[ft_strlen(token->value) - 1]
+				&& ft_strlen(token->value) > 1)
+			{
+				token->open_end = 0;
+				token = token->next;
+			}
+		}
+		if (token && ft_strchr("'\"", *token->value))
 		{
 			quote = *token->value;
 			while (token->next && *token->next->value != quote)
@@ -48,7 +58,7 @@ void	label_tokens(t_token *token)
 {
 	while (token)
 	{
-		if (is_operand(*token->value))
+		if (is_operand(*token->value) && ft_strlen(token->value) == 1)
 		{
 			if (*token->value == '>')
 				token->type = REDIR_OUT;
@@ -73,7 +83,7 @@ void	format_operands(t_token *token)
 {
 	while (token && token->next)
 	{
-		if (1 < token->type && token->type < 8)
+		if (WHITESPACE < token->type && token->type < AND)
 		{
 			if (token->type == token->next->type)
 			{
@@ -97,7 +107,7 @@ void	format_operands(t_token *token)
 void	format_tokens(t_token *token_root)
 {
 	t_token	*token;
-	
+
 	token = token_root;
 	format_quotes(token);
 	label_tokens(token);

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/20 16:59:34 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/20 21:36:23 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **env)
 		free_tokens(shell_data.token_root);
 		shell_data.token_root = NULL;
 	}
-	free_tokens(shell_data.token_root);
+	// free_tokens(shell_data.token_root);
 	reset_terminal();
 	return (0);
 }

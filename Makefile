@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
