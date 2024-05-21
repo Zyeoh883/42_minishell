@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/17 15:10:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:50:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,12 @@ int main(int argc, char **argv, char **env)
 		if (input == NULL)
 			perror_and_exit("readline", EXIT_FAILURE);
 		add_history(input); // working history
-		if (ft_strcmp("exit", input) == 0)
-		{
-			free(input);
-			free_var_lst(var_lst); // ! double free happens here
-			exit(EXIT_SUCCESS);
-		}
 		char **input_arr = ft_split(input, ' ');
 		t_node	*node = create_simple_command(var_lst, input_arr);
 		execute(node);
 
 		free(input);
-		if (node->simple_command->cmd_arg)
-			free_str_arr(node->simple_command->cmd_arg); // ! SEGV when i uncomment this
+		free_str_arr(node->simple_command->cmd_arg);
 		free(node->simple_command); // tmp
 		free(node); // tmp
 

@@ -6,32 +6,51 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/16 13:20:20y sting            ###   ########.fr       */
+/*   Updated: 2024/05/21 16:12:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_export(char **cmd_arg, t_var *var_lst)
+int	execute_export(char **cmd_arg, t_var *var_lst)
 {
-	int i;
-	t_var	*lst;
+	int		i;
+	int		j;
+	char	*var_name;
 
-	// TODO: if 1st arg is NULL or #
+	if (cmd_arg[1] == NULL || cmd_arg[1][0] == '#')
+	{
+		print_env_var(var_lst, "declare -x ");
+		return ;
+	}
 	i = 0;
 	while (cmd_arg[++i] != NULL)
 	{
-		if (cmd_arg[i] == NULL || cmd_arg[i][0] == '#') // !stopped here - monday
+		// error check for var_name: not a valid idenifier
+		j = -1;
+		if (!ft_isalpha(cmd_arg[i][0]) && cmd_arg[i][0] != '_')
+			return (print_custom_err_n_return("export: `", cmd_arg[i],
+					"\': not a valid identifier", EXIT_FAILURE));
+		while (cmd_arg[i][++j] && cmd_arg[i][j] != '=')
+			if (!(ft_isalnum(cmd_arg[i][j]) || cmd_arg[i][j] == '_'))
+				return (print_custom_err_n_return("export: `", cmd_arg[i],
+						"\': not a valid identifier", EXIT_FAILURE));
+		// search for var_name, check if valid
+		var_name = ft_substr(cmd_arg[i], 0, j);
+		if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
+		if (get_var_node(var_name, var_lst) == NULL) // if non-existing variable
+			ft_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
+		else 
 		{
-			printf("check\n");
-			lst = var_lst;
-			while (lst != NULL)
+			if (cmd_arg[i][j] == '\0') // case with no '='
 			{
-				if (lst->is_exported && ft_strchr(lst->str, '=') != NULL)
-					ft_printf("declare -x %s\n", lst->str);
-				lst = lst->next;
+				
 			}
 		}
+		// if valid -> swap
+		set_var_value(var_name, &cmd_arg[i][j + 1], var_lst);
+		free(var_name);
+		// else lst_addback
 	}
 }
 
@@ -107,15 +126,17 @@ void	execute_echo(char **cmd_arg)
 */
 int	execute_builtins(char **cmd_arg, t_var *var_lst)
 {
-	if (ft_strcasecmp(*cmd_arg, "echo") == 0)
+	if (ft_strcasecmp(*cmd_arg, "exit") == 0)
+		exit(EXIT_SUCCESS); // ! not done
+	else if (ft_strcasecmp(*cmd_arg, "echo") == 0)
 		execute_echo(cmd_arg);
 	else if (ft_strcasecmp(*cmd_arg, "env") == 0)
-		print_env_var(var_lst);
+		print_env_var(var_lst, "");
 	else if (ft_strcasecmp(*cmd_arg, "cd") == 0)
 		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
 	else if (ft_strcasecmp(*cmd_arg, "export") == 0)
-		execute_export(cmd_arg, var_lst);
+		return (execute_export(cmd_arg, var_lst));
 	return (EXIT_SUCCESS); // ! will built-in fail?
 }

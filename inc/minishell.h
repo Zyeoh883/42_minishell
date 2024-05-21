@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 15:29:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/21 09:14:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-void	print_env_var(t_var *var_lst);
+void	print_env_var(t_var *var_lst, char *add_msg_before_var);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);
 
@@ -79,10 +79,11 @@ void	free_var_lst(t_var *list);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);
-int	perror_and_return(char *str, int return_value);
-int	print_err_and_return(char *str, char *perror_str, int return_value);
+int		perror_and_return(char *str, int return_value);
+int		print_err_and_return(char *str, char *perror_str, int return_value);
 void	if_null_perror_n_exit(void *ptr, char *str, int exit_code);
-int print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg, int return_value);
+int		print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg,
+			int return_value);
 void	free_split(char **split);
 void	output_token_error(char *str);
 int		arr_str_count(char **arr);
