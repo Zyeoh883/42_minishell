@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 21:39:25 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/21 15:04:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ char	*handle_addon(char *input, t_token *token_root)
 {
 	t_token	*token;
 	char 	*input_addon;
+	char 	error_char;
 	
 	while (is_token_open_ended(token_root))
 	{
 		input_addon = readline("> ");
 		if (!input_addon || g_signal == SIGINT) // ft_strncmp("exit", input, 4) == 0
 		{
+			error_char = *(token_last_nonspace(token_root)->value);
+			if (!input_addon)
+				output_eof_error(error_char);
 			add_history(input);
 			free(input);
 			free(token_root);

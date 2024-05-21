@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/16 16:06:28 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/21 15:03:45 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ void	output_token_error(char *str)
 	ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd("'", 2);
+}
+
+void	output_eof_error(char quote)
+{
+	if (ft_strchr("\"\'", quote))
+	{
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putchar_fd(quote, 2);
+		ft_putendl_fd("'", 2);
+	}
+	else
+		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
 }
 
 long	ft_atol(const char *str)

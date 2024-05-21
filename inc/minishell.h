@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/19 15:15:02 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/21 15:04:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ long	ft_atol(const char *str);
 
 // error_messages
 void	output_token_error(char *str);
+void	output_eof_error(char quote);
 
 // List Functions
 t_var	*var_lstnew(char *str);

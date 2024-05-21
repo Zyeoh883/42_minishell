@@ -6,11 +6,29 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 21:42:24 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:45:35 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	format_open_ends(t_token *token)
+{
+	while (token)
+	{
+		while (token->next && token->open_end == 1)
+		{
+			token_combine_wnext(token);
+			printf("%c to %c\n", token->value[0], token->value[ft_strlen(token->value) - 1]);
+			if (token->value[0] == token->value[ft_strlen(token->value) - 1]
+				&& ft_strlen(token->value) > 1)
+			{
+				token->open_end = 0;
+			}
+		}
+		token = token->next;
+	}
+}
 
 void	format_quotes(t_token *token)
 {
@@ -18,17 +36,7 @@ void	format_quotes(t_token *token)
 
 	while (token)
 	{
-		while (token->open_end == 1)
-		{
-			token_combine_wnext(token);
-			if (token->value[0] == token->value[ft_strlen(token->value) - 1]
-				&& ft_strlen(token->value) > 1)
-			{
-				token->open_end = 0;
-				token = token->next;
-			}
-		}
-		if (token && ft_strchr("'\"", *token->value))
+		if (token && ft_strchr("'\"", *token->value) && ft_strlen(token->value) == 1)
 		{
 			quote = *token->value;
 			while (token->next && *token->next->value != quote)
@@ -109,6 +117,7 @@ void	format_tokens(t_token *token_root)
 	t_token	*token;
 
 	token = token_root;
+	format_open_ends(token);
 	format_quotes(token);
 	label_tokens(token);
 	format_whitespace(token);
