@@ -6,22 +6,25 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/21 16:12:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:40:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
+int j;  j -> index of '='
+*/
 int	execute_export(char **cmd_arg, t_var *var_lst)
 {
 	int		i;
 	int		j;
 	char	*var_name;
+	t_var	*node;
 
 	if (cmd_arg[1] == NULL || cmd_arg[1][0] == '#')
 	{
 		print_env_var(var_lst, "declare -x ");
-		return ;
+		return (EXIT_SUCCESS);
 	}
 	i = 0;
 	while (cmd_arg[++i] != NULL)
@@ -35,23 +38,30 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 			if (!(ft_isalnum(cmd_arg[i][j]) || cmd_arg[i][j] == '_'))
 				return (print_custom_err_n_return("export: `", cmd_arg[i],
 						"\': not a valid identifier", EXIT_FAILURE));
+						
 		// search for var_name, check if valid
 		var_name = ft_substr(cmd_arg[i], 0, j);
 		if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-		if (get_var_node(var_name, var_lst) == NULL) // if non-existing variable
-			ft_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
-		else 
-		{
-			if (cmd_arg[i][j] == '\0') // case with no '='
-			{
-				
-			}
-		}
-		// if valid -> swap
-		set_var_value(var_name, &cmd_arg[i][j + 1], var_lst);
+		printf("(export) var_name: %s\n", var_name); // !remove
+		node = get_var_node(var_name, var_lst);
 		free(var_name);
-		// else lst_addback
+		
+		if (node != NULL) // if variable exist
+		{
+			node->is_exported = true;
+			if (cmd_arg[i][j] == '=')
+				set_var_value(var_name, &cmd_arg[i][j + 1], var_lst);
+		}
+		else // if var don't exist
+		{
+			if (cmd_arg[i][j] == '=')
+				var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
+			else if (cmd_arg[i][j] == '\0') // if str has no '='
+				var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], false));
+		}
 	}
+	print_var_lst(var_lst);
+	return (EXIT_SUCCESS);
 }
 
 int	execute_cd(char **cmd_arg, t_var *var_lst)
@@ -126,7 +136,7 @@ void	execute_echo(char **cmd_arg)
 */
 int	execute_builtins(char **cmd_arg, t_var *var_lst)
 {
-	if (ft_strcasecmp(*cmd_arg, "exit") == 0)
+	if (ft_strcmp(*cmd_arg, "exit") == 0)
 		exit(EXIT_SUCCESS); // ! not done
 	else if (ft_strcasecmp(*cmd_arg, "echo") == 0)
 		execute_echo(cmd_arg);
@@ -136,7 +146,7 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
 		execute_pwd();
-	else if (ft_strcasecmp(*cmd_arg, "export") == 0)
+	else if (ft_strcmp(*cmd_arg, "export") == 0)
 		return (execute_export(cmd_arg, var_lst));
 	return (EXIT_SUCCESS); // ! will built-in fail?
 }
