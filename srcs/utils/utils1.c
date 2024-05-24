@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/21 15:03:45 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/24 19:05:38 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ void	output_eof_error(char quote)
 		ft_putchar_fd(quote, 2);
 		ft_putendl_fd("'", 2);
 	}
-	else
-		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
+	ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
 }
 
 long	ft_atol(const char *str)

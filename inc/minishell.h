@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/21 15:04:41 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/24 19:34:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "history.h"
 # include "readline.h"
 # include "tokenize.h"
+# include "readline_input.h"
 
 // MACROS
 // # define SUCCESS 0
@@ -64,9 +65,8 @@ t_node	*create_node(t_nodetype type);
 t_node	*create_command(char **env, char **cmd);
 
 // readline
-int		minishell_input(t_token **token_root);
-char	*handle_readline(char *str);
-char	*add_to_line(char *line, char *input);
+
+// char	*add_to_line(char *input, char *add_on, char hanging_char);
 
 // execute
 void	execute(t_node *node);
