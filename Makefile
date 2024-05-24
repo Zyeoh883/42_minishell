@@ -22,7 +22,7 @@ SRCS_FIL = \
 			execute/execute.c \
 			utils/utils1.c \
 			utils/utils2.c \
-			main_w_readline.c \
+			main.c \
 			free.c \
 			builtins.c \
 			readline.c \

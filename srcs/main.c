@@ -1,58 +1,139 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_w_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:40 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
+/*   Updated: 2024/05/20 21:36:23 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*tokenize_pipe(char *input, char **env)
-// basic argument parsing for testing
+int	event(void)
 {
-	char **test_commands;
-	t_node *command;
-	t_node **simple_cmd_arr;
-	t_node *pipe_node;
-	int size;
-	int n;
-
-	test_commands = ft_split(input, '|'); // get commands
-	size = -1;
-	while (test_commands[++size]) // pipe node needs number of commands for now, can change to null termination
-		;
-	if (size == 0)
-		return (NULL);
-	simple_cmd_arr = ft_calloc(size + 1, sizeof(t_node));
-	// creates an array of nodes for the pipe node
-	n = -1;
-	while (++n < size)
-	{
-		// printf("test_commands[n] = %s\n", test_commands[n]);
-		command = create_command(env, ft_split(test_commands[n], ' '));
-		// creates command for simple command
-		simple_cmd_arr[n] = create_simple_command(env, NULL, command);
-		// create simple command
-	}
-	pipe_node = create_pipe(simple_cmd_arr, size);
-	return (pipe_node);
+	return (EXIT_SUCCESS);
 }
 
-int	main(int ac, char **av, char **env)
+void	handle_sigint(int sig)
 {
-	t_node	*pipe;
-
-	if (ac != 2)
+	if (sig == SIGINT)
 	{
-		printf("format error: ./minishell 'cmd0 | cmd1 | cmd2 | ..cmd{n}'\n");
-		return (0);
-	};
-	pipe = tokenize_pipe(av[1], env);
-	execute(pipe);
+		g_signal = SIGINT;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		// printf("\n");
+		rl_redisplay();
+		rl_done = 1;
+		// rl_event_hook = NULL;
+	}
+}
+
+void	set_sighandler(struct sigaction *sa, void (*handler)(int))
+{
+	g_signal = 0;
+	sa->sa_handler = handler;
+	sigemptyset(&sa->sa_mask);
+	sa->sa_flags = 0;
+	sigaction(SIGINT, sa, NULL);
+}
+
+void	setup_terminal(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term); // Get current terminal attributes
+	term.c_lflag &= ~ECHOCTL;
+	// term.c_cc[VMIN] = 0;
+	// Disable echo of control characters
+	tcsetattr(STDIN_FILENO, TCSANOW, &term); // Set modified terminal attributes
+}
+
+void	reset_terminal(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term); // Get current terminal attributes
+	term.c_lflag |= ECHOCTL;
+	// Enable echo of control characters
+	tcsetattr(STDIN_FILENO, TCSANOW, &term); // Set modified terminal attributes
+}
+
+t_data	init_env(int argc, char **argv, char **env)
+{
+	t_data	shell_data;
+
+	(void)argc;
+	(void)argv;
+	if (access("/tmp", F_OK) == -1)
+		perror_and_exit("access /tmp", 1);
+	g_signal = 0;
+	ft_memset(&shell_data, 0, sizeof(t_data));
+	shell_data.var_lst = convert_env_to_linked_list(env);
+	setup_terminal();
+	rl_event_hook = event;
+	return (shell_data);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_data	shell_data;
+	int status;
+
+	shell_data = init_env(argc, argv, env);
+	while (1)
+	{
+		// rl_event_hook = event;
+		set_sighandler(&shell_data.sa, handle_sigint);
+		status = minishell_input(&shell_data.token_root);
+		if (status == 0)
+			continue ;
+		else if (status == -1)
+			break ;
+		print_tokens(shell_data.token_root);
+		free_tokens(shell_data.token_root);
+		shell_data.token_root = NULL;
+	}
+	// free_tokens(shell_data.token_root);
+	reset_terminal();
 	return (0);
 }
+
+// int	test(int argc, char **argv, char **env)
+// {
+// 	t_data	shell_data;
+
+// 	shell_data = init_env(argc, argv, env);
+// 	// print_env_var(shell_data.var_lst);
+// 	while (1)
+// 	{
+// 		set_sighandler(&shell_data.sa, handle_sigint);
+// 		if (minishell_input(&shell_data.token_root) > 0)
+// 			print_tokens(shell_data.token_root);
+// 		else
+// 			break ;
+// 		free_tokens(shell_data.token_root);
+// 		shell_data.token_root = NULL;
+// 	}
+// 	free_tokens(shell_data.token_root);
+// 	reset_terminal();
+// 	return (0);
+// }
+// system("leaks minishell");
+
+// int main(void)
+// {
+// 	struct sigaction sa;
+// 	char *input;
+
+// 	set_sighandler(&sa, handle_sigint);
+// 	input = NULL;
+// 	input = readline("input$ ");
+// 	printf("input = %p\n", input);
+// 	if (input)
+// 		printf("input = %s\n", input);
+// 	return (0);
+// }
+
