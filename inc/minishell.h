@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/24 19:34:26 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/27 22:00:05 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include <unistd.h>
 
 # include "../libft/libft.h"
-# include "create_node.h"
+# include "tokenize.h"
 # include "data_structs.h"
+# include "create_node.h"
 # include "history.h"
 # include "readline.h"
-# include "tokenize.h"
 # include "readline_input.h"
 
 // MACROS
@@ -61,8 +61,6 @@ typedef struct s_data // stores all major data
 // Terminal settings
 void	reset_terminal(void);
 
-t_node	*create_node(t_nodetype type);
-t_node	*create_command(char **env, char **cmd);
 
 // readline
 

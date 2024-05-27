@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 16:34:02 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/27 22:23:50 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ typedef enum e_nodetype
 
 enum							e_redirtype
 {
-	INPUT,
 	OUTPUT,
-	HEREDOC,
+	INPUT,
 	APPEND,
+	HEREDOC,
 };
 
 typedef enum e_quote_type
@@ -57,15 +57,16 @@ typedef struct s_node
 	};
 }								t_node;
 
-typedef struct s_subshell
+typedef struct s_subshell // ! Has redirects
 {
+	t_redir 					*redir; // array of redir structs, all arrays must be NULL terminated
 	t_node						*node;
 }								t_subshell;
 
 typedef struct s_and_or
 {
-	int *operators; // ! update
-	t_node						**arr_nodes;
+	int 						*operators; // ! update
+	t_node						**arr_nodes; // ? NULL terminated?
 } t_and_or; // ! update
 
 typedef struct s_pipe
@@ -81,7 +82,6 @@ typedef struct s_redir
 {
 	enum e_redirtype			type;
 	char						*filename;
-
 }								t_redir;
 
 
@@ -89,8 +89,8 @@ typedef struct s_simple_command
 {
 	int							fd_in;
 	int							fd_out;
-	t_redir *redir; // array of redir structs, all arrays must be NULL terminated
-	int							is_built_in;
+	t_redir 					*redir; // array of redir structs, all arrays must be NULL terminated
+	int							is_built_in; // TODO remove this I think?
 	char 						**cmd_arg; // ! update        
 	t_var 						*var_lst;
 }								t_simple_command;

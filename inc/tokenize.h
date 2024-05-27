@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/24 19:34:48 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/27 21:02:39 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define REDIR_IN 4
 # define REDIR_APPEND 5
 # define REDIR_HEREDOC 6
-# define PIPE 7
+# define PIPES 7
 # define AND 8
 # define OR 9
 # define OPEN_PARENT 10

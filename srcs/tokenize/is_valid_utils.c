@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:23:50 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/02 12:40:08 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/27 17:53:07 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_file_token(t_token *token)
 {
+    if (token && token->type == WHITESPACE)
+        return (0);
 	token = token->prev;
 	while (token && token->type == WHITESPACE)
 		token = token->prev;

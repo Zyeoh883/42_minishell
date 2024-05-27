@@ -33,7 +33,10 @@ SRCS_FIL = \
 			tokenize/is_valid_utils.c \
 			tokenize/validate_tokens.c \
 			tokenize/format_token.c \
-			tokenize/here_doc.c
+			tokenize/here_doc.c \
+			\
+			abstract_syntax_tree/create_ast.c \
+			abstract_syntax_tree/create_ast_utils.c
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

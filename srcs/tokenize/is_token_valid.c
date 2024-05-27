@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 15:16:26 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/27 21:02:27 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	is_valid_operand_content(t_token *token) // checks for |, || and && if they 
 {
 	t_token	*head;
 
-	if (!token || !(PIPE <= token->type && token->type <= OR))
+	if (!token || !(PIPES <= token->type && token->type <= OR))
 		return (1);
 	head = token->prev;
 	while (head && head->type == WHITESPACE)
