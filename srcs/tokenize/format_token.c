@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/21 14:45:35 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/28 16:12:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	label_tokens(t_token *token)
 			else if (*token->value == '<')
 				token->type = REDIR_IN;
 			else if (*token->value == '|')
-				token->type = PIPE;
+				token->type = PIPES;
 			else if (*token->value == '&')
 				token->type = AMPERSAND;
 			else if (*token->value == ' ')
@@ -100,12 +100,12 @@ void	format_operands(t_token *token)
 					token->type = REDIR_APPEND;
 				else if (token->type == REDIR_IN)
 					token->type = REDIR_HEREDOC;
-				else if (token->type == PIPE)
+				else if (token->type == PIPES)
 					token->type = OR;
 				else if (token->type == AMPERSAND)
 					token->type = AND;
 			}
-			else if (token->type == REDIR_OUT && token->next->type == PIPE)
+			else if (token->type == REDIR_OUT && token->next->type == PIPES)
 				token_combine_wnext(token);
 		}
 		token = token->next;

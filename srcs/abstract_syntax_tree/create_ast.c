@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 23:04:03 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/28 17:49:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 t_node	*create_node(t_data *shell_data, t_token *token)
 {
-	if (count_content_in_tokens(token, is_and_or) > 0)
+	if (token_instances(token, is_and_or) > 0)
+	{
+		printf ("create_and_or\n");
 		return (create_and_or(shell_data, token));
-	else if (count_content_in_tokens(token, is_pipe_token) > 0)
+	}
+	else if (token_instances(token, is_pipe_token) > 0)
+	{
+		printf ("create_pipe\n");
 		return (create_pipe(shell_data, token));
+	}
 	else if (is_subshell(token))
+	{
+		printf ("create subshell\n");
 		return (create_subshell(shell_data, token));
+	}
+	printf("create_simple_command\n");
 	return (create_simple_command(shell_data, token));
 }
 
@@ -34,18 +44,17 @@ t_node	*create_subshell(t_data *shell_data, t_token *token)
 	node->subshell = ft_calloc(1, sizeof(t_subshell));
 	if (!node->subshell)
 		perror_and_exit("Failed to create subshell node", 125);
-	token_head = token;
-	while (token_head->type != CLOSED_PARENT)
-		token_head = token_head->next;
+	token_head = find_top_closing_parent(token);
 	node->subshell->redir = extract_redir(token_head->next);
+	token_head->prev->next = NULL;
 	free_tokens(token_head);
 	while (token->type != OPEN_PARENT)
 	{
 		token = token->next;
-		remove_token(token->prev);
+		token_remove(token->prev);
 	}
 	token = token->next;
-	remove_token(token->prev);
+	token_remove(token->prev);
 	node->subshell->node = create_node(shell_data, token);
 	return (node);
 }
@@ -62,7 +71,7 @@ t_node	*create_and_or(t_data *shell_data, t_token *token)
 	node->pipe = ft_calloc(1, sizeof(t_and_or));
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
-	n = count_content_in_tokens(token, is_and_or);
+	n = token_instances(token, is_and_or);
 	node->and_or->operators = ft_calloc(n, sizeof(int));
 	if (!node->and_or->operators)
 		perror_and_exit("Failed to create operators", 125);
@@ -88,7 +97,7 @@ t_node	*create_pipe(t_data *shell_data, t_token *token)
 	node->pipe = ft_calloc(1, sizeof(t_pipe));
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
-	node->pipe->n_nodes = count_content_in_tokens(token, is_pipe_token);
+	node->pipe->n_nodes = token_instances(token, is_pipe_token);
 	node->pipe->arr_nodes = ft_split_tokens(shell_data, token, is_pipe_token);
 	return (node);
 }

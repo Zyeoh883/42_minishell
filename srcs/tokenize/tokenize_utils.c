@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 21:02:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/28 17:03:43 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void unlink_here_doc_files(t_token *token_root)
 	}	
 }
 
+//unlink_here_doc_files(token_root);
+
 void	free_tokens(t_token *token_root)
 {
 	t_token	*tmp;
 
-	unlink_here_doc_files(token_root);
 	while (token_root)
 	{
 		tmp = token_root;
@@ -129,7 +130,7 @@ int is_token_open_ended(t_token *token_root)
 	if (!token_root)
 		return (0);
 	last = token_last_nonspace(token_root);
-	if (last->open_end || is_in_parentheses(last))
+	if (last->open_end || (is_in_parentheses(last) && last->type != CLOSED_PARENT))
 		return (1);
 	if (PIPES<= last->type && last->type <= OR)
 		return (1);

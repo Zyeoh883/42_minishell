@@ -36,7 +36,8 @@ SRCS_FIL = \
 			tokenize/here_doc.c \
 			\
 			abstract_syntax_tree/create_ast.c \
-			abstract_syntax_tree/create_ast_utils.c
+			abstract_syntax_tree/create_ast_utils.c \
+			abstract_syntax_tree/print_ast.c
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
