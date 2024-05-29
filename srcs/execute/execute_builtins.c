@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 14:51:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:28:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 				var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], false));
 		}
 	}
-	print_var_lst(var_lst);
+	// print_var_lst(var_lst);
 	return (EXIT_SUCCESS);
 }
 

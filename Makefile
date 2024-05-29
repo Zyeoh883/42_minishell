@@ -15,9 +15,8 @@ ORANGE = \033[0;38;5;166m
 # Source files
 SRCDIR = srcs/
 SRCS_FIL = \
-			main_w_readline.c \
+			test_main.c \
 			create/create_node.c \
-			create/piping.c \
 			execute/variables.c \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
@@ -26,9 +25,9 @@ SRCS_FIL = \
 			execute/execute.c \
 			execute/execute_execve.c \
 			execute/execute_builtins.c \
-			utils/free.c \
-			utils/utils1.c \
-			utils/extra.c # to be removed
+			utils/s_free.c \
+			utils/s_utils1.c \
+			utils/s_extra.c # to be removed
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
