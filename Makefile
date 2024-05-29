@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -14,7 +14,7 @@ ORANGE = \033[0;38;5;166m
 
 # Source files
 SRCDIR = srcs/
-			# test_main.c
+
 SRCS_FIL = \
 			tokenize/tokenize.c \
 			tokenize/tokenize_utils.c \
@@ -38,16 +38,12 @@ SRCS_FIL = \
 			execute/execute.c \
 			execute/execute_execve.c \
 			execute/execute_builtins.c \
-			execute/lst_functions.c \
-			execute/execute.c \
 			utils/free.c \
 			utils/utils1.c \
 			utils/extra.c \
 			utils/utils2.c \
 			\
 			main.c \
-			free.c \
-			builtins.c \
 			readline.c \
 			\
 

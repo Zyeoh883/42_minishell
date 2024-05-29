@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 15:54:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 18:31:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		shell_data.ast_root = create_ast(&shell_data);
 		print_ast(shell_data.ast_root, 0);
+		// execute(shell_data.ast_root);
 		// print_tokens(shell_data.token_root);
 		// free_tokens(shell_data.token_root);
 		shell_data.token_root = NULL;
@@ -103,39 +104,9 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-// int	test(int argc, char **argv, char **env)
-// {
-// 	t_data	shell_data;
-
-// 	shell_data = init_env(argc, argv, env);
-// 	// print_env_var(shell_data.var_lst);
-// 	while (1)
-// 	{
-// 		set_sighandler(&shell_data.sa, handle_sigint);
-// 		if (minishell_input(&shell_data.token_root) > 0)
-// 			print_tokens(shell_data.token_root);
-// 		else
-// 			break ;
-// 		free_tokens(shell_data.token_root);
-// 		shell_data.token_root = NULL;
-// 	}
-// 	free_tokens(shell_data.token_root);
-// 	reset_terminal();
-// 	return (0);
-// }
-// system("leaks minishell");
-
 // int main(void)
 // {
-// 	struct sigaction sa;
-// 	char *input;
-
-// 	set_sighandler(&sa, handle_sigint);
-// 	input = NULL;
-// 	input = readline("input$ ");
-// 	printf("input = %p\n", input);
-// 	if (input)
-// 		printf("input = %s\n", input);
+// 	test();
+// 	system("leaks minishell");
 // 	return (0);
 // }
-

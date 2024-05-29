@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 17:54:52 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/29 18:03:10 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,6 @@ void	output_eof_error(char quote)
 		ft_putendl_fd("'", 2);
 	}
 	ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
-}
-
-void	free_split(char **split)
-{
-	char	**head;
-
-	if (!split)
-		return ;
-	head = split;
-	while (*head != NULL)
-	{
-		free(*head);
-		head++;
-	}
-	free(split);
 }
 
 int	is_metacharacter(char c)
