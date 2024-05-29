@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 14:34:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:42:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ typedef enum e_nodetype
 
 enum							e_redirtype
 {
-	INPUT,
 	OUTPUT,
-	HEREDOC,
+	INPUT,
 	APPEND,
+	HEREDOC,
 };
 
 typedef enum e_quote_type
@@ -61,7 +61,6 @@ typedef struct s_redir
 {
 	enum e_redirtype			type;
 	char						*filename;
-
 }								t_redir;
 
 typedef struct s_subshell // ! Has redirects
@@ -72,8 +71,8 @@ typedef struct s_subshell // ! Has redirects
 
 typedef struct s_and_or
 {
-	int *operators; // ! update
-	t_node						**arr_nodes;
+	int 						*operators; // ! update
+	t_node						**arr_nodes; // ? NULL terminated?
 } t_and_or; // ! update
 
 typedef struct s_pipe
@@ -84,8 +83,6 @@ typedef struct s_pipe
 	int							fd_in;
 	int							fd_out;
 }								t_pipe;
-
-
 
 typedef struct s_simple_command
 {

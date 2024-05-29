@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   readline_input.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 17:13:04 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/29 23:22:33 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/05/17 16:12:22 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/05/24 19:34:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef READLINE_INPUT_H
+# define READLINE_INPUT_H
 
-int	ft_atoi(const char *str)
+# include "minishell.h"
+
+typedef struct s_readline_flags
 {
-	long	result;
-	int		sign;
+	int	d_quoted;
+	int	s_quoted;
+}		t_readline_flags;
 
-	while ((9 <= *str && *str <= 13) || *str == ' ')
-		str++;
-	sign = 1;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	result = 0;
-	while ('0' <= *str && *str <= '9')
-	{
-		result *= 10;
-		result += *str - '0';
-		str++;
-	}
-	return (result * sign);
-}
+int		minishell_input(t_token **token_root);
+char	*add_to_line(char *input, char *add_on, char hanging_char);
+char	*handle_addon(char *input, t_token *token_root);
+
+#endif

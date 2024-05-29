@@ -6,13 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 14:51:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:52:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*create_node(t_nodetype type, t_var *var_lst)
+t_node	*create_linker(t_nodetype type)
 {
 	t_node	*node;
 
@@ -27,51 +27,11 @@ t_node	*create_node(t_nodetype type, t_var *var_lst)
 	return (node);
 }
 
-// t_node	*create_command(char **env, char **cmd_arg)
-// {
-// 	t_node	*node;
-
-// 	node = create_node(COMMAND);
-// 	if (!node)
-// 		exit(125);
-// 	node->command = (t_command *)ft_calloc(1, sizeof(t_command));
-// 	if (!node->command)
-// 	{
-// 		perror("Failed to create command node");
-// 		free(node);
-// 		exit(125);
-// 	}
-// 	node->command->cmd_arg = cmd_arg;
-// 	node->command->env = env;
-// 	return (node);
-// }
-
-t_node	*create_simple_command(t_var *var_lst, char **cmd_arg)
-{
-	t_node	*node;
-
-	node = create_node(SIMPLE_COMMAND, var_lst);
-	if (!node)
-		exit(125);
-	node->simple_command = (t_simple_command *)ft_calloc(1, sizeof(t_simple_command));
-	if (!node->simple_command)
-	{
-		perror("Failed to create simple_command node");
-		free(node);
-		exit(125);
-	}
-	node->simple_command->cmd_arg = cmd_arg;
-	node->simple_command->var_lst = var_lst;
-	return (node);
-}
-
-
-
 // t_node	*create_pipe(t_node **nodes, int n_nodes)
 // {
 // 	t_node *node;
 
-// 	node = create_node(PIPE);
+// 	node = create_linker(PIPE);
 // 	if (!node)
 // 		exit(125);
 // 	node->pipe = (t_pipe *)ft_calloc(1, sizeof(t_pipe));

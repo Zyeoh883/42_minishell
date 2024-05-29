@@ -27,7 +27,30 @@ SRCS_FIL = \
 			execute/execute_builtins.c \
 			utils/s_free.c \
 			utils/s_utils1.c \
-			utils/s_extra.c # to be removed
+			utils/s_extra.c \ # to be removed
+			\
+			create/piping.c \
+			create/variables.c \
+			create/lst_functions.c \
+			execute/execute.c \
+			utils/utils1.c \
+			utils/utils2.c \
+			main.c \
+			free.c \
+			builtins.c \
+			readline.c \
+			\
+			tokenize/tokenize.c \
+			tokenize/tokenize_utils.c \
+			tokenize/is_token_valid.c \
+			tokenize/is_valid_utils.c \
+			tokenize/validate_tokens.c \
+			tokenize/format_token.c \
+			tokenize/here_doc.c \
+			\
+			abstract_syntax_tree/create_ast.c \
+			abstract_syntax_tree/create_ast_utils.c \
+			abstract_syntax_tree/print_ast.c
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
@@ -51,7 +74,7 @@ $(OBJDIR):
 	@mkdir -p $(OBJDIR) $(addprefix $(OBJDIR), $(dir $(SRCS_FIL)))
 
 $(NAME): $(OBJS)
-	@make -C $(READLINE_DIR)
+	@make -C $(READLINE_DIR) > /dev/null
 	@make -C $(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
@@ -64,7 +87,7 @@ RM = rm -rf
 clean:
 	@$(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
 	@make clean -C $(LIBFT_DIR) && echo "$(ORANGE)libft object files were deleted$(RESET)"
-	@make clean -C $(READLINE_DIR) && echo "$(ORANGE)readline object files were deleted$(RESET)"
+	@make clean -C $(READLINE_DIR) > /dev/null && echo "$(ORANGE)readline object files were deleted$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
