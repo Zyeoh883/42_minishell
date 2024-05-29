@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/28 15:37:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:42:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ typedef struct s_simple_command
 {
 	int							fd_in;
 	int							fd_out;
-	t_redir 					*redir; // array of redir structs, all arrays must be NULL terminated
-	int							is_built_in; // TODO remove this I think?
+	t_redir *redir; // array of redir structs, all arrays must be NULL terminated
+	// int							is_built_in;
 	char 						**cmd_arg; // ! update        
 	t_var 						*var_lst;
 }								t_simple_command;

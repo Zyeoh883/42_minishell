@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -15,7 +15,20 @@ ORANGE = \033[0;38;5;166m
 # Source files
 SRCDIR = srcs/
 SRCS_FIL = \
+			test_main.c \
 			create/create_node.c \
+			execute/variables.c \
+			execute/handle_quotes_n_expansion.c \
+			execute/handle_quotes_n_expansion2.c \
+			execute/lst_functions.c \
+			execute/exit_status.c \
+			execute/execute.c \
+			execute/execute_execve.c \
+			execute/execute_builtins.c \
+			utils/s_free.c \
+			utils/s_utils1.c \
+			utils/s_extra.c \ # to be removed
+			\
 			create/piping.c \
 			create/variables.c \
 			create/lst_functions.c \
