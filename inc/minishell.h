@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 22:00:05 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:24:20 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <unistd.h>
 
 # include "../libft/libft.h"
+# include "create_node.h"
 # include "tokenize.h"
 # include "data_structs.h"
-# include "create_node.h"
 # include "history.h"
 # include "readline.h"
 # include "readline_input.h"
@@ -65,14 +65,6 @@ void	reset_terminal(void);
 // readline
 
 // char	*add_to_line(char *input, char *add_on, char hanging_char);
-
-// execute
-void	execute(t_node *node);
-void	ex_simple_command(t_simple_command *simple_command);
-void	ex_pipe(t_pipe *pipe);
-
-// BUILT-INS
-void	execute_env(char **my_env);
 
 // free
 void	free_str_arr(char **str_arr);
