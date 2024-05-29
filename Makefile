@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -14,32 +14,8 @@ ORANGE = \033[0;38;5;166m
 
 # Source files
 SRCDIR = srcs/
+			# test_main.c
 SRCS_FIL = \
-			test_main.c \
-			create/create_node.c \
-			execute/variables.c \
-			execute/handle_quotes_n_expansion.c \
-			execute/handle_quotes_n_expansion2.c \
-			execute/lst_functions.c \
-			execute/exit_status.c \
-			execute/execute.c \
-			execute/execute_execve.c \
-			execute/execute_builtins.c \
-			utils/s_free.c \
-			utils/s_utils1.c \
-			utils/s_extra.c \ # to be removed
-			\
-			create/piping.c \
-			create/variables.c \
-			create/lst_functions.c \
-			execute/execute.c \
-			utils/utils1.c \
-			utils/utils2.c \
-			main.c \
-			free.c \
-			builtins.c \
-			readline.c \
-			\
 			tokenize/tokenize.c \
 			tokenize/tokenize_utils.c \
 			tokenize/is_token_valid.c \
@@ -50,7 +26,30 @@ SRCS_FIL = \
 			\
 			abstract_syntax_tree/create_ast.c \
 			abstract_syntax_tree/create_ast_utils.c \
-			abstract_syntax_tree/print_ast.c
+			abstract_syntax_tree/print_ast.c \
+			\
+			create/create_node.c \
+			\
+			execute/variables.c \
+			execute/handle_quotes_n_expansion.c \
+			execute/handle_quotes_n_expansion2.c \
+			execute/lst_functions.c \
+			execute/exit_status.c \
+			execute/execute.c \
+			execute/execute_execve.c \
+			execute/execute_builtins.c \
+			execute/lst_functions.c \
+			execute/execute.c \
+			utils/free.c \
+			utils/utils1.c \
+			utils/extra.c \
+			utils/utils2.c \
+			\
+			main.c \
+			free.c \
+			builtins.c \
+			readline.c \
+			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 

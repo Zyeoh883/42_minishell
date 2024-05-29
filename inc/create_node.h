@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 15:39:53 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 17:42:20 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include "minishell.h"
 
+typedef struct s_redir	t_redir;
 typedef struct s_token	t_token;
+typedef struct s_node	t_node;
 typedef struct s_data	t_data;
 
 t_redir					*extract_redir(t_token *token_root);

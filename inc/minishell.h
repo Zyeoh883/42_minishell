@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 15:49:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 17:45:20 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,19 +23,15 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <signal.h>
 
 # include "../libft/libft.h"
 # include "data_structs.h"
-# include "execute.h"
-
-# include "../libft/libft.h"
 # include "create_node.h"
-# include "tokenize.h"
-# include "data_structs.h"
+# include "execute.h"
 # include "history.h"
 # include "readline.h"
 # include "readline_input.h"
+# include "tokenize.h"
 
 // MACROS
 // # define SUCCESS 0
@@ -60,15 +56,14 @@ int		g_signal;
 
 typedef struct s_data // stores all major data
 {
-	struct sigaction sa;
-	t_var *var_lst;
-	t_token *token_root;
-	t_node *ast_root;
-}		t_data;
+	struct sigaction	sa;
+	t_var				*var_lst;
+	t_token				*token_root;
+	t_node				*ast_root;
+}						t_data;
 
 // Terminal settings
 void	reset_terminal(void);
-
 
 // readline
 
@@ -110,7 +105,7 @@ void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-int	print_env_var(t_var *var_lst, char *add_msg_before_var);
+int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 void	print_var_lst(t_var *var_lst);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);
