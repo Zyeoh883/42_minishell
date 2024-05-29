@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 10:40:54 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 14:35:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define ERR_CMD_NOT_FOUND 127
 # define ERR_NO_SUCH_FILE_OR_DIR 127
 # define SIGNALINT 130
+# define NOT_BUILTIN -1
 
 t_node	*create_node(t_nodetype type, t_var *var_lst);
 t_node	*create_simple_command(t_var *env_lst, char **cmd_arg);
@@ -57,7 +58,7 @@ void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-void	print_env_var(t_var *var_lst, char *add_msg_before_var);
+int	print_env_var(t_var *var_lst, char *add_msg_before_var);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);
 

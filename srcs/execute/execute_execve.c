@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 13:03:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 14:32:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,9 @@ int	waitpid_n_get_exit_status(pid_t pid)
 {
 	int	status;
 
-	printf("pid: %d\n", pid); // ! remove
 	waitpid(pid, &status, 0); // ! issue here (program hang)
-	printf("CHECKK\n");	// ! remove
 	if (WIFEXITED(status))
-	{
 		return (WEXITSTATUS(status)); // return exit status
-	}
 	else
 	{
 		// TODO: Child process terminated due to a signal (handle this case)
@@ -104,6 +100,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 	{
 		// if (access(*cmd_arg, F_OK) != 0)
 		// 	return ()
+		printf("check\n");
 		free(exec_path);
 		return (print_custom_err_n_return(*cmd_arg, "", ": command not found",
 				ERR_CMD_NOT_FOUND));
@@ -117,6 +114,8 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		// ? Might free local before var before exit
 		if (execve(exec_path, cmd_arg, var_arr) == -1)
 		{
+			free(exec_path);
+			exec_path = NULL;
 			free_str_arr(var_arr);
 			printf("testning\n"); // ! remove
 			exit(print_custom_err_n_return(*cmd_arg, "", ": command not founddd",
@@ -124,6 +123,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		}
 	}
 	// Parent
+	printf("exec_path: %p\n", exec_path);
 	free(exec_path);
 	return (waitpid_n_get_exit_status(pid));
 }

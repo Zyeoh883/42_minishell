@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/15 10:53:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 14:34:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,16 @@ typedef struct s_node
 	};
 }								t_node;
 
-typedef struct s_subshell
+typedef struct s_redir
 {
+	enum e_redirtype			type;
+	char						*filename;
+
+}								t_redir;
+
+typedef struct s_subshell // ! Has redirects
+{
+	t_redir 					*redir; // array of redir structs, all arrays must be NULL terminated
 	t_node						*node;
 }								t_subshell;
 
@@ -77,12 +85,6 @@ typedef struct s_pipe
 	int							fd_out;
 }								t_pipe;
 
-typedef struct s_redir
-{
-	enum e_redirtype			type;
-	char						*filename;
-
-}								t_redir;
 
 
 typedef struct s_simple_command
@@ -90,7 +92,7 @@ typedef struct s_simple_command
 	int							fd_in;
 	int							fd_out;
 	t_redir *redir; // array of redir structs, all arrays must be NULL terminated
-	int							is_built_in;
+	// int							is_built_in;
 	char 						**cmd_arg; // ! update        
 	t_var 						*var_lst;
 }								t_simple_command;

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 09:21:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 14:51:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int j;  j -> index of '='
 */
 int	execute_export(char **cmd_arg, t_var *var_lst)
 {
+	printf(">>>>>BUILT_IN>>>>>\n");
 	int		i;
 	int		j;
 	char	*var_name;
@@ -65,6 +66,7 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 
 int	execute_cd(char **cmd_arg, t_var *var_lst)
 {
+	printf(">>>>>BUILT_IN>>>>>\n");
 	char	cwd[PATH_MAX];
 	char	*path;
 
@@ -89,21 +91,24 @@ int	execute_cd(char **cmd_arg, t_var *var_lst)
 	return (EXIT_SUCCESS);
 }
 
-void	execute_pwd(void)
+int	execute_pwd(void)
 {
+	printf(">>>>>BUILT_IN>>>>>\n");
 	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
-		return ;
+		return (EXIT_FAILURE);
 	}
 	ft_putendl_fd(cwd, STDOUT_FILENO);
+	return (EXIT_SUCCESS);
 }
 
 // ! need to return int for failure?
-void	execute_echo(char **cmd_arg)
+int	execute_echo(char **cmd_arg)
 {
+	printf(">>>>>BUILT_IN>>>>>\n");
 	int	i;
 	int	n_flag;
 
@@ -122,6 +127,7 @@ void	execute_echo(char **cmd_arg)
 	}
 	if (n_flag == OFF)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	return (EXIT_SUCCESS);
 }
 
 // void	execute_echo(char **cmd_arg)
@@ -162,14 +168,15 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 	if (ft_strcmp(*cmd_arg, "exit") == 0)
 		exit(EXIT_SUCCESS); // ! not done
 	else if (ft_strcasecmp(*cmd_arg, "echo") == 0)
-		execute_echo(cmd_arg);
+		return (execute_echo(cmd_arg));
 	else if (ft_strcasecmp(*cmd_arg, "env") == 0)
-		print_env_var(var_lst, "");
+		return (print_env_var(var_lst, ""));
 	else if (ft_strcasecmp(*cmd_arg, "cd") == 0)
 		return (execute_cd(cmd_arg, var_lst));
 	else if (ft_strcasecmp(*cmd_arg, "pwd") == 0)
-		execute_pwd();
+		return (execute_pwd());
 	else if (ft_strcmp(*cmd_arg, "export") == 0)
 		return (execute_export(cmd_arg, var_lst));
-	return (EXIT_SUCCESS); // ! will built-in fail?
+	else // if not built in 
+		return (NOT_BUILTIN);
 }

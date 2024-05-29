@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/21 09:20:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 14:31:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	arr_str_count(char **arr)
 	return (count);
 }
 
-void	print_env_var(t_var *var_lst, char *add_msg_before_var)
+int	print_env_var(t_var *var_lst, char *add_msg_before_var)
 {
 	while (var_lst != NULL)
 	{
@@ -92,4 +92,5 @@ void	print_env_var(t_var *var_lst, char *add_msg_before_var)
 		}
 		var_lst = var_lst->next;
 	}
+	return (EXIT_SUCCESS);
 }
