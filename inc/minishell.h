@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/21 09:14:16 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/29 10:40:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@
 # define OFF 0
 
 // EXIT CODES
-# define ERROR_CMD_NOT_FOUND 127
-# define ERROR_CMD_NOT_EXECUTABLE 126
+# define ERR_CMD_NOT_EXECUTABLE 126
+# define ERR_PERMISSION_DENIED 126
+# define ERR_CMD_NOT_FOUND 127
+# define ERR_NO_SUCH_FILE_OR_DIR 127
 # define SIGNALINT 130
 
 t_node	*create_node(t_nodetype type, t_var *var_lst);
