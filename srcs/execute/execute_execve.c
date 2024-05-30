@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 15:53:26 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 16:48:52 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		// ? Might free local before var before exit
 		if (execve(exec_path, cmd_arg, var_arr) == -1)
 		{
+			printf(RED "execute_execve: execve() failed\n" RESET); // ! remove
 			free(exec_path);
 			exec_path = NULL;
 			free_str_arr(var_arr);
