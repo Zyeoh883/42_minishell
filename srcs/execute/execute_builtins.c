@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 15:28:43 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:33:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,21 @@ int	execute_pwd(void)
 		return (EXIT_FAILURE);
 	}
 	ft_putendl_fd(cwd, STDOUT_FILENO);
+	return (EXIT_SUCCESS);
+}
+
+int	print_env_var(t_var *var_lst, char *add_msg_before_var)
+{
+	while (var_lst != NULL)
+	{
+		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
+		{
+			if (add_msg_before_var && add_msg_before_var[0] != '\0')
+				ft_printf("%s", add_msg_before_var);
+			ft_printf("%s\n", var_lst->str);
+		}
+		var_lst = var_lst->next;
+	}
 	return (EXIT_SUCCESS);
 }
 

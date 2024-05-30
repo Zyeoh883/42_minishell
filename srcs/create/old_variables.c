@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   old_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 18:20:41 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:43:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_var	*convert_env_to_linked_list(char **env)
-{
-	int		i;
-	t_var	*head;
-	t_var	*tail;
-	t_var	*new_node;
+// t_var	*convert_env_to_linked_list(char **env)
+// {
+// 	int		i;
+// 	t_var	*head;
+// 	t_var	*tail;
+// 	t_var	*new_node;
 
-	i = -1;
-	head = NULL;
-	// initialise first var as "?=0"
-	// head = var_lstnew("?=0");
-	while (env[++i] != NULL)
-	{
-		new_node = var_lstnew(env[i]);
-		new_node->is_exported = 1;
-		if (head == NULL)
-		{
-			head = new_node;
-			tail = new_node;
-		}
-		else
-		{
-			tail->next = new_node;
-			tail = new_node;
-		}
-	}
-	return (head);
-}
+// 	i = -1;
+// 	head = NULL;
+// 	// initialise first var as "?=0"
+// 	// head = var_lstnew("?=0");
+// 	while (env[++i] != NULL)
+// 	{
+// 		new_node = var_lstnew(env[i]);
+// 		new_node->is_exported = 1;
+// 		if (head == NULL)
+// 		{
+// 			head = new_node;
+// 			tail = new_node;
+// 		}
+// 		else
+// 		{
+// 			tail->next = new_node;
+// 			tail = new_node;
+// 		}
+// 	}
+// 	return (head);
+// }
 
 /*
 * TAKE NOTE

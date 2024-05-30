@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 18:03:10 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:30:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,20 +144,20 @@ int	arr_str_count(char **arr)
 	return (count);
 }
 
-int	print_env_var(t_var *var_lst, char *add_msg_before_var)
-{
-	while (var_lst != NULL)
-	{
-		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
-		{
-			if (add_msg_before_var && add_msg_before_var[0] != '\0')
-				ft_printf("%s", add_msg_before_var);
-			ft_printf("%s\n", var_lst->str);
-		}
-		var_lst = var_lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
+// int	print_env_var(t_var *var_lst, char *add_msg_before_var)
+// {
+// 	while (var_lst != NULL)
+// 	{
+// 		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
+// 		{
+// 			if (add_msg_before_var && add_msg_before_var[0] != '\0')
+// 				ft_printf("%s", add_msg_before_var);
+// 			ft_printf("%s\n", var_lst->str);
+// 		}
+// 		var_lst = var_lst->next;
+// 	}
+// 	return (EXIT_SUCCESS);
+// }
 
 // void print_str_arr(char **arr, char *title)
 // {

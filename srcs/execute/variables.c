@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/23 13:29:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:48:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,6 @@ t_var	*get_var_node(const char *var_name, t_var *var)
 				return (var);
 		var = var->next;
 	}
+	printf("var_lst in NULL in get_var_node()\n");
 	return (NULL); // Environment variable not found
 }
