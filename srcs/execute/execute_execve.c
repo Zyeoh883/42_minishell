@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 14:57:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:53:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_exec(char **cmd_path, char *cmd)
 
 	if (access(cmd, F_OK) == 0)
 	{
-		printf("file/directory exist\n");
+		printf("get_exec(): file/directory exist\n");
 		// if ()
 		return (cmd);
 	}
@@ -117,7 +117,6 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 			free(exec_path);
 			exec_path = NULL;
 			free_str_arr(var_arr);
-			printf("testning\n"); // ! remove
 			exit(print_custom_err_n_return(*cmd_arg, "", ": command not founddd",
 					ERR_CMD_NOT_FOUND));
 		}

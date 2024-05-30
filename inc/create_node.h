@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:27:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:58:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_token	t_token;
 typedef struct s_node	t_node;
 typedef struct s_data	t_data;
 
-t_redir					*extract_redir(t_token *token_root);
+t_redir					**extract_redir(t_token *token_root);
 char					**extract_commands(t_token *token_root);
 t_token					*find_top_closing_parent(t_token *token);
 

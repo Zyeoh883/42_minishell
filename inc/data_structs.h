@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:37:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:55:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct s_simple_command
 	int							fd_in;
 	int							fd_out;
 	t_redir 					**redir;
-	// int							is_built_in;
 	char 						**cmd_arg;  
 	t_var 						*var_lst;
 }								t_simple_command;
