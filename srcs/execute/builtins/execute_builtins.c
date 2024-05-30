@@ -6,64 +6,33 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 12:39:38 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:05:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-int j;  j -> index of '='
-*/
-int	execute_export(char **cmd_arg, t_var *var_lst)
+int	print_env_var(t_var *var_lst, char *add_msg_before_var)
 {
-	printf(">>>>>BUILT_IN>>>>>\n");
-	int		i;
-	int		j;
-	char	*var_name;
-	t_var	*node;
-
-	if (cmd_arg[1] == NULL || cmd_arg[1][0] == '#')
+	while (var_lst != NULL)
 	{
-		print_env_var(var_lst, "declare -x ");
-		return (EXIT_SUCCESS);
-	}
-	i = 0;
-	while (cmd_arg[++i] != NULL)
-	{
-		// error check for var_name: not a valid idenifier
-		j = -1;
-		if (!ft_isalpha(cmd_arg[i][0]) && cmd_arg[i][0] != '_')
-			return (print_custom_err_n_return("export: `", cmd_arg[i],
-					"\': not a valid identifier", EXIT_FAILURE));
-		while (cmd_arg[i][++j] && cmd_arg[i][j] != '=')
-			if (!(ft_isalnum(cmd_arg[i][j]) || cmd_arg[i][j] == '_'))
-				return (print_custom_err_n_return("export: `", cmd_arg[i],
-						"\': not a valid identifier", EXIT_FAILURE));
-		// search for var_name, check if valid
-		var_name = ft_substr(cmd_arg[i], 0, j);
-		if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-		node = get_var_node(var_name, var_lst);
-		if (node != NULL) // if variable exist
+		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
 		{
-			node->is_exported = true;
-			if (cmd_arg[i][j] == '=')
-				set_var_value(var_name, &cmd_arg[i][j + 1], var_lst);
+			if (add_msg_before_var && add_msg_before_var[0] != '\0')
+				ft_printf("%s", add_msg_before_var);
+			ft_printf("%s\n", var_lst->str);
 		}
-		else // if var don't exist
-			var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
-		free(var_name);
+		var_lst = var_lst->next;
 	}
-	// print_var_lst(var_lst);
 	return (EXIT_SUCCESS);
 }
 
 int	execute_cd(char **cmd_arg, t_var *var_lst)
 {
-	printf(">>>>>BUILT_IN>>>>>\n");
 	char	cwd[PATH_MAX];
 	char	*path;
 
+	printf(">>>>>BUILT_IN>>>>>\n");
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (print_err_and_return("getcwd", "", EXIT_FAILURE));
 	if (get_var_value("OLDPWD", var_lst) == NULL)
@@ -87,9 +56,9 @@ int	execute_cd(char **cmd_arg, t_var *var_lst)
 
 int	execute_pwd(void)
 {
-	printf(">>>>>BUILT_IN>>>>>\n");
 	char	cwd[PATH_MAX];
 
+	printf(">>>>>BUILT_IN>>>>>\n");
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("getcwd");
@@ -99,28 +68,13 @@ int	execute_pwd(void)
 	return (EXIT_SUCCESS);
 }
 
-int	print_env_var(t_var *var_lst, char *add_msg_before_var)
-{
-	while (var_lst != NULL)
-	{
-		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
-		{
-			if (add_msg_before_var && add_msg_before_var[0] != '\0')
-				ft_printf("%s", add_msg_before_var);
-			ft_printf("%s\n", var_lst->str);
-		}
-		var_lst = var_lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
-
 // ! need to return int for failure?
 int	execute_echo(char **cmd_arg)
 {
-	printf(">>>>>BUILT_IN>>>>>\n");
 	int	i;
 	int	n_flag;
 
+	printf(">>>>>BUILT_IN>>>>>\n");
 	n_flag = OFF;
 	if (cmd_arg[1] && ft_strcmp(cmd_arg[1], "-n") == 0)
 		n_flag = ON;
@@ -156,7 +110,8 @@ int	execute_echo(char **cmd_arg)
 // 			continue ;
 // 		}
 // 		ft_putstr_fd(cmd_arg[i], STDOUT_FILENO);
-// 		if (cmd_arg[i + 1] != NULL && // ! INSERT code in notion under "solution 2")
+// 		if (cmd_arg[i + 1] != NULL &&
+			// ! INSERT code in notion under "solution 2")
 // 			ft_putstr_fd(" ", STDOUT_FILENO);
 // 		i++;
 // 	}
@@ -186,6 +141,6 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 		return (execute_pwd());
 	else if (ft_strcmp(*cmd_arg, "export") == 0)
 		return (execute_export(cmd_arg, var_lst));
-	else // if not built in 
+	else // if not built in
 		return (NOT_BUILTIN);
 }

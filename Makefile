@@ -37,15 +37,16 @@ SRCS_FIL = \
 			execute/exit_status.c \
 			execute/execute.c \
 			execute/execute_execve.c \
-			execute/execute_builtins.c \
+			execute/builtins/execute_builtins.c \
+			execute/builtins/execute_export.c \
 			utils/free.c \
 			utils/utils1.c \
 			utils/extra.c \
-			utils/utils2.c \
 			\
 			main.c \
 			readline.c \
 			\
+			# utils/utils2.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
