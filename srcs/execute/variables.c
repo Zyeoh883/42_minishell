@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 10:48:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 12:39:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void	set_var_value(char *var_name, char *new_content, t_var *var)
 	char	*updated;
 	int		i;
 
-	// TODO: handle case where no '=', have to append "="
 	while (var != NULL)
 	{
 		// equal_sign = ft_strchr(var->str, '=');
@@ -181,6 +180,5 @@ t_var	*get_var_node(const char *var_name, t_var *var)
 				return (var);
 		var = var->next;
 	}
-	printf("var_lst in NULL in get_var_node()\n");
 	return (NULL); // Environment variable not found
 }

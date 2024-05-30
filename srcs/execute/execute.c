@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 10:39:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 12:11:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,9 @@ int execute(t_node *node)
 		ret = execute_simple_cmd(node->simple_command);
 	else
 		ret = EXIT_FAILURE;
+
+	if (node->var_lst == NULL)	
+		// printf("var_lst in t_node is NULL\n");
 	set_exit_status(ret, node->var_lst);
 	return (ret);
 }

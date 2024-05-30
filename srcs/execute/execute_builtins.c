@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 10:33:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/30 12:39:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 		// search for var_name, check if valid
 		var_name = ft_substr(cmd_arg[i], 0, j);
 		if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-		printf("(export) var_name: %s\n", var_name); // !remove
 		node = get_var_node(var_name, var_lst);
-		free(var_name);
 		if (node != NULL) // if variable exist
 		{
 			node->is_exported = true;
@@ -53,12 +51,8 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 				set_var_value(var_name, &cmd_arg[i][j + 1], var_lst);
 		}
 		else // if var don't exist
-		{
-			if (cmd_arg[i][j] == '=')
-				var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
-			else if (cmd_arg[i][j] == '\0') // if str has no '='
-				var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], false));
-		}
+			var_lstadd_back(&var_lst, var_lstnew(cmd_arg[i], true));
+		free(var_name);
 	}
 	// print_var_lst(var_lst);
 	return (EXIT_SUCCESS);
