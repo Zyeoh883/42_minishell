@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 17:42:20 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:15:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_node					*create_node(t_data *shell_data, t_token *token);
 t_node					*create_subshell(t_data *shell_data, t_token *token);
 t_node					*create_and_or(t_data *shell_data, t_token *token);
 t_node					*create_pipe(t_data *shell_data, t_token *token);
-t_node					*create_linker(t_nodetype type);
+t_node					*create_linker(t_nodetype type, t_var *env_var);
 t_node					*create_simple_command(t_data *shell_data,
 							t_token *token);
 
