@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/28 17:49:00 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:15:16 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_node	*create_subshell(t_data *shell_data, t_token *token)
 	t_token *token_head;
 	t_node	*node;
 
-	node = create_linker(SUBSHELL);
+	node = create_linker(SUBSHELL, shell_data->var_lst);
 	if (!node)
 		perror_and_exit("Failed to linker", 125);
 	node->subshell = ft_calloc(1, sizeof(t_subshell));
@@ -65,7 +65,7 @@ t_node	*create_and_or(t_data *shell_data, t_token *token)
 	t_node	*node;
 	int		n;
 
-	node = create_linker(AND_OR);
+	node = create_linker(AND_OR, shell_data->var_lst);
 	if (!node)
 		perror_and_exit("Failed to create linker", 125);
 	node->pipe = ft_calloc(1, sizeof(t_and_or));
@@ -91,7 +91,7 @@ t_node	*create_pipe(t_data *shell_data, t_token *token)
 {
 	t_node	*node;
 
-	node = create_linker(PIPE);
+	node = create_linker(PIPE, shell_data->var_lst);
 	if (!node)
 		perror_and_exit("Failed to create linker", 125);
 	node->pipe = ft_calloc(1, sizeof(t_pipe));
@@ -106,7 +106,7 @@ t_node	*create_simple_command(t_data *shell_data, t_token *token)
 {
 	t_node	*node;
 
-	node = create_linker(SIMPLE_COMMAND);
+	node = create_linker(SIMPLE_COMMAND, shell_data->var_lst);
 	if (!node)
 		perror_and_exit("Failed to linker", 125);
 	node->simple_command = ft_calloc(1, sizeof(t_simple_command));

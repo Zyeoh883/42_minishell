@@ -6,13 +6,13 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:44:49 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 16:15:08 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/30 15:14:09 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*create_linker(t_nodetype type)
+t_node	*create_linker(t_nodetype type, t_var *env_var)
 {
 	t_node	*node;
 
@@ -22,6 +22,7 @@ t_node	*create_linker(t_nodetype type)
 		perror("Failed to create linker node");
 		return (NULL);
 	}
+	node->var_lst = env_var;
 	node->type = type;
 	return (node);
 }
