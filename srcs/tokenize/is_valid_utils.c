@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:23:50 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 17:53:07 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/05/31 23:18:09 by Zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_file_token(t_token *token)
 {
     if (token && token->type == WHITESPACE)
-        return (0);
+		return (0);
 	token = token->prev;
 	while (token && token->type == WHITESPACE)
 		token = token->prev;
