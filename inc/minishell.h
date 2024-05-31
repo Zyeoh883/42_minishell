@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 16:47:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/05/31 11:20:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 # include "../libft/libft.h"
 # include "data_structs.h"
@@ -96,6 +98,7 @@ int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
 int		ft_strcasecmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
+int 	is_directory(const char *path);
 
 // error_messages
 void	output_token_error(char *str);
