@@ -6,31 +6,37 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 18:44:48 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 19:20:06 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	minishell_input(t_token **token_root)
+int	minishell_input(t_data	*shell_data)
 {
 	char	*input;
 
 	input = readline("minishell$ ");
 	// printf("continue\n");
-	if (!input) // ft_strncmp("exit", input, 4) == 0
+	if (!input)
 		return (-1);
 	if (g_signal == SIGINT)
 	{
 		free(input);
 		return (0);
 	}
-	*token_root = tokenize(input, NULL);
-	if (!*token_root)
+	shell_data->token_root = tokenize(input, NULL);
+	if (!shell_data->token_root)
+	{
+		set_exit_status(TOKEN_FAIL, shell_data->var_lst);
 		return (0);
-	input = handle_addon(input, *token_root);
+	}
+	input = handle_addon(input, shell_data->token_root);
 	if (!input)
+	{
+		set_exit_status(TOKEN_FAIL, shell_data->var_lst);
 		return (0);
+	}
 	add_history(input);
 	free(input);
 	return (1);
@@ -57,7 +63,6 @@ char	*handle_addon(char *input, t_token *token_root)
 		}
 		input_addon = pad_input_addon(token_root, input_addon);
 		token = tokenize(input_addon, token_root);
-		print_tokens(token);
 		if (!token)
 			return (NULL);
 		input = add_to_line(input, input_addon);
