@@ -6,13 +6,13 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/03 19:18:35 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 19:32:39 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_signal;
+int		g_signal;
 
 int	event(void)
 {
@@ -33,10 +33,17 @@ void	handle_sigint(int sig)
 	}
 }
 
-void	set_sighandler(t_data	*shell_data, void (*handler)(int))
+void	set_sighandler(t_data *shell_data, void (*handler)(int))
 {
+	char	*temp;
+
 	if (g_signal == SIGINT)
-		set_exit_status(1, shell_data->var_lst);
+	{
+		temp = get_var_value("?=", shell_data->var_lst);
+		// printf("%s\n", temp);
+		if (ft_atoi(temp) != 130)
+			set_exit_status(1, shell_data->var_lst);
+	}
 	g_signal = 0;
 	shell_data->sa.sa_handler = handler;
 	sigemptyset(&shell_data->sa.sa_mask);
@@ -81,11 +88,11 @@ t_data	init_env(int argc, char **argv, char **env)
 	return (shell_data);
 }
 
-		// rl_event_hook = event;
+// rl_event_hook = event;
 int	main(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
-	int status;
+	int		status;
 
 	shell_data = init_env(argc, argv, env);
 	while (1)
