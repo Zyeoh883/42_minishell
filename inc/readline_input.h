@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 16:12:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/24 19:34:54 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:44:40 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef struct s_readline_flags
 }		t_readline_flags;
 
 int		minishell_input(t_token **token_root);
-char	*add_to_line(char *input, char *add_on, char hanging_char);
+char	*add_to_line(char *input, char *add_on);
+char	*pad_input_addon(t_token *token_root, char *input_addon);
 char	*handle_addon(char *input, t_token *token_root);
 
 #endif
