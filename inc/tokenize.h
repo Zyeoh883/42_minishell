@@ -6,15 +6,16 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 21:02:39 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:21:33 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
-# define METACHARACTERS " '\"()|&<>"
+# define METACHARACTERS " '\"()|&<>!;`~\\"
 # define OPERAND " '\"()|&<>"
+# define BANNED_CHARACTERS "!;`~\\"
 // error code for `syntax error near unexpected token `1'` is 258
 
 # define WORDS 0
@@ -60,6 +61,7 @@ void				token_combine_wnext(t_token *token);
 // validations
 int					is_metacharacter(char c);
 int					is_operand(char c);
+int					is_banned_char(char c);
 int					is_in_quote_tokens(t_token *token);
 int					is_valid_multi_operand(t_token *token);
 int					is_valid_redir_file(t_token *token);
@@ -71,6 +73,7 @@ int					is_valid_operand_content(t_token *token);
 int					is_valid_special_character(t_token *token);
 int					is_valid_last_token(t_token *token);
 int					is_valid_edgecase_limiter(t_token *token);
+int					is_banned_character(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);

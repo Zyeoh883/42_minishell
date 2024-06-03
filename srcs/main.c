@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/31 23:21:36 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:39:50 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		else if (status == -1)
 			break ;
-		// print_tokens(shell_data.token_root);
+		print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
 		// print_ast(shell_data.ast_root, 0);
 		execute(shell_data.ast_root);

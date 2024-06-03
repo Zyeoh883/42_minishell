@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/28 16:12:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:24:56 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	label_tokens(t_token *token)
 			else if (*token->value == ')')
 				token->type = CLOSED_PARENT;
 		}
+		else if (is_banned_char(*token->value) && ft_strlen(token->value) == 1)
+			token->type = 258;
 		token = token->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/27 21:02:27 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:43:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	is_valid_multi_operand(t_token *token) // validates consecutive metachar
 	head = token->prev;
 	while (head && head->type == WHITESPACE)
 		head = head->prev;
-	if (0 < head->type && head->type < 7)
+	if (0 < head->type && head->type < 10)
 	{
 		output_token_error(token->value);
 		return (0);
@@ -220,6 +220,18 @@ int is_valid_edgecase_limiter(t_token *token)
 			output_token_error(token->value);
 			return (0);
 		}
+	}
+	return (1);
+}
+
+int is_banned_character(t_token *token)
+{
+	if (!token)
+		return (1);
+	if (token->type == TOKEN_FAIL)
+	{
+		output_token_error(token->value);
+		return (0);
 	}
 	return (1);
 }
