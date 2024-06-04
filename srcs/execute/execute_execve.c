@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/31 15:02:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:15:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	execute_execve(char **cmd_arg, t_var *var_lst)
 		if (execve(exec_path, cmd_arg, var_arr) == -1)
 		{
 			// printf(RED "execute_execve: execve() failed" RESET "\n");
-				// ! remove
+			// ! remove
 			free(exec_path);
 			free(var_arr);
 			exit(print_custom_err_n_return(*cmd_arg, "",

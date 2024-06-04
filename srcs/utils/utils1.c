@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/31 11:15:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:27:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	output_eof_error(char quote)
 {
 	if (ft_strchr("\"\'", quote))
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `",
+			2);
 		ft_putchar_fd(quote, 2);
 		ft_putendl_fd("'", 2);
 	}
@@ -167,14 +168,15 @@ int	arr_str_count(char **arr)
 // 	printf("-------\n");
 // }
 
-int is_directory(const char *path)
+int	is_directory(const char *path)
 {
-    struct stat statbuf;
-    if (stat(path, &statbuf) != 0)
-    {
-        // Error handling: stat failed
-        perror("stat");
-        return 0;
-    }
-    return S_ISDIR(statbuf.st_mode);
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+	{
+		// Error handling: stat failed
+		perror("stat");
+		return (0);
+	}
+	return (S_ISDIR(statbuf.st_mode));
 }

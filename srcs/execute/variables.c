@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 12:39:50 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:23:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_var	*convert_env_to_linked_list(char **env)
 
 /*
 * TAKE NOTE
-	- strings stored in returned array share the same memory 
+	- strings stored in returned array share the same memory
 	as strings stored in env_lst
 */
 char	**convert_var_lst_to_array(t_var *var_list)
@@ -94,7 +94,7 @@ char	*get_var_value(const char *var_name, t_var *var)
 // {
 // 	char	*equal_sign;
 // 	char	*updated;
-	
+
 // 	while (var != NULL)
 // 	{
 // 		equal_sign = ft_strchr(var->str, '=');
@@ -119,25 +119,25 @@ char	*get_var_value(const char *var_name, t_var *var)
 
 void	set_var_value(char *var_name, char *new_content, t_var *var)
 {
-	// char	*equal_sign;
 	char	*updated;
 	int		i;
 
+	// char	*equal_sign;
 	while (var != NULL)
 	{
 		// equal_sign = ft_strchr(var->str, '=');
 		i = 0;
 		while (var->str[i] && var->str[i] != '=')
 			i++;
-		if ((ft_strncmp(var->str, var_name, i) == 0)
-			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
+		if ((ft_strncmp(var->str, var_name, i) == 0) && (ft_strncmp(var->str,
+					var_name, ft_strlen(var_name)) == 0))
 		{
 			updated = (char *)malloc(ft_strlen(var_name) + 1
 					+ ft_strlen(new_content) + 1);
 			ft_strlcpy(updated, var->str, (i + 1)); // transfer var_name
 			updated[i] = '=';
-			ft_strlcpy(&updated[i + 1], new_content,
-				ft_strlen(new_content) + 1); // transfer 
+			ft_strlcpy(&updated[i + 1], new_content, ft_strlen(new_content)
+				+ 1); // transfer
 			free(var->str);
 			var->str = updated;
 			return ;
@@ -166,7 +166,7 @@ void	set_var_value(char *var_name, char *new_content, t_var *var)
 
 t_var	*get_var_node(const char *var_name, t_var *var)
 {
-	int i;
+	int	i;
 
 	if (var == NULL)
 		return (NULL);
@@ -175,9 +175,9 @@ t_var	*get_var_node(const char *var_name, t_var *var)
 		i = 0;
 		while (var->str[i] && var->str[i] != '=')
 			i++;
-		if ((ft_strncmp(var->str, var_name, i) == 0)
-			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
-				return (var);
+		if ((ft_strncmp(var->str, var_name, i) == 0) && (ft_strncmp(var->str,
+					var_name, ft_strlen(var_name)) == 0))
+			return (var);
 		var = var->next;
 	}
 	return (NULL); // Environment variable not found

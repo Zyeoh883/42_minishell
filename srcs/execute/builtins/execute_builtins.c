@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/30 15:05:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:14:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	execute_echo(char **cmd_arg)
 // 		}
 // 		ft_putstr_fd(cmd_arg[i], STDOUT_FILENO);
 // 		if (cmd_arg[i + 1] != NULL &&
-			// ! INSERT code in notion under "solution 2")
+// ! INSERT code in notion under "solution 2")
 // 			ft_putstr_fd(" ", STDOUT_FILENO);
 // 		i++;
 // 	}
@@ -141,6 +141,6 @@ int	execute_builtins(char **cmd_arg, t_var *var_lst)
 		return (execute_pwd());
 	else if (ft_strcmp(*cmd_arg, "export") == 0)
 		return (execute_export(cmd_arg, var_lst));
-	else // if not built in
+	else
 		return (NOT_BUILTIN);
 }
