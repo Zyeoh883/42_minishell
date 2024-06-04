@@ -6,28 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 14:19:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:28:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// error check for var_name: not a valid idenifier
-// int	is_var_name_valid(char **cmd_arg, int i)
-// {
-// 	int	j;
-
-// 	j = -1;
-// 	if (!ft_isalpha(cmd_arg[i][0]) && cmd_arg[i][0] != '_')
-// 		return (print_custom_err_n_return("export: `", cmd_arg[i],
-// 				"\': not a valid identifier", EXIT_FAILURE));
-// 	while (cmd_arg[i][++j] && cmd_arg[i][++j] != '=')
-// 		if (!(ft_isalnum(cmd_arg[i][j]) || cmd_arg[i][j] == '_'))
-// 			return (print_custom_err_n_return("export: `", cmd_arg[i],
-// 					"\': not a valid identifier", EXIT_FAILURE));
-// 	return (EXIT_SUCCESS);
-// }
-
 
 void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
 		int equal_index)

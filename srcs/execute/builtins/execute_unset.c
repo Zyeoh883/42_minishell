@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 15:04:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:22:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	execute_unset(char **cmd_arg, t_var *var)
 	i = 0;
 	while (cmd_arg[++i])
 	{
+		if (cmd_arg[i][0] == '#')
+			break ;
 		if (is_var_name_valid(cmd_arg[i], UNSET) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		delete_var_from_var_lst(cmd_arg[i], &var);
