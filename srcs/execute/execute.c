@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 09:20:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:32:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	execute_pipe(t_pipe *pipe)
 		// fork
 		// dup2() pipe ends
 		//if (child_process)
-			execute(&pipe->arr_nodes[i]);
+			execute_ast(&pipe->arr_nodes[i]);
 	}
 	// wait() for all child processes
 }
@@ -88,8 +88,8 @@ int	execute_simple_cmd(t_simple_command *sc)
 		return (ret_builtin);
 }
 /*
- * if (execute() > 0) => FAIL
- * if (execute() == 0) => SUCCESS
+ * if (execute_ast() > 0) => FAIL
+ * if (execute_ast() == 0) => SUCCESS
  */
 // int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
 // {
@@ -102,7 +102,7 @@ int	execute_simple_cmd(t_simple_command *sc)
 // {
 // 	if (andor->operators[++j] == AND) // ! separated index for operator?
 // 	{
-// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+// 		if (execute_ast(andor->arr_nodes[i]) == SUCCESS)
 // 		{
 // 			continue ;
 // 		}
@@ -113,7 +113,7 @@ int	execute_simple_cmd(t_simple_command *sc)
 // 	}
 // 	else if (andor->operators[i] == OR)
 // 	{
-// 		if (execute(andor->arr_nodes[i]) == SUCCESS)
+// 		if (execute_ast(andor->arr_nodes[i]) == SUCCESS)
 // 		{
 // 			i++;
 // 		}
@@ -135,7 +135,7 @@ int	execute_subshell(t_subshell *subshell)
 		// error handling
 	}
 	else if (pid == 0) // * CHILD
-		return (execute(subshell->node));
+		return (execute_ast(subshell->node));
 	// else if (pid > 0)
 	// {
 	// waitpid(0, NULL, 0); // ! need to wait?
@@ -143,7 +143,7 @@ int	execute_subshell(t_subshell *subshell)
 	return (EXIT_SUCCESS);
 }
 
-int	execute(t_node *node)
+int	execute_ast(t_node *node)
 {
 	int	ret;
 

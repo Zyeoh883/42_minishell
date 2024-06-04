@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 09:27:16 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 14:07:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,3 +180,5 @@ int	is_directory(const char *path)
 	}
 	return (S_ISDIR(statbuf.st_mode));
 }
+
+

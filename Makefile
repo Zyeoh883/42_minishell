@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -29,16 +29,20 @@ SRCS_FIL = \
 			abstract_syntax_tree/print_ast.c \
 			\
 			create/create_node.c \
+			create/variables.c \
+			create/lst_functions.c \
 			\
-			execute/variables.c \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
-			execute/lst_functions.c \
 			execute/exit_status.c \
 			execute/execute.c \
 			execute/execute_execve.c \
 			execute/builtins/execute_builtins.c \
 			execute/builtins/execute_export.c \
+			execute/builtins/execute_builtins_utils.c \
+			execute/builtins/execute_cd.c \
+			execute/builtins/execute_unset.c \
+			execute/builtins/execute_echo.c \
 			\
 			utils/free.c \
 			utils/utils1.c \

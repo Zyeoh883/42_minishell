@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping.c                                           :+:      :+:    :+:   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 19:27:37 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 09:22:31 by sting            ###   ########.fr       */
+/*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
+/*   Updated: 2024/06/04 15:32:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,22 @@ void	close_pipes(t_pipe *pipe_node)
 	n = -1;
 	while (++n < pipe_node->n_nodes - 1)
 		close(pipe_node->pipe[n]);
+}
+
+void	ex_pipe(t_pipe *pipe)
+{
+	pid_t	pid;
+	int		n;
+
+	n = -1;
+	while (++n < pipe->n_nodes)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			coupling(pipe, n);
+			close_pipes(pipe);
+			execute_ast(pipe->arr_nodes[n]);
+		}
+	}
 }
