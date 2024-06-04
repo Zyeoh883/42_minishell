@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 15:48:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:41:05 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		execute_ast(t_node *node);
 int		execute_execve(char **cmd_arg, t_var *var_lst);
 int		execute_subshell(t_subshell *subshell);
 int		execute_simple_cmd(t_simple_command *sc);
+int		waitpid_n_get_exit_status(pid_t pid);
 // Builtins
 int		execute_builtins(char **cmd_arg, t_var *var_lst);
 int		execute_export(char **cmd_arg, t_var *var_lst);

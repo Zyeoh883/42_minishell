@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 15:32:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:43:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	execute_simple_cmd(t_simple_command *sc)
 	handle_quotes_n_var_expansion(&sc->cmd_arg, sc->var_lst);
 	// print_str_arr(sc->cmd_arg, "ft_split_after_expansion"); // *print check
 	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
-	printf("===Output===\n");
+	printf("\n===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all
 		return (EXIT_SUCCESS);
 	ret_builtin = execute_builtins(sc->cmd_arg, sc->var_lst);
@@ -127,20 +127,15 @@ int	execute_simple_cmd(t_simple_command *sc)
 
 int	execute_subshell(t_subshell *subshell)
 {
+	printf(CYAN">>>>>BUILT_IN>>>>>" RESET "\n");
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
-	{
-		// error handling
-	}
+		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0) // * CHILD
-		return (execute_ast(subshell->node));
-	// else if (pid > 0)
-	// {
-	// waitpid(0, NULL, 0); // ! need to wait?
-	// }
-	return (EXIT_SUCCESS);
+		exit(execute_ast(subshell->node));			
+	return (waitpid_n_get_exit_status(pid));
 }
 
 int	execute_ast(t_node *node)
