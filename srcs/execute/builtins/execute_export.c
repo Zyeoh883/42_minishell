@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 16:28:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 12:54:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 	int	equal_index;
 
 	printf(">>>>>BUILT_IN>>>>>\n");
-	if (cmd_arg[1] == NULL || cmd_arg[1][0] == '#')
+	if (cmd_arg[1] == NULL)
 		return (print_env_var(var_lst, "declare -x "));
 	i = 0;
 	while (cmd_arg[++i] != NULL)
 	{
-		if (cmd_arg[i][0] == '#')
-			break ;
 		equal_index = 0;
 		while (cmd_arg[i][equal_index] && cmd_arg[i][equal_index] != '=')
 			equal_index++;
