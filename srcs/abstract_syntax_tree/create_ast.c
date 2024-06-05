@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:15:16 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 19:01:11 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ t_node	*create_node(t_data *shell_data, t_token *token)
 {
 	if (token_instances(token, is_and_or) > 0)
 	{
-		printf ("create_and_or\n");
+		printf("create_and_or\n");
 		return (create_and_or(shell_data, token));
 	}
 	else if (token_instances(token, is_pipe_token) > 0)
 	{
-		printf ("create_pipe\n");
+		printf("create_pipe\n");
 		return (create_pipe(shell_data, token));
 	}
 	else if (is_subshell(token))
 	{
-		printf ("create subshell\n");
+		printf("create subshell\n");
 		return (create_subshell(shell_data, token));
 	}
 	printf("create_simple_command\n");
@@ -35,7 +35,7 @@ t_node	*create_node(t_data *shell_data, t_token *token)
 
 t_node	*create_subshell(t_data *shell_data, t_token *token)
 {
-	t_token *token_head;
+	t_token	*token_head;
 	t_node	*node;
 
 	node = create_linker(SUBSHELL, shell_data->var_lst);
@@ -45,9 +45,12 @@ t_node	*create_subshell(t_data *shell_data, t_token *token)
 	if (!node->subshell)
 		perror_and_exit("Failed to create subshell node", 125);
 	token_head = find_top_closing_parent(token);
-	node->subshell->redir = extract_redir(token_head->next);
-	token_head->prev->next = NULL;
-	free_tokens(token_head);
+	if (token_head)
+	{
+		node->subshell->redir = extract_redir(token_head->next);
+		token_head->prev->next = NULL;
+		free_tokens(token_head);
+	}
 	while (token->type != OPEN_PARENT)
 	{
 		token = token->next;

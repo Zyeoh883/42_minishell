@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 18:16:40 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 21:25:22 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ t_token	*tokenize(char *line, t_token *token_root)
 {
 	t_token	*tokens;
 
-	if (!line)
-		return (NULL);
+	if (!line || ft_strlen(line) == 0)
+		return (token_root);
 	tokens = tokenize_metacharacters(line);
 	token_add_back(&token_root, tokens);
 	// print_tokens(token_root);

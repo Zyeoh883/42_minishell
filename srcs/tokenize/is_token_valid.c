@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 17:43:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 21:18:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ int	is_valid_multi_operand(t_token *token) // validates consecutive metachar
 	
 	if (!token || !token->prev || token->type == WHITESPACE)
 		return (1);
+	if (token->type == OPEN_PARENT || token->type == CLOSED_PARENT)
+		return (1);
 	head = token->prev;
 	while (head && head->type == WHITESPACE)
 		head = head->prev;
-	if (0 < head->type && head->type < 10)
+	if (!head)
+		return (1);
+	if (1 < head->type && head->type < 10)
 	{
 		output_token_error(token->value);
 		return (0);
@@ -131,6 +135,8 @@ int	is_valid_parenthesis_content(t_token *token) //checks if there is a WORD in 
 	token = token->prev;
 	while (token && token->type != OPEN_PARENT)
 	{
+		if (2 < token->type && token->type < 10)
+			break;
 		if (token->type == CLOSED_PARENT || token->type == WORDS)
 			return (1);
 		token = token->prev;

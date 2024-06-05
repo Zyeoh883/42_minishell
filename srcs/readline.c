@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 19:20:06 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 21:21:03 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ char	*pad_input_addon(t_token *token_root, char *input_addon)
 	int		size;
 	char	hanging_char;
 
+	if (ft_strlen(input_addon) == 0)
+		return (input_addon);
 	hanging_char = *(token_last_nonspace(token_root)->value);
 	size = ft_strlen(input_addon) + 2;
 	result = ft_calloc(size, sizeof(char));

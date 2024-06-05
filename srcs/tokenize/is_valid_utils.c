@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:23:50 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/31 23:18:09 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 19:21:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,21 @@ int	is_file_token(t_token *token)
 
 int is_in_parentheses(t_token *token)
 {
-    int count_parentheses;
+    int open_parentheses;
 
     if (!token || !token->prev)
         return (0);
-    count_parentheses = 0;
+    open_parentheses = 0;
+    if (token->type == CLOSED_PARENT)
+        open_parentheses--;
     token = token->prev;
     while (token)
     {
 		if (token->type == CLOSED_PARENT)
-			count_parentheses--;
+			open_parentheses--;
         else if (token->type == OPEN_PARENT)
-            count_parentheses++;
-        if (count_parentheses > 0)
+            open_parentheses++;
+        if (open_parentheses > 0)
 			return (1);
         token = token->prev;
     }

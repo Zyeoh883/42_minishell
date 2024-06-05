@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/03 19:32:39 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 19:02:43 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
-		// print_ast(shell_data.ast_root, 0);
-		execute(shell_data.ast_root);
+		print_ast(shell_data.ast_root, 0);
+		// execute(shell_data.ast_root);
 		shell_data.token_root = NULL;
 	}
 	reset_terminal();
