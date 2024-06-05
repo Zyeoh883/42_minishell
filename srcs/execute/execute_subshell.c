@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*    execute_subshell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 10:23:28 by sting            ###   ########.fr       */
+/*   Created: 2024/06/05 10:23:08 by sting             #+#    #+#             */
+/*   Updated: 2024/06/05 10:23:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
-
-
-int	execute_ast(t_node *node)
+int	execute_subshell(t_subshell *subshell)
 {
-	int	ret;
+	ft_printf(CYAN">>>>>SUBSHELL>>>>>" RESET "\n");
+	pid_t	pid;
 
-	// if (node->type == AND_OR)
-	// if (execute_and_or(node->and_or) == SUCCESS)
-	// 	return (SUCCESS);
-	if (node->type == SUBSHELL)
-		ret = execute_subshell(node->subshell);
-	else if (node->type == SIMPLE_COMMAND)
-		ret = execute_simple_cmd(node->simple_command);
-	else
-		ret = EXIT_FAILURE;
-	set_exit_status(ret, node->var_lst);
-	return (ret);
+	pid = fork();
+	if (pid == -1)
+		perror_and_exit("fork", EXIT_FAILURE);
+	else if (pid == 0) // * CHILD
+		exit(execute_ast(subshell->node));			
+	return (waitpid_n_get_exit_status(pid));
 }

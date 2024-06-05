@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 15:32:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 10:25:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,19 @@ void	ex_pipe(t_pipe *pipe)
 		}
 	}
 }
+
+// int	execute_pipe(t_pipe *pipe)
+// {
+// 	int	i;
+
+// 	// setup_all_pipes()
+// 	i = -1;
+// 	while (++i)
+// 	{
+// 		// fork
+// 		// dup2() pipe ends
+// 		//if (child_process)
+// 			execute_ast(&pipe->arr_nodes[i]);
+// 	}
+// 	// wait() for all child processes
+// }

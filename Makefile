@@ -32,17 +32,23 @@ SRCS_FIL = \
 			create/variables.c \
 			create/lst_functions.c \
 			\
+			execute/execute.c \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
-			execute/exit_status.c \
-			execute/execute.c \
+			execute/execute_simple_cmd.c \
+			execute/redirections.c \
+			execute/execute_pipes.c \
+			execute/execute_subshell.c \
+			execute/execute_and_or.c \
 			execute/execute_execve.c \
-			execute/builtins/execute_builtins.c \
-			execute/builtins/execute_export.c \
-			execute/builtins/execute_builtins_utils.c \
-			execute/builtins/execute_cd.c \
-			execute/builtins/execute_unset.c \
-			execute/builtins/execute_echo.c \
+			execute/exit_status.c \
+				\
+				execute/builtins/execute_builtins.c \
+				execute/builtins/execute_export.c \
+				execute/builtins/execute_builtins_utils.c \
+				execute/builtins/execute_cd.c \
+				execute/builtins/execute_unset.c \
+				execute/builtins/execute_echo.c \
 			\
 			utils/free.c \
 			utils/utils1.c \
