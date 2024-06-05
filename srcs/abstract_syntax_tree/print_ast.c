@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 16:07:00 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 14:42:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void print_ast(t_node *node, int depth)
             if (*node->and_or->operators == OR)
                 str = "||";
             printf("%*s\n", (depth + 1) * 4, str);
-             print_spaces_then_str(depth * 4, "└─");
+            print_spaces_then_str(depth * 4, "└─");
             print_ast(*node->pipe->arr_nodes, depth + 1);
             node->pipe->arr_nodes++;
             node->and_or->operators++;
