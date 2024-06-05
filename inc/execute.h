@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 16:41:05 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 13:08:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		execute_unset(char **cmd_arg, t_var *var);
 int		execute_echo(char **cmd_arg);
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);
-int		is_var_name_valid(char *var_name, t_builtin_type type);
+int		is_var_name_valid(char *var_name);
 
 // HANDLE Quotes & Env_Expansion
 void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst);

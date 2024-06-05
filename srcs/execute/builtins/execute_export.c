@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 12:54:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 13:08:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ int	execute_export(char **cmd_arg, t_var *var_lst)
 	i = 0;
 	while (cmd_arg[++i] != NULL)
 	{
-		equal_index = 0;
-		while (cmd_arg[i][equal_index] && cmd_arg[i][equal_index] != '=')
-			equal_index++;
-		if (is_var_name_valid(cmd_arg[i], EXPORT) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		equal_index = count_chars_until_equal_sign(cmd_arg[i]);
+		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
+			return (print_custom_err_n_return("export: `", cmd_arg[i],
+					"\': not a valid identifier", EXIT_FAILURE));
 		update_or_add_variable(var_lst, cmd_arg, i, equal_index);
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:07:33 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 16:16:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 13:08:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,17 @@ int	count_chars_until_equal_sign(char *str)
 	return (count);
 }
 
-int	is_var_name_valid(char *var_name, t_builtin_type type)
+int	is_var_name_valid(char *var_name)
 {
 	int		j;
-	char	*printed_str;
 
-	if (type == EXPORT)
-		printed_str = "export: `";
-	else if (type == UNSET)
-		printed_str = "unset: `";
 	if (!(ft_isalpha(var_name[0]) || var_name[0] == '_'))
-		return (print_custom_err_n_return(printed_str, var_name,
-				"\': not a valid identifier", EXIT_FAILURE));
+		return (EXIT_FAILURE);
 	j = 0;
 	while (var_name[j] && var_name[j] != '=')
 	{
 		if (!(ft_isalnum(var_name[j]) || var_name[j] == '_'))
-			return (print_custom_err_n_return(printed_str, var_name,
-					"\': not a valid identifierr", EXIT_FAILURE));
+			return (EXIT_FAILURE);
 		j++;
 	}
 	return (EXIT_SUCCESS);

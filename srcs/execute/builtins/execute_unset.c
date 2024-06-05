@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 12:54:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 13:08:39 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int	execute_unset(char **cmd_arg, t_var *var)
 	i = 0;
 	while (cmd_arg[++i])
 	{
-		if (is_var_name_valid(cmd_arg[i], UNSET) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
+			return (print_custom_err_n_return("unset: `", cmd_arg[i],
+					"\': not a valid identifier", EXIT_FAILURE));
 		delete_var_from_var_lst(cmd_arg[i], &var);
 	}
 	return (EXIT_SUCCESS);
