@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 16:46:18 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 16:52:56 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void print_ast(t_node *node, int depth)
         printf("%*s ", depth, "SIMPLE_COMMAND");
         while (node->simple_command->redir && node->simple_command->redir[++n])
         {
-            printf("%s ", sym_redir[(*node->simple_command->redir)->type]);
+            printf("%s ", sym_redir[(node->simple_command->redir[n])->type]);
             printf("%s ", (node->simple_command->redir[n])->filename);
         }
         printf("\n");
@@ -44,7 +44,7 @@ void print_ast(t_node *node, int depth)
         printf("%s ", "SUBSHELL");
         while (node->subshell->redir && node->subshell->redir[++n])
         {
-            printf("%s ", sym_redir[(*node->subshell->redir)->type]);
+            printf("%s ", sym_redir[(node->subshell->redir[n])->type]);
             printf("%s ", (node->subshell->redir[n])->filename);
         }
         printf("\n");
