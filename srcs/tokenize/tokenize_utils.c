@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:42:10 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/28 17:03:43 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 21:10:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,9 @@ int is_token_open_ended(t_token *token_root)
 	if (!token_root)
 		return (0);
 	last = token_last_nonspace(token_root);
-	if (last->open_end || (is_in_parentheses(last) && last->type != CLOSED_PARENT))
+	if (last->type == OPEN_PARENT)
+		return (1);
+	if (last->open_end || is_in_parentheses(last))
 		return (1);
 	if (PIPES<= last->type && last->type <= OR)
 		return (1);

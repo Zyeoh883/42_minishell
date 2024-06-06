@@ -64,7 +64,7 @@
 
 # define HERE_DOC_DIR "/tmp/heredoc_"
 
-int		g_signal;
+extern int	g_signal;
 
 typedef struct s_data // stores all major data
 {

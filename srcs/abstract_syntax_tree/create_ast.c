@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 16:04:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/05 19:01:11 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_node	*create_node(t_data *shell_data, t_token *token)
 
 t_node	*create_subshell(t_data *shell_data, t_token *token)
 {
-	t_token *token_head;
+	t_token	*token_head;
 	t_node	*node;
 
 	node = create_linker(SUBSHELL, shell_data->var_lst);
@@ -45,9 +45,12 @@ t_node	*create_subshell(t_data *shell_data, t_token *token)
 	if (!node->subshell)
 		perror_and_exit("Failed to create subshell node", 125);
 	token_head = find_top_closing_parent(token);
-	node->subshell->redir = extract_redir(token_head->next);
-	token_head->prev->next = NULL;
-	free_tokens(token_head);
+	if (token_head)
+	{
+		node->subshell->redir = extract_redir(token_head->next);
+		token_head->prev->next = NULL;
+		free_tokens(token_head);
+	}
 	while (token->type != OPEN_PARENT)
 	{
 		token = token->next;

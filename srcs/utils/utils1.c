@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 14:07:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:36:36 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,22 @@ void	output_eof_error(char quote)
 
 int	is_metacharacter(char c)
 {
-	char	*metacharacters;
-
-	metacharacters = METACHARACTERS;
-	while (*metacharacters)
-	{
-		if (c == *metacharacters)
-			return (1);
-		metacharacters++;
-	}
+	if (ft_strchr(METACHARACTERS, c))
+		return (1);
 	return (0);
 }
 
 int	is_operand(char c)
 {
-	char	*operand;
+	if (ft_strchr(OPERAND, c))
+		return (1);
+	return (0);
+}
 
-	operand = OPERAND;
-	while (*operand)
-	{
-		if (c == *operand)
-			return (1);
-		operand++;
-	}
+int	is_banned_char(char c)
+{
+	if (ft_strchr(BANNED_CHARACTERS, c))
+		return (1);
 	return (0);
 }
 
