@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Zyeoh <yeohzishen2002@gmail.com>           +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/31 23:21:36 by Zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/05 21:42:00 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_signal;
+int		g_signal;
 
 int	event(void)
 {
@@ -33,13 +33,22 @@ void	handle_sigint(int sig)
 	}
 }
 
-void	set_sighandler(struct sigaction *sa, void (*handler)(int))
+void	set_sighandler(t_data *shell_data, void (*handler)(int))
 {
+	char	*temp;
+
+	if (g_signal == SIGINT)
+	{
+		temp = get_var_value("?=", shell_data->var_lst);
+		// printf("%s\n", temp);
+		if (ft_atoi(temp) != 130)
+			set_exit_status(1, shell_data->var_lst);
+	}
 	g_signal = 0;
-	sa->sa_handler = handler;
-	sigemptyset(&sa->sa_mask);
-	sa->sa_flags = 0;
-	sigaction(SIGINT, sa, NULL);
+	shell_data->sa.sa_handler = handler;
+	sigemptyset(&shell_data->sa.sa_mask);
+	shell_data->sa.sa_flags = 0;
+	sigaction(SIGINT, &shell_data->sa, NULL);
 }
 
 void	setup_terminal(void)
@@ -79,32 +88,31 @@ t_data	init_env(int argc, char **argv, char **env)
 	return (shell_data);
 }
 
+// rl_event_hook = event;
 int	main(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
-	int status;
+	int		status;
 
 	shell_data = init_env(argc, argv, env);
 	while (1)
 	{
-		// rl_event_hook = event;
-		set_sighandler(&shell_data.sa, handle_sigint);
-		status = minishell_input(&shell_data.token_root);
+		set_sighandler(&shell_data, handle_sigint);
+		status = minishell_input(&shell_data);
 		if (status == 0)
 			continue ;
 		else if (status == -1)
 			break ;
-		// print_tokens(shell_data.token_root);
+		print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
-		// print_ast(shell_data.ast_root, 0);
+		print_ast(shell_data.ast_root, 0);
 		execute(shell_data.ast_root);
-		// free_tokens(shell_data.token_root);
 		shell_data.token_root = NULL;
 	}
-	// free_tokens(shell_data.token_root);
 	reset_terminal();
 	return (0);
 }
+// free_tokens(shell_data.token_root);
 
 // int main(void)
 // {

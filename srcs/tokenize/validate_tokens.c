@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 15:16:30 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:28:14 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	set_isvalid_function_array(int is_meta,
 		isvalid_function_array[5] = is_valid_operand_content;
 		isvalid_function_array[6] = is_valid_special_character;
 		isvalid_function_array[7] = is_valid_last_token;
+		isvalid_function_array[8] = is_banned_character;
 	}
 	else
 	{

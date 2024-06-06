@@ -71,7 +71,7 @@ $(OBJDIR):
 $(NAME): $(OBJS)
 	@make -C $(READLINE_DIR) > /dev/null
 	@make -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
+	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ && echo "$(GREEN)object files were created$(RESET)"
