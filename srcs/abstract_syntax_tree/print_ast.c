@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 14:42:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/06 14:28:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ void print_spaces_then_str(int len, char *str)
 
 void print_ast(t_node *node, int depth)
 {
+    int n;
     char *sym_redir[4] = {">", "<", ">>", "<<"};
     char *str;
     
+    n = -1;
     if (node == NULL)
         return;
     else if (node->type == SIMPLE_COMMAND)
     {
         printf("%*s ", depth, "SIMPLE_COMMAND");
-        while (node->simple_command->redir && *node->simple_command->redir)
+        while (node->simple_command->redir && node->simple_command->redir[++n])
         {
             printf("%s ", sym_redir[(*node->simple_command->redir)->type]);
             printf("%s ", (*node->simple_command->redir)->filename);
-            node->simple_command->redir++;
         }
         printf("\n");
     }
