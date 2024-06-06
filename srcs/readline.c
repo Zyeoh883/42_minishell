@@ -6,34 +6,31 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 21:21:03 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 16:04:23 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	minishell_input(t_data	*shell_data)
+int	minishell_input(t_data	*shell_data) // TODO function too long
 {
 	char	*input;
 
 	input = readline("minishell$ ");
-	// printf("continue\n");
 	if (!input)
 		return (-1);
-	if (g_signal == SIGINT)
+	if (g_signal == SIGINT || ft_strlen(input) == 0)
 	{
+		if (ft_strlen(input) == 0)
+			set_exit_status(0, shell_data->var_lst);
 		free(input);
 		return (0);
 	}
 	shell_data->token_root = tokenize(input, NULL);
-	if (!shell_data->token_root)
-	{
-		set_exit_status(TOKEN_FAIL, shell_data->var_lst);
-		return (0);
-	}
 	input = handle_addon(input, shell_data->token_root);
-	if (!input)
+	if (!shell_data->token_root || !input)
 	{
+		free(input);
 		set_exit_status(TOKEN_FAIL, shell_data->var_lst);
 		return (0);
 	}

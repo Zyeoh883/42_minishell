@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 21:25:22 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 16:03:42 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_token	*tokenize(char *line, t_token *token_root)
 	if (!validate_tokens(token_root))
 	{
 		add_history(line);
-		free(line);
+		// free(line);
 		free_tokens(token_root);
 		return (NULL);
 	}
