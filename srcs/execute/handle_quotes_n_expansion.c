@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/20 15:48:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:21:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	expand_str(char **str, t_var *var_lst)
 	char	*expanded;
 	int		i;
 	int		j;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
 	i = -1;
 	while ((*str)[++i] && !((*str)[i] == '$' && (*str)[i + 1] != '\0'))
 		; // find index of $
@@ -75,6 +75,7 @@ void	expand_str(char **str, t_var *var_lst)
 void	trim_quotes(char **str_add, char *quote_type)
 {
 	char	*trimmed_str;
+
 	(void)quote_type; // ! remove
 	// trimmed_str = ft_strtrim(*str_add, quote_type);
 	// if_null_perror_n_exit(trimmed_str, "ft_strtrim", EXIT_FAILURE);
@@ -96,7 +97,8 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 		expand = ON; // ON by default
 		if ((*cmd_arg)[i][0] == '\'') // single quote
 			expand = OFF;
-		if ((*cmd_arg)[i][0] == '\'' || (*cmd_arg)[i][0] == '\"') // double quote
+		if ((*cmd_arg)[i][0] == '\'' || (*cmd_arg)[i][0] == '\"')
+			// double quote
 			trim_quotes(&(*cmd_arg)[i], "\"");
 		if (expand == ON && ft_strchr((*cmd_arg)[i], '$') != NULL)
 		{
@@ -104,7 +106,8 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 			if (*((*cmd_arg)[i]) != '\0')
 				// if str is empty str (env_var doesn't exist/is empty str)
 				ft_split_cmd_str_after_expansion(cmd_arg, (*cmd_arg)[i], i);
-			// print_str_arr(*cmd_arg, "after EACH expansion & ft_splitting"); // * print check
+			// print_str_arr(*cmd_arg, "after EACH expansion & ft_splitting");
+			// * print check
 		}
 	}
 }

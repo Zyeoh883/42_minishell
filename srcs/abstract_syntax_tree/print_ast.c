@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:19:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/29 19:02:20 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 14:28:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,30 @@ void print_spaces_then_str(int len, char *str)
 
 void print_ast(t_node *node, int depth)
 {
+    int n;
     char *sym_redir[4] = {">", "<", ">>", "<<"};
     char *str;
     
+    n = -1;
     if (node == NULL)
         return;
     else if (node->type == SIMPLE_COMMAND)
     {
         printf("%*s ", depth, "SIMPLE_COMMAND");
-        while (node->simple_command->redir && node->simple_command->redir->filename)
+        while (node->simple_command->redir && node->simple_command->redir[++n])
         {
-            printf("%s ", sym_redir[node->simple_command->redir->type]);
-            printf("%s ", node->simple_command->redir->filename);
-            node->simple_command->redir++;
+            printf("%s ", sym_redir[(*node->simple_command->redir)->type]);
+            printf("%s ", (*node->simple_command->redir)->filename);
         }
         printf("\n");
     }
     else if (node->type == SUBSHELL)
     {
         printf("%s ", "SUBSHELL");
-        while (node->subshell->redir && node->subshell->redir->filename)
+        while (node->subshell->redir && *node->subshell->redir)
         {
-            printf("%s ", sym_redir[node->subshell->redir->type]);
-            printf("%s ", node->subshell->redir->filename);
+            printf("%s ", sym_redir[(*node->subshell->redir)->type]);
+            printf("%s ", (*node->subshell->redir)->filename);
             node->subshell->redir++;
         }
         printf("\n");
@@ -73,7 +74,7 @@ void print_ast(t_node *node, int depth)
             if (*node->and_or->operators == OR)
                 str = "||";
             printf("%*s\n", (depth + 1) * 4, str);
-             print_spaces_then_str(depth * 4, "└─");
+            print_spaces_then_str(depth * 4, "└─");
             print_ast(*node->pipe->arr_nodes, depth + 1);
             node->pipe->arr_nodes++;
             node->and_or->operators++;

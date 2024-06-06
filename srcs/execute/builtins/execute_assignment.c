@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   z_utils2.c                                         :+:      :+:    :+:   */
+/*   execute_assignment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 13:14:12 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 15:53:42 by sting            ###   ########.fr       */
+/*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
+/*   Updated: 2024/06/05 13:33:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int ft_strcasecmp(const char *s1, const char *s2)
+int is_assignment(char **cmd_arg)
 {
-	if (!s1 || !s1)
-		return (-1);
-	while (*s1 && *s2 && (ft_tolower(*s1) == ft_tolower(*s2)))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)(ft_tolower(*s1)) - (unsigned char)(ft_tolower(*s2)));
+	
+}
+
+int execute_assignment(char **cmd_arg, t_var *var_lst)
+{
+	int	i;
+	int	equal_index;
+
+	printf(">>>>>BUILT_IN>>>>>\n");
+	// CHECK if all assignments are valid, if 1 invalid, ALL cancelled
+	i = -1;
+	while (cmd_arg[++i] != NULL)
+		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
+			return (NOT_BUILTIN);
+	// i = 0;
+	return (EXIT_SUCCESS);
 }

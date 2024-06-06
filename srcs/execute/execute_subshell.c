@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*    execute_subshell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/26 08:59:44 by sting            ###   ########.fr       */
+/*   Created: 2024/06/05 10:23:08 by sting             #+#    #+#             */
+/*   Updated: 2024/06/05 10:23:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ex_pipe(t_pipe *pipe)
+int	execute_subshell(t_subshell *subshell)
 {
-	pid_t pid;
-	int n;
+	ft_printf(CYAN">>>>>SUBSHELL>>>>>" RESET "\n");
+	pid_t	pid;
 
-	n = -1;
-	while (++n < pipe->n_nodes)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			coupling(pipe, n);
-			close_pipes(pipe);
-			execute(pipe->arr_nodes[n]);
-		}
-	}
+	pid = fork();
+	if (pid == -1)
+		perror_and_exit("fork", EXIT_FAILURE);
+	else if (pid == 0) // * CHILD
+		exit(execute_ast(subshell->node));			
+	return (waitpid_n_get_exit_status(pid));
 }

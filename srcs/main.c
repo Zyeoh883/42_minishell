@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
 /*   Updated: 2024/06/05 21:42:00 by zyeoh            ###   ########.fr       */
@@ -105,8 +105,14 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
-		print_ast(shell_data.ast_root, 0);
-		execute(shell_data.ast_root);
+		
+		// print_ast(shell_data.ast_root, 0);
+		printf("main: redir filename: %s\n", (*shell_data.ast_root->simple_command->redir)->filename); // ! remove later
+		
+		execute_ast(shell_data.ast_root);
+		// print_tokens(shell_data.token_root);
+		// free_tokens(shell_data.token_root);
+
 		shell_data.token_root = NULL;
 	}
 	reset_terminal();

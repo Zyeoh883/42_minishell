@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_w_readline.c                                  :+:      :+:    :+:   */
+/*   test_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/05/21 14:50:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:32:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv, char **env)
 		add_history(input); // working history
 		char **input_arr = ft_split(input, ' ');
 		t_node	*node = create_simple_command(var_lst, input_arr);
-		execute(node);
+		execute_ast(node);
 
 		free(input);
 		free_str_arr(node->simple_command->cmd_arg);

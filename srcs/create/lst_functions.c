@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:04:46 by sting             #+#    #+#             */
-/*   Updated: 2024/05/29 18:22:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/04 09:22:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_var	*var_lstnew(char *str, int is_exported)
 	new_node->is_exported = is_exported;
 	return (new_node);
 }
+
 void	var_lstadd_front(t_var **lst, t_var *new)
 {
 	if (!lst || !new)

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   create_ast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
 /*   Updated: 2024/06/05 19:01:11 by zyeoh            ###   ########.fr       */
@@ -16,20 +16,20 @@ t_node	*create_node(t_data *shell_data, t_token *token)
 {
 	if (token_instances(token, is_and_or) > 0)
 	{
-		printf("create_and_or\n");
+		// printf ("create_and_or\n");
 		return (create_and_or(shell_data, token));
 	}
 	else if (token_instances(token, is_pipe_token) > 0)
 	{
-		printf("create_pipe\n");
+		// printf ("create_pipe\n");
 		return (create_pipe(shell_data, token));
 	}
 	else if (is_subshell(token))
 	{
-		printf("create subshell\n");
+		// printf ("create subshell\n");
 		return (create_subshell(shell_data, token));
 	}
-	printf("create_simple_command\n");
+	// printf("create_simple_command\n");
 	return (create_simple_command(shell_data, token));
 }
 

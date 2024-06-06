@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/23 13:29:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/04 13:55:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_var	*convert_env_to_linked_list(char **env)
 
 /*
 * TAKE NOTE
-	- strings stored in returned array share the same memory 
+	- strings stored in returned array share the same memory
 	as strings stored in env_lst
 */
 char	**convert_var_lst_to_array(t_var *var_list)
@@ -90,11 +90,32 @@ char	*get_var_value(const char *var_name, t_var *var)
 	return (NULL); // Environment variable not found
 }
 
+
+
+// int	cmp_var_name_with_var_name_in_var_str(char *var_name, char *var_str)
+// {
+// 	int	i;
+		
+// 	i = 0;
+// 	while (var_str[i] && var_str[i] != '=')
+// 		i++;
+// 	if ((ft_strncmp(var_str, var_name, i) == 0) && (ft_strncmp(var_str,
+// 				var_name, ft_strlen(var_name)) == 0))
+// 		return (i);
+// 	else 
+// 		return (0);
+// }
+
+/*
+* Issue with "strchr method"
+	- if equal_sign is NULL, nothing happens
+		- wrong as there r cases where there's no '=' 
+			but assignment still needs to happen
+*/
 // void	set_var_value(char *var_name, char *new_content, t_var *var)
 // {
 // 	char	*equal_sign;
 // 	char	*updated;
-	
 // 	while (var != NULL)
 // 	{
 // 		equal_sign = ft_strchr(var->str, '=');
@@ -119,26 +140,21 @@ char	*get_var_value(const char *var_name, t_var *var)
 
 void	set_var_value(char *var_name, char *new_content, t_var *var)
 {
-	// char	*equal_sign;
 	char	*updated;
 	int		i;
 
-	// TODO: handle case where no '=', have to append "="
 	while (var != NULL)
 	{
-		// equal_sign = ft_strchr(var->str, '=');
-		i = 0;
-		while (var->str[i] && var->str[i] != '=')
-			i++;
-		if ((ft_strncmp(var->str, var_name, i) == 0)
-			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
+		i = count_chars_until_equal_sign(var->str);
+		if ((ft_strncmp(var->str, var_name, i) == 0) && (ft_strncmp(var->str,
+					var_name, ft_strlen(var_name)) == 0))
 		{
 			updated = (char *)malloc(ft_strlen(var_name) + 1
 					+ ft_strlen(new_content) + 1);
 			ft_strlcpy(updated, var->str, (i + 1)); // transfer var_name
 			updated[i] = '=';
-			ft_strlcpy(&updated[i + 1], new_content,
-				ft_strlen(new_content) + 1); // transfer 
+			ft_strlcpy(&updated[i + 1], new_content, ft_strlen(new_content)
+				+ 1); // transfer var_value
 			free(var->str);
 			var->str = updated;
 			return ;
@@ -147,38 +163,18 @@ void	set_var_value(char *var_name, char *new_content, t_var *var)
 	}
 }
 
-// t_var	*get_var_node(const char *var_name, t_var *var)
-// {
-// 	char	*equal_sign;
-
-// 	if (var == NULL)
-// 		return (NULL);
-// 	while (var != NULL)
-// 	{
-// 		equal_sign = ft_strchr(var->str, '=');
-// 		if (equal_sign != NULL)
-// 			if ((ft_strncmp(var->str, var_name, equal_sign - var->str) == 0)
-// 				&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
-// 				return (var);
-// 		var = var->next;
-// 	}
-// 	return (NULL); // Environment variable not found
-// }
-
 t_var	*get_var_node(const char *var_name, t_var *var)
 {
-	int i;
+	int	i;
 
 	if (var == NULL)
 		return (NULL);
 	while (var != NULL)
 	{
-		i = 0;
-		while (var->str[i] && var->str[i] != '=')
-			i++;
-		if ((ft_strncmp(var->str, var_name, i) == 0)
-			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
-				return (var);
+		i = count_chars_until_equal_sign(var->str);
+		if ((ft_strncmp(var->str, var_name, i) == 0) && (ft_strncmp(var->str,
+					var_name, ft_strlen(var_name)) == 0))
+			return (var);
 		var = var->next;
 	}
 	return (NULL); // Environment variable not found

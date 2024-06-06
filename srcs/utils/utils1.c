@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
 /*   Updated: 2024/06/03 17:36:36 by zyeoh            ###   ########.fr       */
@@ -70,7 +70,8 @@ void	output_eof_error(char quote)
 {
 	if (ft_strchr("\"\'", quote))
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `",
+			2);
 		ft_putchar_fd(quote, 2);
 		ft_putendl_fd("'", 2);
 	}
@@ -137,20 +138,20 @@ int	arr_str_count(char **arr)
 	return (count);
 }
 
-int	print_env_var(t_var *var_lst, char *add_msg_before_var)
-{
-	while (var_lst != NULL)
-	{
-		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
-		{
-			if (add_msg_before_var && add_msg_before_var[0] != '\0')
-				ft_printf("%s", add_msg_before_var);
-			ft_printf("%s\n", var_lst->str);
-		}
-		var_lst = var_lst->next;
-	}
-	return (EXIT_SUCCESS);
-}
+// int	print_env_var(t_var *var_lst, char *add_msg_before_var)
+// {
+// 	while (var_lst != NULL)
+// 	{
+// 		if (var_lst->is_exported && ft_strchr(var_lst->str, '=') != NULL)
+// 		{
+// 			if (add_msg_before_var && add_msg_before_var[0] != '\0')
+// 				ft_printf("%s", add_msg_before_var);
+// 			ft_printf("%s\n", var_lst->str);
+// 		}
+// 		var_lst = var_lst->next;
+// 	}
+// 	return (EXIT_SUCCESS);
+// }
 
 // void print_str_arr(char **arr, char *title)
 // {
@@ -159,3 +160,18 @@ int	print_env_var(t_var *var_lst, char *add_msg_before_var)
 // 		printf("%s\n", arr[i]);
 // 	printf("-------\n");
 // }
+
+int	is_directory(const char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+	{
+		// Error handling: stat failed
+		perror("stat");
+		return (0);
+	}
+	return (S_ISDIR(statbuf.st_mode));
+}
+
+
