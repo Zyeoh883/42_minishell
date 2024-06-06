@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 15:03:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/06 10:51:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **env)
 		// print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
 		
-		// printf("redir: filename: %s\n", (*shell_data.ast_root->simple_command->redir)->filename); // ! remove later
+		printf("redir: filename: %s\n", (*shell_data.ast_root->simple_command->redir)->filename); // ! remove later
 		
 		// print_ast(shell_data.ast_root, 0);
 		execute_ast(shell_data.ast_root);
