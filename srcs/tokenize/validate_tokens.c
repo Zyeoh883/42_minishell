@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 01:24:41 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 17:28:14 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 17:39:35 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	set_isvalid_function_array(int is_meta,
 	{
 		isvalid_function_array[1] = is_valid_edgecase_digit_redir;
 		isvalid_function_array[2] = is_valid_edgecase_limiter;
+		isvalid_function_array[3] = is_valid_subshell_argument;
 	}
 }
 

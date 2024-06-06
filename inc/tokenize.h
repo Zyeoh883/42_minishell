@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 19:25:40 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 17:39:41 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PIPES 7
 # define AND 8
 # define OR 9
+
 # define OPEN_PARENT 10
 # define CLOSED_PARENT 11
 
@@ -74,6 +75,7 @@ int					is_valid_special_character(t_token *token);
 int					is_valid_last_token(t_token *token);
 int					is_valid_edgecase_limiter(t_token *token);
 int					is_banned_character(t_token *token);
+int					is_valid_subshell_argument(t_token *token);
 
 // validation utils
 int					is_file_token(t_token *token);

@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 21:18:54 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/06 17:39:26 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,26 @@ int is_banned_character(t_token *token)
 	}
 	return (1);
 }
+
+int	is_valid_subshell_argument(t_token *token) 
+{
+	t_token *head;
+	
+	if (!token || !token->prev || token->type == WHITESPACE)
+		return (1);
+	if (token->type != WORDS || is_file_token(token))
+		return (1);
+	head = token->prev;
+	while (head && head->type < 7)
+		head = head->prev;
+	if (head->type == CLOSED_PARENT)
+	{
+		output_token_error(token->value);
+		return (0);
+	}
+	return (1);
+}
+
 // int	is_valid_open_parenthesis(t_token *token)
 // {
 // 	int open_count;
