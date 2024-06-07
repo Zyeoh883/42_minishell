@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 14:51:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/07 15:27:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
 // 	return (EXIT_SUCCESS);
 // }
 
-int	execute_export(t_simple_command *sc)
+int	execute_export(t_simple_command *sc) // ! NORM
 {
 	int	i;
 	int	equal_index;

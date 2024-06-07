@@ -50,10 +50,17 @@ int	execute_pwd(t_simple_command *sc)
 	return (waitpid_n_get_exit_status(pid));
 }
 
+int execute_exit(t_simple_command *sc)
+{
+	if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
+		return (EXIT_FAILURE);	
+	exit(EXIT_SUCCESS);
+}
+
 int	execute_builtins(t_simple_command *sc)
 {
 	if (ft_strcmp(*sc->cmd_arg, "exit") == 0)
-		exit(EXIT_SUCCESS); // ! not done
+		return (execute_exit(sc));
 	else if (ft_strcasecmp(*sc->cmd_arg, "echo") == 0)
 		return (execute_echo(sc));
 	else if (ft_strcasecmp(*sc->cmd_arg, "env") == 0)
@@ -63,9 +70,9 @@ int	execute_builtins(t_simple_command *sc)
 	else if (ft_strcmp(*sc->cmd_arg, "export") == 0)
 		return (execute_export(sc));
 	else if (ft_strcasecmp(*sc->cmd_arg, "cd") == 0)
-		return (execute_cd(sc->cmd_arg, sc->var_lst));
+		return (execute_cd(sc));
 	else if (ft_strcmp(*sc->cmd_arg, "unset") == 0)
-		return (execute_unset(sc->cmd_arg, sc->var_lst));
+		return (execute_unset(sc));
 	else
 		return (NOT_BUILTIN);
 }

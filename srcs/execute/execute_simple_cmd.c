@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:15:58 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 13:32:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/07 16:14:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@ int	execute_simple_cmd(t_simple_command *sc)
 {
 	int	ret;
 
-	handle_quotes_n_var_expansion(&sc->cmd_arg, sc->var_lst);
-	// TODO: REDIRECTION setup_redir(simple_cmd->redir);
 	ret = EXIT_SUCCESS;
-	// if (sc->redir && *sc->redir)
-	// 	ret = setup_redir(sc->redir);
-	// if (ret == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
-
+	handle_quotes_n_var_expansion(&sc->cmd_arg, sc->var_lst);
+	// TODO: REDIRECTION 
+	// get_redir(sc);
 	ft_printf("===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all
 		return (EXIT_SUCCESS);
 	ret = execute_builtins(sc);
+	// close_opened_fds(sc->fd);
 	if (ret == NOT_BUILTIN)
 		return (execute_execve(sc));	
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 13:57:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/07 15:27:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 // 	return (EXIT_SUCCESS);
 // }
 
-int	execute_echo(t_simple_command *sc)
+int	execute_echo(t_simple_command *sc) // ! NORM
 {
 	pid_t	pid;
 	int	i;
