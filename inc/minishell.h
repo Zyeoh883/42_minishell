@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 15:10:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/07 14:31:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 void	print_var_lst(t_var *var_lst);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);

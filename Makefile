@@ -36,7 +36,7 @@ SRCS_FIL = \
 			execute/handle_quotes_n_expansion.c \
 			execute/handle_quotes_n_expansion2.c \
 			execute/execute_simple_cmd.c \
-			execute/redirections.c \
+			execute/setup_redir.c \
 			execute/execute_pipes.c \
 			execute/execute_subshell.c \
 			execute/execute_and_or.c \

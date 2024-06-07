@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_token_valid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 17:39:26 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/07 13:29:19 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int	is_valid_subshell_argument(t_token *token)
 	head = token->prev;
 	while (head && head->type < 7)
 		head = head->prev;
-	if (head->type == CLOSED_PARENT)
+	if (head && head->type == CLOSED_PARENT)
 	{
 		output_token_error(token->value);
 		return (0);
