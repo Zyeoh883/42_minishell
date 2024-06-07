@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/06 17:00:41 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/07 12:56:10 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **env)
 		shell_data.ast_root = create_ast(&shell_data);
 		
 		print_ast(shell_data.ast_root, 0);
-		print_ast(shell_data.ast_root, 0);
+		free_ast(shell_data.ast_root);
 		// printf("main: redir filename: %s\n", (*shell_data.ast_root->simple_command->redir)->filename); // ! remove later
 		
 		// execute_ast(shell_data.ast_root);
@@ -116,14 +116,15 @@ int	main(int argc, char **argv, char **env)
 
 		shell_data.token_root = NULL;
 	}
+	free_var_lst(shell_data.var_lst);
 	reset_terminal();
 	return (0);
 }
 // free_tokens(shell_data.token_root);
 
-// int main(void)
+// int	main(int argc, char **argv, char **env)
 // {
-// 	test();
+// 	test(argc, argv, env);
 // 	system("leaks minishell");
 // 	return (0);
 // }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:55:00 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/06 18:18:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 typedef enum e_nodetype
 {
-	// COMMAND,
-	// REDIRECTION,
 	PIPE,
 	SIMPLE_COMMAND,
 	SUBSHELL,
@@ -78,7 +76,7 @@ typedef struct s_and_or
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node **arr_nodes; // children
+	t_node 						**arr_nodes; // children
 	pid_t						*pipe;
 	int							fd_in;
 	int							fd_out;
@@ -89,7 +87,7 @@ typedef struct s_simple_command
 	int							fd_in;
 	int							fd_out;
 	t_redir 					**redir;
-	char 						**cmd_arg;  
+	char 						**cmd_arg;
 	t_var 						*var_lst;
 }								t_simple_command;
 

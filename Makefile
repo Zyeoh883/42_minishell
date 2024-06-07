@@ -27,6 +27,7 @@ SRCS_FIL = \
 			abstract_syntax_tree/create_ast.c \
 			abstract_syntax_tree/create_ast_utils.c \
 			abstract_syntax_tree/print_ast.c \
+			abstract_syntax_tree/free_ast/free_ast.c \
 			\
 			create/create_node.c \
 			create/variables.c \
@@ -42,13 +43,13 @@ SRCS_FIL = \
 			execute/execute_and_or.c \
 			execute/execute_execve.c \
 			execute/exit_status.c \
-				\
-				execute/builtins/execute_builtins.c \
-				execute/builtins/execute_export.c \
-				execute/builtins/execute_builtins_utils.c \
-				execute/builtins/execute_cd.c \
-				execute/builtins/execute_unset.c \
-				execute/builtins/execute_echo.c \
+			\
+			execute/builtins/execute_builtins.c \
+			execute/builtins/execute_export.c \
+			execute/builtins/execute_builtins_utils.c \
+			execute/builtins/execute_cd.c \
+			execute/builtins/execute_unset.c \
+			execute/builtins/execute_echo.c \
 			\
 			utils/free.c \
 			utils/utils1.c \

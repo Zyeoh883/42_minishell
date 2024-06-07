@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_node.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:58:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/07 11:33:32 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,13 @@ void					close_pipes(t_pipe *pipe_node);
 
 // testing
 void					print_ast(t_node *node, int depth);
+
+// free ast
+void					free_redir(t_redir **redir);
+void					free_and_or(t_and_or *and_or);
+void					free_pipe(t_pipe *pipe);
+void					free_subshell(t_subshell *subshell);
+void					free_simple_command(t_simple_command *sc);
+void					free_ast(t_node *node);
 
 #endif
