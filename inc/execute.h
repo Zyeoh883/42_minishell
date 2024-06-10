@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 10:10:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/10 13:44:56 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		waitpid_n_get_exit_status(pid_t pid);
 
 // HANDLE Quotes & Env_Expansion
 void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst);
+void	expand_str(char **str, t_var *var_lst);
 void	ft_split_cmd_str_after_expansion(char ***cmd_arg, char *cmd_str,
 			int str_index);
 
