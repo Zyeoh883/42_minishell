@@ -12,95 +12,40 @@
 
 #include "minishell.h"
 
-int	setup_redir_without_dup2(t_redir **redir)
+// stores integer values of fdin & fdout in sc->fd
+int	open_redir_fds(t_redir **redir, t_simple_command *sc) // ! issue -> "get_redir" name already taken 
 {
-	int fd_in;
-	int	fd_out;
-	int i;
+	int	i;
 
-	fd_in = STDIN_FILENO;
-	fd_out = STDOUT_FILENO;
+	sc->fd[IN] = STDIN_FILENO;
+	sc->fd[OUT] = STDOUT_FILENO;
 	i = -1;
+	if (redir == NULL)
+		printf(RED"redir is NULL"RESET"\n"); // ! remove
 	while (redir && redir[++i])
 	{
 		if ((redir[i])->type == INPUT || (redir[i])->type == HEREDOC)
-			fd_in = open((redir[i])->filename, O_RDONLY);
+			sc->fd[IN] = open((redir[i])->filename, O_RDONLY);
 		else if ((redir[i])->type == OUTPUT)
-			fd_out = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
+			sc->fd[OUT] = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
 		else if ((redir[i])->type == APPEND)
-			fd_out = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
-		if (fd_in == -1 || fd_out == -1)
-			return (perror_and_return((redir[i])->filename, EXIT_FAILURE)); 
-		if (fd_in != STDIN_FILENO)
-			close(fd_in);
-		if (fd_out != STDOUT_FILENO)
-			close(fd_out);
-	}	
+			sc->fd[OUT] = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
+		if (sc->fd[IN] == -1 || sc->fd[OUT] == -1)
+			return (perror_and_return((redir[i])->filename, EXIT_FAILURE));
+	}
 	return (EXIT_SUCCESS);
 }
 
-int	*setup_redir(t_redir	**redir)
+void dup2_fdin_n_fdout(int *fd)
 {
-	int fd[2];
-	int fd_in;
-	int	fd_out;
-	int i;
-
-	fd_in = STDIN_FILENO;
-	fd_out = STDOUT_FILENO;
-	i = -1;
-	while (redir && redir[++i])
-	{
-		if ((redir[i])->type == INPUT || (redir[i])->type == HEREDOC)
-			fd_in = open((redir[i])->filename, O_RDONLY);
-		else if ((redir[i])->type == OUTPUT)
-			fd_out = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
-		else if ((redir[i])->type == APPEND)
-			fd_out = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
-		if (fd_in == -1 || fd_out == -1)
-			return (perror_and_return((redir[i])->filename, EXIT_FAILURE)); 
-		dup2(fd_in, STDIN_FILENO); 
-		if (fd_in != STDIN_FILENO)
-			close(fd_in);
-		dup2(fd_out, STDOUT_FILENO);
-		if (fd_out != STDOUT_FILENO)
-			close(fd_out);
-	}	
-	return (NULL);
+	dup2(fd[IN], STDIN_FILENO);
+	dup2(fd[OUT], STDOUT_FILENO);
 }
 
-
-// 
-/*
-TODO: get_redir()
-
-if get_redir == NULL , perror_and_return((redir[i])->filename, EXIT_FAILURE) in execute_sc()
-*/
-int	*get_redir(t_redir **redir)
+void close_fdin_n_fdout(int *fd)
 {
-	int fd_in;
-	int	fd_out;
-	int i;
-
-	fd_in = STDIN_FILENO;
-	fd_out = STDOUT_FILENO;
-	i = -1;
-	while (redir && redir[++i])
-	{
-		if ((redir[i])->type == INPUT || (redir[i])->type == HEREDOC)
-			fd_in = open((redir[i])->filename, O_RDONLY);
-		else if ((redir[i])->type == OUTPUT)
-			fd_out = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
-		else if ((redir[i])->type == APPEND)
-			fd_out = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
-		if (fd_in == -1 || fd_out == -1)
-			return (perror_and_return((redir[i])->filename, EXIT_FAILURE)); 
-		if (fd_in != STDIN_FILENO)
-			close(fd_in);
-		if (fd_out != STDOUT_FILENO)
-			close(fd_out);
-	}	
-	return (EXIT_SUCCESS);
+	if (fd[IN] != STDIN_FILENO)
+		close(fd[IN]);
+	if (fd[OUT] != STDOUT_FILENO)
+		close(fd[OUT]);
 }
-
-// TODO: set_redir(t_simple_cmd *sc) -> dup2 only

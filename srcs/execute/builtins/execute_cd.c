@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 15:37:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:36:03 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	execute_cd(t_simple_command *sc)
 	char	*path;
 
 	ft_printf(">>>>>BUILT_IN>>>>>\n");
-	if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
-		exit(EXIT_FAILURE);	
+	// if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
+	// 	exit(EXIT_FAILURE);	
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (print_err_and_return("getcwd", "", EXIT_FAILURE));
 	if (get_var_value("OLDPWD", sc->var_lst) == NULL)

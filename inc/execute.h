@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 15:39:16 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/10 10:10:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # define OUTPUT_PERMISSIONS (O_WRONLY | O_CREAT | O_TRUNC)
 # define APPEND_PERMISSIONS (O_WRONLY | O_CREAT | O_APPEND)
+# define IN 0
+# define OUT 1
 
 typedef enum e_builtin_type
 {
@@ -38,13 +40,16 @@ void	ft_split_cmd_str_after_expansion(char ***cmd_arg, char *cmd_str,
 			int str_index);
 
 // Redirection
-int	setup_redir(t_redir	**redir);
-int	setup_redir_without_dup2(t_redir **redir);
+int		setup_redir(t_redir **redir);
+int		setup_redir_without_dup2(t_redir **redir);
+int		open_redir_fds(t_redir **redir, t_simple_command *sc);
+void	dup2_fdin_n_fdout(int *fd);
+void	close_fdin_n_fdout(int *fd);
 
 // Builtins
 int		execute_builtins(t_simple_command *sc);
 // int		execute_export(char **cmd_arg, t_var *var_lst);
-int	execute_export(t_simple_command *sc);
+int		execute_export(t_simple_command *sc);
 int		execute_cd(t_simple_command *sc);
 int		execute_unset(t_simple_command *sc);
 // int		execute_echo(char **cmd_arg);

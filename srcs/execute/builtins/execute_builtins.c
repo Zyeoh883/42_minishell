@@ -22,8 +22,9 @@ int	execute_env(t_simple_command *sc)
 		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0) // Child
 	{
-		if (setup_redir(sc->redir) == EXIT_FAILURE)
-			exit(EXIT_FAILURE);	
+		// if (setup_redir(sc->redir) == EXIT_FAILURE)
+		// 	exit(EXIT_FAILURE);	
+		dup2_fdin_n_fdout(sc->fd);
 		exit(print_env_var(sc->var_lst, ""));
 	}
 	return (waitpid_n_get_exit_status(pid));
@@ -40,8 +41,9 @@ int	execute_pwd(t_simple_command *sc)
 		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0) // Child
 	{
-		if (setup_redir(sc->redir) == EXIT_FAILURE)
-			exit(EXIT_FAILURE);	
+		// if (setup_redir(sc->redir) == EXIT_FAILURE)
+		// 	exit(EXIT_FAILURE);	
+		dup2_fdin_n_fdout(sc->fd);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror_and_exit("getcwd", EXIT_FAILURE);
 		ft_putendl_fd(cwd, STDOUT_FILENO);
@@ -52,8 +54,9 @@ int	execute_pwd(t_simple_command *sc)
 
 int execute_exit(t_simple_command *sc)
 {
-	if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
-		return (EXIT_FAILURE);	
+	// if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);	
+	(void)sc;
 	exit(EXIT_SUCCESS);
 }
 

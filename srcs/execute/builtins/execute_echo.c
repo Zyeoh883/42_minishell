@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 15:27:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/10 10:15:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int	execute_echo(t_simple_command *sc) // ! NORM
 		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0) // Child
 	{
-		if (setup_redir(sc->redir) == EXIT_FAILURE)
-			exit(EXIT_FAILURE);	
+		// if (setup_redir(sc->redir) == EXIT_FAILURE)
+		// 	exit(EXIT_FAILURE);	
+		dup2_fdin_n_fdout(sc->fd);
 		n_flag = OFF;
 		if (sc->cmd_arg[1] && ft_strcmp(sc->cmd_arg[1], "-n") == 0)
 			n_flag = ON;

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 15:38:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:35:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	execute_unset(t_simple_command *sc)
 
 	ft_printf(">>>>>BUILT_IN>>>>>\n");
 	i = 0;
-	if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
-		return (EXIT_FAILURE);	
+	// if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);	
 	while (sc->cmd_arg[++i])
 	{
 		if (is_var_name_valid(sc->cmd_arg[i]) == EXIT_FAILURE)
