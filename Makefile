@@ -49,7 +49,7 @@ SRCS_FIL = \
 				execute/builtins/execute_echo.c \
 				\
 				execute/handle_quotes_n_expansion/handle_quotes_n_expansion.c \
-				execute/handle_quotes_n_expansion/handle_quotes_n_expansion2.c \
+				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
 				execute/handle_quotes_n_expansion/expand_str.c \
 			\
 			utils/free.c \

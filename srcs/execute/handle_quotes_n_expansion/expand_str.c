@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:08:27 by sting             #+#    #+#             */
-/*   Updated: 2024/06/11 11:08:49 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/11 11:20:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ int	get_index_of_char_after_var_name(char *str, int dollar_index)
 		return (j + 1);
 }
 
+// returns expanded ver of str
 char	*construct_expanded_str(char **str, char *value, int i, int j)
 {
 	int		size;
 	char	*expanded;
-
+	
 	size = i + ft_strlen(value) + (ft_strlen((*str)) - j);
 	expanded = (char *)ft_calloc(size + 1, sizeof(char));
 	if_null_perror_n_exit(expanded, "ft_calloc", EXIT_FAILURE);
@@ -48,6 +49,32 @@ char	*construct_expanded_str(char **str, char *value, int i, int j)
 	int		j; -> index of char right after var_name
 */
 // void	expand_str(char **str, char **my_env)
+// void	expand_str(char **str, t_var *var_lst)
+// {
+// 	char	*value;
+// 	char	*var_name;
+// 	char	*expanded;
+// 	int		i;
+// 	int		j;
+
+// 	i = -1;
+// 	while ((*str)[++i] && !((*str)[i] == '$' && (*str)[i + 1] != '\0'))
+// 		; // find index of $
+// 	if ((*str)[i] == '\0')
+// 		return ;
+// 	j = get_index_of_char_after_var_name((*str), i);
+// 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
+// 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
+// 	printf(GREEN"var_name: |%s|"RESET"\n", var_name); // ! remove
+// 	value = get_var_value(var_name, var_lst);
+// 	if (value == NULL)
+// 		value = "\0"; // ! if var not found in my_env, expand to ""
+// 	free(var_name);
+// 	expanded = construct_expanded_str(str, value, i, j);
+// 	free(*str);
+// 	*str = expanded;
+// }
+
 void	expand_str(char **str, t_var *var_lst)
 {
 	char	*value;
@@ -55,21 +82,26 @@ void	expand_str(char **str, t_var *var_lst)
 	char	*expanded;
 	int		i;
 	int		j;
+	int 	k;
 
-	i = -1;
-	while ((*str)[++i] && !((*str)[i] == '$' && (*str)[i + 1] != '\0'))
-		; // find index of $
-	if ((*str)[i] == '\0')
-		return ;
-	j = get_index_of_char_after_var_name((*str), i);
-	var_name = ft_substr((*str), (i + 1), (j - i - 1));
-	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-	printf(GREEN"var_name: |%s|"RESET"\n", var_name); // ! remove
-	value = get_var_value(var_name, var_lst);
-	if (value == NULL)
-		value = "\0"; // ! if var not found in my_env, expand to ""
-	free(var_name);
-	expanded = construct_expanded_str(str, value, i, j);
-	free(*str);
-	*str = expanded;
+	j = -1;
+	while ((*str)[++j])
+	{
+		i = -1;
+		while ((*str)[++i] && !((*str)[i] == '$' && (*str)[i + 1] != '\0'))
+			; // find index of $
+		if ((*str)[i] == '\0')
+			return ;
+		j = get_index_of_char_after_var_name((*str), i);
+		var_name = ft_substr((*str), (i + 1), (j - i - 1));
+		if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
+		printf(GREEN"var_name: |%s|"RESET"\n", var_name); // ! remove
+		value = get_var_value(var_name, var_lst);
+		if (value == NULL)
+			value = "\0"; // ! if var not found in my_env, expand to ""
+		free(var_name);
+		expanded = construct_expanded_str(str, value, i, j);
+		free(*str);
+		*str = expanded;
+	}
 }
