@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 13:31:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/11 09:49:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	main(int argc, char **argv, char **env)
 
 		shell_data.token_root = NULL;
 	}
+	free_var_lst(shell_data.var_lst);
 	reset_terminal();
 	return (0);
 }

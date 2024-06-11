@@ -6,20 +6,37 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 09:21:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/11 10:57:11 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	get_index_of_char_after_var_name(char *str, int dollar_index)
+// {
+// 	int	j;
+
+// 	j = dollar_index + 1;
+// 	if (ft_isalpha(str[j]) || str[j] == '_')
+// 	{
+// 		j++;
+// 		while (str[j] && ft_isalnum(str[j]))
+// 			j++; // find index of non alnum chars after var_name
+// 		return (j);
+// 	}
+// 	else // if var_name starts number/symbol
+// 		return (j + 1);
+// }
 
 int	get_index_of_char_after_var_name(char *str, int dollar_index)
 {
 	int	j;
 
 	j = dollar_index + 1;
-	if (ft_isalpha(str[j]))
+	if (ft_isalpha(str[j]) || str[j] == '_')
 	{
-		while (str[j] && ft_isalnum(str[j]))
+		j++;
+		while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
 			j++; // find index of non alnum chars after var_name
 		return (j);
 	}
@@ -62,6 +79,7 @@ void	expand_str(char **str, t_var *var_lst)
 		return ;
 	j = get_index_of_char_after_var_name((*str), i);
 	var_name = ft_substr((*str), (i + 1), (j - i - 1));
+	printf(GREEN"var_name: |%s|"RESET"\n", var_name); // ! remove
 	if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
 	value = get_var_value(var_name, var_lst);
 	if (value == NULL)
@@ -94,11 +112,10 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 		return ;
 	while ((*cmd_arg)[++i])
 	{
-		expand = ON; // ON by default
-		if ((*cmd_arg)[i][0] == '\'') // single quote
+		expand = ON;
+		if ((*cmd_arg)[i][0] == '\'')
 			expand = OFF;
 		if ((*cmd_arg)[i][0] == '\'' || (*cmd_arg)[i][0] == '\"')
-			// double quote
 			trim_quotes(&(*cmd_arg)[i], "\"");
 		if (expand == ON && ft_strchr((*cmd_arg)[i], '$') != NULL)
 		{
@@ -106,8 +123,6 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 			if (*((*cmd_arg)[i]) != '\0')
 				// if str is empty str (env_var doesn't exist/is empty str)
 				ft_split_cmd_str_after_expansion(cmd_arg, (*cmd_arg)[i], i);
-			// print_str_arr(*cmd_arg, "after EACH expansion & ft_splitting");
-			// * print check
 		}
 	}
 }
