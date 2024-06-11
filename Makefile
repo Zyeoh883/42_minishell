@@ -33,8 +33,6 @@ SRCS_FIL = \
 			create/lst_functions.c \
 			\
 			execute/execute.c \
-			execute/handle_quotes_n_expansion.c \
-			execute/handle_quotes_n_expansion2.c \
 			execute/execute_simple_cmd.c \
 			execute/setup_redir.c \
 			execute/execute_pipes.c \
@@ -49,6 +47,10 @@ SRCS_FIL = \
 				execute/builtins/execute_cd.c \
 				execute/builtins/execute_unset.c \
 				execute/builtins/execute_echo.c \
+				\
+				execute/handle_quotes_n_expansion/handle_quotes_n_expansion.c \
+				execute/handle_quotes_n_expansion/handle_quotes_n_expansion2.c \
+				execute/handle_quotes_n_expansion/expand_str.c \
 			\
 			utils/free.c \
 			utils/utils1.c \
