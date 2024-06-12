@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:08:27 by sting             #+#    #+#             */
-/*   Updated: 2024/06/11 14:25:13 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 10:03:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ void	expand_str(char **str, t_var *var_lst)
 		if ((*str)[i] == '$' && (*str)[i + 1] != '\0')
 		{
 			j = get_index_of_char_after_var_name(*str, i);
-			printf(GREEN"str[i+1]: |%s|"RESET"\n", &((*str)[i+1])); // ! remove
+			printf(GREEN"str[i+1]: \"%s\""RESET"\n", &((*str)[i+1])); // ! remove
 			printf("len: %i\n", j - i - 1);
 			var_name = ft_substr(*str, (i + 1), (j - i - 1));
 			if (var_name[0] == '\0')
 				printf("var_name[0] == null\n");
 			if_null_perror_n_exit(var_name, "ft_substr", EXIT_FAILURE);
-			printf(GREEN"var_name: |%s|"RESET"\n", var_name); // ! remove
+			printf(GREEN"var_name: \"%s|"RESET"\n", var_name); // ! remove
 			value = get_var_value(var_name, var_lst);
 			printf(GREEN"value: %s"RESET"\n", value); // ! remove
 			if (value == NULL)
@@ -115,7 +115,7 @@ void	expand_str(char **str, t_var *var_lst)
 			*str = expanded;
 			printf(GREEN"expanded: %s"RESET"\n", *str); // ! remove
 			i += ft_strlen(value);
-			printf(GREEN"str[i]: |%s|"RESET"\n", &((*str)[i])); // ! remove
+			printf(GREEN"str[i]: \"%s\""RESET"\n", &((*str)[i])); // ! remove
 			printf("------\n"); // ! remove
 		}
 		else 
