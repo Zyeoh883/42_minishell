@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/12 13:49:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 16:21:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 int	execute_pipe(t_pipe *pipe);
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
-int		build_pipes(t_pipe *pipe_node);
+void	build_pipes(t_pipe *pipe_node);
 
 #endif

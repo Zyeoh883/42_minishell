@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 19:01:11 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/12 16:36:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_node	*create_pipe(t_data *shell_data, t_token *token)
 	node->pipe = ft_calloc(1, sizeof(t_pipe));
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
-	node->pipe->n_nodes = token_instances(token, is_pipe_token);
+	node->pipe->n_nodes = token_instances(token, is_pipe_token) + 1;
 	node->pipe->arr_nodes = ft_split_tokens(shell_data, token, is_pipe_token);
 	return (node);
 }
