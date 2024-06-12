@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 10:25:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 13:53:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	close_pipes(t_pipe *pipe_node)
 		close(pipe_node->pipe[n]);
 }
 
-void	ex_pipe(t_pipe *pipe)
+int	execute_pipe(t_pipe *pipe)
 {
 	pid_t	pid;
 	int		n;
@@ -74,6 +74,8 @@ void	ex_pipe(t_pipe *pipe)
 	while (++n < pipe->n_nodes)
 	{
 		pid = fork();
+		if (pid == -1)
+			perror_and_exit("fork", EXIT_FAILURE);
 		if (pid == 0)
 		{
 			coupling(pipe, n);
@@ -81,6 +83,7 @@ void	ex_pipe(t_pipe *pipe)
 			execute_ast(pipe->arr_nodes[n]);
 		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 // int	execute_pipe(t_pipe *pipe)

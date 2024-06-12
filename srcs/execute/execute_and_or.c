@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:21:58 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 10:22:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:44:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,34 @@
  */
 // int execute_and_or(t_and_or *andor) // ! not done - LOGIC INCORRECT
 // {
-// int i;
-// int j;
+// 	int i;
+// 	int j;
 
-// i = -1;
-// j = -1;
-// while (andor->arr_nodes[++i] != NULL)
-// {
-// 	if (andor->operators[++j] == AND) // ! separated index for operator?
+// 	i = -1;
+// 	j = -1;
+// 	while (andor->arr_nodes[++i] != NULL)
 // 	{
-// 		if (execute_ast(andor->arr_nodes[i]) == SUCCESS)
+// 		if (andor->operators[++j] == AND) // ! separated index for operator?
 // 		{
-// 			continue ;
+// 			if (execute_ast(andor->arr_nodes[i]) == EXIT_SUCCESS)
+// 			{
+// 				continue ;
+// 			}
+// 			else // FAILURE
+// 			{
+// 				i++; // skip next node
+// 			}
 // 		}
-// 		else // FAILURE
+// 		else if (andor->operators[i] == OR)
 // 		{
-// 			i++; // skip next node
+// 			if (execute_ast(andor->arr_nodes[i]) == EXIT_SUCCESS)
+// 			{
+// 				i++;
+// 			}
+// 			else // FAILURE
+// 			{
+// 				continue ; // skip next node
+// 			}
 // 		}
 // 	}
-// 	else if (andor->operators[i] == OR)
-// 	{
-// 		if (execute_ast(andor->arr_nodes[i]) == SUCCESS)
-// 		{
-// 			i++;
-// 		}
-// 		else // FAILURE
-// 		{
-// 			continue ; // skip next node
-// 		}
-// 	}
-// }
 // }

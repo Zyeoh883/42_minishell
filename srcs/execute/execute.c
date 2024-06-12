@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:34:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 10:23:28 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 13:45:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	execute_ast(t_node *node)
 	// 	return (SUCCESS);
 	if (node->type == SUBSHELL)
 		ret = execute_subshell(node->subshell);
+	else if (node->type == PIPE)
+		ret = execute_pipe(node->pipe);
 	else if (node->type == SIMPLE_COMMAND)
 		ret = execute_simple_cmd(node->simple_command);
 	else

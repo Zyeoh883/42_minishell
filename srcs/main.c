@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/11 09:49:01 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:50:05 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_data	init_env(int argc, char **argv, char **env)
 }
 
 // rl_event_hook = event;
-int	main(int argc, char **argv, char **env)
+int	test(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
 	int		status;
@@ -114,6 +114,7 @@ int	main(int argc, char **argv, char **env)
 		// free_tokens(shell_data.token_root);
 
 		shell_data.token_root = NULL;
+		free_ast(shell_data.ast_root);
 	}
 	free_var_lst(shell_data.var_lst);
 	reset_terminal();
@@ -121,9 +122,9 @@ int	main(int argc, char **argv, char **env)
 }
 // free_tokens(shell_data.token_root);
 
-// int main(void)
-// {
-// 	test();
-// 	system("leaks minishell");
-// 	return (0);
-// }
+int	main(int argc, char **argv, char **env)
+{
+	test(argc, argv, env);
+	system("leaks minishell");
+	return (0);
+}

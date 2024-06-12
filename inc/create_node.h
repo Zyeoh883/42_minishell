@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/30 15:58:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:49:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void					close_pipes(t_pipe *pipe_node);
 
 // testing
 void					print_ast(t_node *node, int depth);
-
+void	free_ast(t_node *node);
 #endif

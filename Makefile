@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -27,6 +27,7 @@ SRCS_FIL = \
 			abstract_syntax_tree/create_ast.c \
 			abstract_syntax_tree/create_ast_utils.c \
 			abstract_syntax_tree/print_ast.c \
+			abstract_syntax_tree/free_ast/free_ast.c \
 			\
 			create/create_node.c \
 			create/variables.c \

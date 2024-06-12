@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 13:44:56 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 13:49:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	close_fdin_n_fdout(int *fd);
 
 // Builtins
 int		execute_builtins(t_simple_command *sc);
-// int		execute_export(char **cmd_arg, t_var *var_lst);
 int		execute_export(t_simple_command *sc);
 int		execute_cd(t_simple_command *sc);
 int		execute_unset(t_simple_command *sc);
-// int		execute_echo(char **cmd_arg);
 int		execute_echo(t_simple_command *sc);
 
 // Builtin utils
@@ -62,6 +60,7 @@ int		is_var_name_valid(char *var_name);
 int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 
 // * PIPES
+int	execute_pipe(t_pipe *pipe);
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
 int		build_pipes(t_pipe *pipe_node);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 16:06:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 13:40:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum e_quote_type
 {
 	SINGLE,
 	DOUBLE,
-} 	t_quote_type; 
+}								t_quote_type;
 
 typedef struct s_var
 {
@@ -47,7 +47,7 @@ typedef struct s_var
 typedef struct s_node
 {
 	t_nodetype					type;
-	t_var 						*var_lst;
+	t_var						*var_lst;
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe			*pipe;
@@ -65,32 +65,32 @@ typedef struct s_redir
 
 typedef struct s_and_or
 {
-	int 						*operators;
-	t_node						**arr_nodes; // ? NULL terminated?
-} t_and_or;
+	int							*operators;
+	t_node **arr_nodes; // ? NULL terminated?
+}								t_and_or;
 
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node **arr_nodes; // children
+	t_node 						**arr_nodes; // children
 	pid_t						*pipe;
-	int							fd_in;
-	int							fd_out;
+	// int							fd_in;
+	// int							fd_out;
 }								t_pipe;
 
-typedef struct s_subshell 
+typedef struct s_subshell
 {
-	t_redir 					**redir; 
+	t_redir						**redir;
 	int							fd[2];
 	t_node						*node;
 }								t_subshell;
 
 typedef struct s_simple_command
 {
-	t_redir 					**redir;
+	t_redir						**redir;
 	int							fd[2];
-	char 						**cmd_arg;  
-	t_var 						*var_lst;
+	char						**cmd_arg;
+	t_var						*var_lst;
 }								t_simple_command;
 
 #endif
