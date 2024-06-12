@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:20:09 by sting             #+#    #+#             */
-/*   Updated: 2024/06/12 12:40:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 12:44:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ char	*construct_expanded_str(char *str, char *value, int d, int c)
 	return (expanded);
 }
 
-// returns index of char right after expanded value
+/*
+	Return Value: index of char right after expanded value
+
+	process: 
+		1) Extract var_name from str
+		2) Get var value
+		3) Replace value with var_name in str
+*/
 int	expand_single_var(char **str_add, int dollar_index, t_var *var_lst)
 {
 	int		c;
