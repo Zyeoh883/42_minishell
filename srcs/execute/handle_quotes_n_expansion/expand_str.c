@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:20:09 by sting             #+#    #+#             */
-/*   Updated: 2024/06/12 12:44:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/12 13:06:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	expand_single_var(char **str_add, int dollar_index, t_var *var_lst)
 void	expand_str(char **str_add, t_var *var_lst)
 {
 	int	i;
-	char *str;
 
+	i = 0;
 	while ((*str_add)[i])
 	{
 		if ((*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
