@@ -22,7 +22,7 @@ int	expand_var_in_here_doc(char *filename, t_var *var_lst)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (perror_and_return(filename, EXIT_FAILURE));
-	if (fstat(fd, &file_stat) == -1) // TODO: Issue: st_size is 0
+	if (fstat(fd, &file_stat) == -1) 
 		return (perror_and_return("fstat", EXIT_FAILURE));
 	content = (char *)malloc((size_t)file_stat.st_size + 1);
 	if_null_perror_n_exit(content, "malloc", EXIT_FAILURE);
