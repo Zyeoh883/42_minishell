@@ -22,23 +22,23 @@ int	expand_var_in_here_doc(char *filename, t_var *var_lst)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (perror_and_return(filename, EXIT_FAILURE));
-	if (fstat(fd, &file_stat) == -1) 
+	if (fstat(fd, &file_stat) == -1)
 		return (perror_and_return("fstat", EXIT_FAILURE));
-	content = (char *)malloc((size_t)file_stat.st_size + 1);
+	content = (char *)ft_calloc((size_t)file_stat.st_size + 1, sizeof(char));
 	if_null_perror_n_exit(content, "malloc", EXIT_FAILURE);
 	if (read(fd, content, (size_t)file_stat.st_size) == -1)
 	{
 		free(content);
-		return (EXIT_FAILURE);
+		return (perror_and_return("read", EXIT_FAILURE));
 	}
-	close (fd);
-	content[file_stat.st_size] = '\0';
+	close(fd);
 	expand_str(&content, var_lst);
 	fd = open(filename, O_WRONLY | O_TRUNC);
 	if (fd == -1)
 		return (perror_and_return(filename, EXIT_FAILURE));
 	write(fd, content, ft_strlen(content));
 	close(fd);
+	free(content);
 	return (EXIT_SUCCESS);
 }
 
@@ -53,15 +53,19 @@ int	open_redir_fds(t_redir **redir, int *fd, t_var *var_lst)
 	i = -1;
 	while (redir && redir[++i])
 	{
-		if ((redir[i]->type % 2 != 0) && fd[IN] != STDIN_FILENO) // INPUT or HERE_DOC
+		if ((redir[i]->type % 2 != 0) && fd[IN] != STDIN_FILENO)
+			// INPUT or HERE_DOC
 			close(fd[IN]);
-		else if ((redir[i]->type % 2 == 0) && fd[OUT] != STDOUT_FILENO) // OUTPUT or APPEND
+		else if ((redir[i]->type % 2 == 0) && fd[OUT] != STDOUT_FILENO)
+			// OUTPUT or APPEND
 			close(fd[OUT]);
 		if ((redir[i])->type == INPUT)
 			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		else if ((redir[i])->type == HEREDOC)
 		{
-			expand_var_in_here_doc(redir[i]->filename, var_lst);
+			if (expand_var_in_here_doc(redir[i]->filename,
+					var_lst) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		}
 		else if ((redir[i])->type == OUTPUT)
