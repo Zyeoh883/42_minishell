@@ -50,6 +50,7 @@ void	free_pipe(t_pipe *pipe) // ! Assuming that execution closes & free pipes
 	while (pipe->arr_nodes[++n])
 		free_ast(pipe->arr_nodes[n]);
 	free(pipe->arr_nodes);
+	free(pipe->pipe); // ! new
 	free(pipe);
 }
 
