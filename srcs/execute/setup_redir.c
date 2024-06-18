@@ -44,31 +44,31 @@ int	expand_var_in_here_doc(char *filename, t_var *var_lst)
 
 // stores integer values of fdin & fdout in sc->fd
 // TODO: close previously opened fd(s); currently only close last ones
-int	open_redir_fds(t_redir **redir, t_simple_command *sc)
+int	open_redir_fds(t_redir **redir, int *fd, t_var *var_lst)
 {
 	int	i;
 
-	sc->fd[IN] = STDIN_FILENO;
-	sc->fd[OUT] = STDOUT_FILENO;
+	fd[IN] = STDIN_FILENO;
+	fd[OUT] = STDOUT_FILENO;
 	i = -1;
 	while (redir && redir[++i])
 	{
-		if ((redir[i]->type % 2 != 0) && sc->fd[IN] != STDIN_FILENO) // INPUT or HERE_DOC
-			close(sc->fd[IN]);
-		else if ((redir[i]->type % 2 == 0) && sc->fd[OUT] != STDOUT_FILENO) // OUTPUT or APPEND
-			close(sc->fd[OUT]);
+		if ((redir[i]->type % 2 != 0) && fd[IN] != STDIN_FILENO) // INPUT or HERE_DOC
+			close(fd[IN]);
+		else if ((redir[i]->type % 2 == 0) && fd[OUT] != STDOUT_FILENO) // OUTPUT or APPEND
+			close(fd[OUT]);
 		if ((redir[i])->type == INPUT)
-			sc->fd[IN] = open((redir[i])->filename, O_RDONLY);
+			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		else if ((redir[i])->type == HEREDOC)
 		{
-			expand_var_in_here_doc(redir[i]->filename, sc->var_lst);
-			sc->fd[IN] = open((redir[i])->filename, O_RDONLY);
+			expand_var_in_here_doc(redir[i]->filename, var_lst);
+			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		}
 		else if ((redir[i])->type == OUTPUT)
-			sc->fd[OUT] = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
+			fd[OUT] = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
 		else if ((redir[i])->type == APPEND)
-			sc->fd[OUT] = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
-		if (sc->fd[IN] == -1 || sc->fd[OUT] == -1)
+			fd[OUT] = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
+		if (fd[IN] == -1 || fd[OUT] == -1)
 			return (perror_and_return((redir[i])->filename, EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);

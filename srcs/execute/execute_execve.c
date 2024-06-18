@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 13:43:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:25:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,6 @@ int	execute_execve(t_simple_command *sc)
 		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0) // Child
 	{
-		// TODO: open_file_n_dup2
-		// if (setup_redir(sc->redir) == EXIT_FAILURE)
-		// 	exit(EXIT_FAILURE);
 		dup2_fdin_n_fdout(sc->fd);
 		exec_path = find_exec_path(sc->cmd_arg, sc->var_lst);
 		var_arr = convert_var_lst_to_array(sc->var_lst);

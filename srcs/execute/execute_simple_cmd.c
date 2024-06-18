@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:15:58 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 10:06:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:47:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_simple_cmd(t_simple_command *sc)
 	ret = EXIT_SUCCESS;
 	handle_quotes_n_var_expansion(&sc->cmd_arg, sc->var_lst);
 	// TODO: REDIRECTION 
-	ret = open_redir_fds(sc->redir, sc);
+	ret = open_redir_fds(sc->redir, sc->fd, sc->var_lst);
 	if (ret == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	ft_printf("===Output===\n");

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/12 16:21:00 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:13:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ typedef enum e_builtin_type
 
 // * EXECUTION
 int		execute_ast(t_node *node);
-// int		execute_execve(char **cmd_arg, t_var *var_lst);
 int		execute_execve(t_simple_command *sc);
-int		execute_subshell(t_subshell *subshell);
+int		execute_subshell(t_subshell *subshell, t_var *var_lst);
 int		execute_simple_cmd(t_simple_command *sc);
 int		waitpid_n_get_exit_status(pid_t pid);
 
@@ -42,8 +41,7 @@ void	ft_split_cmd_str_after_expansion(char ***cmd_arg, char *cmd_str,
 
 // Redirection
 int		setup_redir(t_redir **redir);
-int		setup_redir_without_dup2(t_redir **redir);
-int		open_redir_fds(t_redir **redir, t_simple_command *sc);
+int		open_redir_fds(t_redir **redir, int *fd, t_var *var_lst);
 void	dup2_fdin_n_fdout(int *fd);
 void	close_fdin_n_fdout(int *fd);
 
@@ -60,7 +58,7 @@ int		is_var_name_valid(char *var_name);
 int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 
 // * PIPES
-int	execute_pipe(t_pipe *pipe);
+int		execute_pipe(t_pipe *pipe);
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
 void	build_pipes(t_pipe *pipe_node);
