@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 10:19:56 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 15:31:55by sting            ###   ########.fr       */
+/*   Created: 2024/06/19 10:34:27 by sting             #+#    #+#             */
+/*   Updated: 2024/06/19 10:34:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	expand_var_in_here_doc(char *filename, t_var *var_lst)
 	if (fstat(fd, &file_stat) == -1)
 		return (perror_and_return("fstat", EXIT_FAILURE));
 	content = (char *)ft_calloc((size_t)file_stat.st_size + 1, sizeof(char));
-	if_null_perror_n_exit(content, "malloc", EXIT_FAILURE);
+	if_null_perror_n_exit(content, "ft_calloc", EXIT_FAILURE);
 	if (read(fd, content, (size_t)file_stat.st_size) == -1)
 	{
 		free(content);
@@ -42,8 +42,20 @@ int	expand_var_in_here_doc(char *filename, t_var *var_lst)
 	return (EXIT_SUCCESS);
 }
 
-// stores integer values of fdin & fdout in sc->fd
-// TODO: close previously opened fd(s); currently only close last ones
+void	close_previously_opened_fds(t_redir *redir, int *fd)
+{
+	if ((redir->type == INPUT || redir->type == HEREDOC)
+		&& fd[IN] != STDIN_FILENO)
+		close(fd[IN]);
+	else if ((redir->type == OUTPUT || redir->type == APPEND)
+		&& fd[OUT] != STDOUT_FILENO)
+		close(fd[OUT]);
+}
+
+/*
+	stores integer values of fdin & fdout in sc->fd
+	close previously opened fd(s)
+*/
 int	open_redir_fds(t_redir **redir, int *fd, t_var *var_lst)
 {
 	int	i;
@@ -53,12 +65,7 @@ int	open_redir_fds(t_redir **redir, int *fd, t_var *var_lst)
 	i = -1;
 	while (redir && redir[++i])
 	{
-		if ((redir[i]->type % 2 != 0) && fd[IN] != STDIN_FILENO)
-			// INPUT or HERE_DOC
-			close(fd[IN]);
-		else if ((redir[i]->type % 2 == 0) && fd[OUT] != STDOUT_FILENO)
-			// OUTPUT or APPEND
-			close(fd[OUT]);
+		close_previously_opened_fds(redir[i], fd);
 		if ((redir[i])->type == INPUT)
 			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		else if ((redir[i])->type == HEREDOC)
