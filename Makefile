@@ -41,6 +41,7 @@ SRCS_FIL = \
 			execute/execute_and_or.c \
 			execute/execute_execve.c \
 			execute/exit_status.c \
+			execute/execute_utils.c \
 				\
 				execute/builtins/execute_builtins.c \
 				execute/builtins/execute_export.c \
@@ -48,6 +49,7 @@ SRCS_FIL = \
 				execute/builtins/execute_cd.c \
 				execute/builtins/execute_unset.c \
 				execute/builtins/execute_echo.c \
+				execute/builtins/execute_assignment.c \
 				\
 				execute/handle_quotes_n_expansion/handle_quotes_n_expansion.c \
 				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \

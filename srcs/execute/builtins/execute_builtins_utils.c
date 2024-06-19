@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:07:33 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 14:32:03 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:23:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,21 @@ int	count_chars_until_equal_sign(char *str)
 	return (count);
 }
 
+// iterates through str till '=' is reached
 int	is_var_name_valid(char *var_name)
 {
 	int		j;
 
 	if (!(ft_isalpha(var_name[0]) || var_name[0] == '_'))
-		return (EXIT_FAILURE);
+		return (false);
 	j = 0;
 	while (var_name[j] && var_name[j] != '=')
 	{
 		if (!(ft_isalnum(var_name[j]) || var_name[j] == '_'))
-			return (EXIT_FAILURE);
+			return (false);
 		j++;
 	}
-	return (EXIT_SUCCESS);
+	return (true);
 }
 
 int	print_env_var(t_var *var_lst, char *add_msg_before_var)

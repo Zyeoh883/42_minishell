@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/18 15:13:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 16:48:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		execute_export(t_simple_command *sc);
 int		execute_cd(t_simple_command *sc);
 int		execute_unset(t_simple_command *sc);
 int		execute_echo(t_simple_command *sc);
+int		is_assignment(char *cmd_arg);
+void	trim_assignments_if_cmd_present(char ***cmd_arg);
 
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);

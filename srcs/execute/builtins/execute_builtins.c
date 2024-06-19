@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 10:55:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:26:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int	execute_builtins(t_simple_command *sc)
 		return (execute_cd(sc));
 	else if (ft_strcmp(*sc->cmd_arg, "unset") == 0)
 		return (execute_unset(sc));
+	else if (is_assignment(*sc->cmd_arg))
+	{
+		// TODO: execute_assignment()
+		return (EXIT_SUCCESS); // ! tmp
+	}
 	else
 		return (NOT_BUILTIN);
 }

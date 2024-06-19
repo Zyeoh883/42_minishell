@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 10:36:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 13:40:03 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ char	*get_exec(char **cmd_path, char *cmd)
 		cmd_path++;
 	}
 	return (NULL);
-}
-
-int	waitpid_n_get_exit_status(pid_t pid)
-{
-	int	status;
-
-	waitpid(pid, &status, 0); // ! issue here (program hang)
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status)); // return exit status
-	else
-	{
-		// TODO: Child process terminated due to a signal (handle this case)
-		return (SIGNALINT);
-	}
 }
 
 int	check_file_status(char *arg)
@@ -88,31 +74,6 @@ char	*find_exec_path(char **cmd_arg, t_var *var_lst)
 	}
 	return (exec_path);
 }
-
-// int	execute_execve(t_simple_command *sc)
-// {
-// 	char	*exec_path;
-// 	pid_t	pid;
-// 	char	**var_arr;
-
-// 	pid = fork(); // fork
-// 	if (pid < 0)
-// 		perror_and_exit("fork", EXIT_FAILURE);
-// 	else if (pid == 0) // Child
-// 	{
-// 		// TODO: open_file_n_dup2
-// 		exec_path = find_exec_path(sc->cmd_arg, sc->var_lst);
-// 		var_arr = convert_var_lst_to_array(sc->var_lst);
-// 		if (execve(exec_path, sc->cmd_arg, var_arr) == -1)
-// 		{
-// 			free(exec_path);
-// 			free(var_arr);
-// 			exit(print_custom_err_n_return(*sc->cmd_arg, "",
-// 					": command not founddd", ERR_CMD_NOT_FOUND));
-// 		}
-// 	}
-// 	return (waitpid_n_get_exit_status(pid));
-// }
 
 int	execute_execve(t_simple_command *sc)
 {
