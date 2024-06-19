@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 10:43:57by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 10:55:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ int	execute_env(t_simple_command *sc)
 	pid_t	pid;
 
 	printf(">>>>>BUILT_IN>>>>>\n");
-	pid = fork(); // fork
+	pid = fork();
 	if (pid < 0)
 		perror_and_exit("fork", EXIT_FAILURE);
-	else if (pid == 0) // Child
+	else if (pid == 0)
 	{
-		// if (setup_redir(sc->redir) == EXIT_FAILURE)
-		// 	exit(EXIT_FAILURE);	
 		dup2_fdin_n_fdout(sc->fd);
 		exit(print_env_var(sc->var_lst, ""));
 	}
@@ -36,13 +34,11 @@ int	execute_pwd(t_simple_command *sc)
 	pid_t	pid;
 
 	printf(">>>>>BUILT_IN>>>>>\n");
-	pid = fork(); // fork
+	pid = fork();
 	if (pid < 0)
 		perror_and_exit("fork", EXIT_FAILURE);
-	else if (pid == 0) // Child
+	else if (pid == 0)
 	{
-		// if (setup_redir(sc->redir) == EXIT_FAILURE)
-		// 	exit(EXIT_FAILURE);	
 		dup2_fdin_n_fdout(sc->fd);
 		if (getcwd(cwd, sizeof(cwd)) == NULL)
 			perror_and_exit("getcwd", EXIT_FAILURE);
@@ -52,10 +48,8 @@ int	execute_pwd(t_simple_command *sc)
 	return (waitpid_n_get_exit_status(pid));
 }
 
-int execute_exit(t_simple_command *sc)
+int	execute_exit(t_simple_command *sc)
 {
-	// if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);	
 	(void)sc;
 	exit(EXIT_SUCCESS);
 }

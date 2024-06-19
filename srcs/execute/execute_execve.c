@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/18 15:25:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 10:36:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	waitpid_n_get_exit_status(pid_t pid)
 		return (SIGNALINT);
 	}
 }
-
 
 int	check_file_status(char *arg)
 {
@@ -89,7 +88,6 @@ char	*find_exec_path(char **cmd_arg, t_var *var_lst)
 	}
 	return (exec_path);
 }
-
 
 // int	execute_execve(t_simple_command *sc)
 // {

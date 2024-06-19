@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 10:15:15 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 10:39:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@
 
 int	execute_echo(t_simple_command *sc) // ! NORM
 {
-	pid_t	pid;
-	int	i;
-	int	n_flag;
+	pid_t pid;
+	int i;
+	int n_flag;
 
 	printf(">>>>>BUILT_IN>>>>>\n");
 	pid = fork(); // fork
@@ -50,7 +50,7 @@ int	execute_echo(t_simple_command *sc) // ! NORM
 	else if (pid == 0) // Child
 	{
 		// if (setup_redir(sc->redir) == EXIT_FAILURE)
-		// 	exit(EXIT_FAILURE);	
+		// 	exit(EXIT_FAILURE);
 		dup2_fdin_n_fdout(sc->fd);
 		n_flag = OFF;
 		if (sc->cmd_arg[1] && ft_strcmp(sc->cmd_arg[1], "-n") == 0)

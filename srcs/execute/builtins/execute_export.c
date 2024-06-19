@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/10 10:15:21 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/19 10:53:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,57 +32,32 @@ void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
 	free(var_name);
 }
 
-// int	execute_export(char **cmd_arg, t_var *var_lst)
-// {
-// 	int	i;
-// 	int	equal_index;
-
-// 	printf(">>>>>BUILT_IN>>>>>\n");
-
-// 	if (cmd_arg[1] == NULL)
-// 		return (print_env_var(var_lst, "declare -x "));
-// 	i = 0;
-// 	while (cmd_arg[++i] != NULL)
-// 	{
-// 		equal_index = count_chars_until_equal_sign(cmd_arg[i]);
-// 		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
-// 			return (print_custom_err_n_return("export: `", cmd_arg[i],
-// 					"\': not a valid identifier", EXIT_FAILURE));
-// 		update_or_add_variable(var_lst, cmd_arg, i, equal_index);
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
-
-int	execute_export(t_simple_command *sc) // ! NORM
+int	execute_export(t_simple_command *sc)
 {
-	int	i;
-	int	equal_index;
+	int		i;
 	pid_t	pid;
 
-	printf(">>>>>BUILT_IN>>>>>\n");
+	printf(">>>>>BUILT_IN>>>>>\n"); // ! remove
 	if (sc->cmd_arg[1] == NULL)
 	{
-		pid = fork(); // fork
+		pid = fork();
 		if (pid < 0)
 			perror_and_exit("fork", EXIT_FAILURE);
-		else if (pid == 0) // Child
+		else if (pid == 0)
 		{
-			// if (setup_redir(sc->redir) == EXIT_FAILURE)
-			// 	exit(EXIT_FAILURE);	
 			dup2_fdin_n_fdout(sc->fd);
 			exit(print_env_var(sc->var_lst, "declare -x "));
 		}
-		else if (pid > 0)
-			return (waitpid_n_get_exit_status(pid));
+		return (waitpid_n_get_exit_status(pid));
 	}
 	i = 0;
 	while (sc->cmd_arg[++i] != NULL)
 	{
-		equal_index = count_chars_until_equal_sign(sc->cmd_arg[i]);
 		if (is_var_name_valid(sc->cmd_arg[i]) == EXIT_FAILURE)
-			return(print_custom_err_n_return("export: `", sc->cmd_arg[i],
+			return (print_custom_err_n_return("export: `", sc->cmd_arg[i],
 					"\': not a valid identifier", EXIT_FAILURE));
-		update_or_add_variable(sc->var_lst, sc->cmd_arg, i, equal_index);
+		update_or_add_variable(sc->var_lst, sc->cmd_arg, i,
+			count_chars_until_equal_sign(sc->cmd_arg[i]));
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
