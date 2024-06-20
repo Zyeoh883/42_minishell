@@ -6,12 +6,14 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/03 17:24:56 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/06/20 16:40:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+			// printf("%c to %c\n", token->value[0],
+			// 	token->value[ft_strlen(token->value) - 1]);
 void	format_open_ends(t_token *token)
 {
 	while (token)
@@ -19,7 +21,6 @@ void	format_open_ends(t_token *token)
 		while (token->next && token->open_end == 1)
 		{
 			token_combine_wnext(token);
-			printf("%c to %c\n", token->value[0], token->value[ft_strlen(token->value) - 1]);
 			if (token->value[0] == token->value[ft_strlen(token->value) - 1]
 				&& ft_strlen(token->value) > 1)
 			{
@@ -36,7 +37,8 @@ void	format_quotes(t_token *token)
 
 	while (token)
 	{
-		if (token && ft_strchr("'\"", *token->value) && ft_strlen(token->value) == 1)
+		if (token && ft_strchr("'\"", *token->value)
+				&& ft_strlen(token->value) == 1)
 		{
 			quote = *token->value;
 			while (token->next && *token->next->value != quote)
@@ -114,6 +116,18 @@ void	format_operands(t_token *token)
 	}
 }
 
+void	format_words(t_token *token)
+{
+	while (token && token->next)
+	{
+		if (token->type == WORDS && token->next->type == WORDS
+			&& !token->next->open_end)
+			token_combine_wnext(token);
+		else
+			token = token->next;
+	}
+}
+
 void	format_tokens(t_token *token_root)
 {
 	t_token	*token;
@@ -124,4 +138,5 @@ void	format_tokens(t_token *token_root)
 	label_tokens(token);
 	format_whitespace(token);
 	format_operands(token);
+	format_words(token);
 }
