@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 16:48:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/20 10:34:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_builtin_type
 {
 	EXPORT,
 	UNSET,
+	ASSIGNMENT,
 }		t_builtin_type;
 
 // * EXECUTION
@@ -51,8 +52,13 @@ int		execute_export(t_simple_command *sc);
 int		execute_cd(t_simple_command *sc);
 int		execute_unset(t_simple_command *sc);
 int		execute_echo(t_simple_command *sc);
+// void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
+// 			int equal_index);
+void	update_or_add_variable(t_simple_command *sc, int index,
+		int equal_index, t_builtin_type type);
+int		execute_assignment(t_simple_command *sc);
 int		is_assignment(char *cmd_arg);
-void	trim_assignments_if_cmd_present(char ***cmd_arg);
+void	remove_assignments_if_cmd_present(char ***cmd_arg);
 
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 16:48:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/20 10:34:06 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	is_assignment(char *cmd_arg)
 }
 
 /*
- - if there is a non-assignment arg after assignement args, 
+ - if there is a non-assignment arg after assignement args,
 	assignment args will be trimmed off
 */
-void	trim_assignments_if_cmd_present(char ***cmd_arg)
+void	remove_assignments_if_cmd_present(char ***cmd_arg)
 {
 	int		i;
 	int		new_arr_size;
 	char	**new_arr;
-	int j;
+	int		j;
 
 	i = 0;
 	while ((*cmd_arg)[i] && is_assignment((*cmd_arg)[i]))
@@ -49,17 +49,14 @@ void	trim_assignments_if_cmd_present(char ***cmd_arg)
 	*cmd_arg = new_arr;
 }
 
-// int execute_assignment(char **cmd_arg, t_var *var_lst)
-// {
-// 	int	i;
-// 	int	equal_index;
+int	execute_assignment(t_simple_command *sc)
+{
+	int	i;
 
-// 	printf(">>>>>BUILT_IN>>>>>\n");
-// 	// CHECK if all assignments are valid, if 1 invalid, ALL cancelled
-// 	i = -1;
-// 	while (cmd_arg[++i] != NULL)
-// 		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
-// 			return (NOT_BUILTIN);
-// 	// i = 0;
-// 	return (EXIT_SUCCESS);
-// }
+	printf(">>>>>BUILT_IN>>>>>\n");
+	i = -1;
+	while (sc->cmd_arg[++i] != NULL)
+		update_or_add_variable(sc, i,
+			count_chars_until_equal_sign(sc->cmd_arg[i]), ASSIGNMENT);
+	return (EXIT_SUCCESS);
+}

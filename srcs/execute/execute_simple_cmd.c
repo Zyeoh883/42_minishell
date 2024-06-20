@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:15:58 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 16:48:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/20 09:51:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	execute_simple_cmd(t_simple_command *sc)
 	ft_printf("===Output===\n");
 	if (sc->cmd_arg == NULL) // no cmd at all joel was here
 		return (EXIT_SUCCESS);
-	trim_assignments_if_cmd_present(&sc->cmd_arg);
+	remove_assignments_if_cmd_present(&sc->cmd_arg);
 	ret = execute_builtins(sc);
 	if (ret == NOT_BUILTIN)
 		return (execute_execve(sc));	
