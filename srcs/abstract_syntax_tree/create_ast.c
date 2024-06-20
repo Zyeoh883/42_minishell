@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/12 16:36:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/20 13:56:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ t_node	*create_and_or(t_data *shell_data, t_token *token)
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
 	n = token_instances(token, is_and_or);
-	node->and_or->operators = ft_calloc(n, sizeof(int));
+	// node->and_or->operators = ft_calloc(n, sizeof(int));
+	node->and_or->operators = ft_calloc(n + 1, sizeof(int)); // ! edited by sam
 	if (!node->and_or->operators)
 		perror_and_exit("Failed to create operators", 125);
 	n = -1;

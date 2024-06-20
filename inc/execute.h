@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/20 10:34:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/20 13:37:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	update_or_add_variable(t_simple_command *sc, int index,
 int		execute_assignment(t_simple_command *sc);
 int		is_assignment(char *cmd_arg);
 void	remove_assignments_if_cmd_present(char ***cmd_arg);
+int execute_and_or(t_and_or *and_or);
 
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);
