@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_quotes_n_expansion2.c                       :+:      :+:    :+:   */
+/*   ft_split_cmd_str_after_expansion.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/05/15 10:50:38 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/21 14:41:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	copy_str_to_arr(char **new_arr, int arr_index, char *str)
 }
 
 // - update/add additional ft_splitted strings to original char **cmd_arg
-void	ft_split_cmd_str_after_expansion(char ***cmd_arg, char *cmd_str,
+void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
 		int str_index)
 {
 	char	**splitted;

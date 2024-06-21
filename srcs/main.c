@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/20 16:10:12 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/21 15:26:58 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	test(int argc, char **argv, char **env)
 			break ;
 		// print_tokens(shell_data.token_root);
 		shell_data.ast_root = create_ast(&shell_data);
-		
+
 		// print_ast(shell_data.ast_root, 0);
-		
+
 		execute_ast(shell_data.ast_root);
 		// print_tokens(shell_data.token_root);
 		// free_tokens(shell_data.token_root);
@@ -125,5 +125,6 @@ int	main(int argc, char **argv, char **env)
 {
 	test(argc, argv, env);
 	system("leaks minishell");
+	system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
 	return (0);
 }

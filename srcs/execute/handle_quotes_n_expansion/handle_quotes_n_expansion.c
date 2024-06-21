@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/11 11:14:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/21 15:21:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,31 @@ void	trim_quotes(char **str_add)
 	trimmed_str = ft_substr(*str_add, 1, ft_strlen(*str_add) - 2);
 	free(*str_add);
 	*str_add = trimmed_str;
+}
+
+void remove_empty_arg(char ***cmd_arg, int index)
+{
+	// TODO: copy strings to new arr, except for empty_arg
+	int	i;
+	int j;
+	char **new_arr;
+	char **arr;
+
+	arr = *cmd_arg;
+	new_arr = (char **)ft_calloc((arr_str_count(arr) - 1) + 1, sizeof(char *));
+	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);
+	i = -1;
+	j = 0;
+	while (arr[++i])
+	{
+		if (i == index)
+			continue ;
+		new_arr[j] = ft_strdup(arr[i]);
+		if_null_perror_n_exit(new_arr[j], "ft_strdup", EXIT_FAILURE);
+		j++;
+	}
+	free_str_arr(*cmd_arg);
+	*cmd_arg = new_arr;
 }
 
 void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
@@ -40,8 +65,9 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 		{
 			expand_str(&(*cmd_arg)[i], var_lst);
 			if (*((*cmd_arg)[i]) != '\0')
-				// if str is empty str (env_var doesn't exist/is empty str)
-				ft_split_cmd_str_after_expansion(cmd_arg, (*cmd_arg)[i], i);
+				ft_split_cmd_arg_after_expansion(cmd_arg, (*cmd_arg)[i], i);
+			else // if str is empty str (env_var doesn't exist/is empty str)
+				remove_empty_arg(cmd_arg, i--);
 		}
 	}
 }
