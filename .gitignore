@@ -12,3 +12,4 @@ tmp/
 *so
 readline/
 readline/*
+readline/**
