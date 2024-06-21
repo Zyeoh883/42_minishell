@@ -10,3 +10,4 @@ infile
 minishell
 tmp/
 *so
+readline/
