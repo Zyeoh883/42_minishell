@@ -11,3 +11,4 @@ minishell
 tmp/
 *so
 readline/
+readline/*
