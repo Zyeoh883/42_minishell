@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:20:09 by sting             #+#    #+#             */
-/*   Updated: 2024/06/12 13:06:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/24 14:58:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ char	*construct_expanded_str(char *str, char *value, int d, int c)
 	if_null_perror_n_exit(expanded, "ft_calloc", EXIT_FAILURE);
 	ft_strlcpy(expanded, (str), d + 1);
 	ft_strlcpy(&expanded[d], value, ft_strlen(value) + 1);
-	ft_strlcpy(&expanded[d + ft_strlen(value)], &(str)[c],
-		ft_strlen(str) - c + 1);
+	ft_strlcpy(&expanded[d + ft_strlen(value)], &(str)[c], ft_strlen(str) - c
+		+ 1);
 	return (expanded);
 }
 
 /*
 	Return Value: index of char right after expanded value
 
-	process: 
+	process:
 		1) Extract var_name from str
 		2) Get var value
 		3) Replace value with var_name in str
@@ -79,14 +79,36 @@ int	expand_single_var(char **str_add, int dollar_index, t_var *var_lst)
 }
 
 // str_add -> address of str
+// void	expand_str(char **str_add, t_var *var_lst)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while ((*str_add)[i])
+// 	{
+// 		if ((*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
+// 			i = expand_single_var(str_add, i, var_lst);
+// 		else
+// 			i++;
+// 	}
+// }
+
+// str_add -> address of str
 void	expand_str(char **str_add, t_var *var_lst)
 {
-	int	i;
+	int i;
+	int expand;
 
+	expand = ON;
 	i = 0;
 	while ((*str_add)[i])
 	{
-		if ((*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
+		if (expand == OFF)
+			if ((*str_add)[i] == '\'')
+				expand = ON;
+		if ((*str_add)[i] == '\'')
+			expand = OFF;
+		if (expand && (*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
 			i = expand_single_var(str_add, i, var_lst);
 		else
 			i++;

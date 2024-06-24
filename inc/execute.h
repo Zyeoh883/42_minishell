@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/21 14:41:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/24 13:20:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst);
 void	expand_str(char **str, t_var *var_lst);
 void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
 			int str_index);
+void trim_quotes(char **str_add);
 
 // Redirection
 int		setup_redir(t_redir **redir);

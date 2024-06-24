@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -54,6 +54,7 @@ SRCS_FIL = \
 				execute/handle_quotes_n_expansion/handle_quotes_n_expansion.c \
 				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
 				execute/handle_quotes_n_expansion/expand_str.c \
+				execute/handle_quotes_n_expansion/trim_quotes.c \
 			\
 			utils/free.c \
 			utils/utils1.c \
