@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/24 13:20:47 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 15:51:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ int		execute_simple_cmd(t_simple_command *sc);
 int		waitpid_n_get_exit_status(pid_t pid);
 
 // HANDLE Quotes & Env_Expansion
-void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst);
+void	trim_quotes_n_expand_cmd_arg(char ***cmd_arg, t_var *var_lst);
+int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
+void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
+void	trim_quotes(char **str_add);
 void	expand_str(char **str, t_var *var_lst);
 void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
 			int str_index);
-void trim_quotes(char **str_add);
+void	remove_empty_arg(char ***cmd_arg, int index);
 
 // Redirection
 int		setup_redir(t_redir **redir);
@@ -55,12 +58,12 @@ int		execute_unset(t_simple_command *sc);
 int		execute_echo(t_simple_command *sc);
 // void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
 // 			int equal_index);
-void	update_or_add_variable(t_simple_command *sc, int index,
-		int equal_index, t_builtin_type type);
+void	update_or_add_variable(t_simple_command *sc, int index, int equal_index,
+			t_builtin_type type);
 int		execute_assignment(t_simple_command *sc);
 int		is_assignment(char *cmd_arg);
 void	remove_assignments_if_cmd_present(char ***cmd_arg);
-int execute_and_or(t_and_or *and_or);
+int		execute_and_or(t_and_or *and_or);
 
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);

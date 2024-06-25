@@ -51,7 +51,8 @@ SRCS_FIL = \
 				execute/builtins/execute_echo.c \
 				execute/builtins/execute_assignment.c \
 				\
-				execute/handle_quotes_n_expansion/handle_quotes_n_expansion.c \
+				execute/handle_quotes_n_expansion/trim_quotes_n_expand.c \
+				execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
 				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
 				execute/handle_quotes_n_expansion/expand_str.c \
 			\
