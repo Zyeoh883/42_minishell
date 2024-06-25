@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:20:09 by sting             #+#    #+#             */
-/*   Updated: 2024/06/24 14:58:43 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 12:13:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,36 +79,14 @@ int	expand_single_var(char **str_add, int dollar_index, t_var *var_lst)
 }
 
 // str_add -> address of str
-// void	expand_str(char **str_add, t_var *var_lst)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while ((*str_add)[i])
-// 	{
-// 		if ((*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
-// 			i = expand_single_var(str_add, i, var_lst);
-// 		else
-// 			i++;
-// 	}
-// }
-
-// str_add -> address of str
 void	expand_str(char **str_add, t_var *var_lst)
 {
 	int i;
-	int expand;
 
-	expand = ON;
 	i = 0;
 	while ((*str_add)[i])
 	{
-		if (expand == OFF)
-			if ((*str_add)[i] == '\'')
-				expand = ON;
-		if ((*str_add)[i] == '\'')
-			expand = OFF;
-		if (expand && (*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
+		if ((*str_add)[i] == '$' && (*str_add)[i + 1] != '\0')
 			i = expand_single_var(str_add, i, var_lst);
 		else
 			i++;

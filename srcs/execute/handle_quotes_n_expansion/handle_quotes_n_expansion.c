@@ -6,44 +6,23 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/24 14:19:59 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 12:30:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	trim_quotes(char **str_add)
-// {
-// 	char	*trimmed_str;
+void	trim_quotes(char **str_add)
+{
+	char	*trimmed_str;
 
-// 	trimmed_str = ft_substr(*str_add, 1, ft_strlen(*str_add) - 2);
-// 	free(*str_add);
-// 	*str_add = trimmed_str;
-// }
-
-// void trim_quotes(char **str_add)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = -1;
-// 	while (*str_add[++i])
-// 	{
-// 		if (*str_add[i] == "\'" || *str_add[i] == "\"")
-// 		{
-// 			j = i + 1;
-// 			while (*str_add[++j])
-// 				if (*str_add[++j] == *str_add[++i])
-// 					break ;
-// 			remove_quote
-// 		}
-		
-// 	}
-// }
+	trimmed_str = ft_substr(*str_add, 1, ft_strlen(*str_add) - 2);
+	free(*str_add);
+	*str_add = trimmed_str;
+}
 
 void remove_empty_arg(char ***cmd_arg, int index)
 {
-	// TODO: copy strings to new arr, except for empty_arg
 	int	i;
 	int j;
 	char **new_arr;
@@ -66,28 +45,46 @@ void remove_empty_arg(char ***cmd_arg, int index)
 	*cmd_arg = new_arr;
 }
 
+char *concatenate_all_str_in_token_lst(t_token *token)
+{
+	while (token && token->next)
+		token_combine_wnext(token);
+	return (token->value);
+}
+
+
 void	handle_quotes_n_var_expansion(char ***cmd_arg, t_var *var_lst)
 {
 	int	i;
-	// int	expand;
+	int	expand;
+	t_token	*token_root;
+	t_token	*token;
 
 	i = -1;
 	if (!cmd_arg || !(*cmd_arg))
 		return ;
 	while ((*cmd_arg)[++i])
 	{
-		// expand = ON;
-		// if ((*cmd_arg)[i][0] == '\'')
-		// 	expand = OFF;
-		if ((*cmd_arg)[i][0] == '\'' || (*cmd_arg)[i][0] == '\"')
-			trim_quotes(&(*cmd_arg)[i]);
-		if (/*expand == ON &&*/ ft_strchr((*cmd_arg)[i], '$') != NULL)
+		token_root = tokenize_metacharacters((*cmd_arg)[i]);
+		format_quotes(token_root);
+		token = token_root;
+		while (token)
 		{
-			expand_str(&(*cmd_arg)[i], var_lst);
-			if (*((*cmd_arg)[i]) != '\0')
-				ft_split_cmd_arg_after_expansion(cmd_arg, (*cmd_arg)[i], i);
-			else // if str is empty str (env_var doesn't exist/is empty str)
-				remove_empty_arg(cmd_arg, i--);
+			expand = ON;
+			if (token->value[0] == '\'')
+				expand = OFF;
+			if (token->value[0] == '\'' || token->value[0] == '\"')
+				trim_quotes(&token->value);
+			if (expand == ON && ft_strchr(token->value, '$') != NULL)
+				expand_str(&token->value, var_lst);	
+			token = token->next;
 		}
+		free((*cmd_arg)[i]);
+		(*cmd_arg)[i] = concatenate_all_str_in_token_lst(token_root);
+		free(token_root);
+		if ((*cmd_arg)[i][0] != '\0')
+			ft_split_cmd_arg_after_expansion(cmd_arg, (*cmd_arg)[i], i);
+		else // if str is empty str (env_var doesn't exist/is empty str)
+			remove_empty_arg(cmd_arg, i--);
 	}
 }
