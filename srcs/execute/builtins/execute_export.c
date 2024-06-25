@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:58:12 by sting             #+#    #+#             */
-/*   Updated: 2024/06/20 10:33:52 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:35:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	execute_export(t_simple_command *sc)
 	int		i;
 	pid_t	pid;
 
-	printf(">>>>>BUILT_IN>>>>>\n"); // ! remove
 	if (sc->cmd_arg[1] == NULL)
 	{
 		pid = fork();

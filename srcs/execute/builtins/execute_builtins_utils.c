@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:07:33 by sting             #+#    #+#             */
-/*   Updated: 2024/06/20 10:33:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:34:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_chars_until_equal_sign(char *str)
 // iterates through str till '=' is reached
 int	is_var_name_valid(char *var_name)
 {
-	int		j;
+	int	j;
 
 	if (!(ft_isalpha(var_name[0]) || var_name[0] == '_'))
 		return (false);
@@ -56,8 +56,8 @@ int	print_env_var(t_var *var_lst, char *add_msg_before_var)
 
 // void	update_or_add_variable(t_var *var_lst, char **cmd_arg, int index,
 // 		int equal_index)
-void	update_or_add_variable(t_simple_command *sc, int index,
-		int equal_index, t_builtin_type type)
+void	update_or_add_variable(t_simple_command *sc, int index, int equal_index,
+		t_builtin_type type)
 {
 	char	*var_name;
 	t_var	*node;
@@ -70,14 +70,16 @@ void	update_or_add_variable(t_simple_command *sc, int index,
 		if (type == EXPORT) // if cmd -> "export"
 			node->is_exported = true;
 		if (sc->cmd_arg[index][equal_index] == '=')
-			set_var_value(var_name, &sc->cmd_arg[index][equal_index + 1], sc->var_lst);
+			set_var_value(var_name, &sc->cmd_arg[index][equal_index + 1],
+				sc->var_lst);
 	}
 	else // if var don't exist
 	{
 		if (type == EXPORT)
 			var_lstadd_back(&sc->var_lst, var_lstnew(sc->cmd_arg[index], true));
 		if (type == ASSIGNMENT)
-			var_lstadd_back(&sc->var_lst, var_lstnew(sc->cmd_arg[index], false));
+			var_lstadd_back(&sc->var_lst, var_lstnew(sc->cmd_arg[index],
+					false));
 	}
 	free(var_name);
 }

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 12:22:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:36:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	execute_env(t_simple_command *sc)
 {
 	pid_t	pid;
 
-	printf(">>>>>BUILT_IN>>>>>\n");
 	pid = fork();
 	if (pid < 0)
 		perror_and_exit("fork", EXIT_FAILURE);
@@ -33,7 +32,6 @@ int	execute_pwd(t_simple_command *sc)
 	char	cwd[PATH_MAX];
 	pid_t	pid;
 
-	printf(">>>>>BUILT_IN>>>>>\n");
 	pid = fork();
 	if (pid < 0)
 		perror_and_exit("fork", EXIT_FAILURE);

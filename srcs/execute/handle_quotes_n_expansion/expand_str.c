@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 12:20:09 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 12:13:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:26:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	expand_single_var(char **str_add, int dollar_index, t_var *var_lst)
 // str_add -> address of str
 void	expand_str(char **str_add, t_var *var_lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while ((*str_add)[i])

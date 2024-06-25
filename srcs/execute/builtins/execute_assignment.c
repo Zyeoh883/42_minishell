@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
-/*   Updated: 2024/06/20 10:34:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:36:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	remove_assignments_if_cmd_present(char ***cmd_arg)
 	i = 0;
 	while ((*cmd_arg)[i] && is_assignment((*cmd_arg)[i]))
 		i++;
-	if (i == 0 || (*cmd_arg)[i] == NULL) // if no assignment at all || if all are assignment
+	if (i == 0 || (*cmd_arg)[i] == NULL)
+		// if no assignment at all|| if all are assignment
 		return ;
 	new_arr_size = arr_str_count(*cmd_arg) - i;
 	new_arr = (char **)ft_calloc(new_arr_size + 1, sizeof(char *));
@@ -53,7 +54,6 @@ int	execute_assignment(t_simple_command *sc)
 {
 	int	i;
 
-	printf(">>>>>BUILT_IN>>>>>\n");
 	i = -1;
 	while (sc->cmd_arg[++i] != NULL)
 		update_or_add_variable(sc, i,
