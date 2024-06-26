@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 14:31:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/26 11:13:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <unistd.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <dirent.h>
 
 # include "../libft/libft.h"
 # include "data_structs.h"
@@ -46,10 +47,6 @@
 #define WHITE "\033[37m"
 
 // MACROS
-// # define SUCCESS 0
-// # define FAIL 1
-// # define AND 0
-// # define OR 1
 # define OFF 0
 # define ON 1
 
@@ -105,14 +102,12 @@ void	output_token_error(char *str);
 void	output_eof_error(char quote);
 
 // List Functions
-// t_var	*var_lstnew(char *str);
 t_var	*var_lstnew(char *str, int is_exported);
 t_var	*var_lstlast(t_var *lst);
 void	var_lstadd_front(t_var **lst, t_var *new);
 void	var_lstadd_back(t_var **lst, t_var *new);
 
 // * VARIABLES
-// char	*my_getvar(const char *name, char **my_env);
 char	*get_var_value(const char *name, t_var *var);
 void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);

@@ -42,6 +42,7 @@ SRCS_FIL = \
 			execute/execute_execve.c \
 			execute/exit_status.c \
 			execute/execute_utils.c \
+			execute/wildcard.c \
 				\
 				execute/builtins/execute_builtins.c \
 				execute/builtins/execute_export.c \

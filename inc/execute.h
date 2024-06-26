@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 15:51:36 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/26 11:35:48 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ int		execute_pipe(t_pipe *pipe);
 void	coupling(t_pipe *pipe_node, int n);
 void	close_pipes(t_pipe *pipe_node);
 void	build_pipes(t_pipe *pipe_node);
+
+// * WILDCARDS
+int expand_asterisk();
 
 #endif

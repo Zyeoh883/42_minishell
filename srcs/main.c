@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/24 16:42:50 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/26 11:36:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	test(int argc, char **argv, char **env)
 	t_data	shell_data;
 	int		status;
 
+	expand_asterisk(); // ! remove
 	shell_data = init_env(argc, argv, env);
 	while (1)
 	{
