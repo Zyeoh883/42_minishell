@@ -6,17 +6,11 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/21 14:41:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:34:34 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	copy_str_to_arr(char **new_arr, int arr_index, char *str)
-{
-	new_arr[arr_index] = ft_strdup(str);
-	if_null_perror_n_exit(new_arr[arr_index], "ft_strdup", EXIT_FAILURE);
-}
 
 // - update/add additional ft_splitted strings to original char **cmd_arg
 void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,

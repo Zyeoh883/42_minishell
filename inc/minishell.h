@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/26 11:13:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:29:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	reset_terminal(void);
 // free
 void	free_str_arr(char **str_arr);
 void	free_var_lst(t_var *list);
+void	free_split(char **split);
+void	free_lst_without_freeing_content(t_list *list);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);
@@ -89,13 +91,13 @@ int		print_err_and_return(char *str, char *perror_str, int return_value);
 void	if_null_perror_n_exit(void *ptr, char *str, int exit_code);
 int		print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg,
 			int return_value);
-void	free_split(char **split);
 void	output_token_error(char *str);
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
 int		ft_strcasecmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
 int 	is_directory(const char *path);
+void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
 
 // error_messages
 void	output_token_error(char *str);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/18 15:38:43 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:29:13 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,4 +151,8 @@ int	is_directory(const char *path)
 	return (S_ISDIR(statbuf.st_mode));
 }
 
-
+void	copy_str_to_arr(char **new_arr, int arr_index, char *str)
+{
+	new_arr[arr_index] = ft_strdup(str);
+	if_null_perror_n_exit(new_arr[arr_index], "ft_strdup", EXIT_FAILURE);
+}

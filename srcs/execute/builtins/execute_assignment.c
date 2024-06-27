@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 16:36:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:34:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ void	remove_assignments_if_cmd_present(char ***cmd_arg)
 	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);
 	j = -1;
 	while (++j < new_arr_size)
-	{
-		new_arr[j] = ft_strdup((*cmd_arg)[i++]);
-		if_null_perror_n_exit(new_arr[j], "ft_strdup", EXIT_FAILURE);
-	}
+		copy_str_to_arr(new_arr, j, (*cmd_arg)[i++]);
 	free_str_arr(*cmd_arg);
 	*cmd_arg = new_arr;
 }

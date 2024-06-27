@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 15:50:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/27 14:35:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void	remove_empty_arg(char ***cmd_arg, int index)
 	{
 		if (i == index)
 			continue ;
-		new_arr[j] = ft_strdup(arr[i]);
-		if_null_perror_n_exit(new_arr[j], "ft_strdup", EXIT_FAILURE);
+		copy_str_to_arr(new_arr, j, arr[i]);
 		j++;
 	}
 	free_str_arr(*cmd_arg);
