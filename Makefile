@@ -89,7 +89,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	@make -C $(READLINE_DIR) > /dev/null
-	@make bonus -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
