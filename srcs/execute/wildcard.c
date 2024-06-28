@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/27 16:01:43 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/28 10:31:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	DIR *dir;
 // 	t_list *entry_lst;
 // 	t_list *new;
-	
+
 // 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 // 		// return (perror_and_return("getcwd", EXIT_FAILURE));
 // 		return (NULL);
@@ -42,7 +42,7 @@
 // 	{
 // 		printf("entry: %s\n", lst->content);
 // 		lst = lst->next;
-// 	}	
+// 	}
 
 // 	if (closedir(dir) == -1)
 // 		return (perror_and_return("closedir", EXIT_FAILURE));
@@ -79,7 +79,7 @@ int	expand_asterisk(char ***cmd_arg)
 		return (perror_and_return("closedir", EXIT_FAILURE));
 	// 	todo: replace "*" with str(s) in linked list
 	// * use -> copy_str_to_arr()
-	
+
 	// replace_asterisk_with_entry_lst();
 	char **expanded_arr;
 	int	expanded_arr_size;
@@ -89,8 +89,8 @@ int	expand_asterisk(char ***cmd_arg)
 	i = -1;
 	while ((*cmd_arg)[++i])
 	{
-		// TODO: transfer str(s) before * 
-		if (ft_strcmp(*cmd_arg[i], "*") == 0) // if arg -> "*" 
+		// TODO: transfer str(s) before *
+		if (ft_strcmp(*cmd_arg[i], "*") == 0) // if arg -> "*"
 		{
 			// remalloc
 			expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(entry_lst);
@@ -98,7 +98,7 @@ int	expand_asterisk(char ***cmd_arg)
 			if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
 
 			j = -1;
-			// transfer str(s) before * 
+			// transfer str(s) before *
 			while (++j < i)
 				copy_str_to_arr(expanded_arr, j, (*cmd_arg)[j]);
 			lst = entry_lst;
@@ -110,11 +110,11 @@ int	expand_asterisk(char ***cmd_arg)
 			// TODO: transfer str(s) after *
 			free(*cmd_arg);
 			*cmd_arg = expanded_arr;
-			
-		}	
-		
+
+		}
+
 	}
-	
-	free_lst_without_freeing_content(entry_lst);	
+
+	free_lst_without_freeing_content(entry_lst);
 	return (EXIT_SUCCESS);
 }

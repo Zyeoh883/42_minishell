@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/27 14:29:28 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/28 10:34:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <limits.h>
+# include <linux/limits.h>
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "data_structs.h"
