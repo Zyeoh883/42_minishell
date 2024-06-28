@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/28 10:31:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/06/28 11:01:14 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	expand_asterisk(char ***cmd_arg)
 	t_list *lst = entry_lst;
 	while (lst)
 	{
-		printf("entry: %s\n", lst->content);
+		printf("entry: %s\n", (char *)lst->content);
 		lst = lst->next;
 	}
 	if (closedir(dir) == -1)
