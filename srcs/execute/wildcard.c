@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/06/28 11:01:14 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/01 15:16:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	expand_asterisk(char ***cmd_arg)
 	t_list *entry_lst;
 	t_list *new;
 
+	entry_lst = NULL;
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (perror_and_return("getcwd", EXIT_FAILURE));
 	dir = opendir(cwd);
@@ -65,6 +66,8 @@ int	expand_asterisk(char ***cmd_arg)
 	// store all dir entries in linked list
 	while ((entry = readdir(dir)) != NULL)
 	{
+		if (entry->d_name[0] == '.')
+			continue ;
 		new = ft_lstnew(entry->d_name);
 		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
 		ft_lstadd_back(&entry_lst, new);
@@ -89,12 +92,14 @@ int	expand_asterisk(char ***cmd_arg)
 	i = -1;
 	while ((*cmd_arg)[++i])
 	{
+		// printf("outside_if\n");
 		// TODO: transfer str(s) before *
-		if (ft_strcmp(*cmd_arg[i], "*") == 0) // if arg -> "*"
+		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
 		{
+			printf(GREEN"* detected"RESET"\n");
 			// remalloc
 			expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(entry_lst);
-			expanded_arr = (char **)ft_calloc(expanded_arr_size, sizeof(char *));
+			expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
 			if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
 
 			j = -1;
@@ -104,13 +109,14 @@ int	expand_asterisk(char ***cmd_arg)
 			lst = entry_lst;
 			while (lst)
 			{
-				expanded_arr[j++] = lst->content;
+				expanded_arr[j++] = (char *)lst->content;
 				lst = lst->next;
 			}
+			printf("2nd arg: %s\n", expanded_arr[1]); // ! remove
+			print_str_arr(expanded_arr, "expanded_arr"); // ! remove
 			// TODO: transfer str(s) after *
 			free(*cmd_arg);
 			*cmd_arg = expanded_arr;
-
 		}
 
 	}

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/28 11:36:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/01 14:28:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst)
 			expand_str(&token->value, var_lst);
 		if (token->value[0] == '\'' || token->value[0] == '\"')
 			trim_quotes(&token->value);
-		else if (ft_strchr(token->value, '*') != NULL && !is_assignment(token->value))
-			printf("expand_asterisk\n");
-			// expand_asterisk();
+		// else if (ft_strchr(token->value, '*') != NULL && !is_assignment(token->value))
+		// 	printf("expand_asterisk\n");
+		// 	// expand_asterisk();
 		token = token->next;
 	}
 }
