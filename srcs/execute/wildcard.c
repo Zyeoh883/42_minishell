@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/01 15:16:49 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/01 15:29:19 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,12 @@ int	expand_asterisk(char ***cmd_arg)
 		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
 		ft_lstadd_back(&entry_lst, new);
 	}
-	t_list *lst = entry_lst;
-	while (lst)
-	{
-		printf("entry: %s\n", (char *)lst->content);
-		lst = lst->next;
-	}
-	if (closedir(dir) == -1)
-		return (perror_and_return("closedir", EXIT_FAILURE));
+	// t_list *lst = entry_lst;
+	// while (lst)
+	// {
+	// 	printf("entry: %s\n", (char *)lst->content);
+	// 	lst = lst->next;
+	// }
 	// 	todo: replace "*" with str(s) in linked list
 	// * use -> copy_str_to_arr()
 
@@ -106,6 +104,12 @@ int	expand_asterisk(char ***cmd_arg)
 			// transfer str(s) before *
 			while (++j < i)
 				copy_str_to_arr(expanded_arr, j, (*cmd_arg)[j]);
+			t_list *lst = entry_lst;
+			// while (lst)
+			// {
+			// 	printf("entry: %s\n", (char *)lst->content);
+			// 	lst = lst->next;
+			// }
 			lst = entry_lst;
 			while (lst)
 			{
@@ -120,6 +124,8 @@ int	expand_asterisk(char ***cmd_arg)
 		}
 
 	}
+	if (closedir(dir) == -1)
+		return (perror_and_return("closedir", EXIT_FAILURE));
 
 	free_lst_without_freeing_content(entry_lst);
 	return (EXIT_SUCCESS);
