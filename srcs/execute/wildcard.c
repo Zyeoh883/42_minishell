@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/03 10:15:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 16:00:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 // 	return (entry_lst);
 // }
 
-int	expand_asterisk(char ***cmd_arg)
+int	expand_singular_asterisk(char ***cmd_arg)
 {
 	char cwd[PATH_MAX];
 	struct dirent *entry;
@@ -64,7 +64,17 @@ int	expand_asterisk(char ***cmd_arg)
 	dir = opendir(cwd);
 	if (dir == NULL)
 		return (perror_and_return("opendir", EXIT_FAILURE));
-		
+	// * store all dir entries in linked list
+	while ((entry = readdir(dir)) != NULL)
+	{
+		if (entry->d_name[0] == '.')
+			continue ;
+		content = ft_strdup(entry->d_name);
+		if_null_perror_n_exit(content, "ft_strdup", EXIT_FAILURE);
+		new = ft_lstnew(content);
+		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
+		ft_lstadd_back(&entry_lst, new);
+	}
 	char **expanded_arr;
 	int	expanded_arr_size;
 	int	i;
@@ -76,24 +86,11 @@ int	expand_asterisk(char ***cmd_arg)
 		// TODO: transfer str(s) before *
 		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
 		{
-		// * store all dir entries in linked list
-			while ((entry = readdir(dir)) != NULL)
-			{
-				if (entry->d_name[0] == '.')
-					continue ;
-				content = ft_strdup(entry->d_name);
-				if_null_perror_n_exit(content, "ft_strdup", EXIT_FAILURE);
-				new = ft_lstnew(content);
-				if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
-				ft_lstadd_back(&entry_lst, new);
-			}
-			
 		// *replace_asterisk_with_entry_lst();
 			// remalloc
 			expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(entry_lst);
 			expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
 			if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
-
 			j = -1;
 			// transfer str(s) before *
 			while (++j < i)
@@ -102,18 +99,20 @@ int	expand_asterisk(char ***cmd_arg)
 			lst = entry_lst;
 			while (lst)
 			{
-				expanded_arr[j++] = (char *)lst->content;
+				copy_str_to_arr(expanded_arr, j++, lst->content);
 				lst = lst->next;
 			}
-			while ((*cmd_arg)[++i])
-				copy_str_to_arr(expanded_arr, j++, (*cmd_arg)[i]);
+			i++;
+			while ((*cmd_arg)[i]) 
+				copy_str_to_arr(expanded_arr, j++, (*cmd_arg)[i++]);
+			i = j - (i - 1); // i represent index one before arg that was prev after '*'
 			free_str_arr(*cmd_arg);
 			*cmd_arg = expanded_arr;
 		}
 	}
-	// print_str_arr(*cmd_arg, "*cmd_arg"); // ! remove
+	free_list(entry_lst);
 	if (closedir(dir) == -1)
 		return (perror_and_return("closedir", EXIT_FAILURE));
-	free_lst_without_freeing_content(entry_lst);
 	return (EXIT_SUCCESS);
+	
 }
