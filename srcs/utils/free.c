@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/06/27 09:31:38 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 14:25:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,26 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_lst_without_freeing_content(t_list *list)
+void	free_list_without_freeing_content(t_list *list)
 {
 	t_list	*next;
 
 	while (list != NULL)
 	{
 		next = list->next;
+		free(list);
+		list = next;
+	}
+}
+
+void	free_list(t_list *list)
+{
+	t_list	*next;
+
+	while (list != NULL)
+	{
+		next = list->next;
+		free(list->content);
 		free(list);
 		list = next;
 	}

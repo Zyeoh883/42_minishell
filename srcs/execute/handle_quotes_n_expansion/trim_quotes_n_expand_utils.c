@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/01 14:28:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 14:49:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst)
 {
 	int	expand;
 
-	print_tokens(token); // ! remove
 	while (token)
 	{
 		expand = ON;
