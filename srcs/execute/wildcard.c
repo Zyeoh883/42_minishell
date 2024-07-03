@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/03 16:00:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:16 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	expand_singular_asterisk(char ***cmd_arg)
 	char cwd[PATH_MAX];
 	struct dirent *entry;
 	DIR *dir;
-	t_list *entry_lst;
 	t_list *new;
 	char *content;
+	t_list *entry_lst;
 
 	entry_lst = NULL;
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
@@ -64,7 +64,7 @@ int	expand_singular_asterisk(char ***cmd_arg)
 	dir = opendir(cwd);
 	if (dir == NULL)
 		return (perror_and_return("opendir", EXIT_FAILURE));
-	// * store all dir entries in linked list
+	// // * store all dir entries in linked list
 	while ((entry = readdir(dir)) != NULL)
 	{
 		if (entry->d_name[0] == '.')
@@ -75,6 +75,11 @@ int	expand_singular_asterisk(char ***cmd_arg)
 		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
 		ft_lstadd_back(&entry_lst, new);
 	}
+	if (closedir(dir) == -1)
+		return (perror_and_return("closedir", EXIT_FAILURE));
+
+	// entry_lst = get_directory_entries(dir);
+	
 	char **expanded_arr;
 	int	expanded_arr_size;
 	int	i;
@@ -111,8 +116,6 @@ int	expand_singular_asterisk(char ***cmd_arg)
 		}
 	}
 	free_list(entry_lst);
-	if (closedir(dir) == -1)
-		return (perror_and_return("closedir", EXIT_FAILURE));
 	return (EXIT_SUCCESS);
 	
 }

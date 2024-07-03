@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/03 16:00:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 16:47:52 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void	build_pipes(t_pipe *pipe_node);
 
 // * WILDCARDS
 int expand_singular_asterisk(char ***cmd_arg);
+t_list *get_directory_entries();
 
 #endif
