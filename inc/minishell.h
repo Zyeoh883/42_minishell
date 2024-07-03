@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/28 10:34:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/02 14:02:04 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
-# include <linux/limits.h>
+#ifdef __linux__
+    #include <linux/limits.h>
+#endif
 # include <signal.h>
 
 # include "../libft/libft.h"

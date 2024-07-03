@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/01 15:29:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/03 10:15:57 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	expand_asterisk(char ***cmd_arg)
 	DIR *dir;
 	t_list *entry_lst;
 	t_list *new;
+	char *content;
 
 	entry_lst = NULL;
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
@@ -63,25 +64,7 @@ int	expand_asterisk(char ***cmd_arg)
 	dir = opendir(cwd);
 	if (dir == NULL)
 		return (perror_and_return("opendir", EXIT_FAILURE));
-	// store all dir entries in linked list
-	while ((entry = readdir(dir)) != NULL)
-	{
-		if (entry->d_name[0] == '.')
-			continue ;
-		new = ft_lstnew(entry->d_name);
-		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
-		ft_lstadd_back(&entry_lst, new);
-	}
-	// t_list *lst = entry_lst;
-	// while (lst)
-	// {
-	// 	printf("entry: %s\n", (char *)lst->content);
-	// 	lst = lst->next;
-	// }
-	// 	todo: replace "*" with str(s) in linked list
-	// * use -> copy_str_to_arr()
-
-	// replace_asterisk_with_entry_lst();
+		
 	char **expanded_arr;
 	int	expanded_arr_size;
 	int	i;
@@ -90,11 +73,22 @@ int	expand_asterisk(char ***cmd_arg)
 	i = -1;
 	while ((*cmd_arg)[++i])
 	{
-		// printf("outside_if\n");
 		// TODO: transfer str(s) before *
 		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
 		{
-			printf(GREEN"* detected"RESET"\n");
+		// * store all dir entries in linked list
+			while ((entry = readdir(dir)) != NULL)
+			{
+				if (entry->d_name[0] == '.')
+					continue ;
+				content = ft_strdup(entry->d_name);
+				if_null_perror_n_exit(content, "ft_strdup", EXIT_FAILURE);
+				new = ft_lstnew(content);
+				if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
+				ft_lstadd_back(&entry_lst, new);
+			}
+			
+		// *replace_asterisk_with_entry_lst();
 			// remalloc
 			expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(entry_lst);
 			expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
@@ -105,28 +99,21 @@ int	expand_asterisk(char ***cmd_arg)
 			while (++j < i)
 				copy_str_to_arr(expanded_arr, j, (*cmd_arg)[j]);
 			t_list *lst = entry_lst;
-			// while (lst)
-			// {
-			// 	printf("entry: %s\n", (char *)lst->content);
-			// 	lst = lst->next;
-			// }
 			lst = entry_lst;
 			while (lst)
 			{
 				expanded_arr[j++] = (char *)lst->content;
 				lst = lst->next;
 			}
-			printf("2nd arg: %s\n", expanded_arr[1]); // ! remove
-			print_str_arr(expanded_arr, "expanded_arr"); // ! remove
-			// TODO: transfer str(s) after *
-			free(*cmd_arg);
+			while ((*cmd_arg)[++i])
+				copy_str_to_arr(expanded_arr, j++, (*cmd_arg)[i]);
+			free_str_arr(*cmd_arg);
 			*cmd_arg = expanded_arr;
 		}
-
 	}
+	// print_str_arr(*cmd_arg, "*cmd_arg"); // ! remove
 	if (closedir(dir) == -1)
 		return (perror_and_return("closedir", EXIT_FAILURE));
-
 	free_lst_without_freeing_content(entry_lst);
 	return (EXIT_SUCCESS);
 }

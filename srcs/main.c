@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/27 16:00:22 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/02 15:10:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ int	test(int argc, char **argv, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	test(argc, argv, env);
-	system("leaks minishell");
-	system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
+    #if defined(__linux__)
+		system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
+    #elif defined(__APPLE__) && defined(__MACH__)
+		system("leaks minishell");
+	#endif
 	return (0);
 }
