@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/25 09:55:51 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/04 13:50:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define OPEN_PARENT 10
 # define CLOSED_PARENT 11
+# define QUOTED 12 // * added for wildcard tokenization
 
 typedef struct s_token
 {

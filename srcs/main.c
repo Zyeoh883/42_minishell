@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/07/02 15:10:50 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/04 11:06:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	test(int argc, char **argv, char **env)
 		// print_ast(shell_data.ast_root, 0);
 
 		execute_ast(shell_data.ast_root);
-		// print_tokens(shell_data.token_root);
 		// free_tokens(shell_data.token_root);
 
 		shell_data.token_root = NULL;
