@@ -6,15 +6,14 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/27 14:34:34 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/05 14:48:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // - update/add additional ft_splitted strings to original char **cmd_arg
-void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
-		int str_index)
+void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, int str_index)
 {
 	char	**splitted;
 	int		new_arr_size;
@@ -22,7 +21,6 @@ void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
 	int		i;
 	int		j;
 
-	(void)cmd_str;
 	splitted = ft_split((*cmd_arg)[str_index], ' ');
 	if_null_perror_n_exit(splitted, (*cmd_arg)[str_index], EXIT_FAILURE);
 	new_arr_size = arr_str_count(*cmd_arg) - 1 + arr_str_count(splitted);
