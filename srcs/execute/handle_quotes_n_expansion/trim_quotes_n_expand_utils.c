@@ -6,11 +6,18 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/04 16:48:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/05 16:45:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int is_str_quoted(char *str)
+{
+	if (str[0] == '\'' || str[0] == '\"')
+		return (true);
+	return (false);		
+}
 
 void	trim_quotes(char **str_add)
 {
@@ -21,25 +28,26 @@ void	trim_quotes(char **str_add)
 	*str_add = trimmed_str;
 }
 
-void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst)
+void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split)
 {
 	int	expand;
 	
 	while (token)
 	{
+		if (!is_str_quoted(token->value) && ft_strchr(token->value, '$'))
+			*do_ft_split = true;
 		expand = ON;
 		if (token->value[0] == '\'')
 			expand = OFF;
 		if (expand == ON && ft_strchr(token->value, '$') != NULL)
 			expand_str(&token->value, var_lst);
-		if (token->value[0] == '\'' || token->value[0] == '\"')
+		if (is_str_quoted(token->value))
 		{
 			trim_quotes(&token->value);
 			token->type = QUOTED;
 		}
 		token = token->next;
 	}
-	// expand_wildcards()    
 }
 
 char	*concatenate_all_str_in_token_lst(t_token *token)
@@ -63,20 +71,17 @@ char	*concatenate_all_str_in_token_lst(t_token *token)
 // 	free(token_root);
 // }
 
-// returns updated str_index -> after wildcard expansion
-int	trim_quotes_n_expand_str(char ***cmd_arg, int str_index, t_var *var_lst)
+// * new method
+void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split)
 {
 	t_token	*token_root;
 
-	token_root = tokenize_metacharacters((*cmd_arg)[str_index]);
+	token_root = tokenize_metacharacters(*str_add);
 	format_quotes(token_root);
-	trim_quotes_n_expand_for_all_tokens(token_root, var_lst);
-	free((*cmd_arg)[str_index]);
-	(*cmd_arg)[str_index] = concatenate_all_str_in_token_lst(token_root);
-	// ft_split_cmd_arg_after_expansion
-	// expand_asterisk(token_root, cmd_arg);
+	trim_quotes_n_expand_for_all_tokens(token_root, var_lst, do_ft_split);
+	free(*str_add);
+	*str_add = concatenate_all_str_in_token_lst(token_root);
 	free(token_root);
-	// return (updated_str_index);
 }
 
 void	remove_empty_arg(char ***cmd_arg, int index)

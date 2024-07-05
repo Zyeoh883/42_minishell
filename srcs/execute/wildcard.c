@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/04 10:21:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/05 14:55:53 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	expand_singular_asterisk(char ***cmd_arg)
 	int	i;
 	int	j;
 
+	print_str_arr(*cmd_arg, "cmd_arg in expand_singular_asterisk()"); // !remove
 	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	i = -1;
