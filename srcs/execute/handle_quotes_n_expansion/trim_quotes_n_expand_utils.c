@@ -73,6 +73,7 @@ int	trim_quotes_n_expand_str(char ***cmd_arg, int str_index, t_var *var_lst)
 	trim_quotes_n_expand_for_all_tokens(token_root, var_lst);
 	free((*cmd_arg)[str_index]);
 	(*cmd_arg)[str_index] = concatenate_all_str_in_token_lst(token_root);
+	// ft_split_cmd_arg_after_expansion
 	// expand_asterisk(token_root, cmd_arg);
 	free(token_root);
 	// return (updated_str_index);

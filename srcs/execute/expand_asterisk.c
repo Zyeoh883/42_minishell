@@ -56,25 +56,25 @@ int get_directory_entries(t_list **entry_lst)
 	
 // }
 
-int expand_asterisk(t_token *token, char ***cmd_arg)
-{
-	t_list *entry_lst;
-	int i;
+// int expand_asterisk(t_token *token, char ***cmd_arg)
+// {
+// 	t_list *entry_lst;
+// 	int i;
 
-	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+// 	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
+// 		return (EXIT_FAILURE);
 
-	i = -1;
-	while ((*cmd_arg)[++i])
-	{
-		// TODO: transfer str(s) before *
-		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
-		{
-		// * store all dir entries in linked list
+// 	i = -1;
+// 	while ((*cmd_arg)[++i])
+// 	{
+// 		// TODO: transfer str(s) before *
+// 		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
+// 		{
+// 		// * store all dir entries in linked list
 
-		}
-	}
+// 		}
+// 	}
 
-	free_list(entry_lst);
-	return (EXIT_SUCCESS);	
-}
+// 	free_list(entry_lst);
+// 	return (EXIT_SUCCESS);	
+// }

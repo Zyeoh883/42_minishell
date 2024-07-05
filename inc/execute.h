@@ -37,7 +37,8 @@ int		waitpid_n_get_exit_status(pid_t pid);
 // HANDLE Quotes & Env_Expansion
 void	trim_quotes_n_expand_cmd_arg(char ***cmd_arg, t_var *var_lst);
 int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
-void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
+// void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
+int		trim_quotes_n_expand_str(char ***cmd_arg, int str_index, t_var *var_lst);
 void	trim_quotes(char **str_add);
 void	expand_str(char **str, t_var *var_lst);
 void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
@@ -79,5 +80,4 @@ void	build_pipes(t_pipe *pipe_node);
 // * WILDCARDS
 int expand_singular_asterisk(char ***cmd_arg);
 int get_directory_entries(t_list **entry_lst);
-
 #endif
