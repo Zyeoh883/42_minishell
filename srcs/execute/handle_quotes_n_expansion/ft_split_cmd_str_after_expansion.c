@@ -22,8 +22,9 @@ void	ft_split_cmd_arg_after_expansion(char ***cmd_arg, char *cmd_str,
 	int		i;
 	int		j;
 
-	splitted = ft_split(cmd_str, ' ');
-	if_null_perror_n_exit(splitted, cmd_str, EXIT_FAILURE);
+	(void)cmd_str;
+	splitted = ft_split((*cmd_arg)[str_index], ' ');
+	if_null_perror_n_exit(splitted, (*cmd_arg)[str_index], EXIT_FAILURE);
 	new_arr_size = arr_str_count(*cmd_arg) - 1 + arr_str_count(splitted);
 	new_arr = (char **)ft_calloc(new_arr_size + 1, sizeof(char *));
 	if_null_perror_n_exit(new_arr, "ft_calloc", EXIT_FAILURE);

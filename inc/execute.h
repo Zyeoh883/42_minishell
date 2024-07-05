@@ -35,7 +35,8 @@ int		execute_simple_cmd(t_simple_command *sc);
 int		waitpid_n_get_exit_status(pid_t pid);
 
 // HANDLE Quotes & Env_Expansion
-void	trim_quotes_n_expand_cmd_arg(char ***cmd_arg, t_var *var_lst);
+// void	trim_quotes_n_expand_cmd_arg(char ***cmd_arg, t_var *var_lst);
+void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
 int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
 // void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
 int		trim_quotes_n_expand_str(char ***cmd_arg, int str_index, t_var *var_lst);

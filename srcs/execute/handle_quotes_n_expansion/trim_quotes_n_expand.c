@@ -12,20 +12,21 @@
 
 #include "minishell.h"
 
-void	trim_quotes_n_expand_cmd_arg(char ***cmd_arg, t_var *var_lst)
+void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 {
 	int	i;
 
 	i = -1;
-	if (!cmd_arg || !(*cmd_arg))
+	if (!sc->cmd_arg)
 		return ;
-	while ((*cmd_arg)[++i])
+	while ((sc->cmd_arg)[++i])
 	{
-		trim_quotes_n_expand_str(&((*cmd_arg)[i]), var_lst);
-		if ((*cmd_arg)[i][0] != '\0')
-			ft_split_cmd_arg_after_expansion(cmd_arg, (*cmd_arg)[i], i);
+		// trim_quotes_n_expand_str(&((*cmd_arg)[i]), var_lst);
+		trim_quotes_n_expand_str(&sc->cmd_arg, i, sc->var_lst);
+		if ((sc->cmd_arg)[i][0] != '\0')
+			ft_split_cmd_arg_after_expansion(&sc->cmd_arg, (sc->cmd_arg)[i], i);
 		else
-			remove_empty_arg(cmd_arg, i--);
+			remove_empty_arg(&sc->cmd_arg, i--);
 	}
 }
 /*
