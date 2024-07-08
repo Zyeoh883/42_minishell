@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/05 16:45:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:11:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int is_str_quoted(char *str)
 {
 	if (str[0] == '\'' || str[0] == '\"')
 		return (true);
-	return (false);		
+	return (false);
 }
 
 void	trim_quotes(char **str_add)
@@ -31,7 +31,7 @@ void	trim_quotes(char **str_add)
 void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split)
 {
 	int	expand;
-	
+
 	while (token)
 	{
 		if (!is_str_quoted(token->value) && ft_strchr(token->value, '$'))
@@ -52,36 +52,33 @@ void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do
 
 char	*concatenate_all_str_in_token_lst(t_token *token)
 {
+	char	*combined_str;
+
 	while (token && token->next)
 		token_combine_wnext(token);
-	return (token->value);
+	combined_str = ft_strdup(token->value);
+	if_null_perror_n_exit(combined_str, "ft_strdup", EXIT_FAILURE);
+	return (combined_str);
 }
 
-// void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst)
+// void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split)
 // {
 // 	t_token	*token_root;
 
 // 	token_root = tokenize_metacharacters(*str_add);
-// 	// print_tokens(token_root); // ! remove
 // 	format_quotes(token_root);
-// 	// print_tokens(token_root); // ! remove
-// 	trim_quotes_n_expand_for_all_tokens(token_root, var_lst);
+// 	trim_quotes_n_expand_for_all_tokens(token_root, var_lst, do_ft_split);
 // 	free(*str_add);
 // 	*str_add = concatenate_all_str_in_token_lst(token_root);
 // 	free(token_root);
 // }
 
 // * new method
-void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split)
+void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, t_token *token, int *do_ft_split)
 {
-	t_token	*token_root;
-
-	token_root = tokenize_metacharacters(*str_add);
-	format_quotes(token_root);
-	trim_quotes_n_expand_for_all_tokens(token_root, var_lst, do_ft_split);
+	trim_quotes_n_expand_for_all_tokens(token, var_lst, do_ft_split);
 	free(*str_add);
-	*str_add = concatenate_all_str_in_token_lst(token_root);
-	free(token_root);
+	*str_add = concatenate_all_str_in_token_lst(token);
 }
 
 void	remove_empty_arg(char ***cmd_arg, int index)

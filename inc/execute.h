@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/05 16:47:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/08 13:39:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int		waitpid_n_get_exit_status(pid_t pid);
 void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
 int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
 // void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
-void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split);
+// void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split);
+void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, t_token *token, int *do_ft_split);
 
 void	trim_quotes(char **str_add);
 void	expand_str(char **str, t_var *var_lst);
