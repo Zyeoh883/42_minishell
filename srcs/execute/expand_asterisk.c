@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/08 13:50:03 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/08 16:12:50 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,50 @@ int get_directory_entries(t_list **entry_lst)
 	if (closedir(dir) == -1)
 		return (perror_and_return("closedir", EXIT_FAILURE));
 	return (EXIT_SUCCESS);
+}
+
+/*
+TODO:
+- Iterate through each str
+	if type==QUOTED -> skip
+	else
+		while (str[i])
+			if (str[i] == '*')
+				while(str[i] == '*')
+					j++;
+				token = str_to_token(str, str[j] - str[i]);
+			else
+				while(str[i] != '*')
+					j++;
+				token = str_to_token(str, str[j] - str[i]);
+		token_add_back()
+*/
+t_token *tokenize_asterisks(t_token *token) // ? pass in double pointer?
+{
+	char *str;
+	char *start;
+	t_token	*new;
+
+	while (token)
+	{
+		if (token->type == 	QUOTED)
+			continue ;
+		str = token->value;
+		while (*str)
+		{
+			start = str;
+			if (*str == '*')
+				while (*str && *str == '*')
+					str++;
+			else
+				while (*str && *str != '*')
+					str++;
+			new = str_to_token(start, str - start);
+			// TODO: insert token in middle
+
+		}
+		token = token->next;
+	}
 }
 
 // void expand_wildcard_to_all_entries()
@@ -80,6 +124,8 @@ int get_directory_entries(t_list **entry_lst)
 // }
 
 
+
+
 // int does_entry_match_wildcard()
 // {
 // 	int flag;
@@ -116,26 +162,31 @@ int get_directory_entries(t_list **entry_lst)
 // 	return (flag);
 // }
 
-// int expand_asterisk() // "logic somewhat done"
-// {
-// 	t_list *entry_lst;
 
-// 	// store dir_entries in linked list()
-// 	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
-// 		return (EXIT_FAILURE);
 
-// 	// tokenize wilcard_str n store in linked list()
+int expand_asterisk(char ***cmd_arg, t_token *token, int *index) // "logic somewhat done"
+{
+	t_list	*entry_lst;
+	t_list *entry;
 
-// 	if (is_wildcard_tokens_all_asterisk())
-// 	// ^handle case where wildcard_token only has "*"
-// 		expand_wildcard_to_all_entries();
-// 		return ;
+	// store dir_entries in linked list()
+	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 
-// 	while (entry_lst) // loop through to find which entry matches wildcard
-// 	{
-// 		if (does_entry_match_wildcard_str(entry->content, wildcard_token_lst) == YES)
-// 			// lst_add_expanded() ??
-// 	}
+	// TODO: 2nd round tokenizing -> separate out '*'
 
-// 	// replace all node->str in lst_expanded with wilcard str()
-// }
+	// TODO:
+	if (is_wildcard_tokens_all_asterisk())
+	// ^handle case where wildcard_token only has "*"
+		expand_wildcard_to_all_entries();
+		return ;
+
+	entry = entry_lst;
+	while (entry) // loop through to find which entry matches wildcard
+	{
+		if (does_entry_match_wildcard_str(entry->content, wildcard_token_lst) == true)
+			// lst_add_expanded() ??
+	}
+
+	// TODO: replace all node->str in lst_expanded with wilcard str()
+}

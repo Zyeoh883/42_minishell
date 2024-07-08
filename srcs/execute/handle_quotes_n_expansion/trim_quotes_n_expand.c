@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/08 13:56:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:27:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 			remove_empty_arg(&sc->cmd_arg, i--);
 		else if (do_ft_split == true)
 			ft_split_cmd_arg_after_expansion(&sc->cmd_arg, i);
-		// TODO: expand_asterisk()?
+		// TODO: expand_asterisk(sc->cmd_arg, token)?
 			// [] free
 
 		// TODO: increment/shift 'i' after '*'expansion
