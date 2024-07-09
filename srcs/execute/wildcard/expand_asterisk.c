@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/09 10:10:46 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 10:22:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ void	tokenize_asterisks(t_token **token_root)
 	token = *token_root;
 	while (token)
 	{
-		if (token->type == 	QUOTED)
+		if (token->type == QUOTED)
+		{
+			token = token->next; 
 			continue ;
+		}
 		str = token->value;
 		expanded_lst = NULL;
 		while (*str)

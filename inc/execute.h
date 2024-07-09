@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/09 09:57:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 10:55:54 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
 // void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst);
 // void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split);
 void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, t_token *token, int *do_ft_split);
+void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split);
+char	*concatenate_all_str_in_token_lst(t_token *token);
 
 void	trim_quotes(char **str_add);
 void	expand_str(char **str, t_var *var_lst);
