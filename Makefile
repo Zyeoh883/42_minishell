@@ -42,8 +42,6 @@ SRCS_FIL = \
 			execute/execute_execve.c \
 			execute/exit_status.c \
 			execute/execute_utils.c \
-			execute/wildcard.c \
-			execute/expand_asterisk.c \
 				\
 				execute/builtins/execute_builtins.c \
 				execute/builtins/execute_export.c \
@@ -57,6 +55,9 @@ SRCS_FIL = \
 				execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
 				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
 				execute/handle_quotes_n_expansion/expand_str.c \
+				\
+				execute/wildcard/wildcard.c \
+				execute/wildcard/expand_asterisk.c \
 			\
 			utils/free.c \
 			utils/utils1.c \

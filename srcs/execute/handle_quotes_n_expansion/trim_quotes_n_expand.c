@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/08 14:27:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 09:57:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 			ft_split_cmd_arg_after_expansion(&sc->cmd_arg, i);
 		// TODO: expand_asterisk(sc->cmd_arg, token)?
 			// [] free
-
+		expand_asterisk(&sc->cmd_arg, &token, &i);
 		// TODO: increment/shift 'i' after '*'expansion
+		
 		free_tokens(token);
 	}
 }

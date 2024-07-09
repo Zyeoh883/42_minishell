@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/08 13:39:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 09:57:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,6 @@ void	build_pipes(t_pipe *pipe_node);
 // * WILDCARDS
 int expand_singular_asterisk(char ***cmd_arg);
 int get_directory_entries(t_list **entry_lst);
+int expand_asterisk(char ***cmd_arg, t_token **token, int *index); // "logic somewhat done"
+
 #endif
