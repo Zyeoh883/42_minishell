@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/08 10:14:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 15:26:35 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	expand_singular_asterisk(char ***cmd_arg)
 	int	expanded_arr_size;
 	int	i;
 	int	j;
+	int asterisk_index;
 
-	// print_str_arr(*cmd_arg, "cmd_arg in expand_singular_asterisk()"); // !remove
 	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	i = -1;
 	while ((*cmd_arg)[++i])
 	{
-		// TODO: transfer str(s) before *
+		asterisk_index = i;
 		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
 		{
 		// *replace_asterisk_with_entry_lst();
@@ -49,7 +49,10 @@ int	expand_singular_asterisk(char ***cmd_arg)
 			i++;
 			while ((*cmd_arg)[i])
 				copy_str_to_arr(expanded_arr, j++, (*cmd_arg)[i++]);
-			i = j - (i - 1); // i represent index one before arg that was prev after '*'
+			printf("i: %i | j: %i\n", i, j); // ! remove
+			// i = j - (i - 1); // i represent index of arg one before arg that was prev after '*'
+			i = asterisk_index + ft_lstsize(entry_lst) - 1;
+			printf("final i: %i\n", i); // ! remove
 			free_str_arr(*cmd_arg);
 			*cmd_arg = expanded_arr;
 		}
