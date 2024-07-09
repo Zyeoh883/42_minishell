@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/09 10:22:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 16:21:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,10 +174,10 @@ int expand_asterisk(char ***cmd_arg, t_token **token, int *index) // "logic some
 		return (EXIT_FAILURE);
 
 	// TODO: 2nd round tokenizing -> separate out '*'
-	print_tokens(*token);
-	printf(GREEN"---------"RESET"\n");
+	// print_tokens(*token);
+	printf(GREEN"----expand_*-----"RESET"\n");
 	tokenize_asterisks(token);
-	print_tokens(*token);
+	print_tokens(*token); // ! remove
 
 	// TODO:
 	// if (is_wildcard_tokens_all_asterisk())
