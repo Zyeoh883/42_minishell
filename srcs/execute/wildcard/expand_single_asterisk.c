@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard.c                                         :+:      :+:    :+:   */
+/*   expand_single_asterisk.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:09:17 by sting             #+#    #+#             */
-/*   Updated: 2024/07/09 15:26:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/09 15:33:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <xmmintrin.h>
 
-int	expand_singular_asterisk(char ***cmd_arg)
+int	expand_single_asterisk(char ***cmd_arg)
 {
 	t_list *entry_lst;
 	char **expanded_arr;
