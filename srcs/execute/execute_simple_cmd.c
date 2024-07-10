@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:15:58 by sting             #+#    #+#             */
-/*   Updated: 2024/07/09 15:33:28 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/10 14:19:11 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	execute_simple_cmd(t_simple_command *sc)
 
 	ret = EXIT_SUCCESS;
 	trim_quotes_n_expand_cmd_arg(sc);
-	print_str_arr(sc->cmd_arg, "cmd_arg after trim_quotes...."); // ! remove
+	// print_str_arr(sc->cmd_arg, "cmd_arg after trim_quotes...."); // ! remove
 	ret = trim_quotes_n_expand_filename(sc->redir, sc->var_lst);
 	if (ret == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (expand_single_asterisk(&sc->cmd_arg) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	// if (expand_single_asterisk(&sc->cmd_arg) == EXIT_FAILURE)
+	// 	return (EXIT_FAILURE);
 	ret = open_redir_fds(sc->redir, sc->fd, sc->var_lst);
 	if (ret == EXIT_FAILURE)
 		return (EXIT_FAILURE);
