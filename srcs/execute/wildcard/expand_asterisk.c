@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/11 15:51:06 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/11 16:20:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 	format_quotes(token_root);
 
 	// TODO: 2nd round tokenizing -> separate out '*'
-	print_tokens(token_root);
+	// print_tokens(token_root);
 	tokenize_asterisks(&token_root);
 	printf(GREEN "----tokenize_*-----" RESET "\n");
 	print_tokens(token_root); // ! remove
@@ -208,8 +208,8 @@ int expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 
 	free((*cmd_arg)[index]);
 	(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
-	printf(GREEN "----after combine_*-----" RESET "\n");
-	print_tokens(token_root);
+	// printf(GREEN "----after combine_*-----" RESET "\n");
+	// print_tokens(token_root);
 	free_tokens(token_root);
 	return (EXIT_SUCCESS); // TMP
 }
