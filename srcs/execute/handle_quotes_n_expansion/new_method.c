@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:31:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/10 14:55:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/11 09:19:17 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void expand_var(char **str_add, t_var *var_lst, int *do_ft_split)
 	free_tokens(token_root);
 }
 
-// TODO: change name so that this func is just trim_quotes()
 void	trim_quotes_for_all_tokens(t_token *token)
 {
 	char	*trimmed_str;
