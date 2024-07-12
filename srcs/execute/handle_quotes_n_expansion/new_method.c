@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:31:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/11 09:19:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 10:57:09 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void expand_var(char **str_add, t_var *var_lst, int *do_ft_split)
 	free_tokens(token_root);
 }
 
+// labels token->type == QUOTED
 void	trim_quotes_for_all_tokens(t_token *token)
 {
 	char	*trimmed_str;
@@ -49,6 +50,7 @@ void	trim_quotes_for_all_tokens(t_token *token)
 	{
 		if (is_str_quoted(token->value))
 		{
+			token->type = QUOTED;
 			trimmed_str = ft_substr(token->value, 1, ft_strlen(token->value) - 2);
 			free(token->value);
 			token->value = trimmed_str;

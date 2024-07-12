@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/11 09:40:13 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 10:57:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 		// TODO: expand_asterisk()
 		expand_asterisk(&sc->cmd_arg, i);
 	}
-	i = -1;
-	while ((sc->cmd_arg)[++i])
-		trim_quotes(&sc->cmd_arg[i]);
 }
 
 // * former method

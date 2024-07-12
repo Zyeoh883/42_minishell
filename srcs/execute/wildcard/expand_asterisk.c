@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/11 16:20:46 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 10:54:19 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ int	get_directory_entries(t_list **entry_lst)
 	return (EXIT_SUCCESS);
 }
 
+void	combine_non_asterisk_tokens(t_token *token)
+{
+	while (token && token->next)
+	{
+		if ((token->type == QUOTED || token->value[0] != '*')
+			&& (token->next->type == QUOTED || (token->next)->value[0] != '*'))
+			token_combine_wnext(token);
+		else
+			token = token->next;
+	}
+}
+
 // returns next token for while loop
 t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
 		t_token *separated_lst)
@@ -68,12 +80,17 @@ void	tokenize_asterisks(t_token **token_root)
 	char	*str;
 	char	*start;
 	t_token	*cur;
+
 	t_token *separated_lst; // separate lst for expanded entries
-	
 	cur = *token_root;
 	while (cur)
 	{
-		if (is_str_quoted(cur->value))
+		// if (is_str_quoted(cur->value))
+		// {
+		// 	cur = cur->next;
+		// 	continue ;
+		// }
+		if (cur->type == QUOTED)
 		{
 			cur = cur->next;
 			continue ;
@@ -138,40 +155,41 @@ void	tokenize_asterisks(t_token **token_root)
 // 	int flag;
 
 // 	flag = YES;
-// 	// TODO: before everything, if 1st token is str,check if it matches exactly to t
-	// 	if (token->str[0] != '*')
-	// 		if (ft_strncmp(w_token->str, entry_str, strlen(w_token_str)) != 0)
-	// 			return (NO);
-	// 	entry_str += strlen(w_token_str):
-	// 	while (w_tokens) // w_tokens == wildcard_tokens
-	// 	{
-	// 		if (token->str[0] == '*' && token->type != QUOTED)
-	// 			continue ; // skip
-	// 		if (*entry_str == '\0')
-	// 		//if w_token->str is string(not *) but entry_str has iterated to \0
-	// 			flag = NO;
-	// 			break ;
-	// 		entry_str = strnstr(entry_str, w_token->str, strlen(token->str));
-	// 		if (entry_str == NULL) // str doesn't match
-	// 			flag = NO;
-	// 			break ;
+// 	// TODO: before everything,
+		// if 1st token is str,check if it matches exactly to t
+// 	if (token->str[0] != '*')
+// 		if (ft_strncmp(w_token->str, entry_str, strlen(w_token_str)) != 0)
+// 			return (NO);
+// 	entry_str += strlen(w_token_str):
+// 	while (w_tokens) // w_tokens == wildcard_tokens
+// 	{
+// 		if (token->str[0] == '*' && token->type != QUOTED)
+// 			continue ; // skip
+// 		if (*entry_str == '\0')
+// 		//if w_token->str is string(not *) but entry_str has iterated to \0
+// 			flag = NO;
+// 			break ;
+// 		entry_str = strnstr(entry_str, w_token->str, strlen(token->str));
+// 		if (entry_str == NULL) // str doesn't match
+// 			flag = NO;
+// 			break ;
 
-	// 		"TODO: shift ptr of entry_str by assigning to return ptr of strnstr"
-	// 		entry_str += ft_strlen(w_token->str);
+// 		"TODO: shift ptr of entry_str by assigning to return ptr of strnstr"
+// 		entry_str += ft_strlen(w_token->str);
 
-	// 		if (at last_W_node && entry_lst havent reach \0)
-	// 			flag = NO;
-	// 			break ;
+// 		if (at last_W_node && entry_lst havent reach \0)
+// 			flag = NO;
+// 			break ;
 
-	// 		w_tokens = w_tokens->next;
-	// 	}
+// 		w_tokens = w_tokens->next;
+// 	}
 
-	// 	return (flag);
+// 	return (flag);
 // }
 
 // int expand_asterisk(char ***cmd_arg, t_token **token, int *index)
 // "logic somewhat done"
-int expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
+int	expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 {
 	t_list *entry_lst;
 	// t_list *entry;
@@ -182,13 +200,13 @@ int expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 
 	token_root = tokenize_metacharacters((*cmd_arg)[index]);
 	format_quotes(token_root);
-
-	// TODO: 2nd round tokenizing -> separate out '*'
-	// print_tokens(token_root);
+	trim_quotes_for_all_tokens(token_root);
 	tokenize_asterisks(&token_root);
-	printf(GREEN "----tokenize_*-----" RESET "\n");
-	print_tokens(token_root); // ! remove
-
+	// printf(GREEN "----tokenize_*-----" RESET "\n"); // ! remove
+	// print_tokens(token_root);                       // ! remove
+	combine_non_asterisk_tokens(token_root);
+	// printf(GREEN "----combine_non_*_tokens-----" RESET "\n"); // ! remove
+	// print_tokens(token_root);                                 // ! remove
 	// TODO:
 	// if (is_wildcard_tokens_all_asterisk())
 	// // ^handle case where wildcard_token only has "*"
@@ -199,7 +217,7 @@ int expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 	// while (entry) // loop through to find which entry matches wildcard
 	// {
 	// 	if (does_entry_match_wildcard_str(entry->content,
-				// wildcard_token_lst) == true)
+	// wildcard_token_lst) == true)
 	// 		// lst_add_expanded() ??
 	// }
 
