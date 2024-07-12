@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_asterisk.c                                  :+:      :+:    :+:   */
+/*   trim_quotes_n_expand_asterisk.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 11:02:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 16:42:49 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,117 +117,116 @@ void	tokenize_asterisks(t_token **token_root)
 
 // }
 
-// int is_all_wildcard_tokens_asterisk()
-// {
+int does_valid_asterisk_exist(t_token *token)
+{
+	while (token)
+	{
+		if (token->value[0] == '*' && token->type != QUOTED)
+			return (true);
+		token = token->next;
+	}
+	return (false);
+}
 
-// }
+int does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
+{
+	// TODO: before everything, if 1st w_token is str,check if it matches exactly to 1st token
+	if (w_token->value[0] != '*' || w_token->type == QUOTED)
+	{
+		if (ft_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) != 0)
+		{
+			printf("%s: "MAGENTA"check"RESET"\n", w_token->value); // ! remove
+			printf(MAGENTA"entry_str: %s"RESET"\n", entry_str); // ! remove
+			return (false);
 
-// int does_entry_match_wildcard_str()
-// {
+		}
+	}
+	// entry_str += ft_strlen(w_token->value);
+	// w_token = w_token->next;
+	while (w_token)
+	{
+		if (w_token->value[0] == '*' && w_token->type != QUOTED)
+		{
+			w_token = w_token->next; // ! added
+			continue ; // skip
+		}
+		// printf(GREEN"check"RESET"\n"); // ! remove
+		//if w_token->value is string(not *) but entry_str has iterated to \0
+		if (*entry_str == '\0')
+		{
+			printf("*entry_str ==/0\n");
+			return (false);
+		}
+		entry_str = ft_strnstr(entry_str, w_token->value, ft_strlen(entry_str));
+		if (entry_str == NULL) // str doesn't match
+			return (false);	
+		entry_str += ft_strlen(w_token->value);
+		// if (at last_W_node && entry_lst havent reach \0)
+		if (w_token->next == NULL && *entry_str != '\0')
+		{
+			printf("w_token->next == NULL && *entry_str != \'\\0\'\n");
+			return (false);	
+		}
+		w_token = w_token->next;
 
-// }
-
-// int expand_asterisk(t_token *token, char ***cmd_arg)
-// {
-// 	t_list *entry_lst;
-// 	int i;
-
-// 	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
-// 		return (EXIT_FAILURE);
-
-// 	i = -1;
-// 	while ((*cmd_arg)[++i])
-// 	{
-// 		// TODO: transfer str(s) before *
-// 		if (ft_strcmp((*cmd_arg)[i], "*") == 0) // if arg -> "*"
-// 		{
-// 		// * store all dir entries in linked list
-
-// 		}
-// 	}
-
-// 	free_list(entry_lst);
-// 	return (EXIT_SUCCESS);
-// }
-
-// int does_entry_match_wildcard()
-// {
-// 	int flag;
-
-// 	flag = YES;
-// 	// TODO: before everything,
-		// if 1st token is str,check if it matches exactly to t
-// 	if (token->str[0] != '*')
-// 		if (ft_strncmp(w_token->str, entry_str, strlen(w_token_str)) != 0)
-// 			return (NO);
-// 	entry_str += strlen(w_token_str):
-// 	while (w_tokens) // w_tokens == wildcard_tokens
-// 	{
-// 		if (token->str[0] == '*' && token->type != QUOTED)
-// 			continue ; // skip
-// 		if (*entry_str == '\0')
-// 		//if w_token->str is string(not *) but entry_str has iterated to \0
-// 			flag = NO;
-// 			break ;
-// 		entry_str = strnstr(entry_str, w_token->str, strlen(token->str));
-// 		if (entry_str == NULL) // str doesn't match
-// 			flag = NO;
-// 			break ;
-
-// 		"TODO: shift ptr of entry_str by assigning to return ptr of strnstr"
-// 		entry_str += ft_strlen(w_token->str);
-
-// 		if (at last_W_node && entry_lst havent reach \0)
-// 			flag = NO;
-// 			break ;
-
-// 		w_tokens = w_tokens->next;
-// 	}
-
-// 	return (flag);
-// }
+	}
+	return (true);
+}
 
 // int expand_asterisk(char ***cmd_arg, t_token **token, int *index)
 // "logic somewhat done"
-int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
+int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index)
+		// "logic somewhat done"
 {
 	t_list *entry_lst;
-	// t_list *entry;
+	t_list *entry;
 	t_token *token_root;
-
-	if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	t_list	*expanded_lst;
+	t_list	*new;
 
 	token_root = tokenize_metacharacters((*cmd_arg)[index]);
 	format_quotes(token_root);
 	trim_quotes_for_all_tokens(token_root);
 	tokenize_asterisks(&token_root);
-	// printf(GREEN "----tokenize_*-----" RESET "\n"); // ! remove
-	// print_tokens(token_root);                       // ! remove
-	combine_non_asterisk_tokens(token_root);
-	// printf(GREEN "----combine_non_*_tokens-----" RESET "\n"); // ! remove
-	// print_tokens(token_root);                                 // ! remove
-	// TODO:
-	// if (is_wildcard_tokens_all_asterisk())
-	// // ^handle case where wildcard_token only has "*"
-	// 	expand_wildcard_to_all_entries();
-	// 	return ;
+	
+	// TODO: does_valid_wildcard_exist()
+	if (does_valid_asterisk_exist(token_root) == true)
+	{
+		// printf(GREEN "----tokenize_*-----" RESET "\n"); // ! remove
+		// print_tokens(token_root);                       // ! remove
+		combine_non_asterisk_tokens(token_root);
+		// printf(GREEN "----combine_non_*_tokens-----" RESET "\n"); // ! remove
+		// print_tokens(token_root);                                 // ! remove
+		if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		entry = entry_lst;
+		expanded_lst = NULL;
+		while (entry) // loop through to find which entry matches wildcard
+		{
+			if (does_entry_match_wildcard_str(entry->content,
+					token_root) == true)
+			{
+				new = ft_lstnew(entry->content);
+				if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);		
+				ft_lstadd_back(&expanded_lst, new);
+			}
+			entry = entry->next;
+		}
 
-	// entry = entry_lst;
-	// while (entry) // loop through to find which entry matches wildcard
-	// {
-	// 	if (does_entry_match_wildcard_str(entry->content,
-	// wildcard_token_lst) == true)
-	// 		// lst_add_expanded() ??
-	// }
+		// TODO: replace_arg_with_lst();
+		t_list *lst = expanded_lst; // ! remove
+		printf("====expanded_lst====\n");
+		while (lst) // ! remove
+		{
+			printf("%s\n", lst->content);
+			lst = lst->next;	
+		}
+		free_list_without_freeing_content(expanded_lst);
+		free_list(entry_lst);
 
-	// TODO: replace all node->str in lst_expanded with wilcard str()
-	free_list(entry_lst);
-
+	}	
 	free((*cmd_arg)[index]);
 	(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
-	// printf(GREEN "----after combine_*-----" RESET "\n");
-	// print_tokens(token_root);
 	free_tokens(token_root);
 	return (EXIT_SUCCESS); // TMP
 }

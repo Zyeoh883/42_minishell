@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:31:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 10:57:09 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:20:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	trim_quotes_for_all_tokens(t_token *token)
 	}
 }
 
-void trim_quotes(char **str_add)
-{
-	t_token	*token_root;
+// void trim_quotes(char **str_add)
+// {
+// 	t_token	*token_root;
 	
-	token_root = tokenize_metacharacters(*str_add);
-	format_quotes(token_root);
-	trim_quotes_for_all_tokens(token_root);
-	free(*str_add);
-	*str_add = concatenate_all_str_in_token_lst(token_root);
-	free_tokens(token_root);
-}
+// 	token_root = tokenize_metacharacters(*str_add);
+// 	format_quotes(token_root);
+// 	trim_quotes_for_all_tokens(token_root);
+// 	free(*str_add);
+// 	*str_add = concatenate_all_str_in_token_lst(token_root);
+// 	free_tokens(token_root);
+// }
