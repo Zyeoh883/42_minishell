@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/11 09:36:20 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:02:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	build_pipes(t_pipe *pipe_node);
 int expand_single_asterisk(char ***cmd_arg);
 int get_directory_entries(t_list **entry_lst);
 // int expand_asterisk(char ***cmd_arg, t_token **token, int *index); // "logic somewhat done"
-int expand_asterisk(char ***cmd_arg, int index); // "logic somewhat done"
+int trim_quotes_n_expand_asterisk(char ***cmd_arg, int index); // "logic somewhat done"
 
 
 #endif

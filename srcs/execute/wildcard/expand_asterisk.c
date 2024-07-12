@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 10:54:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:02:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	tokenize_asterisks(t_token **token_root)
 
 // int expand_asterisk(char ***cmd_arg, t_token **token, int *index)
 // "logic somewhat done"
-int	expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
+int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index) // "logic somewhat done"
 {
 	t_list *entry_lst;
 	// t_list *entry;
