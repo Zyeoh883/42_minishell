@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/15 11:25:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 16:34:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,11 @@ void	tokenize_asterisks(t_token **token_root)
 	char	*str;
 	char	*start;
 	t_token	*cur;
-
-	t_token *separated_lst; // separate lst for expanded entries
+	t_token *separated_lst;
+	
 	cur = *token_root;
 	while (cur)
 	{
-		// if (is_str_quoted(cur->value))
-		// {
-		// 	cur = cur->next;
-		// 	continue ;
-		// }
 		if (cur->type == QUOTED)
 		{
 			cur = cur->next;
@@ -111,11 +106,6 @@ void	tokenize_asterisks(t_token **token_root)
 		cur = replace_token_with_separated_lst(token_root, cur, separated_lst);
 	}
 }
-
-// void expand_wildcard_to_all_entries()
-// {
-
-// }
 
 bool does_valid_asterisk_exist(t_token *token)
 {
@@ -180,29 +170,50 @@ bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
 	return (true);
 }
 
-// int expand_asterisk(char ***cmd_arg, t_token **token, int *index)
-// "logic somewhat done"
+void replace_arg_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst)
+{
+	char **expanded_arr;
+	int	expanded_arr_size;
+	int	i;
+	int	j;
+	
+	expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(expanded_lst);
+	expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
+	if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
+
+	i = -1;
+	while (++i < index)
+		copy_str_to_arr(expanded_arr, i, (*cmd_arg)[i]);
+	while (expanded_lst)
+	{
+		copy_str_to_arr(expanded_arr, i++, expanded_lst->content);
+		expanded_lst = expanded_lst->next;
+	}
+	j = index + 1;
+	while ((*cmd_arg)[j])
+		copy_str_to_arr(expanded_arr, i++, (*cmd_arg)[j++]);
+	free_str_arr(*cmd_arg);
+	*cmd_arg = expanded_arr;
+}
+
+// returns new_index after expanding wildcard
 int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index)
-		// "logic somewhat done"
 {
 	t_list *entry_lst;
 	t_list *entry;
 	t_token *token_root;
 	t_list	*expanded_lst;
 	t_list	*new;
+	int new_index;
 
+	new_index = index;
 	token_root = tokenize_metacharacters((*cmd_arg)[index]);
 	format_quotes(token_root);
 	trim_quotes_for_all_tokens(token_root);
 	tokenize_asterisks(&token_root);
-	
 	if (does_valid_asterisk_exist(token_root) == true)
 	{
-		// printf(GREEN "----tokenize_*-----" RESET "\n"); // ! remove
-		// print_tokens(token_root);                       // ! remove
-		combine_non_asterisk_tokens(token_root);
-		// printf(GREEN "----combine_non_*_tokens-----" RESET "\n"); // ! remove
-		// print_tokens(token_root);                                 // ! remove
+		combine_non_asterisk_tokens(token_root);                             // ! remove
 		if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		entry = entry_lst;
@@ -218,20 +229,31 @@ int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index)
 			}
 			entry = entry->next;
 		}
-
-		// TODO: replace_arg_with_lst();
-		t_list *lst = expanded_lst; // ! remove
-		printf("====expanded_lst====\n");
-		while (lst) // ! remove
+		if (ft_lstsize(expanded_lst) != 0)
 		{
-			printf("%s\n", lst->content);
-			lst = lst->next;	
+			replace_arg_with_expanded_lst(cmd_arg, index, expanded_lst);
+			new_index = index - 1 + ft_lstsize(expanded_lst); // added
 		}
-		free_list_without_freeing_content(expanded_lst);
+		else // added
+		{
+			free((*cmd_arg)[index]);
+			(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
+		}
+		free_list_without_freeing_content(expanded_lst); // ! not nice
 		free_list(entry_lst);
-	}	
+		free_tokens(token_root); // added
+		return (new_index); // added
+	}
 	free((*cmd_arg)[index]);
 	(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
 	free_tokens(token_root);
-	return (EXIT_SUCCESS); // TMP
+	return (new_index);
 }
+
+		// t_list *lst = expanded_lst; // ! remove
+		// printf("====expanded_lst====\n");
+		// while (lst) // ! remove
+		// {
+		// 	printf("%s\n", lst->content);
+		// 	lst = lst->next;	
+		// }
