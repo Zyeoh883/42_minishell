@@ -6,13 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/10 14:55:50 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 09:36:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_str_quoted(char *str)
+bool is_str_quoted(char *str)
 {
 	if (str[0] == '\'' || str[0] == '\"')
 		return (true);

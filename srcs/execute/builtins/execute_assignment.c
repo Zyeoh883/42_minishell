@@ -6,13 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
-/*   Updated: 2024/06/27 14:34:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 09:37:08 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_assignment(char *cmd_arg)
+bool	is_assignment(char *cmd_arg)
 {
 	if (ft_strchr(cmd_arg, '=') != NULL)
 		if (is_var_name_valid(cmd_arg))

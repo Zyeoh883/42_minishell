@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:07:33 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 16:34:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 09:37:31 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_chars_until_equal_sign(char *str)
 }
 
 // iterates through str till '=' is reached
-int	is_var_name_valid(char *var_name)
+bool	is_var_name_valid(char *var_name)
 {
 	int	j;
 
