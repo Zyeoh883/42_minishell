@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/15 14:39:00 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 16:40:42 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	minishell_input(t_data	*shell_data) // TODO function too long
 {
 	char	*input;
 
-	input = readline(ORANGE"minishell$ "RESET);
+	input = readline("minishell$ ");
 	if (!input)
 		return (-1);
 	if (g_signal == SIGINT || ft_strlen(input) == 0)
