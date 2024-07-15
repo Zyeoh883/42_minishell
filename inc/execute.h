@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 11:02:32 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 09:36:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split);
 void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split);
 char	*concatenate_all_str_in_token_lst(t_token *token);
 // utils
-int is_str_quoted(char *str);
+bool is_str_quoted(char *str);
 void	trim_quotes(char **str_add);
 // ? New Method
 void expand_var(char **str_add, t_var *var_lst, int *do_ft_split);
@@ -69,13 +69,13 @@ int		execute_echo(t_simple_command *sc);
 void	update_or_add_variable(t_simple_command *sc, int index, int equal_index,
 			t_builtin_type type);
 int		execute_assignment(t_simple_command *sc);
-int		is_assignment(char *cmd_arg);
+bool		is_assignment(char *cmd_arg);
 void	remove_assignments_if_cmd_present(char ***cmd_arg);
 int		execute_and_or(t_and_or *and_or);
 
 // Builtin utils
 int		count_chars_until_equal_sign(char *str);
-int		is_var_name_valid(char *var_name);
+bool	is_var_name_valid(char *var_name);
 int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 
 // * PIPES

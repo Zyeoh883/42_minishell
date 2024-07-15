@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 16:42:49 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/15 11:25:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	tokenize_asterisks(t_token **token_root)
 
 // }
 
-int does_valid_asterisk_exist(t_token *token)
+bool does_valid_asterisk_exist(t_token *token)
 {
 	while (token)
 	{
@@ -128,48 +128,55 @@ int does_valid_asterisk_exist(t_token *token)
 	return (false);
 }
 
-int does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
+int	rev_strncmp(const char *s1, const char *s2, size_t n)
 {
-	// TODO: before everything, if 1st w_token is str,check if it matches exactly to 1st token
+	int i;
+	int j;
+
+	if (!n)
+		return (0);
+	i = ft_strlen(s1) - 1;
+	j = ft_strlen(s2) - 1;
+	while (i >= 0 && j >= 0 && s1[i] == s2[j] && --n > 0)
+	{
+		i--;
+		j--;
+	}
+	return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
+}
+
+bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
+{
+	// before everything, if 1st w_token is str,check if it matches exactly to 1st token
 	if (w_token->value[0] != '*' || w_token->type == QUOTED)
 	{
-		if (ft_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) != 0)
+		if (ft_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) == 0)
 		{
-			printf("%s: "MAGENTA"check"RESET"\n", w_token->value); // ! remove
-			printf(MAGENTA"entry_str: %s"RESET"\n", entry_str); // ! remove
-			return (false);
-
+			entry_str += ft_strlen(w_token->value);
+			w_token = w_token->next;
 		}
+		else 
+			return (false);
 	}
-	// entry_str += ft_strlen(w_token->value);
-	// w_token = w_token->next;
-	while (w_token)
+	while (w_token && w_token->next)
 	{
 		if (w_token->value[0] == '*' && w_token->type != QUOTED)
 		{
 			w_token = w_token->next; // ! added
 			continue ; // skip
 		}
-		// printf(GREEN"check"RESET"\n"); // ! remove
 		//if w_token->value is string(not *) but entry_str has iterated to \0
 		if (*entry_str == '\0')
-		{
-			printf("*entry_str ==/0\n");
 			return (false);
-		}
 		entry_str = ft_strnstr(entry_str, w_token->value, ft_strlen(entry_str));
 		if (entry_str == NULL) // str doesn't match
 			return (false);	
 		entry_str += ft_strlen(w_token->value);
-		// if (at last_W_node && entry_lst havent reach \0)
-		if (w_token->next == NULL && *entry_str != '\0')
-		{
-			printf("w_token->next == NULL && *entry_str != \'\\0\'\n");
-			return (false);	
-		}
 		w_token = w_token->next;
-
 	}
+	if (w_token && (w_token->value[0] != '*' || w_token->type == QUOTED))
+		if (rev_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) != 0)
+			return (false);
 	return (true);
 }
 
@@ -189,7 +196,6 @@ int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index)
 	trim_quotes_for_all_tokens(token_root);
 	tokenize_asterisks(&token_root);
 	
-	// TODO: does_valid_wildcard_exist()
 	if (does_valid_asterisk_exist(token_root) == true)
 	{
 		// printf(GREEN "----tokenize_*-----" RESET "\n"); // ! remove
@@ -223,7 +229,6 @@ int	trim_quotes_n_expand_asterisk(char ***cmd_arg, int index)
 		}
 		free_list_without_freeing_content(expanded_lst);
 		free_list(entry_lst);
-
 	}	
 	free((*cmd_arg)[index]);
 	(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
