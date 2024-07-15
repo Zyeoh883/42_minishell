@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 16:04:23 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/07/15 14:39:00 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	minishell_input(t_data	*shell_data) // TODO function too long
 {
 	char	*input;
 
-	input = readline("minishell$ ");
+	input = readline(ORANGE"minishell$ "RESET);
 	if (!input)
 		return (-1);
 	if (g_signal == SIGINT || ft_strlen(input) == 0)
