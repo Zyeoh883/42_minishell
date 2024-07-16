@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/15 09:36:20 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 09:54:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,23 @@ void	build_pipes(t_pipe *pipe_node);
 
 // * WILDCARDS
 int expand_single_asterisk(char ***cmd_arg);
+int trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index); // "logic somewhat done"
+// utils
 int get_directory_entries(t_list **entry_lst);
-// int expand_asterisk(char ***cmd_arg, t_token **token, int *index); // "logic somewhat done"
-int trim_quotes_n_expand_asterisk(char ***cmd_arg, int index); // "logic somewhat done"
+void	combine_non_asterisk_tokens(t_token *token);
+t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
+		t_token *separated_lst);
+void	tokenize_asterisks(t_token **token_root);
+bool does_valid_asterisk_exist(t_token *token);
+int	rev_strncmp(const char *s1, const char *s2, size_t n);
+bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token);
+void replace_arg_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst);
+void replace_redir_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst);
+
+
+
+
+
 
 
 #endif
