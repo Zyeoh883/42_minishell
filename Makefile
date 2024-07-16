@@ -59,7 +59,7 @@ SRCS_FIL = \
 				\
 				execute/wildcard/expand_single_asterisk.c \
 				execute/wildcard/trim_quotes_n_expand_asterisk.c \
-				execute/wildcard/trim_quotes_n_expand_asterisk_utils.c \
+				execute/wildcard/expand_asterisk_utils.c \
 				execute/wildcard/tokenize_asterisk.c \
 				execute/wildcard/get_directory_entries.c \
 			\
