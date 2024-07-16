@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 13:40:03 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 12:31:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	execute_execve(t_simple_command *sc)
 			free(exec_path);
 			free(var_arr);
 			exit(print_custom_err_n_return(*sc->cmd_arg, "",
-					": command not founddd", ERR_CMD_NOT_FOUND));
+					": command not found", ERR_CMD_NOT_FOUND));
 		}
 	}
 	return (waitpid_n_get_exit_status(pid));

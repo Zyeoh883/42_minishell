@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 09:58:45 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 13:05:43 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index)
 
 	new_index = index;
 	token_root = tokenize_metacharacters((*cmd_arg)[index]);
+	// * process_tokens()
 	format_quotes(token_root);
 	trim_quotes_for_all_tokens(token_root);
 	tokenize_asterisks(&token_root);
+	
 	if (does_valid_asterisk_exist(token_root) == true)
 	{
 		combine_non_asterisk_tokens(token_root);                             // ! remove
@@ -53,7 +55,7 @@ int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index)
 		else // added
 		{
 			free((*cmd_arg)[index]);
-			(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
+			(*cmd_arg)[index] = join_all_str_in_token_lst(token_root);
 		}
 		free_list_without_freeing_content(expanded_lst); // ! not nice
 		free_list(entry_lst);
@@ -61,7 +63,7 @@ int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index)
 		return (new_index); // added
 	}
 	free((*cmd_arg)[index]);
-	(*cmd_arg)[index] = concatenate_all_str_in_token_lst(token_root);
+	(*cmd_arg)[index] = join_all_str_in_token_lst(token_root);
 	free_tokens(token_root);
 	return (new_index);
 }

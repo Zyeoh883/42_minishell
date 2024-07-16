@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/15 09:36:41 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 13:06:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do
 	}
 }
 
-char	*concatenate_all_str_in_token_lst(t_token *token)
+char	*join_all_str_in_token_lst(t_token *token)
 {
 	char	*combined_str;
 
@@ -69,7 +69,7 @@ void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split)
 	format_quotes(token_root);
 	trim_quotes_n_expand_for_all_tokens(token_root, var_lst, do_ft_split);
 	free(*str_add);
-	*str_add = concatenate_all_str_in_token_lst(token_root);
+	*str_add = join_all_str_in_token_lst(token_root);
 	free_tokens(token_root);
 }
 

@@ -57,7 +57,6 @@ SRCS_FIL = \
 				execute/handle_quotes_n_expansion/expand_str.c \
 				execute/handle_quotes_n_expansion/new_method.c \
 				\
-				execute/wildcard/expand_single_asterisk.c \
 				execute/wildcard/trim_quotes_n_expand_asterisk.c \
 				execute/wildcard/expand_asterisk_utils.c \
 				execute/wildcard/tokenize_asterisk.c \

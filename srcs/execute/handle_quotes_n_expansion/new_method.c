@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:31:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/12 11:20:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 13:06:20 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void expand_var(char **str_add, t_var *var_lst, int *do_ft_split)
 	format_quotes(token_root);
 	trim_quotes_n_expand_for_all_tokens(token_root, var_lst, do_ft_split);
 	free(*str_add);
-	*str_add = concatenate_all_str_in_token_lst(token_root);
+	*str_add = join_all_str_in_token_lst(token_root);
 	free_tokens(token_root);
 }
 
