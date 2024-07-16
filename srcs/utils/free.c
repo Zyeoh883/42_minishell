@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 13:09:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 13:54:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_list_without_freeing_content(t_list *list)
 	}
 }
 
-void	free_list(t_list *list)
+void	free_lst(t_list *list)
 {
 	t_list	*next;
 
