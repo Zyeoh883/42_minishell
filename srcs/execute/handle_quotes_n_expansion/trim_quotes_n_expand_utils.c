@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 13:06:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 14:47:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ bool is_str_quoted(char *str)
 		return (true);
 	return (false);
 }
-
-// void	trim_quotes(char **str_add)
-// {
-// 	char	*trimmed_str;
-
-// 	trimmed_str = ft_substr(*str_add, 1, ft_strlen(*str_add) - 2);
-// 	free(*str_add);
-// 	*str_add = trimmed_str;
-// }
 
 void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split)
 {
@@ -72,14 +63,6 @@ void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split)
 	*str_add = join_all_str_in_token_lst(token_root);
 	free_tokens(token_root);
 }
-
-// * former method
-// void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, t_token *token, int *do_ft_split)
-// {
-// 	trim_quotes_n_expand_for_all_tokens(token, var_lst, do_ft_split);
-// 	free(*str_add);
-// 	*str_add = concatenate_all_str_in_token_lst(token);
-// }
 
 void	remove_empty_arg(char ***cmd_arg, int index)
 {

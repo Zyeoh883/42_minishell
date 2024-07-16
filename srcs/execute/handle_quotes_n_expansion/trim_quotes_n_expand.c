@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 09:56:22 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 14:48:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,5 @@ int	trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst)
 // 	}
 // 	i = -1;
 // 	while ((redir)[++i])
-// 		i = trim_quotes_n_expand_asterisk_args(&sc->cmd_arg, i);
+// 		i = trim_quotes_n_expand_asterisk_redirs(&sc->cmd_arg, i);
 // }

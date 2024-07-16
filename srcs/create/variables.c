@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 13:55:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 14:11:42 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,54 +89,6 @@ char	*get_var_value(const char *var_name, t_var *var)
 	}
 	return (NULL); // Environment variable not found
 }
-
-
-
-// int	cmp_var_name_with_var_name_in_var_str(char *var_name, char *var_str)
-// {
-// 	int	i;
-		
-// 	i = 0;
-// 	while (var_str[i] && var_str[i] != '=')
-// 		i++;
-// 	if ((ft_strncmp(var_str, var_name, i) == 0) && (ft_strncmp(var_str,
-// 				var_name, ft_strlen(var_name)) == 0))
-// 		return (i);
-// 	else 
-// 		return (0);
-// }
-
-/*
-* Issue with "strchr method"
-	- if equal_sign is NULL, nothing happens
-		- wrong as there r cases where there's no '=' 
-			but assignment still needs to happen
-*/
-// void	set_var_value(char *var_name, char *new_content, t_var *var)
-// {
-// 	char	*equal_sign;
-// 	char	*updated;
-// 	while (var != NULL)
-// 	{
-// 		equal_sign = ft_strchr(var->str, '=');
-// 		if (equal_sign != NULL)
-// 		{
-// 			if ((ft_strncmp(var->str, var_name, equal_sign - var->str) == 0)
-// 				&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
-// 			{
-// 				updated = (char *)malloc(ft_strlen(var_name) + 1
-// 						+ ft_strlen(new_content) + 1);
-// 				ft_strlcpy(updated, var->str, (equal_sign - var->str + 1 + 1));
-// 				ft_strlcpy(&updated[ft_strlen(var_name) + 1], new_content,
-// 					ft_strlen(new_content) + 1);
-// 				free(var->str);
-// 				var->str = updated;
-// 				return ;
-// 			}
-// 		}
-// 		var = var->next;
-// 	}
-// }
 
 void	set_var_value(char *var_name, char *new_content, t_var *var)
 {

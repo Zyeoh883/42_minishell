@@ -31,7 +31,7 @@ SRCS_FIL = \
 			\
 			create/create_node.c \
 			create/variables.c \
-			create/lst_functions.c \
+			create/var_lst_functions.c \
 			\
 			execute/execute.c \
 			execute/execute_simple_cmd.c \

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trim_quotes_n_expand_asterisk_utils.c              :+:      :+:    :+:   */
+/*   expand_asterisk_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 10:04:38 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/16 15:23:32 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool does_valid_asterisk_exist(t_token *token)
+bool	does_valid_asterisk_exist(t_token *token)
 {
 	while (token)
 	{
@@ -25,8 +25,8 @@ bool does_valid_asterisk_exist(t_token *token)
 
 int	rev_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (!n)
 		return (0);
@@ -40,17 +40,17 @@ int	rev_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
 }
 
-bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
+bool	does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
 {
-	// before everything, if 1st w_token is str,check if it matches exactly to 1st token
 	if (w_token->value[0] != '*' || w_token->type == QUOTED)
 	{
-		if (ft_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) == 0)
+		if (ft_strncmp(w_token->value, entry_str,
+				ft_strlen(w_token->value)) == 0)
 		{
 			entry_str += ft_strlen(w_token->value);
 			w_token = w_token->next;
 		}
-		else 
+		else
 			return (false);
 	}
 	while (w_token && w_token->next)
@@ -60,32 +60,33 @@ bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
 			w_token = w_token->next; // ! added
 			continue ; // skip
 		}
-		//if w_token->value is string(not *) but entry_str has iterated to \0
+		// if w_token->value is string(not *) but entry_str has iterated to \0
 		if (*entry_str == '\0')
 			return (false);
 		entry_str = ft_strnstr(entry_str, w_token->value, ft_strlen(entry_str));
 		if (entry_str == NULL) // str doesn't match
-			return (false);	
+			return (false);
 		entry_str += ft_strlen(w_token->value);
 		w_token = w_token->next;
 	}
 	if (w_token && (w_token->value[0] != '*' || w_token->type == QUOTED))
-		if (rev_strncmp(w_token->value, entry_str, ft_strlen(w_token->value)) != 0)
+		if (rev_strncmp(w_token->value, entry_str,
+				ft_strlen(w_token->value)) != 0)
 			return (false);
 	return (true);
 }
 
-void replace_arg_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst)
+void	replace_arg_w_expanded_lst(char ***cmd_arg, int index,
+		t_list *expanded_lst)
 {
-	char **expanded_arr;
-	int	expanded_arr_size;
-	int	i;
-	int	j;
-	
+	char	**expanded_arr;
+	int		expanded_arr_size;
+	int		i;
+	int		j;
+
 	expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(expanded_lst);
 	expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
 	if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
-
 	i = -1;
 	while (++i < index)
 		copy_str_to_arr(expanded_arr, i, (*cmd_arg)[i]);
@@ -101,29 +102,46 @@ void replace_arg_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_
 	*cmd_arg = expanded_arr;
 }
 
+int	redir_arr_arg_count(t_redir **arr)
+{
+	int	count;
+
+	if (arr == NULL)
+		return (0);
+	count = 0;
+	while (*arr != NULL)
+	{
+		count++;
+		arr++;
+	}
+	return (count);
+}
+
 // * NEW !
 // ! NOT DONE
-void replace_redir_with_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst)
+void	replace_redir_arg_w_expanded_lst(t_redir ***redir, int index,
+		t_list *expanded_lst)
 {
-	char **expanded_arr;
-	int	expanded_arr_size;
-	int	i;
-	int	j;
-	
-	expanded_arr_size = arr_str_count(*cmd_arg) - 1 + ft_lstsize(expanded_lst);
-	expanded_arr = (char **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
+	t_redir	**expanded_arr;
+	int		expanded_arr_size;
+	int		i;
+	int		j;
+
+	expanded_arr_size = redir_arr_arg_count(*redir) - 1
+		+ ft_lstsize(expanded_lst);
+	expanded_arr = (t_redir **)ft_calloc(expanded_arr_size + 1, sizeof(char *));
 	if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
 	i = -1;
 	while (++i < index)
-		copy_str_to_arr(expanded_arr, i, (*cmd_arg)[i]);
+		copy_str_to_arr(expanded_arr, i, (*redir)[i]->filename);
 	while (expanded_lst)
 	{
 		copy_str_to_arr(expanded_arr, i++, expanded_lst->content);
 		expanded_lst = expanded_lst->next;
 	}
 	j = index + 1;
-	while ((*cmd_arg)[j])
-		copy_str_to_arr(expanded_arr, i++, (*cmd_arg)[j++]);
-	free_str_arr(*cmd_arg);
-	*cmd_arg = expanded_arr;
+	while ((*redir)[j])
+		copy_str_to_arr(expanded_arr, i++, (*redir)[j++]->filename);
+	free_redir_arr(*redir);
+	*redir = expanded_arr;
 }
