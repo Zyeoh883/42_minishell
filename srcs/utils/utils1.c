@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/16 15:25:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 13:11:52 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,4 +155,25 @@ void	copy_str_to_arr(char **new_arr, int arr_index, char *str)
 {
 	new_arr[arr_index] = ft_strdup(str);
 	if_null_perror_n_exit(new_arr[arr_index], "ft_strdup", EXIT_FAILURE);
+}
+
+int	count_words(char const *str)
+{
+	int	count;
+	int	flag;
+
+	count = 0;
+	flag = 1;
+	while (*str)
+	{
+		if (*str != ' ' && flag == 1)
+		{
+			count++;
+			flag = 0;
+		}
+		if (*str == ' ')
+			flag = 1;
+		str++;
+	}
+	return (count);
 }

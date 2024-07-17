@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 11:34:44 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 13:48:59 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,8 @@ int	trim_quotes_n_expand_asterisk_redirs(t_redir ***redir, int index)
 		if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		expanded_lst = gather_matching_entries(entry_lst, token_root);
-		if (ft_lstsize(expanded_lst) == 1) // ! if > 1, error
+		if (ft_lstsize(expanded_lst) == 1)
 		{
-			// todo: alternative> just replace redir->filename since only 1 arg
 			free((*redir)[index]->filename);
 			(*redir)[index]->filename = ft_strdup(expanded_lst->content);
 			if_null_perror_n_exit((*redir)[index]->filename, "ft_strdup",
