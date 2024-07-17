@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/17 13:12:12 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:11:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int 	is_directory(const char *path);
 void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
 void 	print_redir_arr(t_redir **arr);
 int		count_words(char const *str);
+char	*ft_strdup_w_check(char *str);
 
 // error_messages
 void	output_token_error(char *str);

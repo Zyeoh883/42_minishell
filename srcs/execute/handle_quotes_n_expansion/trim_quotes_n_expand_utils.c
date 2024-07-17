@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 14:47:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:14:12 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ char	*join_all_str_in_token_lst(t_token *token)
 
 	while (token && token->next)
 		token_combine_wnext(token);
-	combined_str = ft_strdup(token->value);
-	if_null_perror_n_exit(combined_str, "ft_strdup", EXIT_FAILURE);
+	combined_str = ft_strdup_w_check(token->value);
 	return (combined_str);
 }
 

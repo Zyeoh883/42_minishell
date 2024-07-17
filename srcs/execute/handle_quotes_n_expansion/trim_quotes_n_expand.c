@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 13:48:17 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:14:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	trim_quotes_n_expand_filename(t_redir ***redir, t_var *var_lst)
 	i = -1;
 	while ((*redir)[++i])
 	{
-		ori_filename = ft_strdup((*redir)[i]->filename);
-		if_null_perror_n_exit(ori_filename, "ft_strdup", EXIT_FAILURE);
+		ori_filename = ft_strdup_w_check((*redir)[i]->filename);
 		expand_var(&(*redir)[i]->filename, var_lst, &do_ft_split);
 		if (do_ft_split && count_words((*redir)[i]->filename) != 1)
 		{

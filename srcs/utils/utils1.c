@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/17 13:11:52 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:11:26 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,4 +176,13 @@ int	count_words(char const *str)
 		str++;
 	}
 	return (count);
+}
+
+char	*ft_strdup_w_check(char *str)
+{
+	char *dup;
+
+	dup = ft_strdup(str);
+	if_null_perror_n_exit(dup, "ft_strdup", EXIT_FAILURE);
+	return (dup);
 }

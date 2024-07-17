@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 12:31:01 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:13:40 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ char	*find_exec_path(char **cmd_arg, t_var *var_lst)
 		status = check_file_status(*cmd_arg);
 		if (status != EXIT_SUCCESS)
 			exit(status);
-		exec_path = ft_strdup(*cmd_arg);
-		if_null_perror_n_exit(exec_path, "ft_strdup", EXIT_FAILURE);
+		exec_path = ft_strdup_w_check(*cmd_arg);
 	}
 	else // check with PATH
 	{

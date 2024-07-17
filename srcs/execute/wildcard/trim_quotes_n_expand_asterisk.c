@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 13:48:59 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 14:15:23 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ t_list	*gather_matching_entries(t_list *entry, t_token *token)
 	{
 		if (does_entry_match_wildcard_str(entry->content, token) == true)
 		{
-			dup = ft_strdup(entry->content);
-			if_null_perror_n_exit(dup, "ft_strdup", EXIT_FAILURE);
+			dup = ft_strdup_w_check(entry->content);
 			new = ft_lstnew(dup);
 			if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);
 			ft_lstadd_back(&expanded_lst, new);
@@ -106,9 +105,7 @@ int	trim_quotes_n_expand_asterisk_redirs(t_redir ***redir, int index)
 		if (ft_lstsize(expanded_lst) == 1)
 		{
 			free((*redir)[index]->filename);
-			(*redir)[index]->filename = ft_strdup(expanded_lst->content);
-			if_null_perror_n_exit((*redir)[index]->filename, "ft_strdup",
-				EXIT_FAILURE);
+			(*redir)[index]->filename = ft_strdup_w_check(expanded_lst->content);
 		}
 		else if (ft_lstsize(expanded_lst) > 1)
 		{
