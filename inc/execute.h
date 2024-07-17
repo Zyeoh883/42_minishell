@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 15:18:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:05:18 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,18 @@ int		waitpid_n_get_exit_status(pid_t pid);
 
 // HANDLE Quotes & Env_Expansion
 void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
-int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
-void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst, int *do_ft_split);
-void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst, int *do_ft_split);
+// int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
+int	trim_quotes_n_expand_filename(t_redir ***redir, t_var *var_lst);
+void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst,
+			int *do_ft_split);
+void	trim_quotes_n_expand_for_all_tokens(t_token *token, t_var *var_lst,
+			int *do_ft_split);
 char	*join_all_str_in_token_lst(t_token *token);
 // utils
-bool is_str_quoted(char *str);
+bool	is_str_quoted(char *str);
 void	trim_quotes(char **str_add);
 // ? New Method
-void expand_var(char **str_add, t_var *var_lst, int *do_ft_split);
+void	expand_var(char **str_add, t_var *var_lst, int *do_ft_split);
 void	trim_quotes_for_all_tokens(t_token *token);
 
 void	trim_quotes(char **str_add);
@@ -67,7 +70,7 @@ int		execute_echo(t_simple_command *sc);
 void	update_or_add_variable(t_simple_command *sc, int index, int equal_index,
 			t_builtin_type type);
 int		execute_assignment(t_simple_command *sc);
-bool		is_assignment(char *cmd_arg);
+bool	is_assignment(char *cmd_arg);
 void	remove_assignments_if_cmd_present(char ***cmd_arg);
 int		execute_and_or(t_and_or *and_or);
 
@@ -83,21 +86,23 @@ void	close_pipes(t_pipe *pipe_node);
 void	build_pipes(t_pipe *pipe_node);
 
 // * WILDCARDS
-int expand_single_asterisk(char ***cmd_arg);
-int trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index); // "logic somewhat done"
+int		expand_single_asterisk(char ***cmd_arg);
+int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index);
+		// "logic somewhat done"
+int		trim_quotes_n_expand_asterisk_redirs(t_redir ***redir, int index);
+
 // utils
-int get_directory_entries(t_list **entry_lst);
+int		get_directory_entries(t_list **entry_lst);
 void	combine_non_asterisk_tokens(t_token *token);
 t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
-		t_token *separated_lst);
+			t_token *separated_lst);
 void	tokenize_asterisks(t_token **token_root);
-bool does_valid_asterisk_exist(t_token *token);
-int	rev_strncmp(const char *s1, const char *s2, size_t n);
-bool does_entry_match_wildcard_str(char *entry_str, t_token *w_token);
-void replace_arg_w_expanded_lst(char ***cmd_arg, int index, t_list *expanded_lst);
-void replace_redir_arg_w_expanded_lst(t_redir ***redir, int index, t_list *expanded_lst);
-
-
-
+bool	does_valid_asterisk_exist(t_token *token);
+int		rev_strncmp(const char *s1, const char *s2, size_t n);
+bool	does_entry_match_wildcard_str(char *entry_str, t_token *w_token);
+void	replace_arg_w_expanded_lst(char ***cmd_arg, int index,
+			t_list *expanded_lst);
+void	replace_redir_arg_w_expanded_lst(t_redir ***redir, int index,
+			t_list *expanded_lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 15:17:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:21:33 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ void	free_str_arr(char **str_arr)
 	free(str_arr);
 }
 
-void	free_var_lst(t_var *list)
-{
-	t_var	*next;
-
-	while (list != NULL)
-	{
-		next = list->next;
-		free(list->str);
-		free(list);
-		list = next;
-	}
-}
-
 void	free_split(char **split)
 {
 	char	**head;
@@ -54,18 +41,6 @@ void	free_split(char **split)
 	}
 	free(split);
 }
-
-// void	free_list_without_freeing_content(t_list *list)
-// {
-// 	t_list	*next;
-
-// 	while (list != NULL)
-// 	{
-// 		next = list->next;
-// 		free(list);
-// 		list = next;
-// 	}
-// }
 
 void	free_lst(t_list *list)
 {
@@ -93,4 +68,10 @@ void	free_redir_arr(t_redir **arr)
 		free(arr[i]);
 	}
 	free(arr);
+}
+
+void free_n_replace_str(char **str, char *replace)
+{
+	free(*str);
+	*str = replace;
 }

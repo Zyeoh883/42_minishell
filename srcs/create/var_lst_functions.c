@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_functions.c                                    :+:      :+:    :+:   */
+/*   var_lst_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:04:46 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 09:22:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 09:49:29 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,17 @@ void	var_lstadd_back(t_var **lst, t_var *new)
 		return ;
 	}
 	(*lst) = new;
+}
+
+void	free_var_lst(t_var *list)
+{
+	t_var	*next;
+
+	while (list != NULL)
+	{
+		next = list->next;
+		free(list->str);
+		free(list);
+		list = next;
+	}
 }

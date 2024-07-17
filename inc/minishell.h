@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/16 15:17:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:22:03 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ void	reset_terminal(void);
 
 // free
 void	free_str_arr(char **str_arr);
-void	free_var_lst(t_var *list);
 void	free_split(char **split);
 void	free_lst(t_list *list);
 // void	free_list_without_freeing_content(t_list *list);
 void	free_redir_arr(t_redir **arr);
+void free_n_replace_str(char **str, char *replace);
 
 // utils
 void	perror_and_exit(char *str, int exit_code);
@@ -106,6 +106,8 @@ int		ft_strcasecmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
 int 	is_directory(const char *path);
 void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
+void 	print_redir_arr(t_redir **arr);
+
 
 // error_messages
 void	output_token_error(char *str);
@@ -124,6 +126,7 @@ t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
 void	print_var_lst(t_var *var_lst);
+void	free_var_lst(t_var *list);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);
 

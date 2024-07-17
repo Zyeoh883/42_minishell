@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 14:52:29 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:34:44 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,26 +96,34 @@ int	trim_quotes_n_expand_asterisk_redirs(t_redir ***redir, int index)
 	t_list	*entry_lst;
 	t_token	*token_root;
 	t_list	*expanded_lst;
-	int		new_index;
 
 	token_root = initialize_tokens_asterisk_expansion((*redir)[index]->filename);
-	new_index = index;
 	if (does_valid_asterisk_exist(token_root) == true)
 	{
 		if (get_directory_entries(&entry_lst) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		expanded_lst = gather_matching_entries(entry_lst, token_root);
-		if (ft_lstsize(expanded_lst) != 0)
+		if (ft_lstsize(expanded_lst) == 1) // ! if > 1, error
 		{
-			replace_redir_arg_w_expanded_lst(redir, index, expanded_lst);
-			new_index = index - 1 + ft_lstsize(expanded_lst);
+			// todo: alternative> just replace redir->filename since only 1 arg
+			free((*redir)[index]->filename);
+			(*redir)[index]->filename = ft_strdup(expanded_lst->content);
+			if_null_perror_n_exit((*redir)[index]->filename, "ft_strdup",
+				EXIT_FAILURE);
+		}
+		else if (ft_lstsize(expanded_lst) > 1)
+		{
+			(free_lst(expanded_lst), free_lst(entry_lst),
+				free_tokens(token_root));
+			return (print_custom_err_n_return("", (*redir)[index]->filename,
+					": ambiguous redirect", EXIT_FAILURE));
 		}
 		else
 			replace_filename_w_token_lst(redir, index, token_root);
 		(free_lst(expanded_lst), free_lst(entry_lst), free_tokens(token_root));
-		return (new_index);
+		return (EXIT_SUCCESS); // changed
 	}
 	replace_filename_w_token_lst(redir, index, token_root);
 	free_tokens(token_root);
-	return (new_index);
+	return (EXIT_SUCCESS);
 }
