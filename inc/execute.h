@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 11:05:18 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 11:16:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int		execute_simple_cmd(t_simple_command *sc);
 int		waitpid_n_get_exit_status(pid_t pid);
 
 // HANDLE Quotes & Env_Expansion
-void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
-// int		trim_quotes_n_expand_filename(t_redir **redir, t_var *var_lst);
+// void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
+int	trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
 int	trim_quotes_n_expand_filename(t_redir ***redir, t_var *var_lst);
 void	trim_quotes_n_expand_str(char **str_add, t_var *var_lst,
 			int *do_ft_split);
@@ -87,8 +87,9 @@ void	build_pipes(t_pipe *pipe_node);
 
 // * WILDCARDS
 int		expand_single_asterisk(char ***cmd_arg);
-int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index);
-		// "logic somewhat done"
+// int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int index);
+int	trim_quotes_n_expand_asterisk_args(char ***cmd_arg, int *index);
+
 int		trim_quotes_n_expand_asterisk_redirs(t_redir ***redir, int index);
 
 // utils
@@ -98,6 +99,7 @@ t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
 			t_token *separated_lst);
 void	tokenize_asterisks(t_token **token_root);
 bool	does_valid_asterisk_exist(t_token *token);
+t_list	*gather_matching_entries(t_list *entry, t_token *token);
 int		rev_strncmp(const char *s1, const char *s2, size_t n);
 bool	does_entry_match_wildcard_str(char *entry_str, t_token *w_token);
 void	replace_arg_w_expanded_lst(char ***cmd_arg, int index,

@@ -6,19 +6,19 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 14:14:25 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 10:38:21 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
+int	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 {
 	int	i;
 	int do_ft_split;
 
 	if (!sc->cmd_arg)
-		return ;
+		return (EXIT_SUCCESS);
 	do_ft_split = false;
 	i = -1;
 	while ((sc->cmd_arg)[++i])
@@ -31,7 +31,10 @@ void	trim_quotes_n_expand_cmd_arg(t_simple_command *sc)
 	}
 	i = -1;
 	while ((sc->cmd_arg)[++i])
-		i = trim_quotes_n_expand_asterisk_args(&sc->cmd_arg, i);
+		if (trim_quotes_n_expand_asterisk_args(&sc->cmd_arg, &i) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		// i = trim_quotes_n_expand_asterisk_args(&sc->cmd_arg, i);
+	return (EXIT_SUCCESS);
 }
 
 /*
