@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 10:04:16 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 13:01:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 16:20:46 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	get_directory_entries(t_list **entry_lst)
 		entry = readdir(dir);
 		if (entry == NULL)
 			break ;
-		// if (entry->d_name[0] == '.') // ! incorrect
-		// 	continue ;
 		content = ft_strdup_w_check(entry->d_name);
 		new = ft_lstnew(content);
 		if_null_perror_n_exit(new, "malloc", EXIT_FAILURE);

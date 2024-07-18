@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 10:01:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 14:12:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 16:20:22 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
 	t_token	*next;
 
 	next = cur->next;
-	if (cur->prev) 
+	if (cur->prev)
 	{
 		(cur->prev)->next = separated_lst;
 		separated_lst->prev = cur->prev;
@@ -46,10 +46,32 @@ t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
 	return (next);
 }
 
+t_token	*separate_non_asterisk_from_asterisk_chars(char *str)
+{
+	t_token	*separated_lst;
+	char	*start;
+
+	separated_lst = NULL;
+	while (*str)
+	{
+		start = str;
+		if (*str == '*')
+			while (*str && *str == '*')
+				str++;
+		else
+			while (*str && *str != '*')
+				str++;
+		token_add_back(&separated_lst, str_to_token(start, str - start));
+	}
+	return (separated_lst);
+}
+
+/*
+token(Before): | hi***hi |
+token(After):  | hi | *** | hi |
+*/
 void	tokenize_asterisks(t_token **token_root)
 {
-	char	*str;
-	char	*start;
 	t_token	*cur;
 	t_token	*separated_lst;
 
@@ -61,19 +83,7 @@ void	tokenize_asterisks(t_token **token_root)
 			cur = cur->next;
 			continue ;
 		}
-		str = cur->value;
-		separated_lst = NULL;
-		while (*str)
-		{
-			start = str;
-			if (*str == '*')
-				while (*str && *str == '*')
-					str++;
-			else
-				while (*str && *str != '*')
-					str++;
-			token_add_back(&separated_lst, str_to_token(start, str - start));
-		}
+		separated_lst = separate_non_asterisk_from_asterisk_chars(cur->value);
 		cur = replace_token_with_separated_lst(token_root, cur, separated_lst);
 	}
 }

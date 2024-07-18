@@ -63,6 +63,7 @@ SRCS_FIL = \
 				execute/wildcard/expand_asterisk_utils.c \
 				execute/wildcard/tokenize_asterisk.c \
 				execute/wildcard/get_directory_entries.c \
+				execute/wildcard/does_entry_match_wildcard_str.c \
 			\
 			utils/free.c \
 			utils/utils1.c \
