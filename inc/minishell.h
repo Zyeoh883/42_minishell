@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/18 14:11:02 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:35:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
 void 	print_redir_arr(t_redir **arr);
 int		count_words(char const *str);
 char	*ft_strdup_w_check(char *str);
+int		rev_strncmp(const char *s1, const char *s2, size_t n);
 
 // List Functions
 t_var	*var_lstnew(char *str, int is_exported);

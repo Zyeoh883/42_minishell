@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:33:19 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/18 14:00:33 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:26:13 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,27 @@ char	*ft_strdup_w_check(char *str)
 	dup = ft_strdup(str);
 	if_null_perror_n_exit(dup, "ft_strdup", EXIT_FAILURE);
 	return (dup);
+}
+
+int	rev_strncmp(const char *s1, const char *s2, size_t n)
+{
+	int	i;
+	int	j;
+
+	if (!n)
+		return (0);
+	if (!*s1)
+		i = 0;
+	else
+		i = ft_strlen(s1) - 1;
+	if (!*s2)
+		j = 0;
+	else
+		j = ft_strlen(s2) - 1;
+	while (i >= 0 && j >= 0 && s1[i] == s2[j] && --n > 0)
+	{
+		i--;
+		j--;
+	}
+	return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
 }
