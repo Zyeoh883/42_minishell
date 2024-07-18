@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 13:45:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 14:49:36 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,10 @@ bool	does_valid_asterisk_exist(t_token *token)
 	return (false);
 }
 
-int	rev_strncmp(const char *s1, const char *s2, size_t n)
-{
-	int	i;
-	int	j;
-
-	if (!n)
-		return (0);
-	i = ft_strlen(s1) - 1;
-	j = ft_strlen(s2) - 1;
-	while (i >= 0 && j >= 0 && s1[i] == s2[j] && --n > 0)
-	{
-		i--;
-		j--;
-	}
-	return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
-}
-
 bool	does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
 {
+	if (entry_str[0] == '.' && w_token->value[0] != '.')
+		return (false);
 	if (w_token->value[0] != '*' || w_token->type == QUOTED)
 	{
 		if (ft_strncmp(w_token->value, entry_str,
