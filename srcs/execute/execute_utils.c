@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:36:48 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 16:48:30 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 13:56:05 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,17 @@ int	waitpid_n_get_exit_status(pid_t pid)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else
-		return (EXIT_FAILURE);	
+		return (EXIT_FAILURE);
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+	{
+		perror("stat");
+		return (0);
+	}
+	return (S_ISDIR(statbuf.st_mode));
 }

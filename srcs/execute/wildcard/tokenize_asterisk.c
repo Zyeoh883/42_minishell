@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 10:01:51 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 10:02:50 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 14:12:55 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ t_token	*replace_token_with_separated_lst(t_token **token_root, t_token *cur,
 {
 	t_token	*next;
 
-	next = cur->next; // * added
-	if (cur->prev)    // if not 1st token
+	next = cur->next;
+	if (cur->prev) 
 	{
 		(cur->prev)->next = separated_lst;
-		separated_lst->prev = cur->prev; // added
+		separated_lst->prev = cur->prev;
 	}
 	else
 		*token_root = separated_lst;
 	if (next)
-		next->prev = token_last(separated_lst); // added
+		next->prev = token_last(separated_lst);
 	token_last(separated_lst)->next = next;
 	cur->next = NULL;
 	free_tokens(cur);
@@ -51,8 +51,8 @@ void	tokenize_asterisks(t_token **token_root)
 	char	*str;
 	char	*start;
 	t_token	*cur;
-	t_token *separated_lst;
-	
+	t_token	*separated_lst;
+
 	cur = *token_root;
 	while (cur)
 	{

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 11:16:59 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 13:45:11 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,58 +123,3 @@ void	replace_arg_w_expanded_lst(char ***cmd_arg, int index,
 	free_str_arr(*cmd_arg);
 	*cmd_arg = expanded_arr;
 }
-
-// int	redir_arr_arg_count(t_redir **arr)
-// {
-// 	int	count;
-
-// 	if (arr == NULL)
-// 		return (0);
-// 	count = 0;
-// 	while (*arr != NULL)
-// 	{
-// 		count++;
-// 		arr++;
-// 	}
-// 	return (count);
-// }
-
-// void	copy_str_to_redir_arr(t_redir **new_arr, int arr_index, char *str)
-// {
-// 	new_arr[arr_index] = (t_redir *)ft_calloc(1, sizeof(t_redir));
-// 	new_arr[arr_index]->filename = ft_strdup(str);
-// 	if_null_perror_n_exit(new_arr[arr_index]->filename, "ft_strdup",
-		// EXIT_FAILURE);
-// }
-
-// * NEW !
-// ! NOT DONE
-// void	replace_redir_arg_w_expanded_lst(t_redir ***redir, int index,
-// 		t_list *expanded_lst)
-// {
-// 	t_redir	**expanded_arr;
-// 	int		expanded_arr_size;
-// 	int		i;
-// 	int		j;
-
-// 	expanded_arr_size = redir_arr_arg_count(*redir) - 1
-// 		+ ft_lstsize(expanded_lst);
-// 	expanded_arr = (t_redir **)ft_calloc(expanded_arr_size + 1,
-			// sizeof(t_redir *));
-// 	if_null_perror_n_exit(expanded_arr, "ft_calloc", EXIT_FAILURE);
-// 	i = -1;
-// 	while (++i < index)
-// 		copy_str_to_redir_arr(expanded_arr, i, (*redir)[i]->filename);
-// 	while (expanded_lst)
-// 	{
-// 		copy_str_to_redir_arr(expanded_arr, i++, expanded_lst->content);
-// 		expanded_lst = expanded_lst->next;
-// 	}
-// 	j = index + 1;
-// 	while ((*redir)[j])
-// 		copy_str_to_redir_arr(expanded_arr, i++, (*redir)[j++]->filename);
-// 	free_redir_arr(*redir);
-// 	*redir = expanded_arr;
-
-// 	// print_redir_arr(*redir); // ! remove
-// }

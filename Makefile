@@ -56,6 +56,7 @@ SRCS_FIL = \
 				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
 				execute/handle_quotes_n_expansion/expand_str.c \
 				execute/handle_quotes_n_expansion/new_method.c \
+				execute/handle_quotes_n_expansion/remove_empty_arg.c \
 				\
 				execute/wildcard/trim_quotes_n_expand_asterisk_args.c \
 				execute/wildcard/trim_quotes_n_expand_asterisk_redirs.c \

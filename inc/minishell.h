@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/17 14:11:40 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/18 14:11:02 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	free_lst(t_list *list);
 void	free_redir_arr(t_redir **arr);
 void free_n_replace_str(char **str, char *replace);
 
-// utils
+// * UTILS
+	// Error Handing
 void	perror_and_exit(char *str, int exit_code);
 int		perror_and_return(char *str, int return_value);
 int		print_err_and_return(char *str, char *perror_str, int return_value);
@@ -100,19 +101,16 @@ void	if_null_perror_n_exit(void *ptr, char *str, int exit_code);
 int		print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg,
 			int return_value);
 void	output_token_error(char *str);
+void	output_eof_error(char quote);
+
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
 int		ft_strcasecmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
-int 	is_directory(const char *path);
 void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
 void 	print_redir_arr(t_redir **arr);
 int		count_words(char const *str);
 char	*ft_strdup_w_check(char *str);
-
-// error_messages
-void	output_token_error(char *str);
-void	output_eof_error(char quote);
 
 // List Functions
 t_var	*var_lstnew(char *str, int is_exported);
