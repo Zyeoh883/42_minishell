@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/25 16:35:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:05:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	delete_var_from_var_lst(char *var_name, t_var **var_lst)
 		if ((ft_strncmp(var->str, var_name, name_len) == 0)
 			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
 		{
-			if (prev == NULL) // if 1st node
+			if (prev == NULL)
 				*var_lst = var->next;
 			else
 				prev->next = var->next;
@@ -54,8 +54,6 @@ int	execute_unset(t_simple_command *sc)
 	int	i;
 
 	i = 0;
-	// if (setup_redir_without_dup2(sc->redir) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);	
 	while (sc->cmd_arg[++i])
 	{
 		if (is_var_name_valid(sc->cmd_arg[i]) == false)

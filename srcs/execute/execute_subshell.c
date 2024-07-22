@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:23:08 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 10:56:37 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:02:27 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	execute_subshell(t_subshell *subshell, t_var *var_lst)
 {
 	pid_t	pid;
 
-	ft_printf(CYAN ">>>>>SUBSHELL>>>>>" RESET "\n"); // ! remove
 	if (open_redir_fds(subshell->redir, subshell->fd, var_lst) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	pid = fork();
@@ -29,3 +28,4 @@ int	execute_subshell(t_subshell *subshell, t_var *var_lst)
 	}
 	return (waitpid_n_get_exit_status(pid));
 }
+	// ft_printf(CYAN ">>>>>SUBSHELL>>>>>" RESET "\n"); // ! remove

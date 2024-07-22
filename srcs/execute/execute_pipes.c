@@ -6,19 +6,18 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/19 10:39:04 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:01:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // initialise pipe int array
-void	build_pipes(t_pipe *pipe_node) // * tested
+void	build_pipes(t_pipe *pipe_node)
 {
 	int	n;
 
 	pipe_node->pipe = ft_calloc(2 * (pipe_node->n_nodes - 1), sizeof(int));
-	// ! leaks
 	if_null_perror_n_exit(pipe_node->pipe, "ft_calloc", EXIT_FAILURE);
 	n = -1;
 	while (++n < pipe_node->n_nodes - 1)
@@ -53,9 +52,8 @@ int	do_pipe(t_pipe *pipe)
 {
 	pid_t	pid;
 	int		n;
-	pid_t	pid_last;
 
-	pid_last = -1;
+	pid = -1;
 	build_pipes(pipe);
 	n = -1;
 	while (++n < pipe->n_nodes)
@@ -69,12 +67,9 @@ int	do_pipe(t_pipe *pipe)
 			close_pipes(pipe);
 			exit(execute_ast(pipe->arr_nodes[n]));
 		}
-		if (n == pipe->n_nodes - 1)
-			// ?: don't need? can just use pid (parent's pid represent child's)
-			pid_last = pid;
 	}
 	close_pipes(pipe);
-	return (pid_last);
+	return (pid);
 }
 
 int	execute_pipe(t_pipe *pipe)

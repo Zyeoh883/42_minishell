@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:49:16 by sting             #+#    #+#             */
-/*   Updated: 2024/07/15 09:37:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:03:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	remove_assignments_if_cmd_present(char ***cmd_arg)
 	while ((*cmd_arg)[i] && is_assignment((*cmd_arg)[i]))
 		i++;
 	if (i == 0 || (*cmd_arg)[i] == NULL)
-		// if no assignment at all|| if all are assignment
 		return ;
 	new_arr_size = arr_str_count(*cmd_arg) - i;
 	new_arr = (char **)ft_calloc(new_arr_size + 1, sizeof(char *));
