@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:04:50 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 13:55:56 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 10:52:47 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ int	check_file_status(char *arg)
 	return (EXIT_SUCCESS);
 }
 
-// - if '/' is present in 1st cmd, program does checks assuming it's a file/dir
+/*
+if ('/' is present in 1st cmd)
+	program does checks assuming it's a file/dir;
+else 
+	find_path;
+*/
 char	*find_exec_path(char **cmd_arg, t_var *var_lst)
 {
 	char	*path_str;
@@ -61,7 +66,7 @@ char	*find_exec_path(char **cmd_arg, t_var *var_lst)
 			exit(status);
 		exec_path = ft_strdup_w_check(*cmd_arg);
 	}
-	else // check with PATH
+	else
 	{
 		path_arr = ft_split(path_str, ':');
 		if_null_perror_n_exit(path_arr, "ft_split", EXIT_FAILURE);
@@ -80,10 +85,10 @@ int	execute_execve(t_simple_command *sc)
 	pid_t	pid;
 	char	**var_arr;
 
-	pid = fork(); // fork
+	pid = fork();
 	if (pid < 0)
 		perror_and_exit("fork", EXIT_FAILURE);
-	else if (pid == 0) // Child
+	else if (pid == 0)
 	{
 		dup2_fdin_n_fdout(sc->fd);
 		exec_path = find_exec_path(sc->cmd_arg, sc->var_lst);
