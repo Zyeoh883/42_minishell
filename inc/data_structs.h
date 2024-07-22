@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/20 13:41:57 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:20:05 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_pipe
 {
 	int							n_nodes;
 	t_node **arr_nodes; // children
-	pid_t						*pipe;
+	int							*pipe;
 	// int							fd_in;
 	// int							fd_out;
 }								t_pipe;

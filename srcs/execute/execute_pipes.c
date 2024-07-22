@@ -6,13 +6,13 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/22 11:01:07 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:29:41 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// initialise pipe int array
+// initialise pipe (pid_t *)array , based on no. of nodes
 void	build_pipes(t_pipe *pipe_node)
 {
 	int	n;
@@ -25,7 +25,7 @@ void	build_pipes(t_pipe *pipe_node)
 			perror_and_exit("pipe", EXIT_FAILURE);
 }
 
-// chooses input & output fd for a process
+// chooses/setup input & output fd for a process (dup2)
 void	coupling(t_pipe *pipe_node, int n)
 {
 	if (n == 0)
