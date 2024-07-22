@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 09:57:53 by sting             #+#    #+#             */
-/*   Updated: 2024/07/16 14:11:42 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 10:49:07 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ char	**convert_var_lst_to_array(t_var *var_list)
 
 	count = 0;
 	current = var_list;
-	while (current != NULL) // ft_lstsize
+	while (current != NULL)
 	{
 		count++;
 		current = current->next;
 	}
 	var_arr = (char **)ft_calloc((count + 1), sizeof(char *));
 	if_null_perror_n_exit(var_arr, "ft_calloc", EXIT_FAILURE);
-	// Copy each environment variable string into the array
 	current = var_list;
 	i = 0;
 	while (current != NULL)
@@ -72,6 +71,7 @@ char	**convert_var_lst_to_array(t_var *var_list)
 	return (var_arr);
 }
 
+// return NULL if environment variable not found
 char	*get_var_value(const char *var_name, t_var *var)
 {
 	char	*equal_sign;
@@ -87,7 +87,7 @@ char	*get_var_value(const char *var_name, t_var *var)
 				return (equal_sign + 1);
 		var = var->next;
 	}
-	return (NULL); // Environment variable not found
+	return (NULL);
 }
 
 void	set_var_value(char *var_name, char *new_content, t_var *var)
@@ -103,10 +103,10 @@ void	set_var_value(char *var_name, char *new_content, t_var *var)
 		{
 			updated = (char *)malloc(ft_strlen(var_name) + 1
 					+ ft_strlen(new_content) + 1);
-			ft_strlcpy(updated, var->str, (i + 1)); // transfer var_name
+			ft_strlcpy(updated, var->str, (i + 1));
 			updated[i] = '=';
 			ft_strlcpy(&updated[i + 1], new_content, ft_strlen(new_content)
-				+ 1); // transfer var_value
+				+ 1);
 			free(var->str);
 			var->str = updated;
 			return ;
@@ -115,6 +115,7 @@ void	set_var_value(char *var_name, char *new_content, t_var *var)
 	}
 }
 
+// return NULL if environment variable not found
 t_var	*get_var_node(const char *var_name, t_var *var)
 {
 	int	i;
@@ -129,5 +130,5 @@ t_var	*get_var_node(const char *var_name, t_var *var)
 			return (var);
 		var = var->next;
 	}
-	return (NULL); // Environment variable not found
+	return (NULL);
 }
