@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/18 15:35:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:26:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	reset_terminal(void);
 void	free_str_arr(char **str_arr);
 void	free_split(char **split);
 void	free_lst(t_list *list);
-// void	free_list_without_freeing_content(t_list *list);
 void	free_redir_arr(t_redir **arr);
 void free_n_replace_str(char **str, char *replace);
 

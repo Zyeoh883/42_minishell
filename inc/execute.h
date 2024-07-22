@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 16:29:11 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 13:08:10 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		execute_builtins(t_simple_command *sc);
 int		execute_export(t_simple_command *sc);
 int		execute_cd(t_simple_command *sc);
 int		execute_unset(t_simple_command *sc);
+void	delete_var_from_var_lst(char *var_name, t_var **var_lst);
 int		execute_echo(t_simple_command *sc);
 void	update_or_add_variable(t_simple_command *sc, int index, int equal_index,
 			t_builtin_type type);

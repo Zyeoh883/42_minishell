@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/07/04 11:06:23 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 13:10:38 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_data	init_env(int argc, char **argv, char **env)
 	g_signal = 0;
 	ft_memset(&shell_data, 0, sizeof(t_data));
 	shell_data.var_lst = convert_env_to_linked_list(env);
+	delete_var_from_var_lst("OLDPWD", &shell_data.var_lst);
 	setup_terminal();
 	rl_event_hook = event;
 	return (shell_data);
