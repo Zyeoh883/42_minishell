@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:56:33 by sting             #+#    #+#             */
-/*   Updated: 2024/07/18 16:26:56 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/23 10:52:45 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,6 @@ bool	does_valid_asterisk_exist(t_token *token)
 	}
 	return (false);
 }
-
-// bool	does_entry_match_wildcard_str(char *entry_str, t_token *w_token)
-// {
-// 	if (entry_str[0] == '.' && w_token->value[0] != '.')
-// 		return (false);
-// 	if (w_token->value[0] != '*' || w_token->type == QUOTED)
-// 	{
-// 		if (ft_strncmp(w_token->value, entry_str,
-// 				ft_strlen(w_token->value)) == 0)
-// 		{
-// 			entry_str += ft_strlen(w_token->value);
-// 			w_token = w_token->next;
-// 		}
-// 		else
-// 			return (false);
-// 	}
-// 	while (w_token && w_token->next)
-// 	{
-// 		if (w_token->value[0] == '*' && w_token->type != QUOTED)
-// 		{
-// 			w_token = w_token->next;
-// 			continue ;
-// 		}
-// 		// if w_token->value is string(not *) but entry_str has iterated to \0
-// 		if (*entry_str == '\0')
-// 			return (false);
-// 		entry_str = ft_strnstr(entry_str, w_token->value, ft_strlen(entry_str));
-// 		if (entry_str == NULL) // str doesn't match
-// 			return (false);
-// 		entry_str += ft_strlen(w_token->value);
-// 		w_token = w_token->next;
-// 	}
-// 	if (w_token && (w_token->value[0] != '*' || w_token->type == QUOTED))
-// 		if (rev_strncmp(w_token->value, entry_str,
-// 				ft_strlen(w_token->value)) != 0)
-// 			return (false);
-// 	return (true);
-// }
 
 // loop through to find which entry matches wildcard
 t_list	*gather_matching_entries(t_list *entry, t_token *token)
