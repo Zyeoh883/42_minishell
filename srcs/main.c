@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/08/13 16:04:39 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:33:31 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,59 @@ void	handle_sigint(int sig)
 		// printf("\n");
 		g_signal = SIGINT;
 		// rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 		rl_done = 1;
 		// rl_event_hook = NULL;
 	}
+	if (sig == SIGQUIT)
+	{
+		g_signal = SIGQUIT;
+		rl_redisplay();
+	}
+}
+
+void	handle_sigint_execute(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_signal = SIGINT;
+		printf("^C\n");
+		rl_redisplay();
+		rl_done = 1;
+	}
+	if (sig == SIGQUIT)
+	{
+		g_signal = SIGQUIT;
+		printf("^\\Quit: 3\n");
+		rl_redisplay();
+		rl_done = 1;
+	}
+}
+
+void set_signal_exit_code(t_data *shell_data)
+{
+	if (g_signal == SIGINT)
+			set_exit_status(130, shell_data->var_lst);
+	if (g_signal == SIGQUIT)
+		set_exit_status(131, shell_data->var_lst);
+	g_signal = 0;
 }
 
 void	set_sighandler(t_data *shell_data, void (*handler)(int))
 {
-	char	*temp;
-
 	if (g_signal == SIGINT)
 	{
-		temp = get_var_value("?=", shell_data->var_lst);
-		// printf("%s\n", temp);
-		if (ft_atoi(temp) != 130)
-			set_exit_status(1, shell_data->var_lst);
+		// temp = get_var_value("?=", shell_data->var_lst);
+		// if (ft_atoi(temp) != 130)
+		set_exit_status(1, shell_data->var_lst);
 	}
 	g_signal = 0;
 	shell_data->sa.sa_handler = handler;
 	sigemptyset(&shell_data->sa.sa_mask);
 	shell_data->sa.sa_flags = 0;
 	sigaction(SIGINT, &shell_data->sa, NULL);
+	sigaction(SIGQUIT, &shell_data->sa, NULL);
 }
 
 void	setup_terminal(void)
@@ -105,6 +135,7 @@ int	test(int argc, char **argv, char **env)
 		else if (status == -1)
 			break ;
 		// print_tokens(shell_data.token_root);
+		set_sighandler(&shell_data, handle_sigint_execute);
 		shell_data.ast_root = create_ast(&shell_data);
 
 		// print_ast(shell_data.ast_root, 0);
@@ -114,6 +145,7 @@ int	test(int argc, char **argv, char **env)
 
 		shell_data.token_root = NULL;
 		free_ast(shell_data.ast_root);
+		set_signal_exit_code(&shell_data);
 	}
 	free_var_lst(shell_data.var_lst);
 	free_var_lst(shell_data.var_lst);
