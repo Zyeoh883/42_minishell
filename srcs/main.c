@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:44 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 16:04:39 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_signal = SIGINT;
-		rl_on_new_line();
-		rl_replace_line("", 0);
 		// printf("\n");
+		g_signal = SIGINT;
+		// rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 		rl_done = 1;
 		// rl_event_hook = NULL;

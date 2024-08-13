@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/22 11:26:24 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:53:01 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	free_str_arr(char **str_arr);
 void	free_split(char **split);
 void	free_lst(t_list *list);
 void	free_redir_arr(t_redir **arr);
-void free_n_replace_str(char **str, char *replace);
+void	free_n_replace_str(char **str, char *replace);
 
 // * UTILS
 	// Error Handing
