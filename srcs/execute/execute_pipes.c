@@ -6,50 +6,33 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:01:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/05 10:25:58 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/23 10:48:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	build_pipes(t_pipe *pipe_node)
-		// creates the pipes for the forks to use later
+// initialise pipe (pid_t *)array , based on no. of nodes
+void	build_pipes(t_pipe *pipe_node)
 {
-	int n;
+	int	n;
 
 	pipe_node->pipe = ft_calloc(2 * (pipe_node->n_nodes - 1), sizeof(int));
-	if (!pipe_node->pipe) // TODO clean up error handling, ugly af
-	{
-		free(pipe_node);
-		perror("pipe");
-		return (0);
-	}
+	if_null_perror_n_exit(pipe_node->pipe, "ft_calloc", EXIT_FAILURE);
 	n = -1;
 	while (++n < pipe_node->n_nodes - 1)
-	{
 		if (pipe(pipe_node->pipe + (2 * n)) == -1)
-		{
-			free(pipe_node->pipe);
-			free(pipe_node);
-			perror("pipe");
-			return (0);
-		}
-	}
-	return (1);
+			perror_and_exit("pipe", EXIT_FAILURE);
 }
 
+// chooses/setup input & output fd for a process (dup2)
 void	coupling(t_pipe *pipe_node, int n)
-		// child process chooses which pipe end to replace STDIN/OUT
 {
-	if (n == 0) // first node
-	{
+	if (n == 0)
 		dup2(pipe_node->pipe[1], STDOUT_FILENO);
-	}
-	else if (n == pipe_node->n_nodes - 1) // last node
-	{
+	else if (n == pipe_node->n_nodes - 1)
 		dup2(pipe_node->pipe[2 * (n - 1)], STDIN_FILENO);
-	}
-	else // middle nodes
+	else
 	{
 		dup2(pipe_node->pipe[2 * (n - 1)], STDIN_FILENO);
 		dup2(pipe_node->pipe[2 * n + 1], STDOUT_FILENO);
@@ -61,40 +44,65 @@ void	close_pipes(t_pipe *pipe_node)
 	int	n;
 
 	n = -1;
-	while (++n < pipe_node->n_nodes - 1)
+	while (++n < 2 * (pipe_node->n_nodes - 1))
 		close(pipe_node->pipe[n]);
 }
 
-void	ex_pipe(t_pipe *pipe)
+/*
+
+	build_pipes();
+	
+	while (no. of nodes)
+	{
+		fork()
+		if (child)
+			coupling();
+			execute();
+	}
+
+*/
+int	do_pipe(t_pipe *pipe)
 {
 	pid_t	pid;
 	int		n;
 
+	pid = -1;
+	build_pipes(pipe);
 	n = -1;
 	while (++n < pipe->n_nodes)
 	{
 		pid = fork();
+		if (pid == -1)
+			perror_and_exit("fork", EXIT_FAILURE);
 		if (pid == 0)
 		{
 			coupling(pipe, n);
 			close_pipes(pipe);
-			execute_ast(pipe->arr_nodes[n]);
+			exit(execute_ast(pipe->arr_nodes[n]));
 		}
 	}
+	close_pipes(pipe);
+	return (pid);
 }
 
-// int	execute_pipe(t_pipe *pipe)
-// {
-// 	int	i;
+int	execute_pipe(t_pipe *pipe)
+{
+	int	exit_status;
+	int	pid_last;
 
-// 	// setup_all_pipes()
-// 	i = -1;
-// 	while (++i)
-// 	{
-// 		// fork
-// 		// dup2() pipe ends
-// 		//if (child_process)
-// 			execute_ast(&pipe->arr_nodes[i]);
-// 	}
-// 	// wait() for all child processes
+	pid_last = do_pipe(pipe);
+	exit_status = waitpid_n_get_exit_status(pid_last);
+	while (waitpid(-1, NULL, 0) != -1)
+		;
+	return (exit_status);
+}
+
+// while (1)
+// {
+// 	int exited_pid = waitpid(-1, NULL, 0); // !
+// 	if (exited_pid == -1)
+// 		break ;
+// 	else
+//     	printf(YELLOW"Child process with PID %d has exited."RESET"\n",
+// exited_pid);
 // }

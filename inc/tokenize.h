@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 17:39:41 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/07/04 13:50:25 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define OPEN_PARENT 10
 # define CLOSED_PARENT 11
+# define QUOTED 12 // * added for wildcard tokenization
 
 typedef struct s_token
 {
@@ -45,7 +46,9 @@ typedef struct s_token
 
 // tokenize
 t_token				*tokenize(char *line, t_token *token_root);
+t_token				*tokenize_metacharacters(char *str);
 void				format_tokens(t_token *token_root);
+void				format_quotes(t_token *token);
 
 // utils
 t_token				*str_to_token(char *start, int len);

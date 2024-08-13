@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/06/07 12:56:10 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:10:44 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ t_data	init_env(int argc, char **argv, char **env)
 	g_signal = 0;
 	ft_memset(&shell_data, 0, sizeof(t_data));
 	shell_data.var_lst = convert_env_to_linked_list(env);
+	delete_var_from_var_lst("OLDPWD", &shell_data.var_lst);
 	setup_terminal();
 	rl_event_hook = event;
 	return (shell_data);
 }
 
 // rl_event_hook = event;
-int	main(int argc, char **argv, char **env)
+int	test(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
 	int		status;
@@ -103,28 +104,31 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		else if (status == -1)
 			break ;
-		print_tokens(shell_data.token_root);
-		shell_data.ast_root = create_ast(&shell_data);
-		
-		print_ast(shell_data.ast_root, 0);
-		free_ast(shell_data.ast_root);
-		// printf("main: redir filename: %s\n", (*shell_data.ast_root->simple_command->redir)->filename); // ! remove later
-		
-		// execute_ast(shell_data.ast_root);
 		// print_tokens(shell_data.token_root);
+		shell_data.ast_root = create_ast(&shell_data);
+
+		// print_ast(shell_data.ast_root, 0);
+
+		execute_ast(shell_data.ast_root);
 		// free_tokens(shell_data.token_root);
 
 		shell_data.token_root = NULL;
+		free_ast(shell_data.ast_root);
 	}
+	free_var_lst(shell_data.var_lst);
 	free_var_lst(shell_data.var_lst);
 	reset_terminal();
 	return (0);
 }
 // free_tokens(shell_data.token_root);
 
-// int	main(int argc, char **argv, char **env)
-// {
-// 	test(argc, argv, env);
-// 	system("leaks minishell");
-// 	return (0);
-// }
+int	main(int argc, char **argv, char **env)
+{
+	test(argc, argv, env);
+    #if defined(__linux__)
+		system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
+    #elif defined(__APPLE__) && defined(__MACH__)
+		system("leaks minishell");
+	#endif
+	return (0);
+}

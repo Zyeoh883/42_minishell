@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 11:33:32 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:08:29 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ t_node					*create_pipe(t_data *shell_data, t_token *token);
 t_node					*create_linker(t_nodetype type, t_var *env_var);
 t_node					*create_simple_command(t_data *shell_data,
 							t_token *token);
-
-// piping
-int						build_pipes(t_pipe *pipe_node);
-void					coupling(t_pipe *pipe_node, int n);
-void					close_pipes(t_pipe *pipe_node);
 
 // testing
 void					print_ast(t_node *node, int depth);

@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:59:30 by sting             #+#    #+#             */
-/*   Updated: 2024/06/05 13:08:39 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:05:37 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	delete_var_from_var_lst(char *var_name, t_var **var_lst)
 		if ((ft_strncmp(var->str, var_name, name_len) == 0)
 			&& (ft_strncmp(var->str, var_name, ft_strlen(var_name)) == 0))
 		{
-			if (prev == NULL) // if 1st node
+			if (prev == NULL)
 				*var_lst = var->next;
 			else
 				prev->next = var->next;
@@ -49,18 +49,17 @@ void	delete_var_from_var_lst(char *var_name, t_var **var_lst)
 features:
 	- can have unlimited arg
 */
-int	execute_unset(char **cmd_arg, t_var *var)
+int	execute_unset(t_simple_command *sc)
 {
 	int	i;
 
-	ft_printf(">>>>>BUILT_IN>>>>>\n");
 	i = 0;
-	while (cmd_arg[++i])
+	while (sc->cmd_arg[++i])
 	{
-		if (is_var_name_valid(cmd_arg[i]) == EXIT_FAILURE)
-			return (print_custom_err_n_return("unset: `", cmd_arg[i],
+		if (is_var_name_valid(sc->cmd_arg[i]) == false)
+			return (print_custom_err_n_return("unset: `", sc->cmd_arg[i],
 					"\': not a valid identifier", EXIT_FAILURE));
-		delete_var_from_var_lst(cmd_arg[i], &var);
+		delete_var_from_var_lst(sc->cmd_arg[i], &sc->var_lst);
 	}
 	return (EXIT_SUCCESS);
 }

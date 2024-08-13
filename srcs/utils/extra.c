@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 16:02:06 by sting             #+#    #+#             */
-/*   Updated: 2024/06/04 09:26:35 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:00:30 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@ void	print_str_arr(char **arr, char *title)
 	while (arr[i])
 		printf("%s\n", arr[i++]);
 	printf("-------\n");
+}
+
+void print_redir_arr(t_redir **arr)
+{
+	int i = -1;
+
+	if (!arr)
+	{
+		printf("redir_arr is NULL\n");
+		return ;
+	}
+	printf(GREEN"=====Redir arr====="RESET"\n");
+	while (arr[++i])
+		printf("%s\n", arr[i]->filename);
 }

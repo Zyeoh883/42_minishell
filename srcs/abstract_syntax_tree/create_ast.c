@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/12 16:37:01 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:05 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ t_node	*create_and_or(t_data *shell_data, t_token *token)
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
 	n = token_instances(token, is_and_or);
-	node->and_or->operators = ft_calloc(n, sizeof(int));
+	// node->and_or->operators = ft_calloc(n, sizeof(int));
+	node->and_or->operators = ft_calloc(n + 1, sizeof(int)); // ! edited by sam
 	if (!node->and_or->operators)
 		perror_and_exit("Failed to create operators", 125);
 	n = -1;
@@ -100,6 +101,7 @@ t_node	*create_pipe(t_data *shell_data, t_token *token)
 	node->pipe = ft_calloc(1, sizeof(t_pipe));
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
+	node->pipe->n_nodes = token_instances(token, is_pipe_token) + 1;
 	node->pipe->n_nodes = token_instances(token, is_pipe_token) + 1;
 	node->pipe->arr_nodes = ft_split_tokens(shell_data, token, is_pipe_token);
 	return (node);

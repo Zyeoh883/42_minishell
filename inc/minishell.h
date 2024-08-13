@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/04 15:10:08 by sting            ###   ########.fr       */
+/*   Updated: 2024/07/22 11:26:24 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # include <unistd.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <dirent.h>
+# include <limits.h>
+#ifdef __linux__
+    #include <linux/limits.h>
+#endif
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "data_structs.h"
@@ -44,12 +50,9 @@
 #define MAGENTA "\033[35m"
 #define CYAN "\033[36m"
 #define WHITE "\033[37m"
+#define ORANGE "\033[38;2;255;165;0m"
 
 // MACROS
-// # define SUCCESS 0
-// # define FAIL 1
-// # define AND 0
-// # define OR 1
 # define OFF 0
 # define ON 1
 
@@ -83,43 +86,46 @@ void	reset_terminal(void);
 
 // free
 void	free_str_arr(char **str_arr);
-void	free_var_lst(t_var *list);
+void	free_split(char **split);
+void	free_lst(t_list *list);
+void	free_redir_arr(t_redir **arr);
+void free_n_replace_str(char **str, char *replace);
 
-// utils
+// * UTILS
+	// Error Handing
 void	perror_and_exit(char *str, int exit_code);
 int		perror_and_return(char *str, int return_value);
 int		print_err_and_return(char *str, char *perror_str, int return_value);
 void	if_null_perror_n_exit(void *ptr, char *str, int exit_code);
 int		print_custom_err_n_return(char *cmd, char *cmd_arg, char *err_msg,
 			int return_value);
-void	free_split(char **split);
 void	output_token_error(char *str);
+void	output_eof_error(char quote);
+
 int		arr_str_count(char **arr);
 void	print_str_arr(char **arr, char *title);
 int		ft_strcasecmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
-int 	is_directory(const char *path);
-
-// error_messages
-void	output_token_error(char *str);
-void	output_eof_error(char quote);
+void	copy_str_to_arr(char **new_arr, int arr_index, char *str);
+void 	print_redir_arr(t_redir **arr);
+int		count_words(char const *str);
+char	*ft_strdup_w_check(char *str);
+int		rev_strncmp(const char *s1, const char *s2, size_t n);
 
 // List Functions
-// t_var	*var_lstnew(char *str);
 t_var	*var_lstnew(char *str, int is_exported);
 t_var	*var_lstlast(t_var *lst);
 void	var_lstadd_front(t_var **lst, t_var *new);
 void	var_lstadd_back(t_var **lst, t_var *new);
 
 // * VARIABLES
-// char	*my_getvar(const char *name, char **my_env);
 char	*get_var_value(const char *name, t_var *var);
 void	set_var_value(char *var_name, char *new_content, t_var *var);
 t_var	*get_var_node(const char *name, t_var *var);
 t_var	*convert_env_to_linked_list(char **env);
 char	**convert_var_lst_to_array(t_var *env_list);
-int		print_env_var(t_var *var_lst, char *add_msg_before_var);
 void	print_var_lst(t_var *var_lst);
+void	free_var_lst(t_var *list);
 // Exit Status
 void	set_exit_status(int exit_code, t_var *var_lst);
 

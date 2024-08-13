@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 12:54:10 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:12:19 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ int	is_valid_subshell_argument(t_token *token)
 	head = token->prev;
 	while (head && head->type < 7)
 		head = head->prev;
+	if (head && head->type == CLOSED_PARENT)
 	if (head && head->type == CLOSED_PARENT)
 	{
 		output_token_error(token->value);

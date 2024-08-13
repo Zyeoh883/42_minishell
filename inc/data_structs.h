@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 18:18:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:09:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum e_quote_type
 {
 	SINGLE,
 	DOUBLE,
-} 	t_quote_type; 
+}								t_quote_type;
 
 typedef struct s_var
 {
@@ -45,7 +45,7 @@ typedef struct s_var
 typedef struct s_node
 {
 	t_nodetype					type;
-	t_var 						*var_lst;
+	t_var						*var_lst;
 	union //  * Do not typedef union, will result in node->union_name->var
 	{
 		struct s_pipe			*pipe;
@@ -61,34 +61,34 @@ typedef struct s_redir
 	char						*filename;
 }								t_redir;
 
-typedef struct s_subshell // ! Has redirects
-{
-	t_redir 					**redir; // array of redir structs, all arrays must be NULL terminated
-	t_node						*node;
-}								t_subshell;
-
 typedef struct s_and_or
 {
-	int 						*operators;
-	t_node						**arr_nodes; // ? NULL terminated?
-} t_and_or;
+	int							*operators;
+	t_node 						**arr_nodes;
+}								t_and_or;
 
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node 						**arr_nodes; // children
-	pid_t						*pipe;
-	int							fd_in;
-	int							fd_out;
+	t_node **arr_nodes; // children
+	int							*pipe;
+	// int							fd_in;
+	// int							fd_out;
 }								t_pipe;
+
+typedef struct s_subshell
+{
+	t_redir						**redir;
+	int							fd[2];
+	t_node						*node;
+}								t_subshell;
 
 typedef struct s_simple_command
 {
-	int							fd_in;
-	int							fd_out;
-	t_redir 					**redir;
-	char 						**cmd_arg;
-	t_var 						*var_lst;
+	t_redir						**redir;
+	int							fd[2];
+	char						**cmd_arg;
+	t_var						*var_lst;
 }								t_simple_command;
 
 #endif

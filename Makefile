@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g #-std=c99 
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99
 INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 # Output executable
@@ -28,21 +28,21 @@ SRCS_FIL = \
 			abstract_syntax_tree/create_ast_utils.c \
 			abstract_syntax_tree/print_ast.c \
 			abstract_syntax_tree/free_ast/free_ast.c \
+			abstract_syntax_tree/free_ast/free_ast.c \
 			\
 			create/create_node.c \
 			create/variables.c \
-			create/lst_functions.c \
+			create/var_lst_functions.c \
 			\
 			execute/execute.c \
-			execute/handle_quotes_n_expansion.c \
-			execute/handle_quotes_n_expansion2.c \
 			execute/execute_simple_cmd.c \
-			execute/redirections.c \
+			execute/setup_redir.c \
 			execute/execute_pipes.c \
 			execute/execute_subshell.c \
 			execute/execute_and_or.c \
 			execute/execute_execve.c \
 			execute/exit_status.c \
+			execute/execute_utils.c \
 			\
 			execute/builtins/execute_builtins.c \
 			execute/builtins/execute_export.c \
@@ -50,6 +50,20 @@ SRCS_FIL = \
 			execute/builtins/execute_cd.c \
 			execute/builtins/execute_unset.c \
 			execute/builtins/execute_echo.c \
+				execute/builtins/execute_assignment.c \
+				\
+				execute/handle_quotes_n_expansion/trim_quotes_n_expand.c \
+				execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
+				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
+				execute/handle_quotes_n_expansion/expand_str.c \
+				execute/handle_quotes_n_expansion/remove_empty_arg.c \
+				\
+				execute/wildcard/trim_quotes_n_expand_asterisk_args.c \
+				execute/wildcard/trim_quotes_n_expand_asterisk_redirs.c \
+				execute/wildcard/expand_asterisk_utils.c \
+				execute/wildcard/tokenize_asterisk.c \
+				execute/wildcard/get_directory_entries.c \
+				execute/wildcard/does_entry_match_wildcard_str.c \
 			\
 			utils/free.c \
 			utils/utils1.c \

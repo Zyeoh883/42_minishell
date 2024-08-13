@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/20 16:40:49 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:12:05 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,6 @@ void	format_tokens(t_token *token_root)
 	label_tokens(token);
 	format_whitespace(token);
 	format_operands(token);
+	format_words(token);
 	format_words(token);
 }

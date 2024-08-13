@@ -71,7 +71,7 @@ BONUS_OBJS = $(addprefix $(OBJS_DIR), $(BONUS_FILES:.c=.o))
 LIBR = ranlib
 LIBC = ar rcs
 
-all: $(OBJS_DIR) $(NAME)
+all: $(OBJS_DIR) $(NAME) bonus
 
 $(OBJS_DIR):
 	@$(MKDIR) $(OBJS_DIR)
