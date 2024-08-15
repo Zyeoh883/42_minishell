@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_token_valid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 13:29:19 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 16:21:14 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	is_in_quote_tokens(t_token *token)
 
 int	is_valid_multi_operand(t_token *token) // validates consecutive metachar
 {
-	t_token *head;
-	
+	t_token	*head;
+
 	if (!token || !token->prev || token->type == WHITESPACE)
 		return (1);
 	if (token->type == OPEN_PARENT || token->type == CLOSED_PARENT)
@@ -51,7 +51,15 @@ int	is_valid_multi_operand(t_token *token) // validates consecutive metachar
 		head = head->prev;
 	if (!head)
 		return (1);
-	if (1 < head->type && head->type < 10)
+	if (2 < token->type && token->type < 7)
+	{
+		if (2 < head->type && head->type < 7)
+		{
+			output_token_error(token->value);
+			return (0);
+		}
+	}
+	else if (1 < head->type && head->type < 10)
 	{
 		output_token_error(token->value);
 		return (0);
@@ -71,9 +79,9 @@ int	is_valid_redir_file(t_token *token)
 	return (1);
 }
 
-int	is_valid_edgecase_digit_redir(t_token *token) //checks for fd redirect
+int	is_valid_edgecase_digit_redir(t_token *token) // checks for fd redirect
 {
-	int	n;
+	int n;
 
 	if (!token || !token->next)
 		return (1);
@@ -94,9 +102,10 @@ int	is_valid_edgecase_digit_redir(t_token *token) //checks for fd redirect
 	return (1);
 }
 
-int	is_valid_closed_parenthesis(t_token *token) // checkss if it is a hanging close parenthesis
+int	is_valid_closed_parenthesis(t_token *token)
+// checkss if it is a hanging close parenthesis
 {
-	int	closed_count;
+	int closed_count;
 
 	if (!token || token->type != CLOSED_PARENT)
 		return (1);
@@ -123,7 +132,8 @@ int	is_valid_closed_parenthesis(t_token *token) // checkss if it is a hanging cl
 	return (1);
 }
 
-int	is_valid_parenthesis_content(t_token *token) //checks if there is a WORD in the parentheses
+int	is_valid_parenthesis_content(t_token *token)
+// checks if there is a WORD in the parentheses
 {
 	if (!token || token->type != CLOSED_PARENT)
 		return (1);
@@ -136,7 +146,7 @@ int	is_valid_parenthesis_content(t_token *token) //checks if there is a WORD in 
 	while (token && token->type != OPEN_PARENT)
 	{
 		if (2 < token->type && token->type < 10)
-			break;
+			break ;
 		if (token->type == CLOSED_PARENT || token->type == WORDS)
 			return (1);
 		token = token->prev;
@@ -145,7 +155,8 @@ int	is_valid_parenthesis_content(t_token *token) //checks if there is a WORD in 
 	return (0);
 }
 
-int	is_valid_parenthesis_position(t_token *token) //checks if it is not the first thing in it's simple command
+int	is_valid_parenthesis_position(t_token *token)
+// checks if it is not the first thing in it's simple command
 {
 	if (!token || token->type != OPEN_PARENT || !token->prev)
 		return (1);
@@ -163,7 +174,7 @@ int	is_valid_parenthesis_position(t_token *token) //checks if it is not the firs
 
 int	is_valid_operand_content(t_token *token) // checks for |, || and && if they have WORDS before
 {
-	t_token	*head;
+	t_token *head;
 
 	if (!token || !(PIPES <= token->type && token->type <= OR))
 		return (1);
@@ -178,7 +189,7 @@ int	is_valid_operand_content(t_token *token) // checks for |, || and && if they 
 	return (1);
 }
 
-int is_valid_special_character(t_token *token)
+int	is_valid_special_character(t_token *token)
 {
 	if (!token)
 		return (1);
@@ -190,10 +201,10 @@ int is_valid_special_character(t_token *token)
 	return (1);
 }
 
-int is_valid_last_token(t_token *token)
+int	is_valid_last_token(t_token *token)
 {
-	t_token *head;
-	
+	t_token	*head;
+
 	if (!token || token->type == WHITESPACE)
 		return (1);
 	head = token->next;
@@ -210,10 +221,10 @@ int is_valid_last_token(t_token *token)
 	return (1);
 }
 
-int is_valid_edgecase_limiter(t_token *token)
+int	is_valid_edgecase_limiter(t_token *token)
 {
-	t_token *head;
-	
+	t_token	*head;
+
 	if (!token || !token->prev)
 		return (1);
 	head = token->prev;
@@ -230,7 +241,7 @@ int is_valid_edgecase_limiter(t_token *token)
 	return (1);
 }
 
-int is_banned_character(t_token *token)
+int	is_banned_character(t_token *token)
 {
 	if (!token)
 		return (1);
@@ -242,10 +253,10 @@ int is_banned_character(t_token *token)
 	return (1);
 }
 
-int	is_valid_subshell_argument(t_token *token) 
+int	is_valid_subshell_argument(t_token *token)
 {
-	t_token *head;
-	
+	t_token	*head;
+
 	if (!token || !token->prev || token->type == WHITESPACE)
 		return (1);
 	if (token->type != WORDS || is_file_token(token))
@@ -255,8 +266,11 @@ int	is_valid_subshell_argument(t_token *token)
 		head = head->prev;
 	if (head && head->type == CLOSED_PARENT)
 	{
-		output_token_error(token->value);
-		return (0);
+		if (head && head->type == CLOSED_PARENT)
+		{
+			output_token_error(token->value);
+			return (0);
+		}
 	}
 	return (1);
 }

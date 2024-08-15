@@ -42,27 +42,27 @@ SRCS_FIL = \
 			execute/execute_execve.c \
 			execute/exit_status.c \
 			execute/execute_utils.c \
-				\
-				execute/builtins/execute_builtins.c \
-				execute/builtins/execute_export.c \
-				execute/builtins/execute_builtins_utils.c \
-				execute/builtins/execute_cd.c \
-				execute/builtins/execute_unset.c \
-				execute/builtins/execute_echo.c \
-				execute/builtins/execute_assignment.c \
-				\
-				execute/handle_quotes_n_expansion/trim_quotes_n_expand.c \
-				execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
-				execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
-				execute/handle_quotes_n_expansion/expand_str.c \
-				execute/handle_quotes_n_expansion/remove_empty_arg.c \
-				\
-				execute/wildcard/trim_quotes_n_expand_asterisk_args.c \
-				execute/wildcard/trim_quotes_n_expand_asterisk_redirs.c \
-				execute/wildcard/expand_asterisk_utils.c \
-				execute/wildcard/tokenize_asterisk.c \
-				execute/wildcard/get_directory_entries.c \
-				execute/wildcard/does_entry_match_wildcard_str.c \
+			\
+			execute/builtins/execute_builtins.c \
+			execute/builtins/execute_export.c \
+			execute/builtins/execute_builtins_utils.c \
+			execute/builtins/execute_cd.c \
+			execute/builtins/execute_unset.c \
+			execute/builtins/execute_echo.c \
+			execute/builtins/execute_assignment.c \
+			\
+			execute/handle_quotes_n_expansion/trim_quotes_n_expand.c \
+			execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
+			execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
+			execute/handle_quotes_n_expansion/expand_str.c \
+			execute/handle_quotes_n_expansion/remove_empty_arg.c \
+			\
+			execute/wildcard/trim_quotes_n_expand_asterisk_args.c \
+			execute/wildcard/trim_quotes_n_expand_asterisk_redirs.c \
+			execute/wildcard/expand_asterisk_utils.c \
+			execute/wildcard/tokenize_asterisk.c \
+			execute/wildcard/get_directory_entries.c \
+			execute/wildcard/does_entry_match_wildcard_str.c \
 			\
 			utils/free.c \
 			utils/utils1.c \

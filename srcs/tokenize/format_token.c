@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   format_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:56:12 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/20 16:30:55 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:12:05 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-			// printf("%c to %c\n", token->value[0], token->value[ft_strlen(token->value) - 1]);
+			// printf("%c to %c\n", token->value[0],
+			// 	token->value[ft_strlen(token->value) - 1]);
 void	format_open_ends(t_token *token)
 {
 	while (token)
@@ -36,7 +37,8 @@ void	format_quotes(t_token *token)
 
 	while (token)
 	{
-		if (token && ft_strchr("'\"", *token->value) && ft_strlen(token->value) == 1)
+		if (token && ft_strchr("'\"", *token->value)
+				&& ft_strlen(token->value) == 1)
 		{
 			quote = *token->value;
 			while (token->next && *token->next->value != quote)
@@ -118,7 +120,8 @@ void	format_words(t_token *token)
 {
 	while (token && token->next)
 	{
-		if (token->type == WORDS && token->next->type == WORDS && !token->next->open_end)
+		if (token->type == WORDS && token->next->type == WORDS
+			&& !token->next->open_end)
 			token_combine_wnext(token);
 		else
 			token = token->next;
@@ -135,5 +138,6 @@ void	format_tokens(t_token *token_root)
 	label_tokens(token);
 	format_whitespace(token);
 	format_operands(token);
+	format_words(token);
 	format_words(token);
 }

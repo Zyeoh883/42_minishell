@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/22 16:20:05 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:09:54 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 typedef enum e_nodetype
 {
-	// COMMAND,
-	// REDIRECTION,
 	PIPE,
 	SIMPLE_COMMAND,
 	SUBSHELL,

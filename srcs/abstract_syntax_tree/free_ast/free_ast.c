@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:49:30 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/07 12:45:55 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:27 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +49,6 @@ void	free_pipe(t_pipe *pipe) // ! Assuming that execution closes & free pipes
 	while (pipe->arr_nodes[++n])
 		free_ast(pipe->arr_nodes[n]);
 	free(pipe->arr_nodes);
-	free(pipe->pipe); // ! new
 	free(pipe);
 }
 

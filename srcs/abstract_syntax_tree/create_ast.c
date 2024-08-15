@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_ast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/20 13:56:48 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:05 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_node	*create_pipe(t_data *shell_data, t_token *token)
 	node->pipe = ft_calloc(1, sizeof(t_pipe));
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
+	node->pipe->n_nodes = token_instances(token, is_pipe_token) + 1;
 	node->pipe->n_nodes = token_instances(token, is_pipe_token) + 1;
 	node->pipe->arr_nodes = ft_split_tokens(shell_data, token, is_pipe_token);
 	return (node);

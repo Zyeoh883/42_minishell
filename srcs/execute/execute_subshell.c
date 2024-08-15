@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_subshell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 10:23:08 by sting             #+#    #+#             */
-/*   Updated: 2024/07/22 11:02:27 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:24:57 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	execute_subshell(t_subshell *subshell, t_var *var_lst)
 		perror_and_exit("fork", EXIT_FAILURE);
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		dup2_fdin_n_fdout(subshell->fd);
 		exit(execute_ast(subshell->node));
 	}
