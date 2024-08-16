@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/05/20 21:13:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/16 16:23:35 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ char	*trim_limiter(char *limiter)
 			perror_and_exit("malloc failed", EXIT_FAILURE);
 		return (trimmed);
 	}
+	trimmed = ft_substr(limiter, 0, ft_strlen(limiter));
+	if (!trimmed)
+		perror_and_exit("malloc failed", EXIT_FAILURE);
 	return (limiter);
 }
 
@@ -76,13 +79,14 @@ int	input_here_doc(t_token *token, int here_doc_id)
 	while (1)
 	{
 		input = readline("> ");
-		if (!input || (ft_strncmp(input, limiter, limiter_len - 1) == 0
+		if (!input || (ft_strcmp(input, limiter) == 0
 				&& limiter_len == ft_strlen(input)) || g_signal == SIGINT)
 			break ;
 		ft_putendl_fd(input, fd);
 		free(input);
 	}
 	free(input);
+	free(limiter);
 	close(fd);
 	if (g_signal == SIGINT)
 		return (0);
