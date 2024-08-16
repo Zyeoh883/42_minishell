@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/08/13 17:33:31 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/16 09:52:15 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	test(int argc, char **argv, char **env)
 		set_signal_exit_code(&shell_data);
 	}
 	free_var_lst(shell_data.var_lst);
-	free_var_lst(shell_data.var_lst);
+	// free_var_lst(shell_data.var_lst);
 	reset_terminal();
 	return (0);
 }
