@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:03:33 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/20 16:48:18 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 22:21:28 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,7 +45,6 @@ char	*handle_addon(char *input, t_token *token_root)
 	char	*input_addon;
 	char	hanging_char;
 
-	// print_tokens(token_root);
 	while (is_token_open_ended(token_root))
 	{
 		input_addon = readline("> ");
@@ -56,7 +55,8 @@ char	*handle_addon(char *input, t_token *token_root)
 				output_eof_error(hanging_char);
 			add_history(input);
 			free(input);
-			free(token_root);
+			free(input_addon);
+			free_tokens(token_root);
 			return (NULL);
 		}
 		input_addon = pad_input_addon(token_root, input_addon);

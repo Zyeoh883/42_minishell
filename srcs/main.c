@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
-/*   Updated: 2024/08/16 16:26:40 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 22:08:16 by zyeoh            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -120,7 +120,7 @@ t_data	init_env(int argc, char **argv, char **env)
 }
 
 // rl_event_hook = event;
-int	test(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	t_data	shell_data;
 	int		status;
@@ -150,17 +150,18 @@ int	test(int argc, char **argv, char **env)
 	free_var_lst(shell_data.var_lst);
 	// free_var_lst(shell_data.var_lst);
 	reset_terminal();
+	// system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
 	return (0);
 }
 // free_tokens(shell_data.token_root);
 
-int	main(int argc, char **argv, char **env)
-{
-	test(argc, argv, env);
-    #if defined(__linux__)
-		system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
-    #elif defined(__APPLE__) && defined(__MACH__)
-		system("leaks minishell");
-	#endif
-	return (0);
-}
+// int	main(int argc, char **argv, char **env)
+// {
+// 	test(argc, argv, env);
+//     #if defined(__linux__)
+// 		system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
+//     #elif defined(__APPLE__) && defined(__MACH__)
+// 		system("leaks minishell");
+// 	#endif
+// 	return (0);
+// }

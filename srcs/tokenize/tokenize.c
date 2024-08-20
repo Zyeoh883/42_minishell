@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/20 16:53:49 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:22:57 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,6 +22,7 @@ void	print_tokens(t_token *token)
 		token = token->next;
 	}
 	write(1, "\n", 1);
+	fflush(stdout);
 }
 
 t_token	*str_to_token(char *start, int len)
