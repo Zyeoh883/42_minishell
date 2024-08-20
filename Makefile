@@ -84,7 +84,7 @@ LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
 READLINE_DIR = readline
-READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory
+READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory -ltinfo
 
 # Build targets
 all: $(OBJDIR) $(NAME)
@@ -113,6 +113,9 @@ clean:
 fclean: clean
 	@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
 	@make fclean -C $(LIBFT_DIR) && echo "$(ORANGE)libft.a was deleted$(RESET)"
+
+config:
+	@(cd $(READLINE_DIR) && ./configure)
 
 re: fclean all
 
