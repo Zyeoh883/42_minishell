@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:16:21 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/16 16:23:35 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:58:10 by zyeoh            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -47,21 +47,21 @@ int	make_here_doc_file(t_token *token, int here_doc_id)
 	return (fd);
 }
 
-char	*trim_limiter(char *limiter)
+char	*trim_limiter(char *token_limiter)
 {
 	char	*trimmed;
 
-	if (limiter[0] == '\'' || limiter[0] == '\"')
+	if (token_limiter[0] == '\'' || token_limiter[0] == '\"')
 	{
-		trimmed = ft_substr(limiter, 1, ft_strlen(limiter) - 2);
+		trimmed = ft_substr(token_limiter, 1, ft_strlen(token_limiter) - 2);
 		if (!trimmed)
 			perror_and_exit("malloc failed", EXIT_FAILURE);
 		return (trimmed);
 	}
-	trimmed = ft_substr(limiter, 0, ft_strlen(limiter));
+	trimmed = ft_substr(token_limiter, 0, ft_strlen(token_limiter));
 	if (!trimmed)
 		perror_and_exit("malloc failed", EXIT_FAILURE);
-	return (limiter);
+	return (trimmed);
 }
 
 int	input_here_doc(t_token *token, int here_doc_id)

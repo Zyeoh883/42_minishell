@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/06/06 16:03:42 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:53:49 by zyeoh            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token *token)
 	write(1, "\n", 1);
 	while (token)
 	{
-		printf("Token:  %-10s, type = %d, open = %d\n", token->value,
+		ft_printf("Token:  %-10s, type = %d, open = %d\n", token->value,
 			token->type, token->open_end);
 		token = token->next;
 	}
@@ -111,5 +111,6 @@ t_token	*tokenize(char *line, t_token *token_root)
 		free_tokens(token_root);
 		return (NULL);
 	}
+	// print_tokens(token_root);
 	return (token_root);
 }
