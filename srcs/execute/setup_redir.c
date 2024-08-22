@@ -6,7 +6,7 @@
 /*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:34:27 by sting             #+#    #+#             */
-/*   Updated: 2024/06/19 10:34:34 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:11:56 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	open_redir_fds(t_redir **redir, int *fd, t_var *var_lst)
 			fd[IN] = open((redir[i])->filename, O_RDONLY);
 		}
 		else if ((redir[i])->type == OUTPUT)
-			fd[OUT] = open((redir[i])->filename, OUTPUT_PERMISSIONS, 0666);
+			fd[OUT] = open((redir[i])->filename, output_permissions(), 0666);
 		else if ((redir[i])->type == APPEND)
-			fd[OUT] = open((redir[i])->filename, APPEND_PERMISSIONS, 0666);
+			fd[OUT] = open((redir[i])->filename, append_permissions(), 0666);
 		if (fd[IN] == -1 || fd[OUT] == -1)
 			return (perror_and_return((redir[i])->filename, EXIT_FAILURE));
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/08/22 13:05:01 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:12:28 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "minishell.h"
 
-# define OUTPUT_PERMISSIONS (O_WRONLY + O_CREAT + O_TRUNC)
-# define APPEND_PERMISSIONS (O_WRONLY | O_CREAT | O_APPEND)
+// # define OUTPUT_PERMISSIONS (O_WRONLY + O_CREAT + O_TRUNC)
+// # define APPEND_PERMISSIONS (O_WRONLY | O_CREAT | O_APPEND)
 # define IN 0
 # define OUT 1
 
@@ -54,6 +54,9 @@ int		setup_redir(t_redir **redir);
 int		open_redir_fds(t_redir **redir, int *fd, t_var *var_lst);
 void	dup2_fdin_n_fdout(int *fd);
 void	close_fdin_n_fdout(int *fd);
+// permissions
+int		output_permissions(void);
+int		append_permissions(void);
 
 // Builtins
 int		execute_builtins(t_simple_command *sc);

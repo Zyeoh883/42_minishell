@@ -43,6 +43,7 @@ SRCS_FIL = \
 			execute/execute.c \
 			execute/execute_simple_cmd.c \
 			execute/setup_redir.c \
+			execute/permissions.c \
 			execute/execute_pipes.c \
 			execute/execute_subshell.c \
 			execute/execute_and_or.c \
