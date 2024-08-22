@@ -10,7 +10,7 @@ infile
 minishell
 tmp/
 *so
-readline*
+readline
 readline/
 readline/*
 readline/*/*
