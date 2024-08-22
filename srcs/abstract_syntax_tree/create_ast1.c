@@ -6,32 +6,11 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:27:12 by Zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:05 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:05:01 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_node	*create_node(t_data *shell_data, t_token *token)
-{
-	if (token_instances(token, is_and_or) > 0)
-	{
-		// printf ("create_and_or\n");
-		return (create_and_or(shell_data, token));
-	}
-	else if (token_instances(token, is_pipe_token) > 0)
-	{
-		// printf ("create_pipe\n");
-		return (create_pipe(shell_data, token));
-	}
-	else if (is_subshell(token))
-	{
-		// printf ("create subshell\n");
-		return (create_subshell(shell_data, token));
-	}
-	// printf("create_simple_command\n");
-	return (create_simple_command(shell_data, token));
-}
 
 t_node	*create_subshell(t_data *shell_data, t_token *token)
 {
@@ -75,8 +54,7 @@ t_node	*create_and_or(t_data *shell_data, t_token *token)
 	if (!node->pipe)
 		perror_and_exit("Failed to create pipe node", 125);
 	n = token_instances(token, is_and_or);
-	// node->and_or->operators = ft_calloc(n, sizeof(int));
-	node->and_or->operators = ft_calloc(n + 1, sizeof(int)); // ! edited by sam
+	node->and_or->operators = ft_calloc(n + 1, sizeof(int));
 	if (!node->and_or->operators)
 		perror_and_exit("Failed to create operators", 125);
 	n = -1;

@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
@@ -6,24 +6,24 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:56:23 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/20 17:22:57 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 12:27:03 by zyeoh            ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tokens(t_token *token)
-{
-	write(1, "\n", 1);
-	while (token)
-	{
-		ft_printf("Token:  %-10s, type = %d, open = %d\n", token->value,
-			token->type, token->open_end);
-		token = token->next;
-	}
-	write(1, "\n", 1);
-	fflush(stdout);
-}
+// void	print_tokens(t_token *token)
+// {
+// 	write(1, "\n", 1);
+// 	while (token)
+// 	{
+// 		ft_printf("Token:  %-10s, type = %d, open = %d\n", token->value,
+// 			token->type, token->open_end);
+// 		token = token->next;
+// 	}
+// 	write(1, "\n", 1);
+// 	fflush(stdout);
+// }
 
 t_token	*str_to_token(char *start, int len)
 {
@@ -103,15 +103,12 @@ t_token	*tokenize(char *line, t_token *token_root)
 		return (token_root);
 	tokens = tokenize_metacharacters(line);
 	token_add_back(&token_root, tokens);
-	// print_tokens(token_root);
 	format_tokens(token_root);
 	if (!validate_tokens(token_root))
 	{
 		add_history(line);
-		// free(line);
 		free_tokens(token_root);
 		return (NULL);
 	}
-	// print_tokens(token_root);
 	return (token_root);
 }

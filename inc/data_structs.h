@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:54 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:14:28 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ typedef struct s_redir
 typedef struct s_and_or
 {
 	int							*operators;
-	t_node 						**arr_nodes;
+	t_node						**arr_nodes;
 }								t_and_or;
 
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node **arr_nodes; // children
+	t_node						**arr_nodes; // children
 	int							*pipe;
 	// int							fd_in;
 	// int							fd_out;

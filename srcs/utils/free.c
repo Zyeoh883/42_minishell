@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:00:07 by sting             #+#    #+#             */
-/*   Updated: 2024/07/17 11:21:33 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/22 10:45:12 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	free_redir_arr(t_redir **arr)
 	free(arr);
 }
 
-void free_n_replace_str(char **str, char *replace)
+void	free_n_replace_str(char **str, char *replace)
 {
 	free(*str);
 	*str = replace;

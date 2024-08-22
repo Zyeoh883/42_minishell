@@ -17,17 +17,24 @@ SRCDIR = srcs/
 
 SRCS_FIL = \
 			tokenize/tokenize.c \
-			tokenize/tokenize_utils.c \
-			tokenize/is_token_valid.c \
+			tokenize/tokenize_utils1.c \
+			tokenize/tokenize_utils2.c \
+			tokenize/is_token_valid1.c \
+			tokenize/is_token_valid2.c \
+			tokenize/is_token_valid3.c \
 			tokenize/is_valid_utils.c \
 			tokenize/validate_tokens.c \
-			tokenize/format_token.c \
+			tokenize/format_token1.c \
+			tokenize/format_token2.c \
 			tokenize/here_doc.c \
 			\
-			abstract_syntax_tree/create_ast.c \
-			abstract_syntax_tree/create_ast_utils.c \
+			abstract_syntax_tree/create_ast1.c \
+			abstract_syntax_tree/create_ast2.c \
+			abstract_syntax_tree/create_ast_utils1.c \
+			abstract_syntax_tree/create_ast_utils2.c \
 			abstract_syntax_tree/print_ast.c \
-			abstract_syntax_tree/free_ast/free_ast.c \
+			abstract_syntax_tree/free_ast/free_ast1.c \
+			abstract_syntax_tree/free_ast/free_ast2.c \
 			\
 			create/create_node.c \
 			create/variables.c \
@@ -66,12 +73,15 @@ SRCS_FIL = \
 			\
 			utils/free.c \
 			utils/utils1.c \
+			utils/utils2.c \
+			utils/utils3.c \
 			utils/extra.c \
 			\
-			main.c \
-			readline.c \
+			signals/signal_handler.c \
 			\
-			# utils/utils2.c \
+			main.c \
+			readline_input.c \
+			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
@@ -84,7 +94,13 @@ LIBFT_DIR = libft/
 LIBFT_A = $(LIBFT_DIR)libft.a
 
 READLINE_DIR = readline
-READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory -ltinfo
+READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory
+
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	READLINE_LIB += -ltinfo
+endif
 
 # Build targets
 all: $(OBJDIR) $(NAME)

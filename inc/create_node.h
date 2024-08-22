@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:43:42 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/13 15:08:29 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:31:45 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 
 # include "minishell.h"
 
-typedef struct s_redir	t_redir;
-typedef struct s_token	t_token;
-typedef struct s_node	t_node;
-typedef struct s_data	t_data;
+typedef struct s_data				t_data;
+typedef struct s_var				t_var;
+typedef struct s_redir				t_redir;
+typedef struct s_token				t_token;
+typedef struct s_node				t_node;
+typedef struct s_pipe				t_pipe;
+typedef struct s_subshell			t_subshell;
+typedef struct s_and_or				t_and_or;
+typedef struct s_simple_command		t_simple_command;
 
 t_redir					**extract_redir(t_token *token_root);
 char					**extract_commands(t_token *token_root);

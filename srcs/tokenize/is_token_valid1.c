@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_token_valid.c                                   :+:      :+:    :+:   */
+/*   is_token_valid1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/13 16:21:14 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 10:56:45 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	is_valid_redir_file(t_token *token)
 
 int	is_valid_edgecase_digit_redir(t_token *token) // checks for fd redirect
 {
-	int n;
+	int	n;
 
 	if (!token || !token->next)
 		return (1);
@@ -105,7 +105,7 @@ int	is_valid_edgecase_digit_redir(t_token *token) // checks for fd redirect
 int	is_valid_closed_parenthesis(t_token *token)
 // checkss if it is a hanging close parenthesis
 {
-	int closed_count;
+	int	closed_count;
 
 	if (!token || token->type != CLOSED_PARENT)
 		return (1);
@@ -128,149 +128,6 @@ int	is_valid_closed_parenthesis(t_token *token)
 	{
 		output_token_error(")");
 		return (0);
-	}
-	return (1);
-}
-
-int	is_valid_parenthesis_content(t_token *token)
-// checks if there is a WORD in the parentheses
-{
-	if (!token || token->type != CLOSED_PARENT)
-		return (1);
-	if (!token->prev)
-	{
-		output_token_error(")");
-		return (0);
-	}
-	token = token->prev;
-	while (token && token->type != OPEN_PARENT)
-	{
-		if (2 < token->type && token->type < 10)
-			break ;
-		if (token->type == CLOSED_PARENT || token->type == WORDS)
-			return (1);
-		token = token->prev;
-	}
-	output_token_error(")");
-	return (0);
-}
-
-int	is_valid_parenthesis_position(t_token *token)
-// checks if it is not the first thing in it's simple command
-{
-	if (!token || token->type != OPEN_PARENT || !token->prev)
-		return (1);
-	token = token->prev;
-	while (token && token->type == WHITESPACE)
-		token = token->prev;
-	if (token->type == WORDS || (REDIR_OUT <= token->type
-			&& token->type <= REDIR_HEREDOC) || token->type == CLOSED_PARENT)
-	{
-		output_token_error("(");
-		return (0);
-	}
-	return (1);
-}
-
-int	is_valid_operand_content(t_token *token) // checks for |, || and && if they have WORDS before
-{
-	t_token *head;
-
-	if (!token || !(PIPES <= token->type && token->type <= OR))
-		return (1);
-	head = token->prev;
-	while (head && head->type == WHITESPACE)
-		head = head->prev;
-	if (!head || head->type == OPEN_PARENT)
-	{
-		output_token_error(token->value);
-		return (0);
-	}
-	return (1);
-}
-
-int	is_valid_special_character(t_token *token)
-{
-	if (!token)
-		return (1);
-	if (token->type == AMPERSAND)
-	{
-		output_token_error(token->value);
-		return (0);
-	}
-	return (1);
-}
-
-int	is_valid_last_token(t_token *token)
-{
-	t_token	*head;
-
-	if (!token || token->type == WHITESPACE)
-		return (1);
-	head = token->next;
-	while (head && head->type == WHITESPACE)
-		head = head->next;
-	if (!head)
-	{
-		if (REDIR_OUT <= token->type && token->type <= REDIR_HEREDOC)
-		{
-			output_token_error("newline");
-			return (0);
-		}
-	}
-	return (1);
-}
-
-int	is_valid_edgecase_limiter(t_token *token)
-{
-	t_token	*head;
-
-	if (!token || !token->prev)
-		return (1);
-	head = token->prev;
-	while (head && head->type == WHITESPACE)
-		head = head->prev;
-	if (head && head->type == REDIR_HEREDOC)
-	{
-		if (token->type == WORDS && token->open_end == 1)
-		{
-			output_token_error(token->value);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-int	is_banned_character(t_token *token)
-{
-	if (!token)
-		return (1);
-	if (token->type == TOKEN_FAIL)
-	{
-		output_token_error(token->value);
-		return (0);
-	}
-	return (1);
-}
-
-int	is_valid_subshell_argument(t_token *token)
-{
-	t_token	*head;
-
-	if (!token || !token->prev || token->type == WHITESPACE)
-		return (1);
-	if (token->type != WORDS || is_file_token(token))
-		return (1);
-	head = token->prev;
-	while (head && head->type < 7)
-		head = head->prev;
-	if (head && head->type == CLOSED_PARENT)
-	{
-		if (head && head->type == CLOSED_PARENT)
-		{
-			output_token_error(token->value);
-			return (0);
-		}
 	}
 	return (1);
 }

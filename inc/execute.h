@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/07/22 13:08:10 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:15:23 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		execute_ast(t_node *node);
 int		execute_execve(t_simple_command *sc);
 int		execute_subshell(t_subshell *subshell, t_var *var_lst);
 int		execute_simple_cmd(t_simple_command *sc);
-	// utils
+// utils
 int		waitpid_n_get_exit_status(pid_t pid);
-int 	is_directory(const char *path);
+int		is_directory(const char *path);
 
 // HANDLE Quotes & Env_Expansion
 int		trim_quotes_n_expand_cmd_arg(t_simple_command *sc);
@@ -68,7 +68,7 @@ int		execute_assignment(t_simple_command *sc);
 bool	is_assignment(char *cmd_arg);
 void	remove_assignments_if_cmd_present(char ***cmd_arg);
 int		execute_and_or(t_and_or *and_or);
-	// Builtin utils
+// Builtin utils
 int		count_chars_until_equal_sign(char *str);
 bool	is_var_name_valid(char *var_name);
 int		print_env_var(t_var *var_lst, char *add_msg_before_var);

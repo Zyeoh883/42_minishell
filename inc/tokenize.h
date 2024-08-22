@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:57:34 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/07/04 13:50:25 by sting            ###   ########.fr       */
+/*   Updated: 2024/08/22 12:21:34 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ typedef struct s_token
 t_token				*tokenize(char *line, t_token *token_root);
 t_token				*tokenize_metacharacters(char *str);
 void				format_tokens(t_token *token_root);
+void				format_open_ends(t_token *token);
 void				format_quotes(t_token *token);
+void				format_operands(t_token *token);
+void				format_words(t_token *token);
+void				format_whitespace(t_token *token);
+void				label_tokens(t_token *token);
 
 // utils
 t_token				*str_to_token(char *start, int len);

@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_ast.c                                         :+:      :+:    :+:   */
+/*   free_ast1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:49:30 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/16 16:31:24 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:07:15 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_redir(t_redir **redir)
-{
-	int	n;
-
-	if (!redir)
-		return ;
-	n = -1;
-	while (redir[++n])
-	{
-		if (redir[n]->type == HEREDOC)
-			unlink(redir[n]->filename);
-		free(redir[n]->filename);
-		free(redir[n]);
-	}
-	free(redir);
-}
 
 void	free_and_or(t_and_or *and_or)
 {
@@ -41,9 +24,9 @@ void	free_and_or(t_and_or *and_or)
 	free(and_or);
 }
 
-void	free_pipe(t_pipe *pipe) // ! Assuming that execution closes & free pipes
+void	free_pipe(t_pipe *pipe)
 {
-	int n;
+	int	n;
 
 	n = -1;
 	while (pipe->arr_nodes[++n])
