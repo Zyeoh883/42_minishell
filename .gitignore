@@ -8,3 +8,10 @@ a.out
 out
 infile
 minishell
+tmp/
+*so
+readline
+readline/
+readline/*
+readline/*/*
+minishell_tester/

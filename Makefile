@@ -1,62 +1,139 @@
+# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c99
-# -fsanitize=address -g
-INCLUDES = -I ./inc/ -I$(LIBFT_DIR)
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) #-fsanitize=address -g #-std=c99
+INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
-# COLORS
+# Output executable
+NAME = minishell
+
+# Colors for output
 GREEN = \033[0;32m
 RED = \033[0;31m
 RESET = \033[0m
 ORANGE = \033[0;38;5;166m
-# SRCS
+
+# Source files
 SRCDIR = srcs/
+
 SRCS_FIL = \
+			tokenize/tokenize.c \
+			tokenize/tokenize_utils1.c \
+			tokenize/tokenize_utils2.c \
+			tokenize/is_token_valid1.c \
+			tokenize/is_token_valid2.c \
+			tokenize/is_token_valid3.c \
+			tokenize/is_valid_utils.c \
+			tokenize/validate_tokens.c \
+			tokenize/format_token1.c \
+			tokenize/format_token2.c \
+			tokenize/here_doc.c \
+			\
+			abstract_syntax_tree/create_ast1.c \
+			abstract_syntax_tree/create_ast2.c \
+			abstract_syntax_tree/create_ast_utils1.c \
+			abstract_syntax_tree/create_ast_utils2.c \
+			abstract_syntax_tree/print_ast.c \
+			abstract_syntax_tree/free_ast/free_ast1.c \
+			abstract_syntax_tree/free_ast/free_ast2.c \
+			\
 			create/create_node.c \
-			create/piping.c \
+			create/variables.c \
+			create/var_lst_functions.c \
+			\
 			execute/execute.c \
-			main_w_readline.c \
-			free.c \
-			builtins.c \
+			execute/execute_simple_cmd.c \
+			execute/setup_redir.c \
+			execute/permissions.c \
+			execute/execute_pipes.c \
+			execute/execute_subshell.c \
+			execute/execute_and_or.c \
+			execute/execute_execve.c \
+			execute/exit_status.c \
+			execute/execute_utils.c \
+			\
+			execute/builtins/execute_builtins.c \
+			execute/builtins/execute_export.c \
+			execute/builtins/execute_builtins_utils.c \
+			execute/builtins/execute_cd.c \
+			execute/builtins/execute_unset.c \
+			execute/builtins/execute_echo.c \
+			execute/builtins/execute_assignment.c \
+			\
+			execute/handle_quotes_n_expansion/trim_quotes_n_expand.c \
+			execute/handle_quotes_n_expansion/trim_quotes_n_expand_utils.c \
+			execute/handle_quotes_n_expansion/ft_split_cmd_str_after_expansion.c \
+			execute/handle_quotes_n_expansion/expand_str.c \
+			execute/handle_quotes_n_expansion/remove_empty_arg.c \
+			\
+			execute/wildcard/trim_quotes_n_expand_asterisk_args.c \
+			execute/wildcard/trim_quotes_n_expand_asterisk_redirs.c \
+			execute/wildcard/expand_asterisk_utils.c \
+			execute/wildcard/tokenize_asterisk.c \
+			execute/wildcard/get_directory_entries.c \
+			execute/wildcard/does_entry_match_wildcard_str.c \
+			\
+			utils/free.c \
+			utils/utils1.c \
+			utils/utils2.c \
+			utils/utils3.c \
+			utils/extra.c \
+			\
+			signals/signal_handler.c \
+			\
+			main.c \
+			readline_input.c \
+			\
 
 SRCS = $(addprefix $(SRCDIR), $(SRCS_FIL))
 
-# OBS
+# Object files
 OBJDIR = objs/
 OBJS = $(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
 
-# LIBRARIES
+# Libraries
 LIBFT_DIR = libft/
-LIBFT.A = $(LIBFT_DIR)libft.a
+LIBFT_A = $(LIBFT_DIR)libft.a
 
-NAME = minishell
+READLINE_DIR = readline
+READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory
 
-all:  $(OBJDIR) $(NAME)
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory -ltinfo
+endif
+
+# Build targets
+all: $(OBJDIR) $(NAME)
 
 bonus: all
 
 $(OBJDIR):
-		@mkdir -p $(OBJDIR) $(addprefix $(OBJDIR), $(dir $(SRCS_FIL)))
+	@mkdir -p $(OBJDIR) $(addprefix $(OBJDIR), $(dir $(SRCS_FIL)))
 
 $(NAME): $(OBJS)
-		@make -C $(LIBFT_DIR)
-		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -lreadline && echo "$(GREEN)$(NAME) was created$(RESET)"
+	@make -C $(READLINE_DIR) > /dev/null
+	@make -C $(LIBFT_DIR)
+	@$(CC) $(LIBFT_A) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_LIB) && echo "$(GREEN)$(NAME) was created$(RESET)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
-		@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES) && echo "$(GREEN)object files were created$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@ && echo "$(GREEN)object files were created$(RESET)"
 
-
+# Cleanup
 RM = rm -rf
 
 clean:
-		@ $(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
-		@make clean -C ${LIBFT_DIR} && echo "$(ORANGE)libft object files were deleted$(RESET)"
+	@$(RM) $(OBJDIR) && echo "$(ORANGE)object files were deleted$(RESET)"
+	@make clean -C $(LIBFT_DIR) && echo "$(ORANGE)libft object files were deleted$(RESET)"
+	@make clean -C $(READLINE_DIR) > /dev/null && echo "$(ORANGE)readline object files were deleted$(RESET)"
 
 fclean: clean
-		@$(RM) $(NAME) && echo "$(ORANGE)$(NAME)was deleted$(RESET)"
-		@make fclean -C $(LIBFT_DIR) && echo "$(ORANGE)libft.a was deleted$(RESET)"
+	@$(RM) $(NAME) && echo "$(ORANGE)$(NAME) was deleted$(RESET)"
+	@make fclean -C $(LIBFT_DIR) && echo "$(ORANGE)libft.a was deleted$(RESET)"
+
+config:
+	@(cd $(READLINE_DIR) && ./configure)
 
 re: fclean all
 
-
 .PHONY: all clean fclean re bonus
-# ^ .PHONY -> informs computer that above phrases are not files

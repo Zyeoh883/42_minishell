@@ -36,6 +36,8 @@ SRCS_FILES = ft_atoi.c\
 	ft_strlen.c\
 	ft_strmapi.c\
 	ft_strncmp.c\
+	ft_strcmp.c\
+	ft_strcasecmp.c\
 	ft_strnstr.c\
 	ft_strrchr.c\
 	ft_strtrim.c\
@@ -69,7 +71,7 @@ BONUS_OBJS = $(addprefix $(OBJS_DIR), $(BONUS_FILES:.c=.o))
 LIBR = ranlib
 LIBC = ar rcs
 
-all: $(OBJS_DIR) $(NAME)
+all: $(OBJS_DIR) $(NAME) bonus
 
 $(OBJS_DIR):
 	@$(MKDIR) $(OBJS_DIR)

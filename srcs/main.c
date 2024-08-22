@@ -3,56 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sting <sting@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 16:57:53 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:40 by zyeoh            ###   ########.fr       */
+/*   Created: 2024/04/15 16:11:50 by sting             #+#    #+#             */
+/*   Updated: 2024/08/22 13:27:01 by sting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*tokenize_pipe(char *input, char **env)
-// basic argument parsing for testing
+void	setup_terminal(void)
 {
-	char **test_commands;
-	t_node *command;
-	t_node **simple_cmd_arr;
-	t_node *pipe_node;
-	int size;
-	int n;
+	struct termios	term;
 
-	test_commands = ft_split(input, '|'); // get commands
-	size = -1;
-	while (test_commands[++size]) // pipe node needs number of commands for now, can change to null termination
-		;
-	if (size == 0)
-		return (NULL);
-	simple_cmd_arr = ft_calloc(size + 1, sizeof(t_node));
-	// creates an array of nodes for the pipe node
-	n = -1;
-	while (++n < size)
-	{
-		// printf("test_commands[n] = %s\n", test_commands[n]);
-		command = create_command(env, ft_split(test_commands[n], ' '));
-		// creates command for simple command
-		simple_cmd_arr[n] = create_simple_command(env, NULL, command);
-		// create simple command
-	}
-	pipe_node = create_pipe(simple_cmd_arr, size);
-	return (pipe_node);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-int	main(int ac, char **av, char **env)
+// Enable echo of control characters
+void	reset_terminal(void)
 {
-	t_node	*pipe;
+	struct termios	term;
 
-	if (ac != 2)
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
+t_data	init_env(int argc, char **argv, char **env)
+{
+	t_data	shell_data;
+
+	(void)argc;
+	(void)argv;
+	if (access("/tmp", F_OK) == -1)
+		perror_and_exit("access /tmp", 1);
+	g_signal = 0;
+	ft_memset(&shell_data, 0, sizeof(t_data));
+	shell_data.var_lst = convert_env_to_linked_list(env);
+	delete_var_from_var_lst("OLDPWD", &shell_data.var_lst);
+	setup_terminal();
+	rl_event_hook = event;
+	return (shell_data);
+}
+
+// rl_event_hook = event;
+int	main(int argc, char **argv, char **env)
+{
+	t_data	shell_data;
+	int		status;
+
+	shell_data = init_env(argc, argv, env);
+	while (1)
 	{
-		printf("format error: ./minishell 'cmd0 | cmd1 | cmd2 | ..cmd{n}'\n");
-		return (0);
-	};
-	pipe = tokenize_pipe(av[1], env);
-	execute(pipe);
+		set_sighandler(&shell_data, handle_signal);
+		status = minishell_input(&shell_data);
+		if (status == 0)
+			continue ;
+		else if (status == -1)
+			break ;
+		set_sighandler(&shell_data, handle_signal_execute);
+		shell_data.ast_root = create_ast(&shell_data);
+		execute_ast(shell_data.ast_root);
+		shell_data.token_root = NULL;
+		free_ast(shell_data.ast_root);
+		set_signal_exit_code(&shell_data);
+	}
+	free_var_lst(shell_data.var_lst);
+	reset_terminal();
 	return (0);
 }
+
+// free_tokens(shell_data.token_root);
+
+// int	main(int argc, char **argv, char **env)
+// {
+// 	test(argc, argv, env);
+//     #if defined(__linux__)
+// 		system("valgrind --leak-check=full --show-leak-kinds=all ./minishell");
+//     #elif defined(__APPLE__) && defined(__MACH__)
+// 		system("leaks minishell");
+// 	#endif
+// 	return (0);
+// }
