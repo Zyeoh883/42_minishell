@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:22 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/22 11:14:28 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:03:15 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_node
 {
 	t_nodetype					type;
 	t_var						*var_lst;
-	union //  * Do not typedef union, will result in node->union_name->var
+	union
 	{
 		struct s_pipe			*pipe;
 		struct s_subshell		*subshell;
@@ -70,10 +70,8 @@ typedef struct s_and_or
 typedef struct s_pipe
 {
 	int							n_nodes;
-	t_node						**arr_nodes; // children
+	t_node						**arr_nodes;
 	int							*pipe;
-	// int							fd_in;
-	// int							fd_out;
 }								t_pipe;
 
 typedef struct s_subshell

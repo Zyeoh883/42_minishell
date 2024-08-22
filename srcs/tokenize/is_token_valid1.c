@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 21:13:29 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/22 10:56:45 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:04:01 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	is_in_quote_tokens(t_token *token)
 	return (0);
 }
 
-int	is_valid_multi_operand(t_token *token) // validates consecutive metachar
+// validates consecutive metachar
+int	is_valid_multi_operand(t_token *token)
 {
 	t_token	*head;
 
@@ -79,7 +80,8 @@ int	is_valid_redir_file(t_token *token)
 	return (1);
 }
 
-int	is_valid_edgecase_digit_redir(t_token *token) // checks for fd redirect
+// checks for fd redirect
+int	is_valid_edgecase_digit_redir(t_token *token)
 {
 	int	n;
 
@@ -102,8 +104,8 @@ int	is_valid_edgecase_digit_redir(t_token *token) // checks for fd redirect
 	return (1);
 }
 
+// checks if it is a hanging close parenthesis
 int	is_valid_closed_parenthesis(t_token *token)
-// checkss if it is a hanging close parenthesis
 {
 	int	closed_count;
 

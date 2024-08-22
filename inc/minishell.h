@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:04:32 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/22 12:29:45 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:02:34 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 #  include <linux/limits.h>
 # endif
 # include "../libft/libft.h"
-# include "data_structs.h"
 # include "create_node.h"
+# include "data_structs.h"
 # include "execute.h"
 # include "history.h"
 # include "readline.h"
@@ -65,7 +65,7 @@
 
 # define HERE_DOC_DIR "/tmp/heredoc_"
 
-int	g_signal;
+extern int	g_signal;
 
 typedef struct s_data // stores all major data
 {

@@ -6,13 +6,13 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:11:51 by zyeoh             #+#    #+#             */
-/*   Updated: 2024/08/22 12:29:37 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:02:17 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int		g_signal;
+int		g_signal;
 
 int	event(void)
 {

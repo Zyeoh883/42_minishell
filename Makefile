@@ -99,7 +99,7 @@ READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-	READLINE_LIB += -ltinfo
+	READLINE_LIB = -L$(READLINE_DIR) -lreadline -lncurses -lhistory -ltinfo
 endif
 
 # Build targets

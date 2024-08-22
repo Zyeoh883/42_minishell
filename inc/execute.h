@@ -6,7 +6,7 @@
 /*   By: zyeoh <zyeoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:17:35 by sting             #+#    #+#             */
-/*   Updated: 2024/08/22 11:15:23 by zyeoh            ###   ########.fr       */
+/*   Updated: 2024/08/22 13:05:01 by zyeoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-# define OUTPUT_PERMISSIONS (O_WRONLY | O_CREAT | O_TRUNC)
+# define OUTPUT_PERMISSIONS (O_WRONLY + O_CREAT + O_TRUNC)
 # define APPEND_PERMISSIONS (O_WRONLY | O_CREAT | O_APPEND)
 # define IN 0
 # define OUT 1
